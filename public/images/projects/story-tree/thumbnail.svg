@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-label="Story Tree thumbnail">
+  <rect width="960" height="600" fill="#06101f"/>
+  <path d="M480 450V250M480 250L345 160M480 250l135-90M480 330L360 280M480 330l120-50" stroke="#3b82f6" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="345" cy="160" r="42" fill="#22c55e"/>
+  <circle cx="615" cy="160" r="42" fill="#a78bfa"/>
+  <circle cx="360" cy="280" r="36" fill="#38bdf8"/>
+  <circle cx="600" cy="280" r="36" fill="#f59e0b"/>
+  <text x="480" y="540" fill="#cbd5e1" font-family="system-ui" font-size="34" text-anchor="middle">Story Tree</text>
+</svg>

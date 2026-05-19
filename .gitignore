@@ -1,0 +1,13 @@
+node_modules
+dist
+coverage
+*.tsbuildinfo
+
+# Local-only design references. Keep downloaded mockups out of Git.
+design-references/
+reference-images/
+local-designs/
+*.local.png
+*.local.jpg
+*.local.jpeg
+*.local.webp

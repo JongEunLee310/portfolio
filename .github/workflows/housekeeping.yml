@@ -1,0 +1,43 @@
+name: 하네스 상태 점검
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+jobs:
+  housekeeping:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: 미사용 코드 감지
+        run: pnpm check:unused
+
+      - name: 문서 드리프트 감지
+        run: pnpm check:docs-drift
+
+      - name: 구조 드리프트 감지
+        run: pnpm check:structure
+
+      - name: 콘텐츠 무결성 감지
+        run: pnpm check:content
+
+      - name: 이미지 경로 감지
+        run: pnpm check:image-paths

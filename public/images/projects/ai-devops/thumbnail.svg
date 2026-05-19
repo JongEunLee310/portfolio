@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-label="AI DevOps thumbnail">
+  <rect width="960" height="600" fill="#020712"/>
+  <rect x="120" y="110" width="720" height="380" rx="28" fill="#0d1b2f" stroke="#3b82f6" stroke-width="4"/>
+  <circle cx="250" cy="300" r="52" fill="#2563eb"/>
+  <circle cx="480" cy="300" r="52" fill="#3b82f6" opacity=".72"/>
+  <circle cx="710" cy="300" r="52" fill="#93c5fd" opacity=".55"/>
+  <path d="M302 300h126M532 300h126" stroke="#bfdbfe" stroke-width="10" stroke-linecap="round"/>
+  <text x="480" y="540" fill="#cbd5e1" font-family="system-ui" font-size="34" text-anchor="middle">AI DevOps</text>
+</svg>

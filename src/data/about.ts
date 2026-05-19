@@ -1,0 +1,67 @@
+import type { AboutData } from "@/types/about";
+
+export const aboutData: AboutData = {
+  profile: {
+    name: "이종은",
+    role: "백엔드 개발자",
+    location: "대한민국, 서울",
+    email: "whddms1208@gmail.com",
+    experience: "백엔드 프로젝트 및 인프라 경험",
+    avatar: "/images/profile/avatar.svg",
+    introduction: [
+      "안녕하세요. 저는 데이터를 다루고, 시스템을 설계하고, 팀과 함께 문제를 해결하는 것을 좋아하는 백엔드 개발자입니다.",
+      "복잡한 요구사항을 단순한 구조로 풀어내고, 운영까지 고려한 견고한 서비스를 만들기 위해 학습하고 실천합니다.",
+    ],
+  },
+  strengths: [
+    {
+      title: "문제 해결 중심",
+      description: "문제의 본질을 파악하고 구조적인 해결책을 제시합니다.",
+      icon: "Gauge",
+    },
+    {
+      title: "확장 가능한 설계",
+      description: "변화에 유연하게 대응할 수 있는 아키텍처를 고민합니다.",
+      icon: "Layers",
+    },
+  ],
+  timeline: [
+    {
+      type: "project",
+      badge: "진행 중",
+      title: "AI DevOps Orchestration Platform",
+      organization: "개인 프로젝트",
+      period: "2026.01 - 진행 중",
+      description:
+        "FastAPI 기반 DevOps 자동화 플랫폼을 설계하고, 비동기 실행 구조와 AI Review 기능을 구현하고 있습니다.",
+    },
+  ],
+  skills: [
+    {
+      title: "Backend",
+      icon: "Server",
+      items: [
+        { name: "Spring Boot", category: "backend" },
+        { name: "FastAPI", category: "backend" },
+        { name: "Java", category: "language" },
+        { name: "Python", category: "language" },
+      ],
+    },
+  ],
+  workStyle: {
+    quote: "좋은 코드는 혼자보다 함께 만들 때 더 단단해진다고 믿습니다.",
+    principles: [
+      "요구사항과 제약 조건을 먼저 정리합니다.",
+      "테스트 가능한 구조를 선호합니다.",
+      "성능 개선은 측정 결과를 근거로 진행합니다.",
+    ],
+  },
+  growthMetrics: [
+    {
+      label: "대표 프로젝트",
+      value: "4+",
+      description: "백엔드/인프라 중심 프로젝트",
+      icon: "Layers",
+    },
+  ],
+};

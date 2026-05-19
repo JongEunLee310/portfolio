@@ -1,0 +1,18 @@
+export const PATHS = {
+  home: "/",
+  projects: "/projects",
+  projectDetail: (slug: string) => `/projects/${slug}`,
+  technicalNotes: "/technical-notes",
+  technicalNoteDetail: (slug: string) => `/technical-notes/${slug}`,
+  about: "/about",
+  contact: "/contact",
+  contactSuccess: "/contact/success",
+  contactError: "/contact/error",
+  search: "/search",
+  tags: "/tags",
+  tagDetail: (tagName: string) => `/tags/${tagName}`,
+  resume: "/resume",
+  resumeDownload: "/resume/download",
+  notFound: "/404",
+  serverError: "/500",
+} as const;

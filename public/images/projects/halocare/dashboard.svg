@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" role="img" aria-label="HaloCare dashboard">
+  <rect width="960" height="720" fill="#f8fafc"/>
+  <rect x="90" y="90" width="780" height="540" rx="30" fill="#ffffff" stroke="#dbeafe" stroke-width="5"/>
+  <rect x="150" y="155" width="280" height="140" rx="22" fill="#dbeafe"/>
+  <rect x="500" y="155" width="300" height="44" rx="12" fill="#2563eb"/>
+  <rect x="500" y="240" width="220" height="36" rx="10" fill="#e2e8f0"/>
+  <rect x="150" y="365" width="650" height="64" rx="16" fill="#eff6ff"/>
+</svg>

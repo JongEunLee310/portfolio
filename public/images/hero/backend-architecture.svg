@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" role="img" aria-label="Backend architecture visual">
+  <rect width="960" height="720" fill="#06101f"/>
+  <g fill="none" stroke="#3b82f6" stroke-width="4" opacity=".75">
+    <rect x="150" y="150" width="210" height="120" rx="18"/>
+    <rect x="600" y="150" width="210" height="120" rx="18"/>
+    <rect x="375" y="420" width="210" height="120" rx="18"/>
+    <path d="M360 210h240M255 270l225 150M705 270L480 420"/>
+  </g>
+  <g fill="#3b82f6">
+    <circle cx="255" cy="210" r="10"/>
+    <circle cx="705" cy="210" r="10"/>
+    <circle cx="480" cy="480" r="10"/>
+  </g>
+  <text x="480" y="635" fill="#cbd5e1" font-family="system-ui" font-size="36" text-anchor="middle">Backend Architecture</text>
+</svg>

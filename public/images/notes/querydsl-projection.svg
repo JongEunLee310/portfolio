@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480" role="img" aria-label="QueryDSL projection note">
+  <rect width="960" height="480" fill="#f8fafc"/>
+  <rect x="160" y="110" width="640" height="250" rx="28" fill="#ffffff" stroke="#e2e8f0" stroke-width="5"/>
+  <rect x="220" y="170" width="220" height="28" rx="8" fill="#2563eb"/>
+  <rect x="220" y="235" width="520" height="24" rx="8" fill="#94a3b8" opacity=".45"/>
+  <rect x="220" y="295" width="360" height="24" rx="8" fill="#94a3b8" opacity=".3"/>
+  <text x="480" y="420" fill="#0f172a" font-family="system-ui" font-size="30" text-anchor="middle">QueryDSL Projection</text>
+</svg>

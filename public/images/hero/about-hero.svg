@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" role="img" aria-label="About visual">
+  <rect width="960" height="720" fill="#020712"/>
+  <circle cx="480" cy="270" r="130" fill="#0d1b2f" stroke="#3b82f6" stroke-width="4"/>
+  <rect x="260" y="460" width="440" height="80" rx="24" fill="#2563eb" opacity=".7"/>
+  <text x="480" y="635" fill="#cbd5e1" font-family="system-ui" font-size="36" text-anchor="middle">About</text>
+</svg>

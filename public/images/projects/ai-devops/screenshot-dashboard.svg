@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-label="Pipeline dashboard screenshot">
+  <rect width="960" height="600" fill="#0f172a"/>
+  <rect x="100" y="90" width="760" height="420" rx="24" fill="#f8fafc"/>
+  <rect x="150" y="150" width="220" height="120" rx="16" fill="#dbeafe"/>
+  <rect x="420" y="150" width="390" height="50" rx="12" fill="#e2e8f0"/>
+  <rect x="420" y="235" width="280" height="50" rx="12" fill="#e2e8f0"/>
+  <rect x="150" y="340" width="660" height="70" rx="16" fill="#bfdbfe"/>
+</svg>

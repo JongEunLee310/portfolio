@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480" role="img" aria-label="DB Round-trip note">
+  <rect width="960" height="480" fill="#020712"/>
+  <ellipse cx="300" cy="190" rx="150" ry="48" fill="#2563eb"/>
+  <path d="M150 190v120c0 26 67 48 150 48s150-22 150-48V190" fill="#1d4ed8"/>
+  <path d="M500 180h260M500 240h180M500 300h230" stroke="#cbd5e1" stroke-width="18" stroke-linecap="round" opacity=".5"/>
+  <text x="480" y="430" fill="#cbd5e1" font-family="system-ui" font-size="30" text-anchor="middle">DB Round-trip</text>
+</svg>
