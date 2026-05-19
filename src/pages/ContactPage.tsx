@@ -4,7 +4,7 @@ import { PageHero } from "@/components/hero/PageHero";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { contactData } from "@/data/contact";
 import { pageHeroes } from "@/data/hero";
-import { pageChrome } from "./pageChrome";
+import { pageChrome } from "@/utils/pageChrome";
 
 export function ContactPage() {
   return (

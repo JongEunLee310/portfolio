@@ -10,7 +10,7 @@ import { projects } from "@/data/projects";
 import { technicalNotes } from "@/data/technicalNotes";
 import { techStackGroups } from "@/data/techStack";
 import { PATHS } from "@/constants/paths";
-import { pageChrome } from "./pageChrome";
+import { pageChrome } from "@/utils/pageChrome";
 
 export function HomePage() {
   const featuredProjects = projects.filter((project) => project.status === "featured");

@@ -6,7 +6,7 @@ import { ProjectGrid } from "@/components/project/ProjectGrid";
 import { projectCategoryFilters } from "@/data/filters";
 import { pageHeroes } from "@/data/hero";
 import { projects } from "@/data/projects";
-import { pageChrome } from "./pageChrome";
+import { pageChrome } from "@/utils/pageChrome";
 
 export function ProjectsPage() {
   return (

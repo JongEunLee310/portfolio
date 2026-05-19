@@ -5,7 +5,7 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { ArticleToc } from "@/components/note/ArticleToc";
 import { CodeBlock } from "@/components/note/CodeBlock";
 import { noteDetails } from "@/data/noteDetails";
-import { pageChrome } from "./pageChrome";
+import { pageChrome } from "@/utils/pageChrome";
 
 export function TechnicalNoteDetailPage() {
   const { noteSlug } = useParams();

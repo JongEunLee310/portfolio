@@ -5,7 +5,7 @@ import { NoteGrid } from "@/components/note/NoteGrid";
 import { noteCategoryFilters } from "@/data/filters";
 import { pageHeroes } from "@/data/hero";
 import { technicalNotes } from "@/data/technicalNotes";
-import { pageChrome } from "./pageChrome";
+import { pageChrome } from "@/utils/pageChrome";
 
 export function TechnicalNotesPage() {
   return (

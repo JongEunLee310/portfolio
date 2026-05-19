@@ -6,7 +6,7 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { ProjectMetricCard } from "@/components/project/ProjectMetricCard";
 import { TechTag } from "@/components/common/TechTag";
 import { projectDetails } from "@/data/projectDetails";
-import { pageChrome } from "./pageChrome";
+import { pageChrome } from "@/utils/pageChrome";
 
 export function ProjectDetailPage() {
   const { projectSlug } = useParams();

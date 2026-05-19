@@ -2,7 +2,7 @@ import { ButtonLink } from "@/components/common/ButtonLink";
 import { EmptyState } from "@/components/common/EmptyState";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { PATHS } from "@/constants/paths";
-import { pageChrome } from "./pageChrome";
+import { pageChrome } from "@/utils/pageChrome";
 
 export function NotFoundPage() {
   return (
