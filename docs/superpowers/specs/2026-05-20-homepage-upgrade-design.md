@@ -6,7 +6,7 @@
 
 ## 현재 상태
 
-`HomePage.tsx`는 다음 섹션을 이미 보유한다.
+`src/pages/HomePage.tsx`는 다음 섹션을 이미 보유한다.
 
 1. Hero
 2. Featured Projects
@@ -45,7 +45,7 @@
 - 4열 그리드 (`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`)
 - 카드 스타일: `rounded-2xl border border-slate-200 bg-slate-50 p-6`
 - 카드 내부: Lucide 아이콘 (파란색, `h-8 w-8`) + `h3` title + `p` description
-- 아이콘 렌더링: `HomePage.tsx` 내 인라인 iconMap 사용 (ProjectDetailSections 패턴 동일)
+- 아이콘 렌더링: `src/pages/HomePage.tsx` 내 인라인 iconMap 사용 (ProjectDetailSections 패턴 동일)
 
 **Contact CTA 섹션 (`bg-hero-radial text-white`)**
 

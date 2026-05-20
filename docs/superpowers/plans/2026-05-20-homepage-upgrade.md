@@ -4,7 +4,7 @@
 
 **Goal:** HomePage에 Technical Highlights 섹션과 Contact CTA 섹션을 추가해 포트폴리오 랜딩 페이지로 완성한다.
 
-**Architecture:** `src/data/highlights.ts`를 신규 생성해 하이라이트 데이터를 관리하고, `HomePage.tsx`에 두 섹션을 인라인으로 렌더링한다. `ButtonLink`는 내부 링크 전용이므로 외부 링크(GitHub)는 `<a>` 태그를 직접 사용한다.
+**Architecture:** `src/data/highlights.ts`를 신규 생성해 하이라이트 데이터를 관리하고, `src/pages/HomePage.tsx`에 두 섹션을 인라인으로 렌더링한다. `ButtonLink`는 내부 링크 전용이므로 외부 링크(GitHub)는 `<a>` 태그를 직접 사용한다.
 
 **Tech Stack:** React, TypeScript, Tailwind CSS, Lucide React, Vitest
 
@@ -82,14 +82,14 @@ git commit -m "feat: 기술적 강점 하이라이트 데이터 추가"
 
 ---
 
-### Task 2: `HomePage.tsx` — Technical Highlights 섹션 추가
+### Task 2: `src/pages/HomePage.tsx` — Technical Highlights 섹션 추가
 
 **Files:**
 - Modify: `src/pages/HomePage.tsx`
 
 - [ ] **Step 1: import 목록 교체**
 
-`HomePage.tsx` 상단의 import 블록 전체를 아래로 교체한다.
+`src/pages/HomePage.tsx` 상단의 import 블록 전체를 아래로 교체한다.
 
 ```typescript
 import { Cloud, Gauge, Layers, Workflow, type LucideIcon } from "lucide-react";
@@ -175,7 +175,7 @@ git commit -m "feat: HomePage에 Technical Highlights 섹션 추가"
 
 ---
 
-### Task 3: `HomePage.tsx` — Notes "전체 보기" 버튼 + Contact CTA 섹션 추가
+### Task 3: `src/pages/HomePage.tsx` — Notes "전체 보기" 버튼 + Contact CTA 섹션 추가
 
 **Files:**
 - Modify: `src/pages/HomePage.tsx`
