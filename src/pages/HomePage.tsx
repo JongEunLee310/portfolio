@@ -1,18 +1,18 @@
 import { Cloud, Gauge, Layers, Workflow, type LucideIcon } from "lucide-react";
 import { ButtonLink } from "@/components/common/ButtonLink";
 import { SectionHeader } from "@/components/common/SectionHeader";
+import { CodeSnippetBlock } from "@/components/hero/CodeSnippetBlock";
 import { PageHero } from "@/components/hero/PageHero";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { NoteGrid } from "@/components/note/NoteGrid";
-import { ProjectGrid } from "@/components/project/ProjectGrid";
-import { TechTag } from "@/components/common/TechTag";
+import { HomeNoteCarousel } from "@/components/note/HomeNoteCarousel";
+import { HomeFeaturedProjects } from "@/components/project/HomeFeaturedProjects";
+import { HomeTechStack } from "@/components/project/HomeTechStack";
 import { highlights } from "@/data/highlights";
-import { homeCta, pageHeroes } from "@/data/hero";
+import { homeHeroCode, pageHeroes } from "@/data/hero";
 import { projects } from "@/data/projects";
 import { technicalNotes } from "@/data/technicalNotes";
 import { techStackGroups } from "@/data/techStack";
 import { PATHS } from "@/constants/paths";
-import { externalLinks } from "@/constants/externalLinks";
 import { pageChrome } from "@/utils/pageChrome";
 
 const highlightIcons: Record<string, LucideIcon> = {
@@ -24,11 +24,20 @@ const highlightIcons: Record<string, LucideIcon> = {
 
 export function HomePage() {
   const featuredProjects = projects.filter((project) => project.status === "featured");
-  const featuredNotes = technicalNotes.slice(0, 3);
+  const normalProjects = projects.filter((project) => project.status === "normal");
+  const featuredNotes = technicalNotes.slice(0, 5);
 
   return (
     <PageLayout {...pageChrome}>
-      <PageHero {...pageHeroes.home} />
+      <PageHero
+        {...pageHeroes.home}
+        visualSlot={
+          <CodeSnippetBlock
+            filename={homeHeroCode.filename}
+            lines={homeHeroCode.lines}
+          />
+        }
+      />
       <section className="bg-slate-50 py-16 lg:py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeader
@@ -37,7 +46,10 @@ export function HomePage() {
             description="문제 정의부터 구조 개선, 운영 관점까지 보여줄 수 있는 대표 프로젝트입니다."
             action={<ButtonLink href={PATHS.projects} variant="outline">전체 보기</ButtonLink>}
           />
-          <ProjectGrid projects={featuredProjects} />
+          <HomeFeaturedProjects
+            featured={featuredProjects}
+            others={normalProjects}
+          />
         </div>
       </section>
       <section className="bg-white py-16 lg:py-20">
@@ -81,7 +93,7 @@ export function HomePage() {
               </ButtonLink>
             }
           />
-          <NoteGrid notes={featuredNotes} />
+          <HomeNoteCarousel notes={featuredNotes} />
         </div>
       </section>
       <section className="bg-slate-50 py-16 lg:py-20">
@@ -91,45 +103,7 @@ export function HomePage() {
             title="기술 스택"
             description="백엔드, 데이터베이스, 인프라와 운영 관측 도구를 중심으로 학습하고 적용합니다."
           />
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {techStackGroups.map((group) => (
-              <article
-                key={group.title}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card"
-              >
-                <h3 className="text-lg font-bold text-slate-900">{group.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  {group.description}
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {group.items.map((tag) => (
-                    <TechTag key={`${group.title}-${tag.name}`} tag={tag} />
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="bg-hero-radial py-20 text-white lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            {homeCta.title}
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-8 text-slate-300">
-            {homeCta.description}
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <ButtonLink href={PATHS.contact}>연락하기</ButtonLink>
-            <a
-              href={externalLinks.github}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-blue-400 hover:bg-blue-500/10"
-            >
-              GitHub
-            </a>
-          </div>
+          <HomeTechStack groups={techStackGroups} />
         </div>
       </section>
     </PageLayout>
