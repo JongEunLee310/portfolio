@@ -11,3 +11,5 @@ local-designs/
 *.local.jpg
 *.local.jpeg
 *.local.webp
+
+.claude/
