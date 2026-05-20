@@ -56,3 +56,9 @@ export const pageHeroes = {
     visual: "/images/hero/contact-hero.svg",
   },
 } as const;
+
+export const homeCta = {
+  title: "함께 만들고 싶은 프로젝트가 있으신가요?",
+  description:
+    "새로운 아이디어부터 기술적 도전까지 빠르게 이해하고 함께 고민합니다.",
+} as const;

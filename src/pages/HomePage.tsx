@@ -7,7 +7,7 @@ import { NoteGrid } from "@/components/note/NoteGrid";
 import { ProjectGrid } from "@/components/project/ProjectGrid";
 import { TechTag } from "@/components/common/TechTag";
 import { highlights } from "@/data/highlights";
-import { pageHeroes } from "@/data/hero";
+import { homeCta, pageHeroes } from "@/data/hero";
 import { projects } from "@/data/projects";
 import { technicalNotes } from "@/data/technicalNotes";
 import { techStackGroups } from "@/data/techStack";
@@ -114,10 +114,10 @@ export function HomePage() {
       <section className="bg-hero-radial py-20 text-white lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            함께 만들고 싶은 프로젝트가 있으신가요?
+            {homeCta.title}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-8 text-slate-300">
-            새로운 아이디어부터 기술적 도전까지 빠르게 이해하고 함께 고민합니다.
+            {homeCta.description}
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <ButtonLink href={PATHS.contact}>연락하기</ButtonLink>
