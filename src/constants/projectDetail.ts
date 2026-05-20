@@ -6,8 +6,24 @@ export const PROJECT_DETAIL_LABELS = {
   links: {
     github: "GitHub",
     demo: "Demo",
+    docs: "Docs",
+  },
+  hero: {
+    period: "기간",
+    role: "역할",
+    teamSize: "팀 규모",
   },
   sections: {
+    overview: {
+      eyebrow: "OVERVIEW",
+      title: "프로젝트 개요",
+    },
+    problem: {
+      eyebrow: "PROBLEM",
+    },
+    solution: {
+      eyebrow: "SOLUTION",
+    },
     architecture: {
       eyebrow: "ARCHITECTURE",
     },
@@ -20,8 +36,12 @@ export const PROJECT_DETAIL_LABELS = {
       title: "화면 구성",
     },
     metrics: {
-      eyebrow: "METRICS",
-      title: "성과 지표",
+      eyebrow: "RESULTS",
+      title: "성과 및 개선 결과",
+    },
+    techStack: {
+      eyebrow: "TECH STACK",
+      title: "기술 스택",
     },
     contributions: {
       eyebrow: "CONTRIBUTION",
@@ -33,6 +53,10 @@ export const PROJECT_DETAIL_LABELS = {
       problem: "문제",
       solution: "해결",
       result: "결과",
+    },
+    links: {
+      eyebrow: "LINKS",
+      title: "관련 링크",
     },
     retrospective: {
       learned: "배운 점",
