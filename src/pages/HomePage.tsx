@@ -12,6 +12,7 @@ import { projects } from "@/data/projects";
 import { technicalNotes } from "@/data/technicalNotes";
 import { techStackGroups } from "@/data/techStack";
 import { PATHS } from "@/constants/paths";
+import { externalLinks } from "@/constants/externalLinks";
 import { pageChrome } from "@/utils/pageChrome";
 
 const highlightIcons: Record<string, LucideIcon> = {
@@ -74,6 +75,11 @@ export function HomePage() {
             title="기술 문제 해결 기록"
             description="성능, 구조, 인프라 문제를 어떻게 관찰하고 개선했는지 기록합니다."
             dark
+            action={
+              <ButtonLink href={PATHS.technicalNotes} variant="darkOutline">
+                전체 보기
+              </ButtonLink>
+            }
           />
           <NoteGrid notes={featuredNotes} />
         </div>
@@ -102,6 +108,27 @@ export function HomePage() {
                 </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+      <section className="bg-hero-radial py-20 text-white lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            함께 만들고 싶은 프로젝트가 있으신가요?
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-base leading-8 text-slate-300">
+            새로운 아이디어부터 기술적 도전까지 빠르게 이해하고 함께 고민합니다.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <ButtonLink href={PATHS.contact}>연락하기</ButtonLink>
+            <a
+              href={externalLinks.github}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-blue-400 hover:bg-blue-500/10"
+            >
+              GitHub
+            </a>
           </div>
         </div>
       </section>
