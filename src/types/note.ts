@@ -11,6 +11,15 @@ export type NoteCategory =
   | "troubleshooting"
   | "security";
 
+export type NoteFilterValue =
+  | "all"
+  | "performance"
+  | "database"
+  | "async"
+  | "devops"
+  | "architecture"
+  | "troubleshooting";
+
 export type TechnicalNoteCard = {
   slug: string;
   title: string;
