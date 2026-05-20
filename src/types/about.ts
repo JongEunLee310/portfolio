@@ -1,4 +1,10 @@
-import type { IconName, Metric, TechTag } from "./common";
+import type { IconName, Metric, SectionBase } from "./common";
+
+export type ProfileLink = {
+  label: string;
+  href: string;
+  icon: "Mail" | "Github" | "ExternalLink";
+};
 
 export type ProfileInfo = {
   name: string;
@@ -7,13 +13,15 @@ export type ProfileInfo = {
   email: string;
   experience: string;
   avatar: string;
+  links: ProfileLink[];
   introduction: string[];
 };
 
-export type Strength = {
+export type Role = {
   title: string;
   description: string;
   icon: IconName;
+  tags?: string[];
 };
 
 export type TimelineItem = {
@@ -30,15 +38,20 @@ export type WorkStyle = {
   principles: string[];
 };
 
+export type AboutSections = {
+  profile: SectionBase;
+  roles: SectionBase;
+  timeline: SectionBase;
+  techStack: SectionBase;
+  workStyle: SectionBase;
+  growthMetrics: SectionBase;
+};
+
 export type AboutData = {
   profile: ProfileInfo;
-  strengths: Strength[];
+  sections: AboutSections;
+  roles: Role[];
   timeline: TimelineItem[];
-  skills: {
-    title: string;
-    icon: IconName;
-    items: TechTag[];
-  }[];
   workStyle: WorkStyle;
   growthMetrics: Metric[];
 };
