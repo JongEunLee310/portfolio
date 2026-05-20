@@ -6,4 +6,5 @@ export const pageChrome = {
   copyright: siteConfig.copyright,
   navigation: mainNavigation,
   footerContacts: footerNavigation.contact,
+  footerTagline: siteConfig.headline,
 } as const;
