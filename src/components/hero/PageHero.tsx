@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { ButtonLink } from "@/components/common/ButtonLink";
 
 type HeroAction = {
@@ -13,6 +14,7 @@ type PageHeroProps = {
   primaryAction?: HeroAction;
   secondaryAction?: HeroAction;
   visual?: string;
+  visualSlot?: ReactNode;
 };
 
 export function PageHero({
@@ -23,6 +25,7 @@ export function PageHero({
   primaryAction,
   secondaryAction,
   visual,
+  visualSlot,
 }: PageHeroProps) {
   const titleParts = highlightedText ? title.split(highlightedText) : [title];
 
@@ -59,7 +62,9 @@ export function PageHero({
             </div>
           ) : null}
         </div>
-        {visual ? (
+        {visualSlot ? (
+          visualSlot
+        ) : visual ? (
           <img
             src={visual}
             alt=""
