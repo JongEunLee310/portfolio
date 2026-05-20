@@ -1,58 +1,82 @@
+import { AboutArchDiagram } from "@/components/about/AboutArchDiagram";
+import { AboutGrowthMetrics } from "@/components/about/AboutGrowthMetrics";
+import { AboutProfile } from "@/components/about/AboutProfile";
+import { AboutRoleCard } from "@/components/about/AboutRoleCard";
+import { AboutTimeline } from "@/components/about/AboutTimeline";
+import { AboutWorkStyle } from "@/components/about/AboutWorkStyle";
 import { SectionHeader } from "@/components/common/SectionHeader";
-import { TechTag } from "@/components/common/TechTag";
 import { PageHero } from "@/components/hero/PageHero";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { HomeTechStack } from "@/components/project/HomeTechStack";
 import { aboutData } from "@/data/about";
 import { pageHeroes } from "@/data/hero";
+import { techStackGroups } from "@/data/techStack";
+import { layout, surface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
 
 export function AboutPage() {
+  const { profile, sections, growthMetrics, roles, timeline, workStyle } = aboutData;
+
   return (
     <PageLayout {...pageChrome}>
-      <PageHero {...pageHeroes.about} />
-      <section className="bg-slate-50 py-16 lg:py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <PageHero
+        {...pageHeroes.about}
+        visualSlot={<AboutArchDiagram />}
+      />
+
+      <section id={sections.profile.id} className={`${surface.light} ${layout.section}`}>
+        <div className={layout.container}>
+          <SectionHeader {...sections.profile} />
+          <div className="mt-10">
+            <AboutProfile profile={profile} />
+          </div>
+        </div>
+      </section>
+
+      <section id={sections.roles.id} className={`bg-white ${layout.section}`}>
+        <div className={layout.container}>
+          <SectionHeader {...sections.roles} />
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {roles.map((role) => (
+              <AboutRoleCard key={role.title} role={role} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id={sections.timeline.id} className={`${surface.light} ${layout.section}`}>
+        <div className={layout.container}>
           <SectionHeader
-            eyebrow="PROFILE"
-            title={aboutData.profile.name}
-            description={aboutData.profile.role}
+            eyebrow={sections.timeline.eyebrow}
+            title={sections.timeline.title}
+            description={sections.timeline.description}
           />
-          <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
-            <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
-              <img
-                src={aboutData.profile.avatar}
-                alt={aboutData.profile.name}
-                className="aspect-square w-full rounded-xl object-cover"
-              />
-              <p className="mt-5 text-sm text-slate-600">
-                {aboutData.profile.location}
-              </p>
-              <p className="mt-2 text-sm text-slate-600">
-                {aboutData.profile.email}
-              </p>
-            </article>
-            <div className="space-y-6">
-              <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
-                {aboutData.profile.introduction.map((paragraph) => (
-                  <p key={paragraph} className="mb-4 text-sm leading-7 text-slate-600">
-                    {paragraph}
-                  </p>
-                ))}
-              </article>
-              <div className="grid gap-4 md:grid-cols-2">
-                {aboutData.skills.map((skill) => (
-                  <article
-                    key={skill.title}
-                    className="rounded-2xl border border-slate-200 bg-white p-5 shadow-card"
-                  >
-                    <h3 className="font-bold text-slate-900">{skill.title}</h3>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {skill.items.map((tag) => (
-                        <TechTag key={`${skill.title}-${tag.name}`} tag={tag} />
-                      ))}
-                    </div>
-                  </article>
-                ))}
+          <div className="mt-10">
+            <AboutTimeline items={timeline} />
+          </div>
+        </div>
+      </section>
+
+      <section id={sections.techStack.id} className={`bg-white ${layout.section}`}>
+        <div className={layout.container}>
+          <SectionHeader {...sections.techStack} />
+          <HomeTechStack groups={techStackGroups} />
+        </div>
+      </section>
+
+      <section id={sections.workStyle.id} className={`${surface.light} ${layout.section}`}>
+        <div className={layout.container}>
+          <div className="grid gap-12 lg:grid-cols-2">
+            <div>
+              <SectionHeader {...sections.workStyle} />
+              <div className="mt-10">
+                <AboutWorkStyle workStyle={workStyle} />
+              </div>
+            </div>
+            <div id={sections.growthMetrics.id}>
+              <SectionHeader {...sections.growthMetrics} />
+              <div className="mt-10">
+                <AboutGrowthMetrics metrics={growthMetrics} />
               </div>
             </div>
           </div>
