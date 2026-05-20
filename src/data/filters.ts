@@ -1,4 +1,5 @@
 import type { ProjectFilterValue } from "@/types/project";
+import type { NoteFilterValue } from "@/types/note";
 
 export const projectCategoryFilters = [
   { label: "전체", value: "all" },
@@ -30,14 +31,23 @@ export const projectSortOptions = [
 ] as const;
 
 export const noteCategoryFilters = [
-  { label: "전체", value: "all" },
-  { label: "성능 개선", value: "performance" },
-  { label: "아키텍처", value: "architecture" },
-  { label: "비동기 처리", value: "async" },
-  { label: "DB", value: "database" },
-  { label: "AWS", value: "aws" },
-  { label: "모니터링", value: "observability" },
-] as const;
+  { label: "All", value: "all" },
+  { label: "Performance", value: "performance" },
+  { label: "Database", value: "database" },
+  { label: "Async", value: "async" },
+  { label: "DevOps", value: "devops" },
+  { label: "Architecture", value: "architecture" },
+  { label: "Troubleshooting", value: "troubleshooting" },
+] as const satisfies readonly {
+  label: string;
+  value: NoteFilterValue;
+}[];
+
+export const noteFilterContent = {
+  ariaLabel: "기술 노트 필터",
+  emptyTitle: "조건에 맞는 기술 노트가 없습니다",
+  emptyDescription: "다른 필터를 선택해 기술 노트 목록을 다시 확인해 주세요.",
+} as const;
 
 export const noteSortOptions = [
   { label: "최신순", value: "latest" },
