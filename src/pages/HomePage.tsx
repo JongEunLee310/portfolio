@@ -11,7 +11,6 @@ import { pageHeroes } from "@/data/hero";
 import { projects } from "@/data/projects";
 import { technicalNotes } from "@/data/technicalNotes";
 import { techStackGroups } from "@/data/techStack";
-import { externalLinks } from "@/constants/externalLinks";
 import { PATHS } from "@/constants/paths";
 import { pageChrome } from "@/utils/pageChrome";
 
