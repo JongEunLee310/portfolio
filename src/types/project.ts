@@ -27,6 +27,7 @@ export type ProjectCard = {
     detail: string;
     github?: string;
     demo?: string;
+    docs?: string;
   };
 };
 
