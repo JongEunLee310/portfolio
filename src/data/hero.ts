@@ -56,3 +56,23 @@ export const pageHeroes = {
     visual: "/images/hero/contact-hero.svg",
   },
 } as const;
+
+export type HomeHeroCode = {
+  filename: string;
+  lines: string[];
+};
+
+export const homeHeroCode: HomeHeroCode = {
+  filename: "pipeline/tasks.py",
+  lines: [
+    "# 파이프라인 비동기 실행 태스크",
+    "@celery.task(bind=True, max_retries=3)",
+    "def process_pipeline(self, job_id: str):",
+    "    try:",
+    "        result = pipeline.execute(job_id)",
+    '        metrics.track("pipeline.done", job=job_id)',
+    '        return {"status": "ok", "result": result}',
+    "    except NetworkError as exc:",
+    "        raise self.retry(exc=exc, countdown=60)",
+  ],
+};

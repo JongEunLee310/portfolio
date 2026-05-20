@@ -9,7 +9,7 @@ export type TechStackGroup = {
 
 export const techStackGroups: TechStackGroup[] = [
   {
-    title: "Backend",
+    title: "General",
     description: "서비스 로직과 API 설계",
     icon: "Server",
     items: [
@@ -39,6 +39,25 @@ export const techStackGroups: TechStackGroup[] = [
       { name: "Docker", category: "infra" },
       { name: "GitHub Actions", category: "devops" },
       { name: "Nginx", category: "infra" },
+    ],
+  },
+  {
+    title: "Messaging & Queue",
+    description: "비동기 메시지 처리와 이벤트 기반 구조",
+    icon: "MessageQueue",
+    items: [
+      { name: "Celery", category: "messaging" },
+      { name: "RabbitMQ", category: "messaging" },
+      { name: "Redis", category: "messaging" },
+    ],
+  },
+  {
+    title: "Observability",
+    description: "운영 모니터링과 지표 수집",
+    icon: "Activity",
+    items: [
+      { name: "Prometheus", category: "observability" },
+      { name: "Grafana", category: "observability" },
     ],
   },
 ];
