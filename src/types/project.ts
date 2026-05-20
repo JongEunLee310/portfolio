@@ -2,6 +2,8 @@ import type { IconName, Metric, TechTag } from "./common";
 
 export type ProjectCategory = "backend" | "infra" | "ai" | "iot" | "personal";
 
+export type ProjectFilterValue = "all" | ProjectCategory;
+
 export type ProjectType = "team" | "personal";
 
 export type ProjectStatus = "featured" | "normal" | "archived";
