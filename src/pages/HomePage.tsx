@@ -1,3 +1,4 @@
+import { Cloud, Gauge, Layers, Workflow, type LucideIcon } from "lucide-react";
 import { ButtonLink } from "@/components/common/ButtonLink";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { PageHero } from "@/components/hero/PageHero";
@@ -5,12 +6,21 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { NoteGrid } from "@/components/note/NoteGrid";
 import { ProjectGrid } from "@/components/project/ProjectGrid";
 import { TechTag } from "@/components/common/TechTag";
+import { highlights } from "@/data/highlights";
 import { pageHeroes } from "@/data/hero";
 import { projects } from "@/data/projects";
 import { technicalNotes } from "@/data/technicalNotes";
 import { techStackGroups } from "@/data/techStack";
+import { externalLinks } from "@/constants/externalLinks";
 import { PATHS } from "@/constants/paths";
 import { pageChrome } from "@/utils/pageChrome";
+
+const highlightIcons: Record<string, LucideIcon> = {
+  Gauge,
+  Workflow,
+  Cloud,
+  Layers,
+};
 
 export function HomePage() {
   const featuredProjects = projects.filter((project) => project.status === "featured");
@@ -28,6 +38,34 @@ export function HomePage() {
             action={<ButtonLink href={PATHS.projects} variant="outline">전체 보기</ButtonLink>}
           />
           <ProjectGrid projects={featuredProjects} />
+        </div>
+      </section>
+      <section className="bg-white py-16 lg:py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <SectionHeader
+            eyebrow="TECHNICAL HIGHLIGHTS"
+            title="기술적 강점"
+            description="성능, 구조, 인프라, 문제 해결 영역에서 쌓아온 기술적 경험입니다."
+          />
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {highlights.map((item) => {
+              const Icon = highlightIcons[item.icon];
+              return (
+                <article
+                  key={item.title}
+                  className="rounded-2xl border border-slate-200 bg-slate-50 p-6"
+                >
+                  {Icon ? <Icon className="h-8 w-8 text-blue-600" /> : null}
+                  <h3 className="mt-4 text-lg font-bold text-slate-900">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    {item.description}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
       <section className="bg-brand-dark py-16 text-white lg:py-20">
