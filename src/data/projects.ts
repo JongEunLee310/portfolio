@@ -128,4 +128,62 @@ export const projects: ProjectCard[] = [
       github: "https://github.com/JongEunLee310/smart-farm",
     },
   },
+  {
+    slug: "log-eye",
+    title: "LogEye",
+    subtitle: "로그 수집 · 검색 플랫폼",
+    summary:
+      "분산 서비스 로그를 수집하고 검색과 알림을 제공하는 운영 관찰성 지원 플랫폼",
+    description:
+      "Spring Boot 기반 로그 수집 API와 Elasticsearch 검색 흐름을 설계하고, 운영자가 장애 단서를 빠르게 찾을 수 있도록 정리한 프로젝트입니다.",
+    thumbnail: "/images/projects/log-eye/thumbnail.svg",
+    category: ["backend", "infra"],
+    type: "personal",
+    status: "normal",
+    period: "2025.09 - 2025.11",
+    role: "Backend / Observability",
+    techStack: [
+      { name: "Spring Boot", category: "backend" },
+      { name: "Elasticsearch", category: "observability" },
+      { name: "Kibana", category: "observability" },
+      { name: "Kafka", category: "messaging" },
+      { name: "S3", category: "infra" },
+      { name: "Docker", category: "infra" },
+      { name: "Slack", category: "tool" },
+      { name: "AWS", category: "infra" },
+    ],
+    links: {
+      detail: PATHS.projectDetail("log-eye"),
+      github: "https://github.com/JongEunLee310/log-eye",
+    },
+  },
+  {
+    slug: "code-mentor",
+    title: "CodeMentor",
+    subtitle: "AI 코드 리뷰 도우미",
+    summary:
+      "코드 리뷰와 학습 추천을 제공하는 AI 기반 개발자 보조 도구",
+    description:
+      "GitHub Pull Request 변경 내용을 분석해 리뷰 코멘트와 학습 포인트를 생성하는 AI 코드 멘토링 프로젝트입니다.",
+    thumbnail: "/images/projects/code-mentor/thumbnail.svg",
+    category: ["ai", "backend"],
+    type: "personal",
+    status: "normal",
+    period: "2025.12 - 2026.01",
+    role: "Backend / AI Integration",
+    techStack: [
+      { name: "FastAPI", category: "backend" },
+      { name: "Python", category: "language" },
+      { name: "OpenAI API", category: "ai" },
+      { name: "PostgreSQL", category: "database" },
+      { name: "Redis", category: "database" },
+      { name: "Docker", category: "infra" },
+      { name: "Celery", category: "messaging" },
+      { name: "JWT", category: "backend" },
+    ],
+    links: {
+      detail: PATHS.projectDetail("code-mentor"),
+      github: "https://github.com/JongEunLee310/code-mentor",
+    },
+  },
 ];
