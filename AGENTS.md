@@ -38,6 +38,12 @@
 - `docs/decisions/003-routing-strategy.md`
 - `docs/decisions/004-design-system.md`
 
+## Codex 스킬 사용
+
+- Codex는 작업 성격에 맞는 스킬이 `.codex/skills`에 있으면 해당 스킬 안내 파일을 먼저 확인하고 지시를 따른다.
+- 여러 스킬이 관련될 때는 필요한 최소한의 스킬만 사용한다.
+- 스킬 지시가 이 문서의 최우선 규칙과 충돌하면 이 문서의 최우선 규칙을 우선한다.
+
 ## 디렉토리 책임
 
 | 경로 | 책임 |

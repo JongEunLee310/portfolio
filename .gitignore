@@ -13,3 +13,4 @@ local-designs/
 *.local.webp
 
 .claude/
+.codex/
