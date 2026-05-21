@@ -11,6 +11,7 @@ export type IconName =
   | "Layers"
   | "Workflow"
   | "MessageQueue"
+  | "MessageSquare"
   | "BookOpen"
   | "Calendar"
   | "Clock"

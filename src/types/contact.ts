@@ -1,4 +1,4 @@
-import type { IconName } from "./common";
+import type { IconName, SectionBase } from "./common";
 
 export type ContactChannel = {
   label: string;
@@ -8,31 +8,18 @@ export type ContactChannel = {
   external?: boolean;
 };
 
-export type ContactFormField = {
-  name: string;
-  label: string;
-  type: "text" | "email" | "select" | "textarea" | "checkbox";
-  placeholder?: string;
-  required?: boolean;
-  options?: {
-    label: string;
-    value: string;
-  }[];
-};
-
 export type FAQItem = {
   question: string;
   answer: string;
 };
 
 export type ContactData = {
-  responsePromise: {
-    title: string;
-    description: string;
-    value: string;
+  sections: {
+    contact: SectionBase;
+    faq: SectionBase;
+    collaboration: SectionBase;
   };
   channels: ContactChannel[];
-  formFields: ContactFormField[];
   faq: FAQItem[];
   values: {
     title: string;
