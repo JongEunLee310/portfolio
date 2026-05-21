@@ -8,6 +8,25 @@ export type ProjectType = "team" | "personal";
 
 export type ProjectStatus = "featured" | "normal" | "archived";
 
+export type ProjectSortValue = "latest" | "featured" | "name";
+
+export type ProjectViewMode = "grid" | "list";
+
+export type ProjectPeriodFilterValue =
+  | "all"
+  | "last6Months"
+  | "last1Year"
+  | "over1Year";
+
+export type ProjectTypeFilterValue = "all" | ProjectType;
+
+export type ProjectFilterState = {
+  category: ProjectFilterValue;
+  techStacks: string[];
+  period: ProjectPeriodFilterValue;
+  type: ProjectTypeFilterValue;
+};
+
 export type ProjectCard = {
   slug: string;
   title: string;
