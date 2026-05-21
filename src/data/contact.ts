@@ -2,10 +2,24 @@ import { externalLinks } from "@/constants/externalLinks";
 import type { ContactData } from "@/types/contact";
 
 export const contactData: ContactData = {
-  responsePromise: {
-    title: "평균 응답 시간",
-    value: "24시간 이내",
-    description: "영업일 기준 대부분 24시간 이내에 답변드립니다.",
+  sections: {
+    contact: {
+      id: "contact",
+      eyebrow: "CONTACT",
+      title: "연락하기",
+      description:
+        "프로젝트 제안, 백엔드 협업, 기술적인 논의가 필요하다면 이메일과 외부 채널로 편하게 연락해주세요.",
+    },
+    faq: {
+      id: "faq",
+      eyebrow: "FAQ",
+      title: "자주 묻는 질문",
+    },
+    collaboration: {
+      id: "collaboration",
+      eyebrow: "COLLABORATION",
+      title: "함께하는 방식",
+    },
   },
   channels: [
     {
@@ -44,34 +58,26 @@ export const contactData: ContactData = {
       external: true,
     },
   ],
-  formFields: [
-    {
-      name: "name",
-      label: "이름",
-      type: "text",
-      placeholder: "이름을 입력해주세요",
-      required: true,
-    },
-    {
-      name: "email",
-      label: "이메일",
-      type: "email",
-      placeholder: "이메일 주소를 입력해주세요",
-      required: true,
-    },
-    {
-      name: "message",
-      label: "메시지",
-      type: "textarea",
-      placeholder: "프로젝트에 대해 자세히 알려주세요.",
-      required: true,
-    },
-  ],
   faq: [
     {
-      question: "프로젝트 진행 절차가 어떻게 되나요?",
+      question: "어떤 포지션을 희망하나요?",
       answer:
-        "요구사항을 먼저 정리한 뒤 범위와 우선순위를 나누고, 작은 단위로 설계와 구현을 반복하는 방식을 선호합니다.",
+        "백엔드 신입 개발자 포지션을 희망합니다. Python FastAPI나 Java Spring Boot를 사용하는 팀에 합류해 API 설계, 데이터베이스, 배포 경험을 바탕으로 빠르게 기여하고 싶습니다.",
+    },
+    {
+      question: "신입 개발자로서 어떤 강점이 있나요?",
+      answer:
+        "문제를 작게 나누어 원인을 찾고, 학습한 내용을 코드와 문서로 남기는 습관이 있습니다. 모르는 부분은 빠르게 확인하고 팀의 피드백을 반영해 개선합니다.",
+    },
+    {
+      question: "새로운 기술은 어떻게 배우시나요?",
+      answer:
+        "공식 문서를 확인하는 경우도 있지만, 요즘에는 Claude Code, Codex, GitHub Copilot 같은 AI 도구의 도움을 많이 받는 편입니다. 개인 프로젝트를 함께 개발하면서 적용해보고, 학습한 내용은 기술 노트로 남겨 다시 설명할 수 있는 수준까지 정리합니다.",
+    },
+    {
+      question: "채용 관련 연락은 어떻게 하면 되나요?",
+      answer:
+        "이메일로 포지션 정보, 주요 업무, 사용 기술 스택을 간단히 보내주시면 확인 후 가능한 일정에 맞춰 답변드리겠습니다.",
     },
   ],
   values: [
@@ -80,6 +86,18 @@ export const contactData: ContactData = {
       description:
         "단순 구현이 아니라 비즈니스 문제 해결을 목표로 기술적 솔루션을 제안합니다.",
       icon: "Gauge",
+    },
+    {
+      title: "기술적 소통",
+      description:
+        "요구사항, 제약 조건, 의사결정 이유를 문서와 리뷰로 투명하게 공유합니다.",
+      icon: "MessageSquare",
+    },
+    {
+      title: "지속적 개선",
+      description:
+        "작게 검증하고 운영 지표를 확인하며 구조와 개발 흐름을 꾸준히 개선합니다.",
+      icon: "Workflow",
     },
   ],
 };
