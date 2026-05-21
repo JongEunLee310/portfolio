@@ -51,13 +51,61 @@ export type ProjectCard = {
 };
 
 export type ArchitectureNode = {
+  id?: string;
   title: string;
   items: string[];
   icon?: IconName;
 };
 
+export type ProjectHeroHighlight = {
+  label: string;
+  value: string;
+  icon?: IconName;
+};
+
+export type ProjectTechStackGroup = {
+  title: string;
+  items: TechTag[];
+};
+
+export type ProjectArchitectureGroup = {
+  id?: string;
+  title: string;
+  nodes: ArchitectureNode[];
+};
+
+export type ProjectArchitectureConnectionTone = "sync" | "async" | "data";
+
+export type ProjectArchitectureConnection = {
+  from: string;
+  to: string;
+  tone: ProjectArchitectureConnectionTone;
+  label?: string;
+};
+
+export type ProjectArchitectureLegend = {
+  label: string;
+  tone: "solid" | "dashed" | "muted";
+};
+
+export type ProjectArchitectureFlow = {
+  title: string;
+  description?: string;
+  groups: ProjectArchitectureGroup[];
+  connections?: ProjectArchitectureConnection[];
+  legends?: ProjectArchitectureLegend[];
+};
+
+export type ProjectImprovement = {
+  title: string;
+  description: string;
+  result?: string;
+  icon: IconName;
+};
+
 export type ProjectDetail = ProjectCard & {
   heroImage: string;
+  heroHighlights?: ProjectHeroHighlight[];
   overview: string;
   problem: {
     title: string;
@@ -72,11 +120,13 @@ export type ProjectDetail = ProjectCard & {
     description?: string;
     nodes: ArchitectureNode[];
   };
+  architectureFlow?: ProjectArchitectureFlow;
   features: {
     title: string;
     description: string;
     icon: IconName;
   }[];
+  techStackGroups?: ProjectTechStackGroup[];
   screenshots: {
     title: string;
     image: string;
@@ -92,11 +142,14 @@ export type ProjectDetail = ProjectCard & {
     problem: string;
     solution: string;
     result?: string;
+    noteSlug?: string;
   }[];
+  improvements?: ProjectImprovement[];
   performance: Metric[];
   retrospective: {
     learned: string[];
     improvement: string[];
+    noteSlug?: string;
   };
   relatedNoteSlugs: string[];
 };

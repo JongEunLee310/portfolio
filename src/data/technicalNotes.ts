@@ -53,6 +53,54 @@ export const technicalNotes: TechnicalNoteCard[] = [
     relatedProjectSlugs: ["ai-devops-orchestration-platform"],
   },
   {
+    slug: "ai-log-analysis-latency",
+    title: "AI 로그 분석 지연을 줄이기 위한 전처리 전략",
+    summary:
+      "실패 로그 전체를 바로 추론하지 않고 단계별 요약과 에러 패턴 추출을 거쳐 분석 시간을 줄인 기록입니다.",
+    category: "performance",
+    thumbnail: "/images/notes/async-pipeline.svg",
+    date: "2026.05.19",
+    readingTime: "7분 읽기",
+    tags: [
+      { name: "OpenAI API", category: "ai" },
+      { name: "Log Analysis", category: "observability" },
+      { name: "FastAPI", category: "backend" },
+    ],
+    relatedProjectSlugs: ["ai-devops-orchestration-platform"],
+  },
+  {
+    slug: "metric-cardinality-troubleshooting",
+    title: "Prometheus 메트릭 고카디널리티 줄이기",
+    summary:
+      "실행 ID와 사용자 식별자를 metric label에서 제거하고 로그/DB 조회로 상세 추적을 분리한 과정입니다.",
+    category: "observability",
+    thumbnail: "/images/notes/db-round-trip.svg",
+    date: "2026.05.20",
+    readingTime: "8분 읽기",
+    tags: [
+      { name: "Prometheus", category: "observability" },
+      { name: "Grafana", category: "observability" },
+      { name: "Metrics", category: "tool" },
+    ],
+    relatedProjectSlugs: ["ai-devops-orchestration-platform"],
+  },
+  {
+    slug: "ai-devops-retrospective",
+    title: "AI DevOps 플랫폼을 만들며 배운 운영 경계 설계",
+    summary:
+      "파이프라인 실행, 로그 분석, 알림, 모니터링을 나누며 배운 책임 경계와 다음 개선 방향을 정리한 회고입니다.",
+    category: "architecture",
+    thumbnail: "/images/notes/rabbitmq-topology.svg",
+    date: "2026.05.21",
+    readingTime: "9분 읽기",
+    tags: [
+      { name: "DevOps", category: "devops" },
+      { name: "Architecture", category: "infra" },
+      { name: "Observability", category: "observability" },
+    ],
+    relatedProjectSlugs: ["ai-devops-orchestration-platform"],
+  },
+  {
     slug: "querydsl-projection-optimization",
     title: "QueryDSL Projection 활용으로 불필요한 조회 줄이기",
     summary:
