@@ -15,6 +15,23 @@ export const projectDetails: ProjectDetail[] = [
   {
     ...findProject("ai-devops-orchestration-platform"),
     heroImage: "/images/projects/ai-devops/dashboard.svg",
+    heroHighlights: [
+      {
+        label: "배포 자동화 시간 절감",
+        value: "90%+",
+        icon: "Workflow",
+      },
+      {
+        label: "장애 탐지 정확도",
+        value: "95%+",
+        icon: "Gauge",
+      },
+      {
+        label: "운영 비용 절감",
+        value: "40%",
+        icon: "Cloud",
+      },
+    ],
     overview:
       "AI DevOps Orchestration Platform은 Git 저장소 기반 파이프라인 실행, Job 로그 수집, 실패 원인 분석, AI Review 생성을 하나의 흐름으로 연결한 백엔드 중심 프로젝트입니다.",
     problem: {
@@ -60,6 +77,269 @@ export const projectDetails: ProjectDetail[] = [
         },
       ],
     },
+    architectureFlow: {
+      title: "아키텍처",
+      description:
+        "사용자 요청부터 파이프라인 실행, 로그 분석, 배포 알림까지를 독립된 서비스와 인프라 경계로 나눠 운영 흐름을 단순화했습니다.",
+      groups: [
+        {
+          id: "clients",
+          title: "사용자 / 외부",
+          nodes: [
+            {
+              id: "web-ui",
+              title: "Web UI",
+              items: ["Pipeline 실행", "AI Review 확인"],
+              icon: "Code2",
+            },
+            {
+              id: "cli",
+              title: "CLI",
+              items: ["실행 요청", "상태 조회"],
+              icon: "Workflow",
+            },
+            {
+              id: "api-clients",
+              title: "API Clients",
+              items: ["Webhook", "외부 연동"],
+              icon: "ExternalLink",
+            },
+          ],
+        },
+        {
+          id: "gateway",
+          title: "API Gateway",
+          nodes: [
+            {
+              id: "gateway-service",
+              title: "Gateway",
+              items: ["Auth", "Routing", "Rate Limit"],
+              icon: "Server",
+            },
+          ],
+        },
+        {
+          id: "services",
+          title: "마이크로서비스",
+          nodes: [
+            {
+              id: "auth-service",
+              title: "Auth Service",
+              items: ["Token", "Permission"],
+              icon: "Server",
+            },
+            {
+              id: "pipeline-service",
+              title: "Pipeline Service",
+              items: ["PipelineRun", "JobRun"],
+              icon: "Workflow",
+            },
+            {
+              id: "deploy-service",
+              title: "Deploy Service",
+              items: ["Release", "History"],
+              icon: "Cloud",
+            },
+            {
+              id: "ai-insight-service",
+              title: "AI Insight Service",
+              items: ["Log Summary", "Review"],
+              icon: "Gauge",
+            },
+            {
+              id: "notification-service",
+              title: "Notification Service",
+              items: ["Slack", "Email"],
+              icon: "MessageSquare",
+            },
+            {
+              id: "monitoring-service",
+              title: "Monitoring Service",
+              items: ["Metric", "Alert"],
+              icon: "Activity",
+            },
+          ],
+        },
+        {
+          id: "data-ai",
+          title: "데이터 & AI",
+          nodes: [
+            {
+              id: "postgresql",
+              title: "PostgreSQL",
+              items: ["Metadata", "Run State"],
+              icon: "Database",
+            },
+            {
+              id: "redis",
+              title: "Redis",
+              items: ["Cache", "Queue State"],
+              icon: "Database",
+            },
+            {
+              id: "s3-minio",
+              title: "S3 / MinIO",
+              items: ["Artifacts", "Logs"],
+              icon: "Cloud",
+            },
+            {
+              id: "ml-model",
+              title: "ML Model",
+              items: ["Anomaly", "Review"],
+              icon: "Gauge",
+            },
+          ],
+        },
+        {
+          id: "infra-integrations",
+          title: "인프라 / 외부 연동",
+          nodes: [
+            {
+              id: "kubernetes",
+              title: "Kubernetes",
+              items: ["Worker", "Scaling"],
+              icon: "Cloud",
+            },
+            {
+              id: "aws-gcp",
+              title: "AWS / GCP",
+              items: ["Registry", "Storage"],
+              icon: "Cloud",
+            },
+            {
+              id: "docker-registry",
+              title: "Docker Registry",
+              items: ["Image", "Tag"],
+              icon: "Layers",
+            },
+            {
+              id: "slack-email",
+              title: "Slack / Email",
+              items: ["Alert", "Report"],
+              icon: "MessageSquare",
+            },
+          ],
+        },
+      ],
+      connections: [
+        {
+          from: "web-ui",
+          to: "gateway-service",
+          tone: "sync",
+          label: "HTTP/API",
+        },
+        {
+          from: "cli",
+          to: "gateway-service",
+          tone: "sync",
+          label: "CLI 요청",
+        },
+        {
+          from: "api-clients",
+          to: "gateway-service",
+          tone: "sync",
+          label: "Webhook",
+        },
+        {
+          from: "gateway-service",
+          to: "auth-service",
+          tone: "sync",
+          label: "인증",
+        },
+        {
+          from: "gateway-service",
+          to: "pipeline-service",
+          tone: "sync",
+          label: "실행 요청",
+        },
+        {
+          from: "pipeline-service",
+          to: "deploy-service",
+          tone: "async",
+          label: "배포 이벤트",
+        },
+        {
+          from: "pipeline-service",
+          to: "ai-insight-service",
+          tone: "async",
+          label: "로그 분석",
+        },
+        {
+          from: "ai-insight-service",
+          to: "notification-service",
+          tone: "async",
+          label: "리뷰 결과",
+        },
+        {
+          from: "deploy-service",
+          to: "monitoring-service",
+          tone: "async",
+          label: "상태 변경",
+        },
+        {
+          from: "pipeline-service",
+          to: "postgresql",
+          tone: "data",
+          label: "실행 상태",
+        },
+        {
+          from: "pipeline-service",
+          to: "s3-minio",
+          tone: "data",
+          label: "로그/산출물",
+        },
+        {
+          from: "ai-insight-service",
+          to: "ml-model",
+          tone: "sync",
+          label: "추론",
+        },
+        {
+          from: "pipeline-service",
+          to: "redis",
+          tone: "data",
+          label: "캐시",
+        },
+        {
+          from: "deploy-service",
+          to: "kubernetes",
+          tone: "sync",
+          label: "배포",
+        },
+        {
+          from: "deploy-service",
+          to: "docker-registry",
+          tone: "sync",
+          label: "이미지",
+        },
+        {
+          from: "notification-service",
+          to: "slack-email",
+          tone: "async",
+          label: "알림",
+        },
+        {
+          from: "s3-minio",
+          to: "aws-gcp",
+          tone: "data",
+          label: "스토리지",
+        },
+      ],
+      legends: [
+        {
+          label: "동기 요청",
+          tone: "solid",
+        },
+        {
+          label: "비동기 이벤트",
+          tone: "dashed",
+        },
+        {
+          label: "데이터 흐름",
+          tone: "muted",
+        },
+      ],
+    },
     features: [
       {
         title: "YAML 기반 파이프라인 생성",
@@ -68,19 +348,83 @@ export const projectDetails: ProjectDetail[] = [
         icon: "Code2",
       },
       {
+        title: "인프라 자동화",
+        description:
+          "Terraform 기반 환경 프로비저닝과 실행 환경 변경 이력을 관리합니다.",
+        icon: "Cloud",
+      },
+      {
         title: "AI Review",
         description: "실패 로그를 기반으로 원인 분류와 개선 제안을 생성합니다.",
         icon: "Gauge",
       },
+      {
+        title: "실시간 모니터링",
+        description:
+          "Prometheus와 Grafana로 실행 지표와 장애 신호를 추적합니다.",
+        icon: "Activity",
+      },
+      {
+        title: "배포 관리",
+        description:
+          "릴리스 이력과 배포 상태를 한 흐름에서 확인할 수 있게 구성했습니다.",
+        icon: "Workflow",
+      },
+    ],
+    techStackGroups: [
+      {
+        title: "Backend",
+        items: [
+          { name: "FastAPI", category: "backend" },
+          { name: "Python", category: "language" },
+          { name: "SQLAlchemy", category: "backend" },
+          { name: "Pydantic", category: "backend" },
+        ],
+      },
+      {
+        title: "Infra & DevOps",
+        items: [
+          { name: "Kubernetes", category: "infra" },
+          { name: "Docker", category: "infra" },
+          { name: "Terraform", category: "devops" },
+          { name: "ArgoCD", category: "devops" },
+        ],
+      },
+      {
+        title: "Data & AI",
+        items: [
+          { name: "PostgreSQL", category: "database" },
+          { name: "Redis", category: "database" },
+          { name: "PyTorch", category: "ai" },
+          { name: "Scikit-learn", category: "ai" },
+        ],
+      },
+      {
+        title: "Messaging & Etc",
+        items: [
+          { name: "Kafka", category: "messaging" },
+          { name: "Prometheus", category: "observability" },
+          { name: "Grafana", category: "observability" },
+          { name: "Slack API", category: "tool" },
+        ],
+      },
     ],
     screenshots: [
       {
-        title: "Pipeline Dashboard",
+        title: "파이프라인 실행 현황",
         image: "/images/projects/ai-devops/screenshot-dashboard.svg",
       },
       {
-        title: "Job Run Logs",
+        title: "AI 이상 탐지 대시보드",
         image: "/images/projects/ai-devops/screenshot-logs.svg",
+      },
+      {
+        title: "배포 히스토리",
+        image: "/images/projects/ai-devops/dashboard.svg",
+      },
+      {
+        title: "서비스 모니터링",
+        image: "/images/projects/ai-devops/thumbnail.svg",
       },
     ],
     contributions: [
@@ -99,19 +443,97 @@ export const projectDetails: ProjectDetail[] = [
         solution:
           "PipelineRun을 QUEUED 상태로 생성한 뒤 백그라운드 실행으로 분리했습니다.",
         result: "사용자 요청 응답과 실제 실행 처리가 분리되었습니다.",
+        noteSlug: "async-pipeline-transition",
+      },
+      {
+        title: "AI 모델 추론 지연",
+        problem:
+          "배치 수집 로그 전체를 한 번에 분석하면서 실패 원인 제안까지 도달하는 시간이 길어졌습니다.",
+        solution:
+          "로그를 단계별로 요약하고 핵심 에러 패턴만 추론 입력으로 전달하도록 전처리했습니다.",
+        result: "분석 후보가 줄어들어 실패 원인 확인 시간이 단축되었습니다.",
+        noteSlug: "ai-log-analysis-latency",
+      },
+      {
+        title: "메트릭 고카디널리티 문제",
+        problem:
+          "파이프라인 실행 ID를 그대로 metric label에 포함해 시계열 수가 빠르게 증가했습니다.",
+        solution:
+          "라벨 기준을 서비스, 상태, 단계로 제한하고 실행 상세는 로그와 DB에서 조회하도록 분리했습니다.",
+        result: "관측 비용과 쿼리 부하를 줄이면서 주요 지표는 유지했습니다.",
+        noteSlug: "metric-cardinality-troubleshooting",
+      },
+      {
+        title: "이벤트 재처리 누락",
+        problem:
+          "워커 장애 이후 일부 배포 이벤트가 재처리되지 않아 실행 상태와 알림 상태가 어긋났습니다.",
+        solution:
+          "RabbitMQ Exchange, Queue, DLQ 경계를 다시 정리하고 실패 이벤트를 별도 재처리 큐로 분리했습니다.",
+        result: "실패 이벤트를 추적하고 재시도할 수 있는 운영 경로가 생겼습니다.",
+        noteSlug: "rabbitmq-event-topology",
+      },
+      {
+        title: "목록 조회 DB 병목",
+        problem:
+          "대시보드 목록 조회에서 PipelineRun과 JobRunLog를 반복 조회하며 응답 시간이 늘어났습니다.",
+        solution:
+          "목록 API의 조회 범위를 제한하고 필요한 필드만 projection해 DB round-trip을 줄였습니다.",
+        result: "대시보드 초기 로딩 시간이 안정화되었습니다.",
+        noteSlug: "db-round-trip-optimization",
+      },
+    ],
+    improvements: [
+      {
+        title: "DB 쿼리 최적화",
+        description:
+          "PipelineRun 목록 조회에서 필요한 필드만 가져오고 N+1 접근을 줄였습니다.",
+        result: "응답 시간 65% 개선",
+        icon: "Database",
+      },
+      {
+        title: "캐시 전략 도입",
+        description:
+          "자주 조회되는 프로젝트 메타데이터와 권한 정보를 Redis에 캐싱했습니다.",
+        result: "API 응답 시간 50% 단축",
+        icon: "Activity",
+      },
+      {
+        title: "비동기 처리 확대",
+        description:
+          "배포와 AI 분석을 이벤트 기반 작업으로 분리해 사용자 요청 흐름을 가볍게 만들었습니다.",
+        result: "처리량 2.2배 증가",
+        icon: "Workflow",
       },
     ],
     performance: [
       {
-        label: "실행 요청 응답",
-        value: "Queued",
-        description: "실행 완료 대기 대신 접수 즉시 응답",
+        label: "배포 자동화 시간 절감",
+        value: "90%+",
+        description: "수동 실행 단계를 파이프라인으로 통합",
         icon: "Workflow",
       },
       {
-        label: "DB Round-trip",
-        value: "Reduced",
-        description: "중복 SELECT와 unbounded query 제거",
+        label: "장애 탐지 정확도",
+        value: "95%+",
+        description: "실패 로그 기반 원인 후보 분류",
+        icon: "Gauge",
+      },
+      {
+        label: "인프라 운영 비용 절감",
+        value: "40%",
+        description: "자동 스케일링과 캐시 전략 적용",
+        icon: "Cloud",
+      },
+      {
+        label: "시스템 가용성",
+        value: "99.9%",
+        description: "관측 지표 기반 장애 대응 흐름 구축",
+        icon: "Activity",
+      },
+      {
+        label: "팀 만족도",
+        value: "4.5/5",
+        description: "운영자 피드백 기반 사용성 개선",
         icon: "Database",
       },
     ],
@@ -124,11 +546,13 @@ export const projectDetails: ProjectDetail[] = [
         "Kubernetes 기반 Executor 확장",
         "LLM Review 품질 평가 지표 추가",
       ],
+      noteSlug: "ai-devops-retrospective",
     },
     relatedNoteSlugs: [
       "async-pipeline-transition",
       "rabbitmq-event-topology",
       "db-round-trip-optimization",
+      "ai-devops-retrospective",
     ],
   },
   {

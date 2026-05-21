@@ -1,4 +1,5 @@
 export const PROJECT_DETAIL_LABELS = {
+  backToProjects: "프로젝트 목록으로 돌아가기",
   emptyState: {
     title: "프로젝트를 찾을 수 없습니다",
     description: "요청한 프로젝트 slug와 연결된 상세 데이터가 없습니다.",
@@ -12,6 +13,11 @@ export const PROJECT_DETAIL_LABELS = {
     period: "기간",
     role: "역할",
     teamSize: "팀 규모",
+    liveDemo: "Live Demo",
+    github: "GitHub 보기",
+  },
+  screenshots: {
+    zoomLabel: "스크린샷 확대",
   },
   sections: {
     overview: {
@@ -53,12 +59,23 @@ export const PROJECT_DETAIL_LABELS = {
       problem: "문제",
       solution: "해결",
       result: "결과",
+      previous: "이전 트러블슈팅",
+      next: "다음 트러블슈팅",
+      openNote: "문서 보기",
+      status: "트러블슈팅 항목",
+    },
+    improvements: {
+      eyebrow: "IMPROVEMENT",
+      title: "성능 개선",
     },
     links: {
       eyebrow: "LINKS",
       title: "관련 링크",
     },
     retrospective: {
+      eyebrow: "RETROSPECTIVE",
+      title: "회고",
+      openNote: "회고 전문 읽기",
       learned: "배운 점",
       improvement: "개선 계획",
     },
