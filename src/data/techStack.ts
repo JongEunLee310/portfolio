@@ -60,4 +60,14 @@ export const techStackGroups: TechStackGroup[] = [
       { name: "Grafana", category: "observability" },
     ],
   },
+  {
+    title: "AI / LLM",
+    description: "AI API 연동과 생성형 기능 설계",
+    icon: "Gauge",
+    items: [
+      { name: "OpenAI API", category: "ai" },
+      { name: "LangChain", category: "ai" },
+      { name: "Prompt Engineering", category: "ai" },
+    ],
+  },
 ];

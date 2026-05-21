@@ -6,7 +6,8 @@ import { PageHero } from "@/components/hero/PageHero";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { HomeNoteCarousel } from "@/components/note/HomeNoteCarousel";
 import { HomeFeaturedProjects } from "@/components/project/HomeFeaturedProjects";
-import { HomeTechStack } from "@/components/project/HomeTechStack";
+import { ProjectTechStackBand } from "@/components/project/ProjectTechStackBand";
+import { projectTechStackContent } from "@/data/filters";
 import { highlights } from "@/data/highlights";
 import { homeHeroCode, pageHeroes } from "@/data/hero";
 import { projects } from "@/data/projects";
@@ -96,16 +97,11 @@ export function HomePage() {
           <HomeNoteCarousel notes={featuredNotes} />
         </div>
       </section>
-      <section className="bg-slate-50 py-16 lg:py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionHeader
-            eyebrow="TECH STACK"
-            title="기술 스택"
-            description="백엔드, 데이터베이스, 인프라와 운영 관측 도구를 중심으로 학습하고 적용합니다."
-          />
-          <HomeTechStack groups={techStackGroups} />
-        </div>
-      </section>
+      <ProjectTechStackBand
+        content={projectTechStackContent}
+        groups={techStackGroups}
+        variant="light"
+      />
     </PageLayout>
   );
 }

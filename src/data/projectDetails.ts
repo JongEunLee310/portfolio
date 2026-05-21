@@ -570,4 +570,282 @@ export const projectDetails: ProjectDetail[] = [
     },
     relatedNoteSlugs: [],
   },
+  {
+    ...findProject("log-eye"),
+    heroImage: "/images/projects/log-eye/thumbnail.svg",
+    overview:
+      "LogEye는 여러 서비스에서 발생하는 로그를 수집하고 검색, 필터링, 알림 흐름까지 연결하는 운영 관찰성 중심 프로젝트입니다.",
+    problem: {
+      title: "개발 배경",
+      items: [
+        "장애 상황에서 로그가 서버별로 흩어져 있으면 원인 추적 시간이 길어집니다.",
+        "운영자가 필요한 로그만 빠르게 검색하고 필터링할 수 있는 기준이 필요했습니다.",
+        "반복되는 오류 패턴은 알림으로 연결해 초기에 대응할 수 있어야 했습니다.",
+      ],
+    },
+    solution: {
+      title: "해결 방향",
+      items: [
+        "로그 수집 API와 검색 API를 분리해 입력과 조회 책임을 나눴습니다.",
+        "Elasticsearch 인덱스를 서비스명, 레벨, 시간 기준으로 설계했습니다.",
+        "오류 레벨 로그를 Slack 알림 후보로 분류하는 간단한 이벤트 흐름을 구성했습니다.",
+      ],
+    },
+    architecture: {
+      title: "로그 수집 구조",
+      description:
+        "서비스 로그를 API 또는 메시지 큐로 수집하고, 검색 저장소와 장기 보관 저장소로 분리해 운영 조회와 보관 책임을 나눕니다.",
+      nodes: [
+        {
+          title: "Collector",
+          items: ["Spring Boot", "Log API", "Validation"],
+          icon: "Server",
+        },
+        {
+          title: "Stream",
+          items: ["Kafka", "Retry", "Buffering"],
+          icon: "MessageQueue",
+        },
+        {
+          title: "Search",
+          items: ["Elasticsearch", "Kibana", "Index Mapping"],
+          icon: "Database",
+        },
+        {
+          title: "Alert",
+          items: ["Slack", "Error Rule", "Notification"],
+          icon: "Activity",
+        },
+      ],
+    },
+    features: [
+      {
+        title: "로그 수집 API",
+        description:
+          "서비스명, 로그 레벨, traceId, 메시지를 기준으로 운영 로그를 표준 형식으로 수집합니다.",
+        icon: "Server",
+      },
+      {
+        title: "검색 인덱스 설계",
+        description:
+          "시간 범위와 로그 레벨 필터를 빠르게 적용할 수 있도록 Elasticsearch 매핑을 구성했습니다.",
+        icon: "Database",
+      },
+      {
+        title: "오류 알림 후보 분류",
+        description:
+          "ERROR 로그와 반복 패턴을 분리해 Slack 알림으로 연결할 수 있는 이벤트 흐름을 설계했습니다.",
+        icon: "Activity",
+      },
+    ],
+    screenshots: [
+      {
+        title: "LogEye Dashboard",
+        image: "/images/projects/log-eye/thumbnail.svg",
+        description:
+          "로그 검색, 오류 추세, 알림 후보를 한 화면에서 확인하는 운영 대시보드 콘셉트입니다.",
+      },
+    ],
+    contributions: [
+      {
+        date: "2025.09",
+        title: "로그 스키마 정의",
+        description:
+          "서비스명, 레벨, traceId, timestamp, message 필드를 기준으로 공통 로그 모델을 설계했습니다.",
+      },
+      {
+        date: "2025.10",
+        title: "검색 API 구현",
+        description:
+          "시간 범위, 레벨, 키워드 조건을 조합해 운영자가 필요한 로그를 조회할 수 있게 했습니다.",
+      },
+      {
+        date: "2025.11",
+        title: "알림 흐름 설계",
+        description:
+          "반복 오류와 치명 오류를 분류해 Slack 알림 후보로 전달하는 구조를 정리했습니다.",
+      },
+    ],
+    troubleshooting: [
+      {
+        title: "검색 조건 증가로 인한 API 복잡도",
+        problem:
+          "키워드, 레벨, 서비스명, 시간 조건이 늘어나며 검색 API 파라미터 조합이 복잡해졌습니다.",
+        solution:
+          "검색 조건 객체를 분리하고 기본 시간 범위를 적용해 API 입력을 단순화했습니다.",
+        result: "조회 조건이 늘어나도 컨트롤러와 검색 로직의 책임을 분리할 수 있었습니다.",
+      },
+    ],
+    performance: [
+      {
+        label: "검색 기준",
+        value: "Indexed",
+        description: "서비스명, 레벨, 시간 기준 인덱스 설계",
+        icon: "Database",
+      },
+      {
+        label: "알림 후보",
+        value: "Rule-based",
+        description: "오류 레벨과 반복 패턴 기반 분류",
+        icon: "Activity",
+      },
+    ],
+    retrospective: {
+      learned: [
+        "관찰성 도구는 데이터를 많이 모으는 것보다 운영자가 찾는 질문을 빠르게 답하게 하는 구조가 중요합니다.",
+        "로그 검색은 저장 모델, 인덱스, UI 필터가 함께 맞물려야 사용성이 좋아집니다.",
+      ],
+      improvement: [
+        "traceId 기반 요청 흐름 시각화",
+        "로그 샘플링과 보존 정책 추가",
+      ],
+    },
+    relatedNoteSlugs: [],
+  },
+  {
+    ...findProject("code-mentor"),
+    heroImage: "/images/projects/code-mentor/thumbnail.svg",
+    overview:
+      "CodeMentor는 Pull Request 변경 내용을 분석해 코드 리뷰 코멘트, 개선 제안, 학습 포인트를 생성하는 AI 기반 개발 보조 프로젝트입니다.",
+    problem: {
+      title: "개발 배경",
+      items: [
+        "개인 프로젝트에서는 코드 리뷰 피드백을 꾸준히 받기 어렵습니다.",
+        "LLM 리뷰 결과를 그대로 보여주면 중요도와 근거가 불명확할 수 있습니다.",
+        "리뷰 생성은 응답 시간이 길어질 수 있어 비동기 처리 구조가 필요했습니다.",
+      ],
+    },
+    solution: {
+      title: "해결 방향",
+      items: [
+        "PR diff 수집, 리뷰 요청, 결과 저장을 독립 단계로 분리했습니다.",
+        "리뷰 결과를 severity, file, suggestion 단위로 구조화했습니다.",
+        "Celery 작업 큐를 활용해 리뷰 생성 요청과 실제 분석 처리를 분리했습니다.",
+      ],
+    },
+    architecture: {
+      title: "AI 리뷰 처리 구조",
+      description:
+        "API 서버는 리뷰 요청을 접수하고, 워커가 diff를 분석해 OpenAI API로 리뷰 결과를 생성한 뒤 저장합니다.",
+      nodes: [
+        {
+          title: "Client",
+          items: ["Review Request", "Result View", "Learning Notes"],
+          icon: "Code2",
+        },
+        {
+          title: "API",
+          items: ["FastAPI", "JWT", "Review API"],
+          icon: "Server",
+        },
+        {
+          title: "Worker",
+          items: ["Celery", "Diff Parser", "Retry"],
+          icon: "Workflow",
+        },
+        {
+          title: "AI Layer",
+          items: ["OpenAI API", "Prompt Template", "Structured Output"],
+          icon: "Gauge",
+        },
+      ],
+    },
+    features: [
+      {
+        title: "PR Diff 분석",
+        description:
+          "변경 파일과 코드 조각을 분리해 리뷰에 필요한 맥락만 AI 요청에 전달합니다.",
+        icon: "Code2",
+      },
+      {
+        title: "구조화된 리뷰 결과",
+        description:
+          "리뷰 코멘트를 중요도, 파일 경로, 제안 내용으로 나눠 사용자가 바로 확인할 수 있게 했습니다.",
+        icon: "Gauge",
+      },
+      {
+        title: "비동기 리뷰 생성",
+        description:
+          "리뷰 요청은 즉시 접수하고 분석 작업은 Celery 워커에서 처리해 응답 지연을 줄였습니다.",
+        icon: "Workflow",
+      },
+    ],
+    screenshots: [
+      {
+        title: "CodeMentor Review",
+        image: "/images/projects/code-mentor/thumbnail.svg",
+        description:
+          "AI 리뷰 결과와 학습 추천을 함께 보여주는 개발 보조 대시보드 콘셉트입니다.",
+      },
+    ],
+    contributions: [
+      {
+        date: "2025.12",
+        title: "리뷰 요청 모델 설계",
+        description:
+          "저장소, 브랜치, diff, 리뷰 상태를 분리해 요청 접수와 결과 생성을 추적할 수 있게 했습니다.",
+      },
+      {
+        date: "2025.12",
+        title: "AI 리뷰 프롬프트 구성",
+        description:
+          "중요도와 근거가 포함된 리뷰 결과를 만들 수 있도록 출력 형식을 제한했습니다.",
+      },
+      {
+        date: "2026.01",
+        title: "비동기 작업 큐 적용",
+        description:
+          "Celery와 Redis를 활용해 리뷰 생성 작업을 백그라운드로 분리했습니다.",
+      },
+    ],
+    troubleshooting: [
+      {
+        title: "리뷰 결과 과다 생성",
+        problem:
+          "작은 변경에도 너무 많은 코멘트가 생성되어 핵심 피드백을 찾기 어려웠습니다.",
+        solution:
+          "severity 기준과 최대 코멘트 수를 프롬프트에 포함하고, 중복 제안을 후처리했습니다.",
+        result: "리뷰 결과가 더 짧고 실행 가능한 제안 중심으로 정리되었습니다.",
+      },
+      {
+        title: "긴 diff 처리",
+        problem:
+          "큰 변경 사항을 한 번에 전달하면 토큰 사용량이 늘고 응답 품질이 흔들렸습니다.",
+        solution:
+          "파일 단위로 diff를 나누고 핵심 변경이 있는 조각만 리뷰 대상으로 선택했습니다.",
+        result: "리뷰 요청 크기를 제어하면서 파일별 피드백을 유지할 수 있었습니다.",
+      },
+    ],
+    performance: [
+      {
+        label: "리뷰 처리",
+        value: "Async",
+        description: "요청 접수와 AI 분석 작업 분리",
+        icon: "Workflow",
+      },
+      {
+        label: "결과 구조",
+        value: "Structured",
+        description: "severity, file, suggestion 단위 저장",
+        icon: "Gauge",
+      },
+      {
+        label: "작업 큐",
+        value: "Celery",
+        description: "Redis 기반 백그라운드 리뷰 생성",
+        icon: "MessageQueue",
+      },
+    ],
+    retrospective: {
+      learned: [
+        "AI 리뷰 도구는 생성 품질뿐 아니라 사용자가 바로 판단할 수 있는 출력 구조가 중요합니다.",
+        "긴 작업은 초기에 비동기 상태 모델을 넣어야 UI와 API가 단순해집니다.",
+      ],
+      improvement: [
+        "GitHub Review Comment 자동 등록",
+        "프로젝트별 리뷰 규칙 프리셋 추가",
+      ],
+    },
+    relatedNoteSlugs: [],
+  },
 ];
