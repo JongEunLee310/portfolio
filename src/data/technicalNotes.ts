@@ -1,310 +1,42 @@
 import type { TechnicalNoteCard } from "@/types/note";
+import { googleOauthExceptionMasking } from "./notes/001-google-oauth-exception-masking";
+import { openaiResponseDirectAccess } from "./notes/002-openai-response-direct-access";
+import { multirepoCI } from "./notes/003-multirepo-ci-duplication-and-drift";
+import { statelessPromptContextLoss } from "./notes/004-stateless-prompt-context-loss";
+import { socialIdUniqueConstraintMismatch } from "./notes/005-social-id-unique-constraint-mismatch";
+import { llmResponseFormatNotEnforced } from "./notes/006-llm-response-format-not-enforced";
+import { aiDevopsRetrospective } from "./notes/ai-devops-retrospective";
+import { aiLogAnalysisLatency } from "./notes/ai-log-analysis-latency";
+import { albCorsTroubleshooting } from "./notes/alb-cors-troubleshooting";
+import { asyncPipelineTransition } from "./notes/async-pipeline-transition";
+import { dbRoundTripOptimization } from "./notes/db-round-trip-optimization";
+import { metricCardinalityTroubleshooting } from "./notes/metric-cardinality-troubleshooting";
+import { querydslProjectionOptimization } from "./notes/querydsl-projection-optimization";
+import { rabbitmqEventTopology } from "./notes/rabbitmq-event-topology";
+import { smartFarmApiServerDesign } from "./notes/smart-farm-api-server-design";
+import { smartFarmDataCollectorRecovery } from "./notes/smart-farm-data-collector-recovery";
+import { smartFarmDbReplication } from "./notes/smart-farm-db-replication";
+import { smartFarmMonitoringEngine } from "./notes/smart-farm-monitoring-engine";
+import { smartFarmRemoteDeviceControl } from "./notes/smart-farm-remote-device-control";
 
 export const technicalNotes: TechnicalNoteCard[] = [
-  {
-    slug: "db-round-trip-optimization",
-    title: "DB Round-trip 최적화로 API 응답 시간 개선하기",
-    summary:
-      "불필요한 쿼리와 N+1 문제를 분석하고, 조회 최적화 및 캐싱 전략을 통해 응답 시간을 개선한 기록입니다.",
-    category: "performance",
-    thumbnail: "/images/notes/db-round-trip.svg",
-    date: "2026.05.16",
-    readingTime: "10분 읽기",
-    featured: true,
-    tags: [
-      { name: "Database", category: "database" },
-      { name: "Performance", category: "tool" },
-      { name: "FastAPI", category: "backend" },
-      { name: "SQLAlchemy", category: "backend" },
-    ],
-    relatedProjectSlugs: ["ai-devops-orchestration-platform"],
-  },
-  {
-    slug: "async-pipeline-transition",
-    title: "동기 파이프라인을 비동기 구조로 전환한 이유",
-    summary:
-      "HTTP 요청과 파이프라인 실행을 분리해 응답 시간과 커넥션 점유 문제를 개선한 과정입니다.",
-    category: "architecture",
-    thumbnail: "/images/notes/async-pipeline.svg",
-    date: "2026.05.15",
-    readingTime: "8분 읽기",
-    tags: [
-      { name: "FastAPI", category: "backend" },
-      { name: "BackgroundTasks", category: "backend" },
-      { name: "Celery", category: "messaging" },
-      { name: "Redis", category: "database" },
-    ],
-    relatedProjectSlugs: ["ai-devops-orchestration-platform"],
-  },
-  {
-    slug: "rabbitmq-event-topology",
-    title: "RabbitMQ 기반 이벤트 메시징 토폴로지 설계",
-    summary:
-      "서비스 간 결합도를 낮추고 안정적인 이벤트 전달을 위한 Exchange, Queue, DLQ 설계를 정리합니다.",
-    category: "messaging",
-    thumbnail: "/images/notes/rabbitmq-topology.svg",
-    date: "2026.05.18",
-    readingTime: "12분 읽기",
-    tags: [
-      { name: "RabbitMQ", category: "messaging" },
-      { name: "MSA", category: "infra" },
-      { name: "Event Driven", category: "messaging" },
-    ],
-    relatedProjectSlugs: ["ai-devops-orchestration-platform"],
-  },
-  {
-    slug: "ai-log-analysis-latency",
-    title: "AI 로그 분석 지연을 줄이기 위한 전처리 전략",
-    summary:
-      "실패 로그 전체를 바로 추론하지 않고 단계별 요약과 에러 패턴 추출을 거쳐 분석 시간을 줄인 기록입니다.",
-    category: "performance",
-    thumbnail: "/images/notes/async-pipeline.svg",
-    date: "2026.05.19",
-    readingTime: "7분 읽기",
-    tags: [
-      { name: "OpenAI API", category: "ai" },
-      { name: "Log Analysis", category: "observability" },
-      { name: "FastAPI", category: "backend" },
-    ],
-    relatedProjectSlugs: ["ai-devops-orchestration-platform"],
-  },
-  {
-    slug: "metric-cardinality-troubleshooting",
-    title: "Prometheus 메트릭 고카디널리티 줄이기",
-    summary:
-      "실행 ID와 사용자 식별자를 metric label에서 제거하고 로그/DB 조회로 상세 추적을 분리한 과정입니다.",
-    category: "observability",
-    thumbnail: "/images/notes/db-round-trip.svg",
-    date: "2026.05.20",
-    readingTime: "8분 읽기",
-    tags: [
-      { name: "Prometheus", category: "observability" },
-      { name: "Grafana", category: "observability" },
-      { name: "Metrics", category: "tool" },
-    ],
-    relatedProjectSlugs: ["ai-devops-orchestration-platform"],
-  },
-  {
-    slug: "ai-devops-retrospective",
-    title: "AI DevOps 플랫폼을 만들며 배운 운영 경계 설계",
-    summary:
-      "파이프라인 실행, 로그 분석, 알림, 모니터링을 나누며 배운 책임 경계와 다음 개선 방향을 정리한 회고입니다.",
-    category: "architecture",
-    thumbnail: "/images/notes/rabbitmq-topology.svg",
-    date: "2026.05.21",
-    readingTime: "9분 읽기",
-    tags: [
-      { name: "DevOps", category: "devops" },
-      { name: "Architecture", category: "infra" },
-      { name: "Observability", category: "observability" },
-    ],
-    relatedProjectSlugs: ["ai-devops-orchestration-platform"],
-  },
-  {
-    slug: "querydsl-projection-optimization",
-    title: "QueryDSL Projection 활용으로 불필요한 조회 줄이기",
-    summary:
-      "엔티티 전체 조회 대신 필요한 필드만 조회해 메모리 사용량과 네트워크 비용을 줄인 사례입니다.",
-    category: "database",
-    thumbnail: "/images/notes/querydsl-projection.svg",
-    date: "2025.07.17",
-    readingTime: "6분 읽기",
-    tags: [
-      { name: "Spring Boot", category: "backend" },
-      { name: "QueryDSL", category: "backend" },
-      { name: "JPA", category: "backend" },
-      { name: "MySQL", category: "database" },
-    ],
-    relatedProjectSlugs: ["halo"],
-  },
-  {
-    slug: "alb-cors-troubleshooting",
-    title: "ALB + CORS 설정 트러블슈팅 기록",
-    summary:
-      "Cloudflare, ALB, Spring Boot 환경에서 발생한 CORS/OPTIONS 502 문제를 추적한 기록입니다.",
-    category: "troubleshooting",
-    thumbnail: "/images/notes/alb-cors.svg",
-    date: "2025.06.29",
-    readingTime: "9분 읽기",
-    tags: [
-      { name: "AWS", category: "infra" },
-      { name: "ALB", category: "infra" },
-      { name: "CORS", category: "backend" },
-      { name: "Spring Boot", category: "backend" },
-    ],
-    relatedProjectSlugs: ["halo"],
-  },
-  {
-    slug: "001-google-oauth-exception-masking",
-    title: "Google OAuth 예외 재래핑 문제와 HTTPException 처리 순서",
-    summary:
-      "except Exception이 FastAPI HTTPException을 재래핑해 오류 유형이 뭉개지는 문제를 분석하고, 예외 처리 순서를 재배치해 해결한 기록입니다.",
-    category: "troubleshooting",
-    thumbnail: "/images/notes/google-oauth-exception.svg",
-    date: "2025.01.15",
-    readingTime: "5분 읽기",
-    tags: [
-      { name: "FastAPI", category: "backend" },
-      { name: "Python", category: "language" },
-      { name: "httpx", category: "backend" },
-    ],
-    relatedProjectSlugs: ["the-listening-tree"],
-  },
-  {
-    slug: "002-openai-response-direct-access",
-    title: "OpenAI 응답 구조 직접 접근의 취약성과 방어 로직",
-    summary:
-      "response.output[0].content[0].text 직접 접근이 빈 응답에서 IndexError를 유발한 문제와 사용자 메시지 표준 출력 노출을 함께 수정한 기록입니다.",
-    category: "troubleshooting",
-    thumbnail: "/images/notes/openai-response-access.svg",
-    date: "2025.01.20",
-    readingTime: "5분 읽기",
-    tags: [
-      { name: "OpenAI SDK", category: "ai" },
-      { name: "FastAPI", category: "backend" },
-      { name: "Python", category: "language" },
-    ],
-    relatedProjectSlugs: ["the-listening-tree"],
-  },
-  {
-    slug: "003-multirepo-ci-duplication-and-drift",
-    title: "멀티레포 CI 복붙 관리의 한계와 이름 불일치 문제",
-    summary:
-      "GitHub Actions 워크플로우를 복붙으로 관리할 때 name 필드 누락이 CI 대시보드를 혼란스럽게 만든 문제와 수정 과정을 정리한 기록입니다.",
-    category: "troubleshooting",
-    thumbnail: "/images/notes/multirepo-ci-drift.svg",
-    date: "2025.02.05",
-    readingTime: "4분 읽기",
-    tags: [
-      { name: "GitHub Actions", category: "devops" },
-      { name: "Docker", category: "infra" },
-    ],
-    relatedProjectSlugs: ["the-listening-tree"],
-  },
-  {
-    slug: "004-stateless-prompt-context-loss",
-    title: "Stateless 프롬프트에서 대화 맥락이 사라지는 문제",
-    summary:
-      "매 요청마다 독립적으로 GPT-4o를 호출할 때 이전 대화 맥락이 유지되지 않는 한계와 이를 수용한 설계 결정을 정리한 기록입니다.",
-    category: "architecture",
-    thumbnail: "/images/notes/stateless-prompt-context.svg",
-    date: "2025.01.25",
-    readingTime: "5분 읽기",
-    tags: [
-      { name: "GPT-4o", category: "ai" },
-      { name: "FastAPI", category: "backend" },
-    ],
-    relatedProjectSlugs: ["the-listening-tree"],
-  },
-  {
-    slug: "005-social-id-unique-constraint-mismatch",
-    title: "social_id 단독 unique 제약과 복합 조회 조건의 불일치",
-    summary:
-      "DB 제약은 social_id 단독 unique, 핸들러는 복합 조건으로 조회해 설계 의도가 모델에 반영되지 않은 문제를 Alembic 마이그레이션으로 해결한 기록입니다.",
-    category: "database",
-    thumbnail: "/images/notes/social-id-unique-constraint.svg",
-    date: "2025.01.18",
-    readingTime: "6분 읽기",
-    tags: [
-      { name: "SQLAlchemy", category: "backend" },
-      { name: "Alembic", category: "backend" },
-      { name: "PostgreSQL", category: "database" },
-    ],
-    relatedProjectSlugs: ["the-listening-tree"],
-  },
-  {
-    slug: "006-llm-response-format-not-enforced",
-    title: "LLM 응답 형식 미강제로 인한 파싱 불안정성",
-    summary:
-      "시스템 프롬프트만으로는 GPT-4o 응답 형식이 보장되지 않아 공감 이외의 응답이 섞이는 문제와 프롬프트 강화로 완화한 기록입니다.",
-    category: "troubleshooting",
-    thumbnail: "/images/notes/llm-response-format.svg",
-    date: "2025.01.22",
-    readingTime: "5분 읽기",
-    tags: [
-      { name: "GPT-4o", category: "ai" },
-      { name: "OpenAI SDK", category: "ai" },
-    ],
-    relatedProjectSlugs: ["the-listening-tree"],
-  },
-  {
-    slug: "smart-farm-data-collector-recovery",
-    title: "원격지 Data Collector 수집 실패와 비정상 데이터 정상화",
-    summary:
-      "Azure VM에서 실행되는 Data Collector가 수집 실패하거나 비정상 데이터를 반환할 때 자동으로 정상화하는 구조를 설계한 기록입니다.",
-    category: "troubleshooting",
-    thumbnail: "/images/notes/smart-farm-data-collector.svg",
-    date: "2024.10.12",
-    readingTime: "8분 읽기",
-    tags: [
-      { name: "IoT", category: "infra" },
-      { name: "Azure VM", category: "infra" },
-      { name: "ModbusTCP", category: "backend" },
-    ],
-    relatedProjectSlugs: ["smart-farm"],
-  },
-  {
-    slug: "smart-farm-db-replication",
-    title: "센서 데이터 손실 방지를 위한 Azure MySQL DB 이중화",
-    summary:
-      "실시간으로 누적되는 센서 데이터의 손실을 막기 위해 Azure MySQL DB 이중화 구조를 적용하고 저장 안정성을 확보한 기록입니다.",
-    category: "database",
-    thumbnail: "/images/notes/smart-farm-db-replication.svg",
-    date: "2024.10.18",
-    readingTime: "7분 읽기",
-    tags: [
-      { name: "MySQL", category: "database" },
-      { name: "Azure", category: "infra" },
-      { name: "Replication", category: "database" },
-    ],
-    relatedProjectSlugs: ["smart-farm"],
-  },
-  {
-    slug: "smart-farm-remote-device-control",
-    title: "API Server와 Device Controller를 통한 원격 디바이스 제어",
-    summary:
-      "사용자의 앱 제어 요청이 API Server와 Device Controller를 거쳐 ModbusTCP로 원격지 DAS에 전달되는 제어 흐름을 구현한 기록입니다.",
-    category: "architecture",
-    thumbnail: "/images/notes/smart-farm-remote-control.svg",
-    date: "2024.11.02",
-    readingTime: "9분 읽기",
-    tags: [
-      { name: "ModbusTCP", category: "backend" },
-      { name: "IoT", category: "infra" },
-      { name: "WebSocket", category: "backend" },
-    ],
-    relatedProjectSlugs: ["smart-farm"],
-  },
-  {
-    slug: "smart-farm-api-server-design",
-    title: "스마트팜 IoT 서비스 API Server 설계",
-    summary:
-      "수집, 저장, 이상 감지, 알림, 제어를 통합하는 스마트팜 API Server의 엔드포인트 구조와 서비스 간 책임 분리를 정리한 기록입니다.",
-    category: "architecture",
-    thumbnail: "/images/notes/smart-farm-api-design.svg",
-    date: "2024.09.20",
-    readingTime: "10분 읽기",
-    tags: [
-      { name: "REST API", category: "backend" },
-      { name: "IoT", category: "infra" },
-      { name: "Azure", category: "infra" },
-    ],
-    relatedProjectSlugs: ["smart-farm"],
-  },
-  {
-    slug: "smart-farm-monitoring-engine",
-    title: "Monitoring Engine의 이상 값 감지와 Outlier 분리 저장",
-    summary:
-      "기준 값 기반으로 센서 이상 값을 감지하고 일반 데이터와 분리된 Outlier 테이블에 저장해 이력 추적과 알림 처리를 용이하게 한 기록입니다.",
-    category: "architecture",
-    thumbnail: "/images/notes/smart-farm-monitoring.svg",
-    date: "2024.11.15",
-    readingTime: "8분 읽기",
-    tags: [
-      { name: "IoT", category: "infra" },
-      { name: "MySQL", category: "database" },
-      { name: "Monitoring", category: "observability" },
-    ],
-    relatedProjectSlugs: ["smart-farm"],
-  },
+  dbRoundTripOptimization,
+  asyncPipelineTransition,
+  rabbitmqEventTopology,
+  aiLogAnalysisLatency,
+  metricCardinalityTroubleshooting,
+  aiDevopsRetrospective,
+  querydslProjectionOptimization,
+  albCorsTroubleshooting,
+  googleOauthExceptionMasking,
+  openaiResponseDirectAccess,
+  multirepoCI,
+  statelessPromptContextLoss,
+  socialIdUniqueConstraintMismatch,
+  llmResponseFormatNotEnforced,
+  smartFarmDataCollectorRecovery,
+  smartFarmDbReplication,
+  smartFarmRemoteDeviceControl,
+  smartFarmApiServerDesign,
+  smartFarmMonitoringEngine,
 ];
