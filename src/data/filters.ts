@@ -4,7 +4,12 @@ import type {
   ProjectTypeFilterValue,
   ProjectViewMode,
 } from "@/types/project";
-import type { NoteFilterValue } from "@/types/note";
+import type {
+  NoteFeaturedFilterValue,
+  NoteFilterValue,
+  NoteSortValue,
+  NoteViewMode,
+} from "@/types/note";
 
 export const projectCategoryFilters = [
   { label: "전체", value: "all" },
@@ -104,4 +109,40 @@ export const noteSortOptions = [
   { label: "최신순", value: "latest" },
   { label: "추천순", value: "featured" },
   { label: "읽는 시간순", value: "readingTime" },
-] as const;
+] as const satisfies readonly {
+  label: string;
+  value: NoteSortValue;
+}[];
+
+export const noteFeaturedFilters = [
+  { label: "전체", value: "all" },
+  { label: "추천 문서", value: "featured" },
+] as const satisfies readonly {
+  label: string;
+  value: NoteFeaturedFilterValue;
+}[];
+
+export const noteViewModeOptions = [
+  { label: "그리드 보기", value: "grid" },
+  { label: "리스트 보기", value: "list" },
+] as const satisfies readonly {
+  label: string;
+  value: NoteViewMode;
+}[];
+
+export const noteSidebarContent = {
+  title: "필터",
+  categoryTitle: "문서 유형",
+  tagTitle: "기술 태그",
+  featuredTitle: "추천 여부",
+  moreLabel: "더 보기",
+} as const;
+
+export const noteListContent = {
+  countPrefix: "총",
+  countSuffix: "개의 문서",
+  sortAriaLabel: "기술 노트 정렬",
+  previousPageLabel: "이전 페이지",
+  nextPageLabel: "다음 페이지",
+  detailLabel: "문서 보기",
+} as const;
