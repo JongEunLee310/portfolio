@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import { EmptyState } from "@/components/common/EmptyState";
 import { PageHero } from "@/components/hero/PageHero";
-import { ProjectsHeroVisual } from "@/components/hero/ProjectsHeroVisual";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { ProjectGrid } from "@/components/project/ProjectGrid";
 import { ProjectListSidebar } from "@/components/project/ProjectListSidebar";
@@ -203,10 +202,7 @@ export function ProjectsPage() {
 
   return (
     <PageLayout {...pageChrome}>
-      <PageHero
-        {...pageHeroes.projects}
-        visualSlot={<ProjectsHeroVisual />}
-      />
+      <PageHero {...pageHeroes.projects} />
       <section className="bg-brand-dark pb-16 text-white lg:pb-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex gap-6">

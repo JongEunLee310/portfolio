@@ -33,9 +33,9 @@ export function PageHero({
     <section className="relative overflow-hidden bg-hero-radial text-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(59,130,246,0.22)_1px,transparent_0)] bg-[length:32px_32px] opacity-30" />
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 py-24 lg:grid-cols-2 lg:px-8 lg:py-28">
-        <div>
+        <div className="min-w-0">
           <p className="mb-4 text-sm font-semibold text-blue-400">{eyebrow}</p>
-          <h1 className="whitespace-pre-line text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+          <h1 className="whitespace-pre-line break-words text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
             {highlightedText && titleParts.length > 1 ? (
               <>
                 {titleParts[0]}
@@ -46,7 +46,7 @@ export function PageHero({
               title
             )}
           </h1>
-          <p className="mt-6 max-w-xl text-base leading-8 text-slate-300">
+          <p className="mt-6 max-w-xl break-words text-base leading-8 text-slate-300">
             {description}
           </p>
           {primaryAction || secondaryAction ? (

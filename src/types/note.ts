@@ -20,6 +20,18 @@ export type NoteFilterValue =
   | "architecture"
   | "troubleshooting";
 
+export type NoteSortValue = "latest" | "featured" | "readingTime";
+
+export type NoteViewMode = "grid" | "list";
+
+export type NoteFeaturedFilterValue = "all" | "featured";
+
+export type NoteFilterState = {
+  category: NoteFilterValue;
+  tags: string[];
+  featured: NoteFeaturedFilterValue;
+};
+
 export type TechnicalNoteCard = {
   slug: string;
   title: string;

@@ -1,4 +1,3 @@
-import { AboutArchDiagram } from "@/components/about/AboutArchDiagram";
 import { AboutGrowthMetrics } from "@/components/about/AboutGrowthMetrics";
 import { AboutProfile } from "@/components/about/AboutProfile";
 import { AboutRoleCard } from "@/components/about/AboutRoleCard";
@@ -19,10 +18,7 @@ export function AboutPage() {
 
   return (
     <PageLayout {...pageChrome}>
-      <PageHero
-        {...pageHeroes.about}
-        visualSlot={<AboutArchDiagram />}
-      />
+      <PageHero {...pageHeroes.about} />
 
       <section id={sections.profile.id} className={`${surface.light} ${layout.section}`}>
         <div className={layout.container}>
