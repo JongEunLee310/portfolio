@@ -15,17 +15,17 @@ export function ArticleToc({ items, title }: ArticleTocProps) {
   }
 
   return (
-    <nav className="rounded-2xl border border-slate-200 bg-white p-5 shadow-card">
-      <p className="text-sm font-bold text-slate-900">{title}</p>
-      <div className="mt-4 space-y-2">
+    <nav className="rounded-lg border border-slate-200 bg-white p-5 shadow-card">
+      <p className="text-sm font-bold text-slate-950">{title}</p>
+      <div className="mt-4 space-y-1.5">
         {items.map((item) => (
           <a
             key={item.id}
             href={`#${item.id}`}
             className={[
-              "block text-sm text-slate-600 transition hover:text-blue-600",
-              item.depth === 2 ? "pl-3" : "",
-              item.depth === 3 ? "pl-6" : "",
+              "block rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-50 hover:text-blue-700",
+              item.depth === 2 ? "ml-3" : "",
+              item.depth === 3 ? "ml-6" : "",
             ].join(" ")}
           >
             {item.title}

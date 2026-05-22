@@ -1,4 +1,4 @@
-import { Card } from "@/components/common/Card";
+import { CheckCircle2 } from "lucide-react";
 import { CodeBlock } from "@/components/note/CodeBlock";
 import type { ArticleSection } from "@/types/note";
 
@@ -15,9 +15,9 @@ const calloutClassMap: Record<
   Extract<ArticleSection, { type: "callout" }>["variant"],
   string
 > = {
-  info: "border-blue-200 bg-blue-50 text-blue-800",
-  warning: "border-amber-200 bg-amber-50 text-amber-800",
-  success: "border-emerald-200 bg-emerald-50 text-emerald-800",
+  info: "border-blue-200 bg-blue-50 text-blue-900",
+  warning: "border-amber-200 bg-amber-50 text-amber-900",
+  success: "border-emerald-200 bg-emerald-50 text-emerald-900",
 };
 
 export function ArticleSectionRenderer({
@@ -28,7 +28,7 @@ export function ArticleSectionRenderer({
     return (
       <h2
         id={section.id}
-        className="scroll-mt-28 pt-4 text-2xl font-bold tracking-tight text-slate-900 md:text-3xl"
+        className="scroll-mt-28 pt-6 text-2xl font-bold tracking-tight text-slate-950 md:text-3xl"
       >
         {section.title}
       </h2>
@@ -45,14 +45,42 @@ export function ArticleSectionRenderer({
 
   if (section.type === "list") {
     return (
-      <ul className="space-y-3 text-base leading-8 text-slate-600 md:text-[17px]">
+      <ul className="rounded-lg border border-slate-200 bg-white p-5 text-base leading-8 text-slate-600 shadow-card md:text-[17px]">
         {section.items.map((item) => (
           <li key={item} className="flex gap-3">
-            <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" />
+            <CheckCircle2 className="mt-2 h-4 w-4 shrink-0 text-blue-600" />
             <span>{item}</span>
           </li>
         ))}
       </ul>
+    );
+  }
+
+  if (section.type === "cards") {
+    return (
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {section.items.map((item) => (
+          <article
+            key={item.title}
+            className="rounded-lg border border-slate-200 bg-white p-5 shadow-card"
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+              <CheckCircle2 className="h-4 w-4" />
+            </div>
+            <h3 className="mt-4 text-sm font-bold text-slate-950">
+              {item.title}
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              {item.description}
+            </p>
+            {item.badge ? (
+              <span className="mt-4 inline-flex rounded-md bg-blue-50 px-2.5 py-1 font-mono text-[11px] font-bold uppercase text-blue-700">
+                {item.badge}
+              </span>
+            ) : null}
+          </article>
+        ))}
+      </div>
     );
   }
 
@@ -69,7 +97,7 @@ export function ArticleSectionRenderer({
   if (section.type === "callout") {
     return (
       <div
-        className={`rounded-2xl border p-5 text-sm leading-7 md:text-base ${calloutClassMap[section.variant]}`}
+        className={`rounded-lg border px-5 py-4 text-sm leading-7 md:text-base ${calloutClassMap[section.variant]}`}
       >
         {section.content}
       </div>
@@ -78,38 +106,78 @@ export function ArticleSectionRenderer({
 
   if (section.type === "metrics") {
     return (
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-3">
         {section.items.map((item) => (
-          <Card key={item.label} className="p-5">
-            <h3 className="text-sm font-bold text-slate-900">{item.label}</h3>
-            <dl className="mt-4 space-y-3 text-sm">
-              <div>
-                <dt className="font-semibold text-slate-500">
+          <article
+            key={item.label}
+            className="rounded-lg border border-slate-800 bg-slate-950 p-5 text-white shadow-card"
+          >
+            <h3 className="text-sm font-bold text-slate-200">{item.label}</h3>
+            <dl className="mt-5 grid grid-cols-2 gap-4 text-sm">
+              <div className="rounded-lg bg-white/5 p-3">
+                <dt className="font-semibold text-slate-400">
                   {metricsLabels.before}
                 </dt>
-                <dd className="mt-1 text-slate-700">{item.before}</dd>
+                <dd className="mt-2 font-bold text-slate-200">{item.before}</dd>
               </div>
-              <div>
-                <dt className="font-semibold text-slate-500">
+              <div className="rounded-lg bg-blue-500/10 p-3">
+                <dt className="font-semibold text-blue-200">
                   {metricsLabels.after}
                 </dt>
-                <dd className="mt-1 text-slate-900">{item.after}</dd>
+                <dd className="mt-2 font-bold text-blue-100">{item.after}</dd>
               </div>
-              <div className="rounded-xl bg-blue-50 px-3 py-2">
-                <dt className="font-semibold text-blue-600">
+              <div className="col-span-2 rounded-lg bg-blue-600/20 px-3 py-2">
+                <dt className="font-semibold text-blue-200">
                   {metricsLabels.change}
                 </dt>
-                <dd className="mt-1 font-bold text-blue-700">{item.change}</dd>
+                <dd className="mt-1 text-2xl font-bold text-blue-300">
+                  {item.change}
+                </dd>
               </div>
             </dl>
-          </Card>
+          </article>
+        ))}
+      </div>
+    );
+  }
+
+  if (section.type === "comparison") {
+    return (
+      <div className="grid gap-4 lg:grid-cols-3">
+        {section.items.map((item) => (
+          <article
+            key={item.title}
+            className="rounded-lg border border-slate-200 bg-white p-5 shadow-card"
+          >
+            <h3 className="text-base font-bold text-slate-950">{item.title}</h3>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              {item.description}
+            </p>
+            <ul className="mt-4 space-y-2 text-sm leading-6 text-slate-600">
+              {item.bullets.map((bullet) => (
+                <li key={bullet} className="flex gap-2">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" />
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+            {item.code ? (
+              <div className="mt-5">
+                <CodeBlock
+                  code={item.code.code}
+                  language={item.code.language}
+                  filename={item.code.filename}
+                />
+              </div>
+            ) : null}
+          </article>
         ))}
       </div>
     );
   }
 
   return (
-    <figure className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card">
+    <figure className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-card">
       <img
         src={section.src}
         alt={section.alt}
