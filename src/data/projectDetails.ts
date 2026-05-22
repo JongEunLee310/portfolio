@@ -1116,7 +1116,7 @@ export const projectDetails: ProjectDetail[] = [
   },
   {
     ...findProject("the-listening-tree"),
-    heroImage: "/images/projects/the-listening-tree/hero.png",
+    heroImage: "/images/projects/the-listening-tree/hero.svg",
     heroHighlights: [
       { label: "마이크로서비스", value: "4개", icon: "Layers" },
       { label: "CI/CD 파이프라인", value: "3개", icon: "GitBranch" },
@@ -1383,17 +1383,17 @@ export const projectDetails: ProjectDetail[] = [
     screenshots: [
       {
         title: "메인 페이지 (나무 시각화)",
-        image: "/images/projects/the-listening-tree/main.png",
+        image: "/images/projects/the-listening-tree/main.svg",
         description: "이야기 수에 따라 나뭇잎이 쌓이는 나무와 계절 연동 테마",
       },
       {
         title: "이야기 작성 페이지",
-        image: "/images/projects/the-listening-tree/story.png",
+        image: "/images/projects/the-listening-tree/story.svg",
         description: "사용자 메시지 입력 및 AI 공감 응답 표시",
       },
       {
         title: "로그인 페이지",
-        image: "/images/projects/the-listening-tree/signin.png",
+        image: "/images/projects/the-listening-tree/signin.svg",
         description: "Google OAuth 소셜 로그인 버튼",
       },
     ],
