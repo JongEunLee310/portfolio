@@ -4,7 +4,7 @@ import {
   Workflow,
   type LucideIcon,
 } from "lucide-react";
-import { surface } from "@/styles/classNames";
+import { themeSurface } from "@/styles/classNames";
 import type { IconName } from "@/types/common";
 
 type ContactValueCardProps = {
@@ -25,12 +25,12 @@ export function ContactValueCard({ value }: ContactValueCardProps) {
   const Icon = iconMap[value.icon] ?? Gauge;
 
   return (
-    <div className={`${surface.card} p-6`}>
+    <div className={`${themeSurface.card} p-6`}>
       <Icon className="h-8 w-8 text-blue-600" aria-hidden="true" />
-      <h3 className="mt-4 text-base font-semibold text-slate-900">
+      <h3 className="mt-4 text-base font-semibold text-[var(--color-page-text)]">
         {value.title}
       </h3>
-      <p className="mt-2 text-sm leading-6 text-slate-600">
+      <p className="mt-2 text-sm leading-6 text-[var(--color-muted-text)]">
         {value.description}
       </p>
     </div>

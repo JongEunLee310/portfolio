@@ -20,11 +20,24 @@ function expectPublicFileExists(src: string, context: string) {
   ).toBe(true);
 }
 
+function expectHeroVisualExists(
+  visual: string | { readonly light: string; readonly dark: string },
+  context: string,
+) {
+  if (typeof visual === "string") {
+    expectPublicFileExists(visual, context);
+    return;
+  }
+
+  expectPublicFileExists(visual.light, `${context}.light`);
+  expectPublicFileExists(visual.dark, `${context}.dark`);
+}
+
 describe("image paths", () => {
   it("hero visual 이미지가 public에 존재해야 한다", () => {
     for (const [key, hero] of Object.entries(pageHeroes)) {
       if ("visual" in hero && hero.visual) {
-        expectPublicFileExists(hero.visual, `pageHeroes.${key}.visual`);
+        expectHeroVisualExists(hero.visual, `pageHeroes.${key}.visual`);
       }
     }
   });

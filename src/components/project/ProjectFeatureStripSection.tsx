@@ -32,15 +32,15 @@ export function ProjectFeatureStripSection({
         {visibleFeatures.map((feature) => (
           <article
             key={feature.title}
-            className="rounded-lg border border-slate-200 bg-white p-5 shadow-card"
+            className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-card"
           >
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/10 text-blue-500">
               <ProjectDetailIcon icon={feature.icon} />
             </span>
-            <h3 className="mt-4 text-sm font-bold text-slate-900">
+            <h3 className="mt-4 text-sm font-bold text-[var(--color-page-text)]">
               {feature.title}
             </h3>
-            <p className="mt-2 text-xs leading-6 text-slate-600">
+            <p className="mt-2 text-xs leading-6 text-[var(--color-muted-text)]">
               {feature.description}
             </p>
           </article>

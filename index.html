@@ -7,6 +7,28 @@
       name="description"
       content="문제를 관찰하고 구조를 개선하는 백엔드 개발자 이종은의 포트폴리오입니다."
     />
+    <script>
+      (() => {
+        let resolvedTheme = "light";
+
+        try {
+          const storageKey = "portfolio-theme-mode";
+          const storedMode = window.localStorage.getItem(storageKey);
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          resolvedTheme =
+            storedMode === "light" || storedMode === "dark"
+              ? storedMode
+              : prefersDark
+                ? "dark"
+                : "light";
+        } catch {
+          resolvedTheme = "light";
+        }
+
+        document.documentElement.dataset.theme = resolvedTheme;
+        document.documentElement.style.colorScheme = resolvedTheme;
+      })();
+    </script>
     <title>이종은 | 백엔드 개발자 포트폴리오</title>
   </head>
   <body>

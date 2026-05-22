@@ -41,14 +41,14 @@ export function Footer({
   copyright,
 }: FooterProps) {
   return (
-    <footer className="bg-brand-dark text-white">
+    <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-page-text)]">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex flex-col gap-2">
-            <NavLink to="/" className="font-mono text-lg font-bold text-white">
+            <NavLink to="/" className="font-mono text-lg font-bold text-[var(--color-page-text)]">
               {logoText}
             </NavLink>
-            <p className="max-w-xs text-sm leading-6 text-slate-400">
+            <p className="max-w-xs text-sm leading-6 text-[var(--color-muted-text)]">
               {tagline}
             </p>
           </div>
@@ -59,7 +59,7 @@ export function Footer({
                 <NavLink
                   key={item.href}
                   to={item.href}
-                  className="text-sm font-medium text-slate-400 transition hover:text-white"
+                  className="text-sm font-medium text-[var(--color-muted-text)] transition hover:text-blue-600"
                 >
                   {item.label}
                 </NavLink>
@@ -76,7 +76,7 @@ export function Footer({
                     href={contact.href}
                     target={contact.external ? "_blank" : undefined}
                     rel={contact.external ? "noreferrer" : undefined}
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-400 transition hover:text-white"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted-text)] transition hover:text-blue-600"
                   >
                     <Icon className="h-4 w-4" />
                     {contact.label}
@@ -87,8 +87,8 @@ export function Footer({
           </div>
         </div>
 
-        <div className="mt-8 border-t border-white/10 pt-6">
-          <p className="text-xs text-slate-500">{copyright}</p>
+        <div className="mt-8 border-t border-[var(--color-border)] pt-6">
+          <p className="text-xs text-[var(--color-muted-text)]">{copyright}</p>
         </div>
       </div>
     </footer>

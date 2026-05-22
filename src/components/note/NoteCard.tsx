@@ -18,7 +18,7 @@ export function NoteCard({ note, labels, variant = "grid" }: NoteCardProps) {
 
   return (
     <article
-      className={`group w-full min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover ${
+      className={`group w-full min-w-0 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover ${
         isList ? "md:flex" : ""
       }`}
     >
@@ -27,7 +27,7 @@ export function NoteCard({ note, labels, variant = "grid" }: NoteCardProps) {
           isList ? "md:w-64 md:shrink-0" : ""
         }`}
       >
-        <div className="aspect-[16/10] w-full max-w-full overflow-hidden rounded-lg bg-slate-100">
+        <div className="aspect-[16/10] w-full max-w-full overflow-hidden rounded-lg bg-[var(--color-surface-muted)]">
           <img
             src={note.thumbnail}
             alt={`${note.title} 썸네일`}
@@ -37,10 +37,10 @@ export function NoteCard({ note, labels, variant = "grid" }: NoteCardProps) {
       </div>
       <div className="flex min-w-0 flex-1 flex-col px-4 pb-4">
         <Badge>{note.category}</Badge>
-        <h3 className="mt-3 break-words text-xl font-bold leading-snug text-slate-950">
+        <h3 className="mt-3 break-words text-xl font-bold leading-snug text-[var(--color-page-text)]">
           <Link to={PATHS.technicalNoteDetail(note.slug)}>{note.title}</Link>
         </h3>
-        <p className="mt-3 line-clamp-2 min-h-12 break-words text-sm leading-6 text-slate-600">
+        <p className="mt-3 line-clamp-2 min-h-12 break-words text-sm leading-6 text-[var(--color-muted-text)]">
           {note.summary}
         </p>
         <div className="mt-5 flex flex-wrap gap-1.5">
@@ -49,7 +49,7 @@ export function NoteCard({ note, labels, variant = "grid" }: NoteCardProps) {
           ))}
         </div>
         <div className="mt-auto pt-6">
-          <div className="flex items-center gap-4 text-xs text-slate-500">
+          <div className="flex items-center gap-4 text-xs text-[var(--color-muted-text)]">
             <span>{note.date}</span>
             <span>{note.readingTime}</span>
           </div>

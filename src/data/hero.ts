@@ -22,14 +22,20 @@ export const pageHeroes = {
     title: "프로젝트",
     description:
       "실무와 개인 프로젝트를 통해 문제를 해결하고, 더 나은 구조와 가치를 만드는 서비스를 만들어왔습니다.",
-    visual: "/images/hero/project-hero.svg",
+    visual: {
+      light: "/images/hero/project-hero-light.svg",
+      dark: "/images/hero/project-hero-dark.svg",
+    },
   },
   technicalNotes: {
     eyebrow: "TECHNICAL NOTES",
     title: "기술적 문제 해결 기록",
     description:
       "개발 과정에서 마주한 기술적 문제와 고민, 해결 과정과 배운 점을 기록합니다.",
-    visual: "/images/hero/notes-hero.svg",
+    visual: {
+      light: "/images/hero/notes-hero-light.svg",
+      dark: "/images/hero/notes-hero-dark.svg",
+    },
   },
   about: {
     eyebrow: "ABOUT",
@@ -45,7 +51,10 @@ export const pageHeroes = {
       label: "연락하기",
       href: PATHS.contact,
     },
-    visual: "/images/hero/about-hero.svg",
+    visual: {
+      light: "/images/hero/about-hero-light.svg",
+      dark: "/images/hero/about-hero-dark.svg",
+    },
   },
   contact: {
     eyebrow: "CONTACT",
@@ -53,7 +62,10 @@ export const pageHeroes = {
     highlightedText: "있으신가요?",
     description:
       "새로운 아이디어부터 기술적 도전까지, 빠르게 이해하고 함께 고민하며 가치를 만들어갑니다.",
-    visual: "/images/hero/contact-hero.svg",
+    visual: {
+      light: "/images/hero/contact-hero-light.svg",
+      dark: "/images/hero/contact-hero-dark.svg",
+    },
   },
 } as const;
 

@@ -57,15 +57,15 @@ export function ProjectListSidebar({
   const visibleTechOptions = techOptions.slice(0, 6);
 
   return (
-    <aside className="sticky top-24 hidden w-56 shrink-0 self-start overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] text-white shadow-glow lg:block">
-      <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+    <aside className="sticky top-24 hidden w-56 shrink-0 self-start overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-page-text)] shadow-card lg:block">
+      <div className="flex items-center justify-between border-b border-[var(--color-border)] px-5 py-4">
         <h2 className="text-sm font-semibold">{content.title}</h2>
-        <SlidersHorizontal className="h-4 w-4 text-slate-400" />
+        <SlidersHorizontal className="h-4 w-4 text-[var(--color-muted-text)]" />
       </div>
 
       <div className="space-y-7 px-5 py-5">
         <section>
-          <h3 className="text-xs font-semibold text-slate-400">
+          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
             {content.categoryTitle}
           </h3>
           <div className="mt-3 space-y-1">
@@ -79,8 +79,8 @@ export function ProjectListSidebar({
                   onClick={() => onChange({ ...filters, category: option.value })}
                   className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition ${
                     isSelected
-                      ? "bg-white/10 text-white"
-                      : "text-slate-400 hover:bg-white/[0.06] hover:text-white"
+                      ? "bg-blue-600 text-white"
+                      : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]"
                   }`}
                 >
                   <span>{option.label}</span>
@@ -91,8 +91,8 @@ export function ProjectListSidebar({
           </div>
         </section>
 
-        <section className="border-t border-white/10 pt-6">
-          <h3 className="text-xs font-semibold text-slate-400">
+        <section className="border-t border-[var(--color-border)] pt-6">
+          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
             {content.techTitle}
           </h3>
           <div className="mt-3 space-y-3">
@@ -105,7 +105,7 @@ export function ProjectListSidebar({
               return (
                 <label
                   key={option.value}
-                  className="flex cursor-pointer items-center justify-between gap-3 text-xs text-slate-400 transition hover:text-white"
+                  className="flex cursor-pointer items-center justify-between gap-3 text-xs text-[var(--color-muted-text)] transition hover:text-[var(--color-page-text)]"
                 >
                   <span className="flex min-w-0 items-center gap-2">
                     <input
@@ -114,7 +114,7 @@ export function ProjectListSidebar({
                       onChange={() =>
                         onChange({ ...filters, techStacks: nextTechStacks })
                       }
-                      className="h-3.5 w-3.5 rounded border-white/20 bg-transparent accent-blue-500"
+                      className="h-3.5 w-3.5 rounded border-[var(--color-border)] bg-transparent accent-blue-500"
                     />
                     <span className="truncate">{option.label}</span>
                   </span>
@@ -134,22 +134,22 @@ export function ProjectListSidebar({
           ) : null}
         </section>
 
-        <section className="border-t border-white/10 pt-6">
-          <h3 className="text-xs font-semibold text-slate-400">
+        <section className="border-t border-[var(--color-border)] pt-6">
+          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
             {content.periodTitle}
           </h3>
           <div className="mt-3 space-y-3">
             {periodOptions.map((option) => (
               <label
                 key={option.value}
-                className="flex cursor-pointer items-center gap-2 text-xs text-slate-400 transition hover:text-white"
+                className="flex cursor-pointer items-center gap-2 text-xs text-[var(--color-muted-text)] transition hover:text-[var(--color-page-text)]"
               >
                 <input
                   type="radio"
                   name="project-period"
                   checked={filters.period === option.value}
                   onChange={() => onChange({ ...filters, period: option.value })}
-                  className="h-3.5 w-3.5 border-white/20 bg-transparent accent-blue-500"
+                  className="h-3.5 w-3.5 border-[var(--color-border)] bg-transparent accent-blue-500"
                 />
                 {option.label}
               </label>
@@ -157,8 +157,8 @@ export function ProjectListSidebar({
           </div>
         </section>
 
-        <section className="border-t border-white/10 pt-6">
-          <h3 className="text-xs font-semibold text-slate-400">
+        <section className="border-t border-[var(--color-border)] pt-6">
+          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
             {content.typeTitle}
           </h3>
           <div className="mt-3 space-y-1">
@@ -172,8 +172,8 @@ export function ProjectListSidebar({
                   onClick={() => onChange({ ...filters, type: option.value })}
                   className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition ${
                     isSelected
-                      ? "bg-white/10 text-white"
-                      : "text-slate-400 hover:bg-white/[0.06] hover:text-white"
+                      ? "bg-blue-600 text-white"
+                      : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]"
                   }`}
                 >
                   <span>{option.label}</span>

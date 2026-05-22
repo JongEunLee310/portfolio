@@ -6,6 +6,7 @@ import { NoteGrid } from "@/components/note/NoteGrid";
 import { NoteListSidebar } from "@/components/note/NoteListSidebar";
 import { NoteListToolbar } from "@/components/note/NoteListToolbar";
 import { NotePagination } from "@/components/note/NotePagination";
+import { useTheme } from "@/app/theme/useTheme";
 import {
   noteCategoryFilters,
   noteFeaturedFilters,
@@ -17,6 +18,7 @@ import {
 } from "@/data/filters";
 import { pageHeroes } from "@/data/hero";
 import { technicalNotes } from "@/data/technicalNotes";
+import { themeSurface } from "@/styles/classNames";
 import type {
   NoteFilterState,
   NoteSortValue,
@@ -111,6 +113,7 @@ function getTagOptions() {
 }
 
 export function TechnicalNotesPage() {
+  const { resolvedTheme } = useTheme();
   const [filters, setFilters] = useState<NoteFilterState>({
     category: "all",
     tags: [],
@@ -152,8 +155,8 @@ export function TechnicalNotesPage() {
 
   return (
     <PageLayout {...pageChrome}>
-      <PageHero {...pageHeroes.technicalNotes} />
-      <section className="overflow-hidden bg-brand-dark pb-16 text-white lg:pb-20">
+      <PageHero {...pageHeroes.technicalNotes} variant={resolvedTheme} />
+      <section className={`${themeSurface.lightBand} overflow-hidden pb-16 lg:pb-20`}>
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           <div className="flex w-full min-w-0 max-w-full gap-6">
             <NoteListSidebar

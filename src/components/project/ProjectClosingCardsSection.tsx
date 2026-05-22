@@ -46,13 +46,13 @@ export function ProjectClosingCardsSection({
   return (
     <div className="mx-auto grid max-w-7xl gap-6 px-6 lg:grid-cols-3 lg:px-8">
       {activeTroubleshooting ? (
-        <article className="rounded-lg border border-slate-200 bg-white p-6 shadow-card">
+        <article className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-card">
           <div className="mb-8 flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-bold uppercase tracking-widest text-blue-600">
                 {PROJECT_DETAIL_LABELS.sections.troubleshooting.eyebrow}
               </p>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-900">
+              <h2 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-page-text)]">
                 {PROJECT_DETAIL_LABELS.sections.troubleshooting.title}
               </h2>
             </div>
@@ -61,7 +61,7 @@ export function ProjectClosingCardsSection({
                 <button
                   type="button"
                   onClick={showPreviousTroubleshooting}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition hover:border-blue-300 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-blue-300 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   aria-label={
                     PROJECT_DETAIL_LABELS.sections.troubleshooting.previous
                   }
@@ -71,7 +71,7 @@ export function ProjectClosingCardsSection({
                 <button
                   type="button"
                   onClick={showNextTroubleshooting}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition hover:border-blue-300 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-blue-300 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   aria-label={PROJECT_DETAIL_LABELS.sections.troubleshooting.next}
                 >
                   <ChevronRight className="h-4 w-4" aria-hidden="true" />
@@ -82,7 +82,7 @@ export function ProjectClosingCardsSection({
           <TroubleshootingSlide item={activeTroubleshooting} />
           {troubleshooting.length > 1 ? (
             <div className="mt-5 flex items-center justify-between gap-4">
-              <p className="text-xs font-semibold text-slate-500" aria-live="polite">
+              <p className="text-xs font-semibold text-[var(--color-muted-text)]" aria-live="polite">
                 {PROJECT_DETAIL_LABELS.sections.troubleshooting.status}{" "}
                 {activeTroubleshootingIndex + 1} / {troubleshooting.length}
               </p>
@@ -96,7 +96,7 @@ export function ProjectClosingCardsSection({
                       "h-2.5 rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
                       index === activeTroubleshootingIndex
                         ? "w-6 bg-blue-600"
-                        : "w-2.5 bg-slate-300 hover:bg-blue-300",
+                        : "w-2.5 bg-[var(--color-border)] hover:bg-blue-300",
                     ].join(" ")}
                     aria-label={`${item.title} ${PROJECT_DETAIL_LABELS.sections.troubleshooting.openNote}`}
                     aria-current={index === activeTroubleshootingIndex}
@@ -109,7 +109,7 @@ export function ProjectClosingCardsSection({
       ) : null}
 
       {improvements?.length ? (
-        <article className="rounded-lg border border-slate-200 bg-white p-6 shadow-card">
+        <article className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-card">
           <SectionHeader
             eyebrow={PROJECT_DETAIL_LABELS.sections.improvements.eyebrow}
             title={PROJECT_DETAIL_LABELS.sections.improvements.title}
@@ -118,16 +118,16 @@ export function ProjectClosingCardsSection({
             {improvements.slice(0, 3).map((item) => (
               <div
                 key={item.title}
-                className="flex gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4"
+                className="flex gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-4"
               >
-                <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/10 text-blue-500">
                   <ProjectDetailIcon icon={item.icon} />
                 </span>
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900">
+                  <h3 className="text-sm font-bold text-[var(--color-page-text)]">
                     {item.title}
                   </h3>
-                  <p className="mt-1 text-xs leading-6 text-slate-600">
+                  <p className="mt-1 text-xs leading-6 text-[var(--color-muted-text)]">
                     {item.result ?? item.description}
                   </p>
                 </div>
@@ -138,20 +138,20 @@ export function ProjectClosingCardsSection({
       ) : null}
 
       {learned.length || improvementPlans.length ? (
-        <article className="rounded-lg border border-slate-200 bg-white p-6 shadow-card">
+        <article className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-card">
           <SectionHeader
             eyebrow={PROJECT_DETAIL_LABELS.sections.retrospective.eyebrow}
             title={PROJECT_DETAIL_LABELS.sections.retrospective.title}
           />
-          <div className="rounded-lg border border-slate-200 bg-slate-50 p-5">
-            <p className="text-sm leading-7 text-slate-600">
+          <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5">
+            <p className="text-sm leading-7 text-[var(--color-muted-text)]">
               {learned[0] ?? improvementPlans[0]}
             </p>
             {learned.length > 1 || improvementPlans.length ? (
-              <div className="mt-5 space-y-3 text-sm leading-6 text-slate-600">
+              <div className="mt-5 space-y-3 text-sm leading-6 text-[var(--color-muted-text)]">
                 {learned[1] ? (
                   <p>
-                    <span className="font-bold text-slate-900">
+                    <span className="font-bold text-[var(--color-page-text)]">
                       {PROJECT_DETAIL_LABELS.sections.retrospective.learned}
                     </span>
                     : {learned[1]}
@@ -159,7 +159,7 @@ export function ProjectClosingCardsSection({
                 ) : null}
                 {improvementPlans[0] ? (
                   <p>
-                    <span className="font-bold text-slate-900">
+                    <span className="font-bold text-[var(--color-page-text)]">
                       {PROJECT_DETAIL_LABELS.sections.retrospective.improvement}
                     </span>
                     : {improvementPlans[0]}
@@ -177,7 +177,7 @@ export function ProjectClosingCardsSection({
             <div className="mt-6 flex justify-end">
               <Link
                 to={PATHS.technicalNoteDetail(project.retrospective.noteSlug)}
-                className="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-bold text-blue-600 transition hover:border-blue-300 hover:bg-blue-100 hover:text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 rounded-lg border border-blue-400/30 bg-blue-500/10 px-4 py-2 text-sm font-bold text-blue-600 transition hover:border-blue-300 hover:bg-blue-500/15 hover:text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 {PROJECT_DETAIL_LABELS.sections.retrospective.openNote}
                 <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -196,9 +196,9 @@ type TroubleshootingSlideProps = {
 
 function TroubleshootingSlide({ item }: TroubleshootingSlideProps) {
   const content = (
-    <div className="min-h-[260px] rounded-lg border border-slate-200 bg-slate-50 p-5 transition hover:border-blue-300 hover:bg-blue-50/40">
+    <div className="min-h-[260px] rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5 transition hover:border-blue-300 hover:bg-blue-500/10">
       <div className="flex items-start justify-between gap-4">
-        <h3 className="text-base font-bold text-slate-900">{item.title}</h3>
+        <h3 className="text-base font-bold text-[var(--color-page-text)]">{item.title}</h3>
         {item.noteSlug ? (
           <span className="inline-flex shrink-0 items-center gap-1 text-xs font-bold text-blue-600">
             {PROJECT_DETAIL_LABELS.sections.troubleshooting.openNote}
@@ -208,23 +208,23 @@ function TroubleshootingSlide({ item }: TroubleshootingSlideProps) {
       </div>
       <dl className="mt-5 space-y-4 text-sm leading-6">
         <div>
-          <dt className="font-bold text-slate-900">
+          <dt className="font-bold text-[var(--color-page-text)]">
             {PROJECT_DETAIL_LABELS.sections.troubleshooting.problem}
           </dt>
-          <dd className="mt-1 text-slate-600">{item.problem}</dd>
+          <dd className="mt-1 text-[var(--color-muted-text)]">{item.problem}</dd>
         </div>
         <div>
-          <dt className="font-bold text-slate-900">
+          <dt className="font-bold text-[var(--color-page-text)]">
             {PROJECT_DETAIL_LABELS.sections.troubleshooting.solution}
           </dt>
-          <dd className="mt-1 text-slate-600">{item.solution}</dd>
+          <dd className="mt-1 text-[var(--color-muted-text)]">{item.solution}</dd>
         </div>
         {item.result ? (
           <div>
-            <dt className="font-bold text-slate-900">
+            <dt className="font-bold text-[var(--color-page-text)]">
               {PROJECT_DETAIL_LABELS.sections.troubleshooting.result}
             </dt>
-            <dd className="mt-1 text-slate-600">{item.result}</dd>
+            <dd className="mt-1 text-[var(--color-muted-text)]">{item.result}</dd>
           </div>
         ) : null}
       </dl>

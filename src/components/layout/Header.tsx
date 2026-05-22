@@ -1,4 +1,7 @@
 import { NavLink } from "react-router-dom";
+import { useTheme } from "@/app/theme/useTheme";
+import type { ThemeControlContent } from "@/types/theme";
+import { ThemeModeControl } from "./ThemeModeControl";
 
 type NavigationItem = {
   label: string;
@@ -8,31 +11,42 @@ type NavigationItem = {
 type HeaderProps = {
   logoText: string;
   navigation: readonly NavigationItem[];
+  themeControl: ThemeControlContent;
 };
 
-export function Header({ logoText, navigation }: HeaderProps) {
+export function Header({ logoText, navigation, themeControl }: HeaderProps) {
+  const { mode, resolvedTheme, setMode } = useTheme();
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-brand-dark/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full border-b border-[var(--color-border)] bg-[var(--color-surface)]/90 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
-        <NavLink to="/" className="font-mono text-lg font-bold text-white">
+        <NavLink to="/" className="font-mono text-lg font-bold text-[var(--color-page-text)]">
           {logoText}
         </NavLink>
-        <nav className="hidden items-center gap-6 md:flex">
-          {navigation.map((item) => (
-            <NavLink
-              key={item.href}
-              to={item.href}
-              className={({ isActive }) =>
-                [
-                  "relative text-sm font-medium transition hover:text-white",
-                  isActive ? "text-blue-400" : "text-slate-300",
-                ].join(" ")
-              }
-            >
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
+        <div className="flex items-center gap-3">
+          <nav className="hidden items-center gap-6 md:flex">
+            {navigation.map((item) => (
+              <NavLink
+                key={item.href}
+                to={item.href}
+                className={({ isActive }) =>
+                  [
+                    "relative text-sm font-medium transition hover:text-blue-600",
+                    isActive ? "text-blue-600" : "text-[var(--color-muted-text)]",
+                  ].join(" ")
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+          <ThemeModeControl
+            {...themeControl}
+            mode={mode}
+            resolvedTheme={resolvedTheme}
+            onModeChange={setMode}
+          />
+        </div>
       </div>
     </header>
   );

@@ -43,7 +43,7 @@ export function ProjectListToolbar({
 }: ProjectListToolbarProps) {
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <p className="text-sm font-semibold text-slate-300">
+      <p className="text-sm font-semibold text-[var(--color-muted-text)]">
         {content.countPrefix} {totalCount}
         {content.countSuffix}
       </p>
@@ -54,7 +54,7 @@ export function ProjectListToolbar({
           onChange={(event) =>
             onSortChange(event.target.value as ProjectSortValue)
           }
-          className="h-10 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-xs font-semibold text-white outline-none transition hover:border-blue-400/60"
+          className="h-10 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 text-xs font-semibold text-[var(--color-page-text)] outline-none transition hover:border-blue-400/60"
           aria-label={content.sortAriaLabel}
         >
           {sortOptions.map((option) => (
@@ -64,7 +64,7 @@ export function ProjectListToolbar({
           ))}
         </select>
 
-        <div className="flex rounded-lg border border-white/10 bg-white/[0.04] p-1">
+        <div className="flex rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-1">
           {viewModeOptions.map((option) => {
             const Icon = viewModeIconMap[option.value];
 
@@ -78,7 +78,7 @@ export function ProjectListToolbar({
                 className={`flex h-8 w-8 items-center justify-center rounded-md transition ${
                   viewMode === option.value
                     ? "bg-blue-600 text-white"
-                    : "text-slate-400 hover:text-white"
+                    : "text-[var(--color-muted-text)] hover:text-[var(--color-page-text)]"
                 }`}
               >
                 <Icon className="h-4 w-4" />

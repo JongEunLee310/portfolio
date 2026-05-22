@@ -1,5 +1,10 @@
 import { AppRouter } from "./router";
+import { ThemeProvider } from "./theme/ThemeProvider";
 
 export function App() {
-  return <AppRouter />;
+  return (
+    <ThemeProvider>
+      <AppRouter />
+    </ThemeProvider>
+  );
 }

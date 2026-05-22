@@ -7,20 +7,22 @@ import { SectionHeader } from "@/components/common/SectionHeader";
 import { PageHero } from "@/components/hero/PageHero";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { HomeTechStack } from "@/components/project/HomeTechStack";
+import { useTheme } from "@/app/theme/useTheme";
 import { aboutData } from "@/data/about";
 import { pageHeroes } from "@/data/hero";
 import { techStackGroups } from "@/data/techStack";
-import { layout, surface } from "@/styles/classNames";
+import { layout, themeSurface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
 
 export function AboutPage() {
+  const { resolvedTheme } = useTheme();
   const { profile, sections, growthMetrics, roles, timeline, workStyle } = aboutData;
 
   return (
     <PageLayout {...pageChrome}>
-      <PageHero {...pageHeroes.about} />
+      <PageHero {...pageHeroes.about} variant={resolvedTheme} />
 
-      <section id={sections.profile.id} className={`${surface.light} ${layout.section}`}>
+      <section id={sections.profile.id} className={`${themeSurface.lightBand} ${layout.section}`}>
         <div className={layout.container}>
           <SectionHeader {...sections.profile} />
           <div className="mt-10">
@@ -29,7 +31,7 @@ export function AboutPage() {
         </div>
       </section>
 
-      <section id={sections.roles.id} className={`bg-white ${layout.section}`}>
+      <section id={sections.roles.id} className={`${themeSurface.surfaceBand} ${layout.section}`}>
         <div className={layout.container}>
           <SectionHeader {...sections.roles} />
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -40,7 +42,7 @@ export function AboutPage() {
         </div>
       </section>
 
-      <section id={sections.timeline.id} className={`${surface.light} ${layout.section}`}>
+      <section id={sections.timeline.id} className={`${themeSurface.lightBand} ${layout.section}`}>
         <div className={layout.container}>
           <SectionHeader
             eyebrow={sections.timeline.eyebrow}
@@ -53,14 +55,14 @@ export function AboutPage() {
         </div>
       </section>
 
-      <section id={sections.techStack.id} className={`bg-white ${layout.section}`}>
+      <section id={sections.techStack.id} className={`${themeSurface.surfaceBand} ${layout.section}`}>
         <div className={layout.container}>
           <SectionHeader {...sections.techStack} />
           <HomeTechStack groups={techStackGroups} />
         </div>
       </section>
 
-      <section id={sections.workStyle.id} className={`${surface.light} ${layout.section}`}>
+      <section id={sections.workStyle.id} className={`${themeSurface.lightBand} ${layout.section}`}>
         <div className={layout.container}>
           <div className="grid gap-12 lg:grid-cols-2">
             <div>
