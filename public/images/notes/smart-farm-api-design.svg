@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480" role="img" aria-label="Smart Farm API Server Design note">
+  <rect width="960" height="480" fill="#06101f"/>
+  <rect x="395" y="80" width="170" height="70" rx="20" fill="#d97706"/>
+  <rect x="200" y="210" width="150" height="70" rx="20" fill="#f59e0b"/>
+  <rect x="410" y="210" width="140" height="70" rx="20" fill="#fbbf24"/>
+  <rect x="620" y="210" width="140" height="70" rx="20" fill="#fcd34d"/>
+  <path d="M480 150v60M285 245h125M550 245h70" stroke="#cbd5e1" stroke-width="10" stroke-linecap="round"/>
+  <text x="480" y="400" fill="#cbd5e1" font-family="system-ui" font-size="30" text-anchor="middle">API Server Design</text>
+</svg>
