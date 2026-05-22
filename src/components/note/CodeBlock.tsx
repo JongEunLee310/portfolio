@@ -6,7 +6,7 @@ type CodeBlockProps = {
 
 export function CodeBlock({ code, language, filename }: CodeBlockProps) {
   return (
-    <figure className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 shadow-card">
+    <figure className="overflow-hidden rounded-lg border border-slate-800 bg-slate-950 shadow-card">
       {filename ? (
         <figcaption className="border-b border-slate-800 px-5 py-3 font-mono text-xs text-slate-400">
           {filename}

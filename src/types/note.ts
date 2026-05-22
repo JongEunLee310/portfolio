@@ -32,6 +32,11 @@ export type NoteFilterState = {
   featured: NoteFeaturedFilterValue;
 };
 
+export type NoteDetailTemplate =
+  | "troubleshooting"
+  | "retrospective"
+  | "technical-summary";
+
 export type TechnicalNoteCard = {
   slug: string;
   title: string;
@@ -60,6 +65,14 @@ export type ArticleSection =
       items: string[];
     }
   | {
+      type: "cards";
+      items: {
+        title: string;
+        description: string;
+        badge?: string;
+      }[];
+    }
+  | {
       type: "callout";
       variant: "info" | "warning" | "success";
       content: string;
@@ -80,6 +93,19 @@ export type ArticleSection =
       }[];
     }
   | {
+      type: "comparison";
+      items: {
+        title: string;
+        description: string;
+        bullets: string[];
+        code?: {
+          language: string;
+          filename?: string;
+          code: string;
+        };
+      }[];
+    }
+  | {
       type: "image";
       src: string;
       alt: string;
@@ -87,6 +113,7 @@ export type ArticleSection =
     };
 
 export type TechnicalNoteDetail = TechnicalNoteCard & {
+  template?: NoteDetailTemplate;
   toc: {
     id: string;
     title: string;

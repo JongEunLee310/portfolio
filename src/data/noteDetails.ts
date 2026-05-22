@@ -1,3 +1,4 @@
+import { TROUBLESHOOTING_NOTE_TEMPLATE } from "@/constants/noteDetail";
 import type { TechnicalNoteDetail } from "@/types/note";
 import { technicalNotes } from "./technicalNotes";
 
@@ -11,62 +12,192 @@ function findNote(slug: string) {
   return note;
 }
 
+const troubleshootingToc: TechnicalNoteDetail["toc"] =
+  TROUBLESHOOTING_NOTE_TEMPLATE.sections.map((section) => ({
+    id: section.id,
+    title: section.tocTitle,
+    depth: 1,
+  }));
+
+function troubleshootingHeading(sectionIndex: number) {
+  const section = TROUBLESHOOTING_NOTE_TEMPLATE.sections[sectionIndex];
+
+  if (!section) {
+    throw new Error(`트러블슈팅 템플릿 섹션 인덱스가 잘못되었습니다: ${sectionIndex}`);
+  }
+
+  return {
+    type: "heading",
+    id: section.id,
+    title: section.headingTitle,
+  } as const;
+}
+
 export const noteDetails: TechnicalNoteDetail[] = [
   {
     ...findNote("db-round-trip-optimization"),
-    toc: [
-      { id: "problem", title: "문제 상황", depth: 1 },
-      { id: "root-cause", title: "원인 분석", depth: 1 },
-      { id: "solution", title: "개선 방법", depth: 1 },
-      { id: "performance", title: "성능 비교", depth: 1 },
-      { id: "lesson", title: "배운 점", depth: 1 },
-    ],
+    template: TROUBLESHOOTING_NOTE_TEMPLATE.name,
+    toc: troubleshootingToc,
     content: [
-      {
-        type: "heading",
-        id: "problem",
-        title: "1. 문제 상황",
-      },
+      troubleshootingHeading(0),
       {
         type: "paragraph",
         content:
-          "특정 목록 조회 API에서 응답 시간이 증가하는 문제가 발생했습니다. 로그를 확인해보니 하나의 요청을 처리하는 동안 여러 번의 DB 조회가 순차적으로 발생하고 있었습니다.",
+          "특정 API에서 주문 상세 정보와 함께 고객, 상품, 결제, 배송 정보를 조합하는 과정에서 응답 시간이 간헐적으로 1초 이상 소요되었습니다. 로그를 확인해보니 하나의 요청을 처리하는 동안 여러 번의 DB 조회가 순차적으로 발생하고 있었습니다.",
       },
       {
-        type: "heading",
-        id: "root-cause",
-        title: "2. 원인 분석",
+        type: "callout",
+        variant: "info",
+        content:
+          "사용자 경험에 영향을 주는 지연을 줄이기 위해 쿼리 수와 DB 접근 패턴을 먼저 관찰하고, 조회 책임을 명확히 분리했습니다.",
       },
+      troubleshootingHeading(1),
       {
         type: "list",
         items: [
-          "소유권 확인 과정에서 Project와 Pipeline을 각각 조회했습니다.",
-          "목록 조회에 limit이 없어 실행 이력 전체를 가져오는 문제가 있었습니다.",
-          "인증 사용자 조회가 요청마다 반복되었습니다.",
+          "하나의 API 호출에서 12회의 DB Round-trip이 발생했습니다.",
+          "N+1 쿼리 문제로 연관 엔티티 조회가 반복되었습니다.",
+          "연관 데이터 조회 시 Lazy Loading 사용으로 추가 쿼리가 발생했습니다.",
+          "목록 화면에 필요한 필드보다 많은 데이터를 엔티티 단위로 조회했습니다.",
         ],
       },
       {
         type: "code",
         language: "sql",
-        filename: "before.sql",
-        code: "SELECT * FROM pipelines WHERE id = :pipelineId;",
+        filename: "query-log-before.sql",
+        code: "GET /api/orders/123\n[SELECT] orders      ... (1.2 ms)\n[SELECT] customer    ... (1.1 ms)\n[SELECT] order_items ... (1.6 ms)\n[SELECT] product     ... (18.7 ms)\n[SELECT] payments    ... (2.3 ms)\n[SELECT] shipments   ... (2.1 ms)\n\nTotal: 12 queries / 142.3 ms DB time",
+      },
+      troubleshootingHeading(2),
+      {
+        type: "cards",
+        items: [
+          {
+            title: "3.1 쿼리 통합 및 Fetch Join",
+            description:
+              "연관 엔티티를 한 번에 조회해 N+1 문제를 제거했습니다.",
+            badge: "JOIN FETCH",
+          },
+          {
+            title: "3.2 DTO Projection",
+            description:
+              "화면에 필요한 필드만 조회해 불필요한 엔티티 로딩을 줄였습니다.",
+            badge: "SELECT NEW",
+          },
+          {
+            title: "3.3 IN 쿼리 배치 처리",
+            description:
+              "다건 조회 시 반복 쿼리를 배치 조회로 묶어 Round-trip을 줄였습니다.",
+            badge: "IN BATCH",
+          },
+          {
+            title: "3.4 캐시 적용",
+            description:
+              "변경 빈도가 낮은 참조 데이터는 Redis 캐시를 통해 조회했습니다.",
+            badge: "CACHE",
+          },
+        ],
       },
       {
-        type: "heading",
-        id: "solution",
-        title: "3. 개선 방법",
+        type: "callout",
+        variant: "success",
+        content:
+          "성능 개선은 코드를 빠르게 만드는 일이 아니라, 불필요한 일을 하지 않도록 조회 흐름을 다시 설계하는 일에 가깝습니다.",
       },
+      troubleshootingHeading(3),
+      {
+        type: "comparison",
+        items: [
+          {
+            title: "개선 전 구조",
+            description:
+              "API 요청이 서비스 계층을 거치며 연관 엔티티를 순차적으로 조회했습니다.",
+            bullets: [
+              "다수의 SELECT 발생",
+              "불필요한 반복 조회",
+              "조회 흐름이 화면 요구사항과 분리되지 않음",
+            ],
+          },
+          {
+            title: "개선 후 구조",
+            description:
+              "상세 화면에 필요한 데이터를 전용 조회 모델로 모아 한 번에 가져오도록 변경했습니다.",
+            bullets: [
+              "1회의 쿼리로 필요한 데이터 조회",
+              "캐시를 활용해 반복 조회 제거",
+              "조회 책임을 명확히 분리",
+            ],
+          },
+          {
+            title: "주요 SQL 예시",
+            description:
+              "DTO Projection과 명시적인 join으로 필요한 필드만 조회합니다.",
+            bullets: ["화면 필드 중심 조회", "연관 정보 명시적 결합"],
+            code: {
+              language: "sql",
+              filename: "optimized-query.sql",
+              code: "SELECT new com.example.dto.OrderDetailDto(\n  o.id,\n  o.orderNumber,\n  c.name,\n  p.name,\n  oi.quantity,\n  pay.method,\n  pay.paidAt,\n  ship.trackingNumber,\n  ship.status\n)\nFROM Order o\nJOIN FETCH o.customer c\nJOIN FETCH o.orderItems oi\nJOIN FETCH oi.product p\nLEFT JOIN FETCH o.payment pay\nLEFT JOIN FETCH o.shipment ship\nWHERE o.id = :orderId",
+            },
+          },
+        ],
+      },
+      troubleshootingHeading(4),
+      {
+        type: "metrics",
+        items: [
+          {
+            label: "DB Round-trip",
+            before: "12회",
+            after: "1회",
+            change: "-91.7%",
+          },
+          {
+            label: "응답 시간",
+            before: "1,024ms",
+            after: "326ms",
+            change: "-68.2%",
+          },
+          {
+            label: "DB 시간",
+            before: "142ms",
+            after: "28ms",
+            change: "-80.3%",
+          },
+        ],
+      },
+      troubleshootingHeading(5),
+      {
+        type: "cards",
+        items: [
+          {
+            title: "사용자 경험 개선",
+            description:
+              "상세 화면 진입 시간이 1,850ms에서 340ms 수준으로 줄었습니다.",
+          },
+          {
+            title: "서버 자원 절감",
+            description:
+              "CPU 사용률과 DB 연결 점유 시간이 함께 감소했습니다.",
+          },
+          {
+            title: "DB 부하 감소",
+            description:
+              "반복 조회를 제거해 조회 쿼리 수와 인덱스 스캔량을 줄였습니다.",
+          },
+        ],
+      },
+      troubleshootingHeading(6),
       {
         type: "callout",
         variant: "warning",
         content:
-          "성능 개선은 코드를 빠르게 만드는 일이 아니라, 불필요한 일을 하지 않도록 흐름을 다시 설계하는 일에 가깝습니다.",
+          "ORM을 사용할 때도 SQL이 어떻게 실행되는지 항상 확인해야 합니다. 데이터 접근 패턴을 이해하고, 화면 요구사항에 맞는 조회 모델을 설계하는 과정이 성능 개선의 출발점이었습니다.",
       },
     ],
     relatedNoteSlugs: ["async-pipeline-transition"],
   },
   {
     ...findNote("async-pipeline-transition"),
+    template: "technical-summary",
     toc: [
       { id: "problem", title: "동기 실행의 한계", depth: 1 },
       { id: "boundary", title: "실행 경계 분리", depth: 1 },
@@ -117,6 +248,7 @@ export const noteDetails: TechnicalNoteDetail[] = [
   },
   {
     ...findNote("rabbitmq-event-topology"),
+    template: "technical-summary",
     toc: [
       { id: "problem", title: "이벤트 손실 위험", depth: 1 },
       { id: "topology", title: "토폴로지 설계", depth: 1 },
@@ -162,6 +294,7 @@ export const noteDetails: TechnicalNoteDetail[] = [
   },
   {
     ...findNote("ai-log-analysis-latency"),
+    template: "troubleshooting",
     toc: [
       { id: "problem", title: "추론 지연 원인", depth: 1 },
       { id: "preprocess", title: "전처리 전략", depth: 1 },
@@ -206,6 +339,7 @@ export const noteDetails: TechnicalNoteDetail[] = [
   },
   {
     ...findNote("metric-cardinality-troubleshooting"),
+    template: "troubleshooting",
     toc: [
       { id: "problem", title: "고카디널리티 문제", depth: 1 },
       { id: "solution", title: "라벨 기준 재설계", depth: 1 },
@@ -251,8 +385,12 @@ export const noteDetails: TechnicalNoteDetail[] = [
   },
   {
     ...findNote("ai-devops-retrospective"),
+    template: "retrospective",
     toc: [
       { id: "context", title: "프로젝트 맥락", depth: 1 },
+      { id: "role", title: "내가 맡은 역할", depth: 1 },
+      { id: "worked", title: "잘한 점", depth: 1 },
+      { id: "missed", title: "아쉬운 점", depth: 1 },
       { id: "learned", title: "배운 점", depth: 1 },
       { id: "improvement", title: "다음 개선 방향", depth: 1 },
     ],
@@ -269,8 +407,44 @@ export const noteDetails: TechnicalNoteDetail[] = [
       },
       {
         type: "heading",
+        id: "role",
+        title: "2. 내가 맡은 역할",
+      },
+      {
+        type: "list",
+        items: [
+          "파이프라인 실행 요청과 실제 실행 흐름을 분리했습니다.",
+          "실패 로그 수집과 AI 분석 요청 경계를 설계했습니다.",
+          "알림, 모니터링, 재처리 기준을 운영 흐름에 맞춰 정리했습니다.",
+        ],
+      },
+      {
+        type: "heading",
+        id: "worked",
+        title: "3. 잘한 점",
+      },
+      {
+        type: "list",
+        items: [
+          "실행과 분석의 책임을 분리해 장애 원인 추적을 단순하게 만들었습니다.",
+          "모니터링 지표를 화면 장식이 아니라 개선 대상을 찾는 기준으로 사용했습니다.",
+          "AI 분석 입력을 정리하는 과정을 별도 책임으로 보고 품질과 비용을 함께 고려했습니다.",
+        ],
+      },
+      {
+        type: "heading",
+        id: "missed",
+        title: "4. 아쉬운 점",
+      },
+      {
+        type: "paragraph",
+        content:
+          "초기에는 실행 로그와 분석 결과의 책임 경계가 충분히 분리되지 않아, 실패 원인을 재현할 때 필요한 데이터를 다시 찾아야 하는 경우가 있었습니다.",
+      },
+      {
+        type: "heading",
         id: "learned",
-        title: "2. 배운 점",
+        title: "5. 배운 점",
       },
       {
         type: "list",
@@ -283,7 +457,7 @@ export const noteDetails: TechnicalNoteDetail[] = [
       {
         type: "heading",
         id: "improvement",
-        title: "3. 다음 개선 방향",
+        title: "6. 다음 개선 방향",
       },
       {
         type: "callout",
