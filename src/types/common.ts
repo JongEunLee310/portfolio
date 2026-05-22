@@ -24,7 +24,14 @@ export type IconName =
   | "BookOpen"
   | "Calendar"
   | "Clock"
-  | "ExternalLink";
+  | "ExternalLink"
+  | "CreditCard"
+  | "RefreshCw"
+  | "Settings"
+  | "Share2"
+  | "Star"
+  | "TrendingDown"
+  | "Users";
 
 export type LinkItem = {
   label: string;

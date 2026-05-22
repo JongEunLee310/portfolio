@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="정산 관리">
+  <rect width="1200" height="800" fill="#0f172a"/>
+  <rect x="40" y="40" width="1120" height="720" rx="16" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <rect x="60" y="60" width="260" height="120" rx="12" fill="#0f172a"/>
+  <rect x="340" y="60" width="260" height="120" rx="12" fill="#0f172a"/>
+  <rect x="620" y="60" width="260" height="120" rx="12" fill="#0f172a"/>
+  <rect x="60" y="210" width="1080" height="480" rx="12" fill="#0f172a"/>
+  <text x="600" y="760" fill="#475569" font-family="system-ui" font-size="22" text-anchor="middle">정산 관리</text>
+</svg>

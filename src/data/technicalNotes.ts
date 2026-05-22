@@ -115,7 +115,7 @@ export const technicalNotes: TechnicalNoteCard[] = [
       { name: "JPA", category: "backend" },
       { name: "MySQL", category: "database" },
     ],
-    relatedProjectSlugs: ["halocare"],
+    relatedProjectSlugs: ["halo"],
   },
   {
     slug: "alb-cors-troubleshooting",
@@ -132,6 +132,6 @@ export const technicalNotes: TechnicalNoteCard[] = [
       { name: "CORS", category: "backend" },
       { name: "Spring Boot", category: "backend" },
     ],
-    relatedProjectSlugs: ["halocare"],
+    relatedProjectSlugs: ["halo"],
   },
 ];
