@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-label="The Listening Tree story page">
+  <rect width="960" height="600" fill="#f0fdf4"/>
+  <rect x="120" y="105" width="720" height="390" rx="32" fill="#ffffff" stroke="#bbf7d0" stroke-width="6"/>
+  <rect x="180" y="160" width="600" height="120" rx="16" fill="#dcfce7"/>
+  <rect x="180" y="300" width="600" height="120" rx="16" fill="#bbf7d0"/>
+  <rect x="340" y="440" width="280" height="36" rx="10" fill="#16a34a"/>
+</svg>

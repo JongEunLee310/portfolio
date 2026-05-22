@@ -134,4 +134,97 @@ export const technicalNotes: TechnicalNoteCard[] = [
     ],
     relatedProjectSlugs: ["halo"],
   },
+  {
+    slug: "001-google-oauth-exception-masking",
+    title: "Google OAuth 예외 재래핑 문제와 HTTPException 처리 순서",
+    summary:
+      "except Exception이 FastAPI HTTPException을 재래핑해 오류 유형이 뭉개지는 문제를 분석하고, 예외 처리 순서를 재배치해 해결한 기록입니다.",
+    category: "troubleshooting",
+    thumbnail: "/images/notes/google-oauth-exception.svg",
+    date: "2025.01.15",
+    readingTime: "5분 읽기",
+    tags: [
+      { name: "FastAPI", category: "backend" },
+      { name: "Python", category: "language" },
+      { name: "httpx", category: "backend" },
+    ],
+    relatedProjectSlugs: ["the-listening-tree"],
+  },
+  {
+    slug: "002-openai-response-direct-access",
+    title: "OpenAI 응답 구조 직접 접근의 취약성과 방어 로직",
+    summary:
+      "response.output[0].content[0].text 직접 접근이 빈 응답에서 IndexError를 유발한 문제와 사용자 메시지 표준 출력 노출을 함께 수정한 기록입니다.",
+    category: "troubleshooting",
+    thumbnail: "/images/notes/openai-response-access.svg",
+    date: "2025.01.20",
+    readingTime: "5분 읽기",
+    tags: [
+      { name: "OpenAI SDK", category: "ai" },
+      { name: "FastAPI", category: "backend" },
+      { name: "Python", category: "language" },
+    ],
+    relatedProjectSlugs: ["the-listening-tree"],
+  },
+  {
+    slug: "003-multirepo-ci-duplication-and-drift",
+    title: "멀티레포 CI 복붙 관리의 한계와 이름 불일치 문제",
+    summary:
+      "GitHub Actions 워크플로우를 복붙으로 관리할 때 name 필드 누락이 CI 대시보드를 혼란스럽게 만든 문제와 수정 과정을 정리한 기록입니다.",
+    category: "troubleshooting",
+    thumbnail: "/images/notes/multirepo-ci-drift.svg",
+    date: "2025.02.05",
+    readingTime: "4분 읽기",
+    tags: [
+      { name: "GitHub Actions", category: "devops" },
+      { name: "Docker", category: "infra" },
+    ],
+    relatedProjectSlugs: ["the-listening-tree"],
+  },
+  {
+    slug: "004-stateless-prompt-context-loss",
+    title: "Stateless 프롬프트에서 대화 맥락이 사라지는 문제",
+    summary:
+      "매 요청마다 독립적으로 GPT-4o를 호출할 때 이전 대화 맥락이 유지되지 않는 한계와 이를 수용한 설계 결정을 정리한 기록입니다.",
+    category: "architecture",
+    thumbnail: "/images/notes/stateless-prompt-context.svg",
+    date: "2025.01.25",
+    readingTime: "5분 읽기",
+    tags: [
+      { name: "GPT-4o", category: "ai" },
+      { name: "FastAPI", category: "backend" },
+    ],
+    relatedProjectSlugs: ["the-listening-tree"],
+  },
+  {
+    slug: "005-social-id-unique-constraint-mismatch",
+    title: "social_id 단독 unique 제약과 복합 조회 조건의 불일치",
+    summary:
+      "DB 제약은 social_id 단독 unique, 핸들러는 복합 조건으로 조회해 설계 의도가 모델에 반영되지 않은 문제를 Alembic 마이그레이션으로 해결한 기록입니다.",
+    category: "database",
+    thumbnail: "/images/notes/social-id-unique-constraint.svg",
+    date: "2025.01.18",
+    readingTime: "6분 읽기",
+    tags: [
+      { name: "SQLAlchemy", category: "backend" },
+      { name: "Alembic", category: "backend" },
+      { name: "PostgreSQL", category: "database" },
+    ],
+    relatedProjectSlugs: ["the-listening-tree"],
+  },
+  {
+    slug: "006-llm-response-format-not-enforced",
+    title: "LLM 응답 형식 미강제로 인한 파싱 불안정성",
+    summary:
+      "시스템 프롬프트만으로는 GPT-4o 응답 형식이 보장되지 않아 공감 이외의 응답이 섞이는 문제와 프롬프트 강화로 완화한 기록입니다.",
+    category: "troubleshooting",
+    thumbnail: "/images/notes/llm-response-format.svg",
+    date: "2025.01.22",
+    readingTime: "5분 읽기",
+    tags: [
+      { name: "GPT-4o", category: "ai" },
+      { name: "OpenAI SDK", category: "ai" },
+    ],
+    relatedProjectSlugs: ["the-listening-tree"],
+  },
 ];
