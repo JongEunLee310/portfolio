@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useTheme } from "@/app/theme/useTheme";
 import { EmptyState } from "@/components/common/EmptyState";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { ProjectArchitectureFlowSection } from "@/components/project/ProjectArchitectureFlowSection";
@@ -15,16 +16,18 @@ import { ProjectScreenshotGallerySection } from "@/components/project/ProjectScr
 import { ProjectTechStackGroupedSection } from "@/components/project/ProjectTechStackGroupedSection";
 import { PROJECT_DETAIL_LABELS } from "@/constants/projectDetail";
 import { projectDetails } from "@/data/projectDetails";
+import { themeSurface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
 
 export function ProjectDetailPage() {
+  const { resolvedTheme } = useTheme();
   const { projectSlug } = useParams();
   const project = projectDetails.find((item) => item.slug === projectSlug);
 
   if (!project) {
     return (
       <PageLayout {...pageChrome}>
-        <section className="bg-slate-50 py-20">
+        <section className={`${themeSurface.lightBand} py-20`}>
           <div className="mx-auto max-w-3xl px-6">
             <EmptyState
               title={PROJECT_DETAIL_LABELS.emptyState.title}
@@ -38,8 +41,8 @@ export function ProjectDetailPage() {
 
   return (
     <PageLayout {...pageChrome}>
-      <ProjectDetailHero project={project} />
-      <section className="bg-slate-50 py-16 lg:py-20">
+      <ProjectDetailHero project={project} variant={resolvedTheme} />
+      <section className={`${themeSurface.lightBand} py-16 lg:py-20`}>
         <div className="mx-auto max-w-7xl space-y-12 px-6 lg:px-8">
           <ProjectOverviewSection
             overview={project.overview}
@@ -78,7 +81,7 @@ export function ProjectDetailPage() {
         </div>
       </section>
       <ProjectResultsSection performance={project.performance} />
-      <section className="bg-slate-50 py-16 lg:py-20">
+      <section className={`${themeSurface.lightBand} py-16 lg:py-20`}>
         <ProjectClosingCardsSection project={project} />
       </section>
     </PageLayout>

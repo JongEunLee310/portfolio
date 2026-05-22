@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { themeSurface } from "@/styles/classNames";
+import type { ThemeControlContent } from "@/types/theme";
 
 type NavigationItem = {
   label: string;
@@ -20,6 +22,7 @@ type PageLayoutProps = {
   navigation: readonly NavigationItem[];
   footerContacts: readonly FooterContact[];
   footerTagline: string;
+  themeControl: ThemeControlContent;
   children: ReactNode;
 };
 
@@ -29,11 +32,16 @@ export function PageLayout({
   navigation,
   footerContacts,
   footerTagline,
+  themeControl,
   children,
 }: PageLayoutProps) {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <Header logoText={logoText} navigation={navigation} />
+    <div className={`${themeSurface.page} min-h-screen`}>
+      <Header
+        logoText={logoText}
+        navigation={navigation}
+        themeControl={themeControl}
+      />
       <main>{children}</main>
       <Footer
         logoText={logoText}

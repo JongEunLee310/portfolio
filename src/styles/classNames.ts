@@ -5,9 +5,18 @@ export const layout = {
 
 export const surface = {
   light: "bg-slate-50 text-slate-900",
-  dark: "bg-brand-dark text-white",
+  dark: "bg-[var(--color-page-bg)] text-[var(--color-page-text)]",
   card: "rounded-2xl border border-slate-200 bg-white shadow-card",
-  darkCard: "rounded-2xl border border-white/10 bg-white/[0.04] shadow-glow",
+  darkCard:
+    "rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-card",
+};
+
+export const themeSurface = {
+  page: "bg-[var(--color-page-bg)] text-[var(--color-page-text)] transition-colors duration-300",
+  lightBand: "bg-[var(--color-page-bg)] text-[var(--color-page-text)] transition-colors duration-300",
+  surfaceBand: "bg-[var(--color-surface)] text-[var(--color-page-text)] transition-colors duration-300",
+  mutedBand: "bg-[var(--color-surface-muted)] text-[var(--color-page-text)] transition-colors duration-300",
+  card: "rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-card transition-colors duration-300",
 };
 
 export const text = {

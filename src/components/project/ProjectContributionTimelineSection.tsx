@@ -33,15 +33,15 @@ export function ProjectContributionTimelineSection({
       <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {visibleContributions.map((contribution) => (
           <li key={`${contribution.date}-${contribution.title}`}>
-            <article className="relative h-full rounded-lg border border-slate-200 bg-white p-5 shadow-card">
-              <span className="absolute -top-3 left-5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 ring-4 ring-slate-50" />
+            <article className="relative h-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-card">
+              <span className="absolute -top-3 left-5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 ring-4 ring-[var(--color-page-bg)]" />
               <p className="mt-2 text-xs font-bold text-blue-600">
                 {contribution.date}
               </p>
-              <h3 className="mt-3 text-sm font-bold text-slate-900">
+              <h3 className="mt-3 text-sm font-bold text-[var(--color-page-text)]">
                 {contribution.title}
               </h3>
-              <p className="mt-2 text-xs leading-6 text-slate-600">
+              <p className="mt-2 text-xs leading-6 text-[var(--color-muted-text)]">
                 {contribution.description}
               </p>
             </article>

@@ -53,15 +53,15 @@ export function NoteListSidebar({
   const visibleTagOptions = tagOptions.slice(0, 6);
 
   return (
-    <aside className="sticky top-24 hidden w-56 shrink-0 self-start overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] text-white shadow-glow lg:block">
-      <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+    <aside className="sticky top-24 hidden w-56 shrink-0 self-start overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-page-text)] shadow-card lg:block">
+      <div className="flex items-center justify-between border-b border-[var(--color-border)] px-5 py-4">
         <h2 className="text-sm font-semibold">{content.title}</h2>
-        <SlidersHorizontal className="h-4 w-4 text-slate-400" />
+        <SlidersHorizontal className="h-4 w-4 text-[var(--color-muted-text)]" />
       </div>
 
       <div className="space-y-7 px-5 py-5">
         <section>
-          <h3 className="text-xs font-semibold text-slate-400">
+          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
             {content.categoryTitle}
           </h3>
           <div className="mt-3 space-y-1">
@@ -75,8 +75,8 @@ export function NoteListSidebar({
                   onClick={() => onChange({ ...filters, category: option.value })}
                   className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition ${
                     isSelected
-                      ? "bg-white/10 text-white"
-                      : "text-slate-400 hover:bg-white/[0.06] hover:text-white"
+                      ? "bg-blue-600 text-white"
+                      : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]"
                   }`}
                 >
                   <span>{option.label}</span>
@@ -87,8 +87,8 @@ export function NoteListSidebar({
           </div>
         </section>
 
-        <section className="border-t border-white/10 pt-6">
-          <h3 className="text-xs font-semibold text-slate-400">
+        <section className="border-t border-[var(--color-border)] pt-6">
+          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
             {content.tagTitle}
           </h3>
           <div className="mt-3 space-y-3">
@@ -101,14 +101,14 @@ export function NoteListSidebar({
               return (
                 <label
                   key={option.value}
-                  className="flex cursor-pointer items-center justify-between gap-3 text-xs text-slate-400 transition hover:text-white"
+                  className="flex cursor-pointer items-center justify-between gap-3 text-xs text-[var(--color-muted-text)] transition hover:text-[var(--color-page-text)]"
                 >
                   <span className="flex min-w-0 items-center gap-2">
                     <input
                       type="checkbox"
                       checked={isChecked}
                       onChange={() => onChange({ ...filters, tags: nextTags })}
-                      className="h-3.5 w-3.5 rounded border-white/20 bg-transparent accent-blue-500"
+                      className="h-3.5 w-3.5 rounded border-[var(--color-border)] bg-transparent accent-blue-500"
                     />
                     <span className="truncate">{option.label}</span>
                   </span>
@@ -128,8 +128,8 @@ export function NoteListSidebar({
           ) : null}
         </section>
 
-        <section className="border-t border-white/10 pt-6">
-          <h3 className="text-xs font-semibold text-slate-400">
+        <section className="border-t border-[var(--color-border)] pt-6">
+          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
             {content.featuredTitle}
           </h3>
           <div className="mt-3 space-y-1">
@@ -143,8 +143,8 @@ export function NoteListSidebar({
                   onClick={() => onChange({ ...filters, featured: option.value })}
                   className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition ${
                     isSelected
-                      ? "bg-white/10 text-white"
-                      : "text-slate-400 hover:bg-white/[0.06] hover:text-white"
+                      ? "bg-blue-600 text-white"
+                      : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]"
                   }`}
                 >
                   <span>{option.label}</span>

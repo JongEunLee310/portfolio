@@ -7,6 +7,7 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { HomeNoteCarousel } from "@/components/note/HomeNoteCarousel";
 import { HomeFeaturedProjects } from "@/components/project/HomeFeaturedProjects";
 import { ProjectTechStackBand } from "@/components/project/ProjectTechStackBand";
+import { useTheme } from "@/app/theme/useTheme";
 import { projectTechStackContent } from "@/data/filters";
 import { highlights } from "@/data/highlights";
 import { homeHeroCode, pageHeroes } from "@/data/hero";
@@ -14,6 +15,7 @@ import { projects } from "@/data/projects";
 import { technicalNotes } from "@/data/technicalNotes";
 import { techStackGroups } from "@/data/techStack";
 import { PATHS } from "@/constants/paths";
+import { themeSurface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
 
 const highlightIcons: Record<string, LucideIcon> = {
@@ -24,6 +26,7 @@ const highlightIcons: Record<string, LucideIcon> = {
 };
 
 export function HomePage() {
+  const { resolvedTheme } = useTheme();
   const featuredProjects = projects.filter((project) => project.status === "featured");
   const normalProjects = projects.filter((project) => project.status === "normal");
   const featuredNotes = technicalNotes.slice(0, 5);
@@ -32,6 +35,7 @@ export function HomePage() {
     <PageLayout {...pageChrome}>
       <PageHero
         {...pageHeroes.home}
+        variant={resolvedTheme}
         visualSlot={
           <CodeSnippetBlock
             filename={homeHeroCode.filename}
@@ -39,7 +43,7 @@ export function HomePage() {
           />
         }
       />
-      <section className="bg-slate-50 py-16 lg:py-20">
+      <section className={`${themeSurface.lightBand} py-16 lg:py-20`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeader
             eyebrow="FEATURED PROJECTS"
@@ -53,7 +57,7 @@ export function HomePage() {
           />
         </div>
       </section>
-      <section className="bg-white py-16 lg:py-20">
+      <section className={`${themeSurface.surfaceBand} py-16 lg:py-20`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeader
             eyebrow="TECHNICAL HIGHLIGHTS"
@@ -66,13 +70,13 @@ export function HomePage() {
               return (
                 <article
                   key={item.title}
-                  className="rounded-2xl border border-slate-200 bg-slate-50 p-6"
+                  className={`${themeSurface.card} p-6`}
                 >
                   {Icon ? <Icon className="h-8 w-8 text-blue-600" /> : null}
-                  <h3 className="mt-4 text-lg font-bold text-slate-900">
+                  <h3 className="mt-4 text-lg font-bold text-[var(--color-page-text)]">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                  <p className="mt-2 text-sm leading-6 text-[var(--color-muted-text)]">
                     {item.description}
                   </p>
                 </article>
@@ -81,15 +85,18 @@ export function HomePage() {
           </div>
         </div>
       </section>
-      <section className="bg-brand-dark py-16 text-white lg:py-20">
+      <section className={`${themeSurface.surfaceBand} py-16 lg:py-20`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeader
             eyebrow="TECHNICAL NOTES"
             title="기술 문제 해결 기록"
             description="성능, 구조, 인프라 문제를 어떻게 관찰하고 개선했는지 기록합니다."
-            dark
+            dark={resolvedTheme === "dark"}
             action={
-              <ButtonLink href={PATHS.technicalNotes} variant="darkOutline">
+              <ButtonLink
+                href={PATHS.technicalNotes}
+                variant={resolvedTheme === "dark" ? "darkOutline" : "outline"}
+              >
                 전체 보기
               </ButtonLink>
             }

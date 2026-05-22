@@ -7,6 +7,7 @@ import { ProjectListSidebar } from "@/components/project/ProjectListSidebar";
 import { ProjectListToolbar } from "@/components/project/ProjectListToolbar";
 import { ProjectPagination } from "@/components/project/ProjectPagination";
 import { ProjectTechStackBand } from "@/components/project/ProjectTechStackBand";
+import { useTheme } from "@/app/theme/useTheme";
 import {
   projectCategoryFilters,
   projectFilterContent,
@@ -21,6 +22,7 @@ import {
 import { pageHeroes } from "@/data/hero";
 import { projects } from "@/data/projects";
 import { techStackGroups } from "@/data/techStack";
+import { themeSurface } from "@/styles/classNames";
 import type {
   ProjectCard,
   ProjectFilterState,
@@ -161,6 +163,7 @@ function getTechOptions() {
 }
 
 export function ProjectsPage() {
+  const { resolvedTheme } = useTheme();
   const [filters, setFilters] = useState<ProjectFilterState>({
     category: "all",
     techStacks: [],
@@ -202,8 +205,8 @@ export function ProjectsPage() {
 
   return (
     <PageLayout {...pageChrome}>
-      <PageHero {...pageHeroes.projects} />
-      <section className="bg-brand-dark pb-16 text-white lg:pb-20">
+      <PageHero {...pageHeroes.projects} variant={resolvedTheme} />
+      <section className={`${themeSurface.lightBand} pb-16 lg:pb-20`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex gap-6">
             <ProjectListSidebar
@@ -260,6 +263,7 @@ export function ProjectsPage() {
       <ProjectTechStackBand
         content={projectTechStackContent}
         groups={techStackGroups}
+        variant={resolvedTheme}
       />
     </PageLayout>
   );

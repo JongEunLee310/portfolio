@@ -22,12 +22,12 @@ export function ProjectCard({
 
   return (
     <article
-      className={`group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover ${
+      className={`group overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover ${
         isList ? "md:flex" : ""
       }`}
     >
       <div className={`p-4 ${isList ? "md:w-64 md:shrink-0" : ""}`}>
-        <div className="aspect-[16/10] overflow-hidden rounded-lg bg-slate-100">
+        <div className="aspect-[16/10] overflow-hidden rounded-lg bg-[var(--color-surface-muted)]">
           <img
             src={project.thumbnail}
             alt={`${project.title} 썸네일`}
@@ -39,10 +39,10 @@ export function ProjectCard({
         <Badge variant={project.status === "featured" ? "primary" : "light"}>
           {project.subtitle ?? project.category.join(" · ")}
         </Badge>
-        <h3 className="mt-3 text-xl font-bold leading-snug text-slate-950">
+        <h3 className="mt-3 text-xl font-bold leading-snug text-[var(--color-page-text)]">
           {project.title}
         </h3>
-        <p className="mt-3 min-h-12 overflow-hidden text-sm leading-6 text-slate-600">
+        <p className="mt-3 min-h-12 overflow-hidden text-sm leading-6 text-[var(--color-muted-text)]">
           {project.summary}
         </p>
         <div className="mt-5 flex flex-wrap gap-1.5">
@@ -63,7 +63,7 @@ export function ProjectCard({
               href={project.links.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 text-sm font-semibold text-slate-900 transition hover:border-blue-500 hover:text-blue-600"
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-4 text-sm font-semibold text-[var(--color-page-text)] transition hover:border-blue-500 hover:text-blue-600"
             >
               {labels.githubLabel}
               <ExternalLink className="h-4 w-4" />

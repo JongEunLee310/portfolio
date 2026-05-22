@@ -37,9 +37,9 @@ export function ProjectTechStackGroupedSection({
         {groups.map((group) => (
           <article
             key={`${projectSlug}-${group.title}`}
-            className="rounded-lg border border-slate-200 bg-white p-5 shadow-card"
+            className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-card"
           >
-            <h3 className="text-sm font-bold text-slate-900">{group.title}</h3>
+            <h3 className="text-sm font-bold text-[var(--color-page-text)]">{group.title}</h3>
             <div className="mt-4 flex flex-wrap gap-2">
               {group.items.map((tag) => (
                 <TechTag

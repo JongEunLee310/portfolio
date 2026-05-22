@@ -26,14 +26,14 @@ export function HomeFeaturedProjects({
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {primaryProject ? (
           <article
-            className={`${surface.darkCard} flex min-h-[420px] flex-col justify-between p-8 text-white lg:col-span-2`}
+            className={`${surface.darkCard} flex min-h-[420px] flex-col justify-between p-8 text-[var(--color-page-text)] lg:col-span-2`}
           >
             <div>
               <Badge variant="dark">{getProjectLabel(primaryProject)}</Badge>
               <h3 className="mt-5 max-w-2xl text-2xl font-bold tracking-tight md:text-3xl">
                 {primaryProject.title}
               </h3>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 md:text-base">
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--color-muted-text)] md:text-base">
                 {primaryProject.summary}
               </p>
               <div className="mt-6 flex flex-wrap gap-2">
@@ -54,7 +54,7 @@ export function HomeFeaturedProjects({
                   href={primaryProject.links.github}
                   target="_blank"
                   rel="noreferrer"
-                  className={`${button.darkOutline} gap-2`}
+                  className={`${button.outline} gap-2`}
                 >
                   GitHub
                   <ExternalLink className="h-4 w-4" />
@@ -68,7 +68,7 @@ export function HomeFeaturedProjects({
           <article
             className={`${surface.card} overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-card-hover`}
           >
-            <div className="aspect-[16/10] overflow-hidden bg-slate-100">
+            <div className="aspect-[16/10] overflow-hidden bg-[var(--color-surface-muted)]">
               <img
                 src={secondaryProject.thumbnail}
                 alt={`${secondaryProject.title} 썸네일`}
@@ -77,10 +77,10 @@ export function HomeFeaturedProjects({
             </div>
             <div className="p-6">
               <Badge variant="light">{getProjectLabel(secondaryProject)}</Badge>
-              <h3 className="mt-4 text-xl font-bold text-slate-900">
+              <h3 className="mt-4 text-xl font-bold text-[var(--color-page-text)]">
                 {secondaryProject.title}
               </h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600">
+              <p className="mt-3 text-sm leading-6 text-[var(--color-muted-text)]">
                 {secondaryProject.summary}
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
@@ -104,14 +104,14 @@ export function HomeFeaturedProjects({
 
       {others.length > 0 ? (
         <section className="mt-12">
-          <h3 className="text-lg font-bold text-slate-900">기타 프로젝트</h3>
+          <h3 className="text-lg font-bold text-[var(--color-page-text)]">기타 프로젝트</h3>
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
             {others.map((project) => (
               <article
                 key={project.slug}
                 className={`${surface.card} flex gap-4 p-4 transition duration-300 hover:-translate-y-1 hover:shadow-card-hover`}
               >
-                <div className="h-16 w-24 flex-none overflow-hidden rounded-xl bg-slate-100">
+                <div className="h-16 w-24 flex-none overflow-hidden rounded-xl bg-[var(--color-surface-muted)]">
                   <img
                     src={project.thumbnail}
                     alt={`${project.title} 썸네일`}
@@ -119,10 +119,10 @@ export function HomeFeaturedProjects({
                   />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <h4 className="text-base font-bold text-slate-900">
+                  <h4 className="text-base font-bold text-[var(--color-page-text)]">
                     {project.title}
                   </h4>
-                  <p className="mt-1 text-xs font-medium text-slate-500">
+                  <p className="mt-1 text-xs font-medium text-[var(--color-muted-text)]">
                     {project.period}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">

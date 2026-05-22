@@ -32,7 +32,7 @@ export function HomeNoteCarousel({ notes }: HomeNoteCarouselProps) {
         <button
           type="button"
           onClick={scrollPrev}
-          className="rounded-full border border-white/10 bg-white/[0.06] p-2 text-white transition hover:bg-white/10"
+          className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] p-2 text-[var(--color-page-text)] transition hover:bg-[var(--color-surface-muted)]"
           aria-label="이전 기술 노트"
         >
           <ChevronLeft className="h-4 w-4" />
@@ -40,7 +40,7 @@ export function HomeNoteCarousel({ notes }: HomeNoteCarouselProps) {
         <button
           type="button"
           onClick={scrollNext}
-          className="rounded-full border border-white/10 bg-white/[0.06] p-2 text-white transition hover:bg-white/10"
+          className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] p-2 text-[var(--color-page-text)] transition hover:bg-[var(--color-surface-muted)]"
           aria-label="다음 기술 노트"
         >
           <ChevronRight className="h-4 w-4" />

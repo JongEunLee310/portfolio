@@ -26,7 +26,7 @@ export function SectionHeader({
         <h2
           className={[
             "mt-2 text-3xl font-bold tracking-tight",
-            dark ? "text-white" : "text-slate-900",
+            dark ? "text-white" : "text-[var(--color-page-text)]",
           ].join(" ")}
         >
           {title}
@@ -35,7 +35,7 @@ export function SectionHeader({
           <p
             className={[
               "mt-3 max-w-2xl text-sm leading-6",
-              dark ? "text-slate-300" : "text-slate-600",
+              dark ? "text-slate-300" : "text-[var(--color-muted-text)]",
             ].join(" ")}
           >
             {description}

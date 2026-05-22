@@ -15,9 +15,9 @@ const calloutClassMap: Record<
   Extract<ArticleSection, { type: "callout" }>["variant"],
   string
 > = {
-  info: "border-blue-200 bg-blue-50 text-blue-900",
-  warning: "border-amber-200 bg-amber-50 text-amber-900",
-  success: "border-emerald-200 bg-emerald-50 text-emerald-900",
+  info: "border-blue-400/30 bg-blue-500/10 text-[var(--color-page-text)]",
+  warning: "border-amber-400/30 bg-amber-500/10 text-[var(--color-page-text)]",
+  success: "border-emerald-400/30 bg-emerald-500/10 text-[var(--color-page-text)]",
 };
 
 export function ArticleSectionRenderer({
@@ -28,7 +28,7 @@ export function ArticleSectionRenderer({
     return (
       <h2
         id={section.id}
-        className="scroll-mt-28 pt-6 text-2xl font-bold tracking-tight text-slate-950 md:text-3xl"
+        className="scroll-mt-28 pt-6 text-2xl font-bold tracking-tight text-[var(--color-page-text)] md:text-3xl"
       >
         {section.title}
       </h2>
@@ -37,7 +37,7 @@ export function ArticleSectionRenderer({
 
   if (section.type === "paragraph") {
     return (
-      <p className="text-base leading-8 text-slate-600 md:text-[17px]">
+      <p className="text-base leading-8 text-[var(--color-muted-text)] md:text-[17px]">
         {section.content}
       </p>
     );
@@ -45,7 +45,7 @@ export function ArticleSectionRenderer({
 
   if (section.type === "list") {
     return (
-      <ul className="rounded-lg border border-slate-200 bg-white p-5 text-base leading-8 text-slate-600 shadow-card md:text-[17px]">
+      <ul className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 text-base leading-8 text-[var(--color-muted-text)] shadow-card md:text-[17px]">
         {section.items.map((item) => (
           <li key={item} className="flex gap-3">
             <CheckCircle2 className="mt-2 h-4 w-4 shrink-0 text-blue-600" />
@@ -62,19 +62,19 @@ export function ArticleSectionRenderer({
         {section.items.map((item) => (
           <article
             key={item.title}
-            className="rounded-lg border border-slate-200 bg-white p-5 shadow-card"
+            className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-card"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/10 text-blue-500">
               <CheckCircle2 className="h-4 w-4" />
             </div>
-            <h3 className="mt-4 text-sm font-bold text-slate-950">
+            <h3 className="mt-4 text-sm font-bold text-[var(--color-page-text)]">
               {item.title}
             </h3>
-            <p className="mt-2 text-sm leading-6 text-slate-600">
+            <p className="mt-2 text-sm leading-6 text-[var(--color-muted-text)]">
               {item.description}
             </p>
             {item.badge ? (
-              <span className="mt-4 inline-flex rounded-md bg-blue-50 px-2.5 py-1 font-mono text-[11px] font-bold uppercase text-blue-700">
+              <span className="mt-4 inline-flex rounded-md border border-blue-400/20 bg-blue-500/10 px-2.5 py-1 font-mono text-[11px] font-bold uppercase text-blue-500">
                 {item.badge}
               </span>
             ) : null}
@@ -147,13 +147,13 @@ export function ArticleSectionRenderer({
         {section.items.map((item) => (
           <article
             key={item.title}
-            className="rounded-lg border border-slate-200 bg-white p-5 shadow-card"
+            className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-card"
           >
-            <h3 className="text-base font-bold text-slate-950">{item.title}</h3>
-            <p className="mt-3 text-sm leading-6 text-slate-600">
+            <h3 className="text-base font-bold text-[var(--color-page-text)]">{item.title}</h3>
+            <p className="mt-3 text-sm leading-6 text-[var(--color-muted-text)]">
               {item.description}
             </p>
-            <ul className="mt-4 space-y-2 text-sm leading-6 text-slate-600">
+            <ul className="mt-4 space-y-2 text-sm leading-6 text-[var(--color-muted-text)]">
               {item.bullets.map((bullet) => (
                 <li key={bullet} className="flex gap-2">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" />
@@ -177,14 +177,14 @@ export function ArticleSectionRenderer({
   }
 
   return (
-    <figure className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-card">
+    <figure className="overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] shadow-card">
       <img
         src={section.src}
         alt={section.alt}
-        className="w-full bg-slate-100 object-cover"
+        className="w-full bg-[var(--color-surface-muted)] object-cover"
       />
       {section.caption ? (
-        <figcaption className="border-t border-slate-200 px-5 py-3 text-sm leading-6 text-slate-500">
+        <figcaption className="border-t border-[var(--color-border)] px-5 py-3 text-sm leading-6 text-[var(--color-muted-text)]">
           {section.caption}
         </figcaption>
       ) : null}

@@ -34,7 +34,7 @@ export function ProjectScreenshotGallerySection({
         {visibleScreenshots.map((screenshot) => (
           <article
             key={`${screenshot.title}-${screenshot.image}`}
-            className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-card"
+            className="overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] shadow-card"
           >
             <a
               href={screenshot.image}
@@ -46,14 +46,14 @@ export function ProjectScreenshotGallerySection({
               <img
                 src={screenshot.image}
                 alt={`${projectTitle} ${screenshot.title}`}
-                className="aspect-[16/9] w-full bg-slate-100 object-cover"
+                className="aspect-[16/9] w-full bg-[var(--color-surface-muted)] object-cover"
               />
               <span className="absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-slate-950/80 text-white opacity-90 transition group-hover:bg-blue-600">
                 <Maximize2 className="h-4 w-4" aria-hidden="true" />
               </span>
             </a>
             <div className="px-4 py-3 text-center">
-              <h3 className="text-sm font-semibold text-slate-800">
+              <h3 className="text-sm font-semibold text-[var(--color-page-text)]">
                 {screenshot.title}
               </h3>
             </div>

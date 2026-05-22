@@ -5,20 +5,22 @@ import { ContactFAQList } from "@/components/contact/ContactFAQList";
 import { ContactValueCard } from "@/components/contact/ContactValueCard";
 import { PageHero } from "@/components/hero/PageHero";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { useTheme } from "@/app/theme/useTheme";
 import { contactData } from "@/data/contact";
 import { pageHeroes } from "@/data/hero";
-import { layout, surface } from "@/styles/classNames";
+import { layout, themeSurface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
 
 export function ContactPage() {
+  const { resolvedTheme } = useTheme();
   const { channels, faq, sections, values } = contactData;
   const [emailChannel, ...supportChannels] = channels;
 
   return (
     <PageLayout {...pageChrome}>
-      <PageHero {...pageHeroes.contact} />
+      <PageHero {...pageHeroes.contact} variant={resolvedTheme} />
 
-      <section id={sections.contact.id} className={`${surface.light} ${layout.section}`}>
+      <section id={sections.contact.id} className={`${themeSurface.lightBand} ${layout.section}`}>
         <div className={layout.container}>
           <SectionHeader {...sections.contact} />
           <div className="grid gap-12 lg:grid-cols-2">
@@ -34,7 +36,7 @@ export function ContactPage() {
         </div>
       </section>
 
-      <section className={`bg-white ${layout.section}`}>
+      <section className={`${themeSurface.surfaceBand} ${layout.section}`}>
         <div className={layout.container}>
           <div className="grid gap-12 lg:grid-cols-2">
             <div id={sections.faq.id}>
