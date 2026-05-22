@@ -227,4 +227,84 @@ export const technicalNotes: TechnicalNoteCard[] = [
     ],
     relatedProjectSlugs: ["the-listening-tree"],
   },
+  {
+    slug: "smart-farm-data-collector-recovery",
+    title: "원격지 Data Collector 수집 실패와 비정상 데이터 정상화",
+    summary:
+      "Azure VM에서 실행되는 Data Collector가 수집 실패하거나 비정상 데이터를 반환할 때 자동으로 정상화하는 구조를 설계한 기록입니다.",
+    category: "troubleshooting",
+    thumbnail: "/images/notes/smart-farm-data-collector.svg",
+    date: "2024.10.12",
+    readingTime: "8분 읽기",
+    tags: [
+      { name: "IoT", category: "infra" },
+      { name: "Azure VM", category: "infra" },
+      { name: "ModbusTCP", category: "backend" },
+    ],
+    relatedProjectSlugs: ["smart-farm"],
+  },
+  {
+    slug: "smart-farm-db-replication",
+    title: "센서 데이터 손실 방지를 위한 Azure MySQL DB 이중화",
+    summary:
+      "실시간으로 누적되는 센서 데이터의 손실을 막기 위해 Azure MySQL DB 이중화 구조를 적용하고 저장 안정성을 확보한 기록입니다.",
+    category: "database",
+    thumbnail: "/images/notes/smart-farm-db-replication.svg",
+    date: "2024.10.18",
+    readingTime: "7분 읽기",
+    tags: [
+      { name: "MySQL", category: "database" },
+      { name: "Azure", category: "infra" },
+      { name: "Replication", category: "database" },
+    ],
+    relatedProjectSlugs: ["smart-farm"],
+  },
+  {
+    slug: "smart-farm-remote-device-control",
+    title: "API Server와 Device Controller를 통한 원격 디바이스 제어",
+    summary:
+      "사용자의 앱 제어 요청이 API Server와 Device Controller를 거쳐 ModbusTCP로 원격지 DAS에 전달되는 제어 흐름을 구현한 기록입니다.",
+    category: "architecture",
+    thumbnail: "/images/notes/smart-farm-remote-control.svg",
+    date: "2024.11.02",
+    readingTime: "9분 읽기",
+    tags: [
+      { name: "ModbusTCP", category: "backend" },
+      { name: "IoT", category: "infra" },
+      { name: "WebSocket", category: "backend" },
+    ],
+    relatedProjectSlugs: ["smart-farm"],
+  },
+  {
+    slug: "smart-farm-api-server-design",
+    title: "스마트팜 IoT 서비스 API Server 설계",
+    summary:
+      "수집, 저장, 이상 감지, 알림, 제어를 통합하는 스마트팜 API Server의 엔드포인트 구조와 서비스 간 책임 분리를 정리한 기록입니다.",
+    category: "architecture",
+    thumbnail: "/images/notes/smart-farm-api-design.svg",
+    date: "2024.09.20",
+    readingTime: "10분 읽기",
+    tags: [
+      { name: "REST API", category: "backend" },
+      { name: "IoT", category: "infra" },
+      { name: "Azure", category: "infra" },
+    ],
+    relatedProjectSlugs: ["smart-farm"],
+  },
+  {
+    slug: "smart-farm-monitoring-engine",
+    title: "Monitoring Engine의 이상 값 감지와 Outlier 분리 저장",
+    summary:
+      "기준 값 기반으로 센서 이상 값을 감지하고 일반 데이터와 분리된 Outlier 테이블에 저장해 이력 추적과 알림 처리를 용이하게 한 기록입니다.",
+    category: "architecture",
+    thumbnail: "/images/notes/smart-farm-monitoring.svg",
+    date: "2024.11.15",
+    readingTime: "8분 읽기",
+    tags: [
+      { name: "IoT", category: "infra" },
+      { name: "MySQL", category: "database" },
+      { name: "Monitoring", category: "observability" },
+    ],
+    relatedProjectSlugs: ["smart-farm"],
+  },
 ];

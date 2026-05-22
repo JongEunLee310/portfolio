@@ -123,28 +123,27 @@ export const projects: ProjectCard[] = [
   },
   {
     slug: "smart-farm",
-    title: "Smart Farm",
-    subtitle: "스마트팜 모니터링 시스템",
+    title: "스마트팜 재배기 모니터링 시스템",
+    subtitle: "클라우드 기반 실시간 모니터링 및 원격 제어",
     summary:
-      "센서 데이터를 수집하고 원격 제어 및 이벤트 알림을 제공하는 스마트팜 모니터링 시스템",
+      "원격지 센서 데이터를 Azure VM에서 실시간 수집하고 REST API와 Monitoring Engine을 통해 이상 감지, 알림, 원격 디바이스 제어 기능을 제공한 스마트팜 시스템",
     description:
-      "센서 데이터 수집, REST API 기반 저장, 원격 제어, 이벤트 알림 구조를 설계한 프로젝트입니다.",
+      "Azure Cloud 기반 IoT 센서 데이터 수집, 이상 감지, 원격 디바이스 제어 플랫폼. DAS와 ModbusTCP로 통신하는 Data Collector, Monitoring Engine, Device Controller를 구성했다.",
     thumbnail: "/images/projects/smart-farm/thumbnail.svg",
     category: ["backend", "iot"],
     type: "team",
     status: "normal",
-    period: "2024.03 - 2024.05",
-    role: "Backend / Cloud Architecture",
+    period: "2022.03 - 2022.07",
+    role: "원격 데이터 수집 / DB 업로드 / 디바이스 제어 기능 개발",
     techStack: [
-      { name: "Spring Boot", category: "backend" },
-      { name: "MySQL", category: "database" },
+      { name: "Java", category: "language" },
       { name: "REST API", category: "backend" },
+      { name: "MySQL", category: "database" },
       { name: "Azure", category: "infra" },
-      { name: "IoT", category: "tool" },
+      { name: "ModbusTCP", category: "messaging" },
     ],
     links: {
       detail: PATHS.projectDetail("smart-farm"),
-      github: "https://github.com/JongEunLee310/smart-farm",
     },
   },
 ];
