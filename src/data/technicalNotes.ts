@@ -1,4 +1,11 @@
 import type { TechnicalNoteCard } from "@/types/note";
+import { containerImageArchitectureCompatibility } from "./notes/container-image-architecture-compatibility";
+import { eksObservabilityCloudwatchOpensearch } from "./notes/eks-observability-cloudwatch-opensearch";
+import { fluentbitCloudwatchLogPipeline } from "./notes/fluentbit-cloudwatch-log-pipeline";
+import { jenkinsEcrArgoCdCicd } from "./notes/jenkins-ecr-argocd-cicd";
+import { kubernetesHpaClusterAutoscaler } from "./notes/kubernetes-hpa-cluster-autoscaler";
+import { springbootJwtSocialLogin } from "./notes/springboot-jwt-social-login";
+import { swaggerApiDocumentation } from "./notes/swagger-api-documentation";
 import { googleOauthExceptionMasking } from "./notes/001-google-oauth-exception-masking";
 import { openaiResponseDirectAccess } from "./notes/002-openai-response-direct-access";
 import { multirepoCI } from "./notes/003-multirepo-ci-duplication-and-drift";
@@ -39,4 +46,11 @@ export const technicalNotes: TechnicalNoteCard[] = [
   smartFarmRemoteDeviceControl,
   smartFarmApiServerDesign,
   smartFarmMonitoringEngine,
+  eksObservabilityCloudwatchOpensearch,
+  fluentbitCloudwatchLogPipeline,
+  jenkinsEcrArgoCdCicd,
+  kubernetesHpaClusterAutoscaler,
+  springbootJwtSocialLogin,
+  swaggerApiDocumentation,
+  containerImageArchitectureCompatibility,
 ];
