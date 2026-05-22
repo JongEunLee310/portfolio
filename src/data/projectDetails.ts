@@ -17,103 +17,102 @@ export const projectDetails: ProjectDetail[] = [
     heroImage: "/images/projects/ai-devops/dashboard.svg",
     heroHighlights: [
       {
-        label: "배포 자동화 시간 절감",
-        value: "90%+",
-        icon: "Workflow",
+        label: "처리량 (Celery + Redis, 100 VU)",
+        value: "47.4 req/s",
+        icon: "Zap",
       },
       {
-        label: "장애 탐지 정확도",
-        value: "95%+",
-        icon: "Gauge",
-      },
-      {
-        label: "운영 비용 절감",
-        value: "40%",
-        icon: "Cloud",
+        label: "실패율 (Celery + Redis, 100 VU)",
+        value: "0%",
+        icon: "CheckCircle",
       },
     ],
     overview:
-      "AI DevOps Orchestration Platform은 Git 저장소 기반 파이프라인 실행, Job 로그 수집, 실패 원인 분석, AI Review 생성을 하나의 흐름으로 연결한 백엔드 중심 프로젝트입니다.",
+      'Pipeline 실행 오케스트레이션과 AI 기반 실패 분석을 직접 설계하고 구현한 DevOps 자동화 백엔드입니다. 단순한 CRUD 서버가 아니라, "POST /run 하나가 DB 커넥션 풀을 점유한다"는 구조적 문제를 발견하고 이를 해결하기 위해 FastAPI BackgroundTasks, Celery + Redis, RabbitMQ 이벤트 드리븐 MSA 세 가지 비동기화 전략을 브랜치별로 구현하고 부하 테스트로 비교했습니다. 최종적으로 core-api / pipeline-execution-svc / ai-review-svc 세 서비스를 RabbitMQ topic exchange로 연결하고 DB 소유권을 물리적으로 분리했습니다.',
     problem: {
-      title: "문제 정의",
+      title: "단일 프로세스 실행 구조의 한계",
       items: [
-        "파이프라인 실행 요청이 HTTP 요청 생명주기와 강하게 결합되어 응답 시간이 길어졌습니다.",
-        "Git clone, 명령 실행, 로그 저장이 하나의 흐름에 섞여 있어 장애 원인 추적이 어려웠습니다.",
-        "동기 실행 구조에서는 확장성과 운영 관점의 한계가 있었습니다.",
+        "POST /run이 Git clone + Job 실행 전 구간에서 DB 커넥션을 점유해 SELECT 쿼리가 수백 ms 대기했습니다.",
+        "Pipeline 실행(CPU/IO 집약)과 AI Review(LLM 레이턴시)가 같은 프로세스에서 동작해 독립 스케일아웃이 어려웠습니다.",
+        "BackgroundTasks, Celery, 메시지 브로커 중 어떤 접근이 신뢰성과 서비스 분리에 실질적으로 유리한지 판단할 수 있는 수치가 없었습니다.",
       ],
     },
     solution: {
-      title: "해결 방향",
+      title: "브랜치 비교 실험에서 RabbitMQ 이벤트 드리븐 MSA까지",
       items: [
-        "PipelineRun을 도입해 실행 기록을 불변 실행 단위로 분리했습니다.",
-        "실행 엔진과 AI 분석기를 JobRunLog 경계로 분리했습니다.",
-        "Prometheus, Grafana, Loki를 통해 성능 병목을 관찰하고 개선했습니다.",
+        "FastAPI BackgroundTasks(Track 1), Celery + Redis(Track 2), RabbitMQ MSA(Track 3)를 브랜치별로 구현하고 Locust 부하 테스트로 정량 비교했습니다.",
+        "RabbitMQ topic exchange + durable queue + manual ack + DLQ로 메시지 내구성과 서비스 경계를 함께 확보했습니다.",
+        "pipeline_runs/job_run_logs는 pipeline-execution-svc, ai_reviews는 ai-review-svc가 자체 DB로 소유하게 분리했습니다.",
       ],
     },
     architecture: {
-      title: "아키텍처",
+      title: "RabbitMQ 이벤트 드리븐 MSA",
       description:
-        "API 서버, 실행 워커, 메시지 브로커, 데이터베이스, 관측 도구를 분리해 실행과 분석의 책임을 나눴습니다.",
+        "3개 서비스(core-api / pipeline-execution-svc / ai-review-svc)가 RabbitMQ topic exchange를 통해 비동기로 통신합니다. 각 서비스는 독립 PostgreSQL DB를 소유하며 서비스 간 데이터 참조는 UUID 논리 참조로만 처리합니다.",
       nodes: [
         {
-          title: "Client",
-          items: ["React UI", "Pipeline YAML", "Project Dashboard"],
-          icon: "Code2",
-        },
-        {
-          title: "API Server",
-          items: ["FastAPI", "Auth", "Pipeline API", "AI Review API"],
+          id: "core-api",
+          title: "Core API",
+          items: ["FastAPI", "JWT 인증", "CRUD", "RabbitMQ Publisher/Consumer"],
           icon: "Server",
         },
         {
-          title: "Execution Worker",
-          items: ["Git Clone", "Job Command", "Log Capture"],
-          icon: "Workflow",
+          id: "pipeline-svc",
+          title: "Pipeline Execution Service",
+          items: ["Git clone", "Job 순차 실행", "PipelineRun/JobRunLog 저장"],
+          icon: "Play",
         },
         {
-          title: "Storage",
-          items: ["PostgreSQL", "JobRunLog", "PipelineRun"],
+          id: "ai-review-svc",
+          title: "AI Review Service",
+          items: ["LLM 호출(Anthropic/OpenAI)", "실패 원인 분석", "폴백 체인"],
+          icon: "Brain",
+        },
+        {
+          id: "rabbitmq",
+          title: "RabbitMQ",
+          items: ["topic exchange", "durable queue", "DLQ", "manual ack"],
+          icon: "MessageSquare",
+        },
+        {
+          id: "postgresql",
+          title: "PostgreSQL",
+          items: ["서비스별 독립 DB", "core-db / exec-db / review-db"],
           icon: "Database",
+        },
+        {
+          id: "observability",
+          title: "Observability",
+          items: ["Prometheus 메트릭 수집", "Grafana 대시보드"],
+          icon: "BarChart",
         },
       ],
     },
     architectureFlow: {
-      title: "아키텍처",
+      title: "Pipeline 실행 및 AI Review 이벤트 흐름",
       description:
-        "사용자 요청부터 파이프라인 실행, 로그 분석, 배포 알림까지를 독립된 서비스와 인프라 경계로 나눠 운영 흐름을 단순화했습니다.",
+        "POST /run -> 이벤트 발행 -> 실행 서비스 -> 결과 이벤트 -> Core API 상태 업데이트 흐름으로 동작합니다. AI Review도 동일한 이벤트 루프 패턴으로 처리됩니다.",
       groups: [
         {
           id: "clients",
           title: "사용자 / 외부",
           nodes: [
             {
-              id: "web-ui",
-              title: "Web UI",
-              items: ["Pipeline 실행", "AI Review 확인"],
-              icon: "Code2",
-            },
-            {
-              id: "cli",
-              title: "CLI",
-              items: ["실행 요청", "상태 조회"],
-              icon: "Workflow",
-            },
-            {
-              id: "api-clients",
-              title: "API Clients",
-              items: ["Webhook", "외부 연동"],
-              icon: "ExternalLink",
+              id: "browser",
+              title: "브라우저 / API 클라이언트",
+              items: ["React SPA", "Swagger UI"],
+              icon: "Monitor",
             },
           ],
         },
         {
           id: "gateway",
-          title: "API Gateway",
+          title: "Core API",
           nodes: [
             {
-              id: "gateway-service",
-              title: "Gateway",
-              items: ["Auth", "Routing", "Rate Limit"],
+              id: "core-api",
+              title: "Core API",
+              items: ["FastAPI", "JWT", "CRUD", "RabbitMQ Publisher/Consumer"],
               icon: "Server",
             },
           ],
@@ -123,70 +122,58 @@ export const projectDetails: ProjectDetail[] = [
           title: "마이크로서비스",
           nodes: [
             {
-              id: "auth-service",
-              title: "Auth Service",
-              items: ["Token", "Permission"],
-              icon: "Server",
+              id: "pipeline-svc",
+              title: "Pipeline Execution Service",
+              items: ["Git clone", "Job 실행", "PipelineRun 저장"],
+              icon: "Play",
             },
             {
-              id: "pipeline-service",
-              title: "Pipeline Service",
-              items: ["PipelineRun", "JobRun"],
-              icon: "Workflow",
-            },
-            {
-              id: "deploy-service",
-              title: "Deploy Service",
-              items: ["Release", "History"],
-              icon: "Cloud",
-            },
-            {
-              id: "ai-insight-service",
-              title: "AI Insight Service",
-              items: ["Log Summary", "Review"],
-              icon: "Gauge",
-            },
-            {
-              id: "notification-service",
-              title: "Notification Service",
-              items: ["Slack", "Email"],
-              icon: "MessageSquare",
-            },
-            {
-              id: "monitoring-service",
-              title: "Monitoring Service",
-              items: ["Metric", "Alert"],
-              icon: "Activity",
+              id: "ai-review-svc",
+              title: "AI Review Service",
+              items: ["LLM 분석", "폴백 체인", "AIReview 저장"],
+              icon: "Brain",
             },
           ],
         },
         {
-          id: "data-ai",
-          title: "데이터 & AI",
+          id: "data",
+          title: "데이터",
           nodes: [
             {
-              id: "postgresql",
-              title: "PostgreSQL",
-              items: ["Metadata", "Run State"],
+              id: "rabbitmq",
+              title: "RabbitMQ",
+              items: ["topic exchange", "durable queue", "DLQ"],
+              icon: "MessageSquare",
+            },
+            {
+              id: "core-db",
+              title: "Core DB",
+              items: ["project, pipeline, job, user"],
               icon: "Database",
             },
             {
-              id: "redis",
-              title: "Redis",
-              items: ["Cache", "Queue State"],
+              id: "exec-db",
+              title: "Execution DB",
+              items: ["pipeline_runs, job_run_logs"],
               icon: "Database",
             },
             {
-              id: "s3-minio",
-              title: "S3 / MinIO",
-              items: ["Artifacts", "Logs"],
-              icon: "Cloud",
+              id: "review-db",
+              title: "Review DB",
+              items: ["ai_reviews"],
+              icon: "Database",
             },
+          ],
+        },
+        {
+          id: "ai",
+          title: "AI",
+          nodes: [
             {
-              id: "ml-model",
-              title: "ML Model",
-              items: ["Anomaly", "Review"],
-              icon: "Gauge",
+              id: "llm",
+              title: "LLM API",
+              items: ["Anthropic Claude", "OpenAI (폴백)"],
+              icon: "Zap",
             },
           ],
         },
@@ -195,134 +182,110 @@ export const projectDetails: ProjectDetail[] = [
           title: "인프라 / 외부 연동",
           nodes: [
             {
-              id: "kubernetes",
-              title: "Kubernetes",
-              items: ["Worker", "Scaling"],
-              icon: "Cloud",
+              id: "prometheus",
+              title: "Prometheus",
+              items: ["메트릭 수집"],
+              icon: "Activity",
             },
             {
-              id: "aws-gcp",
-              title: "AWS / GCP",
-              items: ["Registry", "Storage"],
-              icon: "Cloud",
-            },
-            {
-              id: "docker-registry",
-              title: "Docker Registry",
-              items: ["Image", "Tag"],
-              icon: "Layers",
-            },
-            {
-              id: "slack-email",
-              title: "Slack / Email",
-              items: ["Alert", "Report"],
-              icon: "MessageSquare",
+              id: "grafana",
+              title: "Grafana",
+              items: ["대시보드"],
+              icon: "BarChart",
             },
           ],
         },
       ],
       connections: [
         {
-          from: "web-ui",
-          to: "gateway-service",
+          from: "browser",
+          to: "core-api",
           tone: "sync",
-          label: "HTTP/API",
+          label: "REST API",
         },
         {
-          from: "cli",
-          to: "gateway-service",
-          tone: "sync",
-          label: "CLI 요청",
-        },
-        {
-          from: "api-clients",
-          to: "gateway-service",
-          tone: "sync",
-          label: "Webhook",
-        },
-        {
-          from: "gateway-service",
-          to: "auth-service",
-          tone: "sync",
-          label: "인증",
-        },
-        {
-          from: "gateway-service",
-          to: "pipeline-service",
-          tone: "sync",
-          label: "실행 요청",
-        },
-        {
-          from: "pipeline-service",
-          to: "deploy-service",
-          tone: "async",
-          label: "배포 이벤트",
-        },
-        {
-          from: "pipeline-service",
-          to: "ai-insight-service",
-          tone: "async",
-          label: "로그 분석",
-        },
-        {
-          from: "ai-insight-service",
-          to: "notification-service",
-          tone: "async",
-          label: "리뷰 결과",
-        },
-        {
-          from: "deploy-service",
-          to: "monitoring-service",
-          tone: "async",
-          label: "상태 변경",
-        },
-        {
-          from: "pipeline-service",
-          to: "postgresql",
+          from: "core-api",
+          to: "core-db",
           tone: "data",
-          label: "실행 상태",
+          label: "CRUD 쿼리",
         },
         {
-          from: "pipeline-service",
-          to: "s3-minio",
-          tone: "data",
-          label: "로그/산출물",
-        },
-        {
-          from: "ai-insight-service",
-          to: "ml-model",
-          tone: "sync",
-          label: "추론",
-        },
-        {
-          from: "pipeline-service",
-          to: "redis",
-          tone: "data",
-          label: "캐시",
-        },
-        {
-          from: "deploy-service",
-          to: "kubernetes",
-          tone: "sync",
-          label: "배포",
-        },
-        {
-          from: "deploy-service",
-          to: "docker-registry",
-          tone: "sync",
-          label: "이미지",
-        },
-        {
-          from: "notification-service",
-          to: "slack-email",
+          from: "core-api",
+          to: "rabbitmq",
           tone: "async",
-          label: "알림",
+          label: "pipeline.execution.requested 발행",
         },
         {
-          from: "s3-minio",
-          to: "aws-gcp",
+          from: "rabbitmq",
+          to: "pipeline-svc",
+          tone: "async",
+          label: "실행 요청 수신",
+        },
+        {
+          from: "pipeline-svc",
+          to: "exec-db",
           tone: "data",
-          label: "스토리지",
+          label: "PipelineRun / JobRunLog 저장",
+        },
+        {
+          from: "pipeline-svc",
+          to: "rabbitmq",
+          tone: "async",
+          label: "pipeline.execution.finished 발행",
+        },
+        {
+          from: "rabbitmq",
+          to: "core-api",
+          tone: "async",
+          label: "실행 결과 수신 -> Pipeline.status 업데이트",
+        },
+        {
+          from: "core-api",
+          to: "rabbitmq",
+          tone: "async",
+          label: "ai_review.requested 발행",
+        },
+        {
+          from: "rabbitmq",
+          to: "ai-review-svc",
+          tone: "async",
+          label: "분석 요청 수신",
+        },
+        {
+          from: "ai-review-svc",
+          to: "llm",
+          tone: "sync",
+          label: "LLM 호출",
+        },
+        {
+          from: "ai-review-svc",
+          to: "review-db",
+          tone: "data",
+          label: "AIReview 저장",
+        },
+        {
+          from: "ai-review-svc",
+          to: "rabbitmq",
+          tone: "async",
+          label: "ai_review.completed 발행",
+        },
+        {
+          from: "rabbitmq",
+          to: "core-api",
+          tone: "async",
+          label: "분석 결과 수신 -> AIReview 저장",
+        },
+        {
+          from: "core-api",
+          to: "prometheus",
+          tone: "data",
+          label: "메트릭 노출",
+        },
+        {
+          from: "prometheus",
+          to: "grafana",
+          tone: "data",
+          label: "메트릭 시각화",
         },
       ],
       legends: [
@@ -342,209 +305,288 @@ export const projectDetails: ProjectDetail[] = [
     },
     features: [
       {
-        title: "YAML 기반 파이프라인 생성",
+        title: "Pipeline 실행 오케스트레이션",
         description:
-          "GitHub Actions/GitLab CI와 유사한 YAML 구조로 Pipeline과 Job을 정의합니다.",
-        icon: "Code2",
+          "Git 저장소 클론 후 Job을 순차 실행합니다. exit_code, stdout, stderr, duration_ms를 JobRunLog에 저장하고 실행 결과로 Pipeline을 SUCCESS/FAILED terminal 상태로 전이합니다.",
+        icon: "Play",
       },
       {
-        title: "인프라 자동화",
+        title: "AI 기반 실패 분석",
         description:
-          "Terraform 기반 환경 프로비저닝과 실행 환경 변경 이력을 관리합니다.",
-        icon: "Cloud",
+          "실패한 Job의 로그를 LLM에 전달해 severity, category, cause, suggestion, confidence를 분석합니다. Anthropic -> OpenAI -> MockAnalyzer 폴백 체인으로 Provider 장애 시에도 분석 결과를 반환합니다.",
+        icon: "Brain",
       },
       {
-        title: "AI Review",
-        description: "실패 로그를 기반으로 원인 분류와 개선 제안을 생성합니다.",
-        icon: "Gauge",
+        title: "비동기 이벤트 드리븐 통신",
+        description:
+          "RabbitMQ topic exchange를 통해 서비스 간 통신합니다. durable queue + manual ack + DLQ로 메시지 유실을 방지하고 processed_events 기반 중복 수신 차단으로 멱등성을 보장합니다.",
+        icon: "MessageSquare",
       },
       {
-        title: "실시간 모니터링",
+        title: "DB 소유권 물리 분리",
         description:
-          "Prometheus와 Grafana로 실행 지표와 장애 신호를 추적합니다.",
-        icon: "Activity",
+          "서비스별 자체 PostgreSQL 인스턴스를 두고 서비스 간 데이터 참조는 UUID 논리 참조로만 처리합니다. 물리 FK를 제거해 MSA 서비스 경계를 분명히 했습니다.",
+        icon: "Database",
       },
       {
-        title: "배포 관리",
+        title: "JWT 인증 + 계층형 소유권 검증",
         description:
-          "릴리스 이력과 배포 상태를 한 흐름에서 확인할 수 있게 구성했습니다.",
-        icon: "Workflow",
+          "Pipeline은 project -> owner 2-hop, Job은 job -> pipeline -> project 3-hop으로 소유권을 검증합니다. 어느 단계에서 실패해도 404를 반환해 리소스 존재를 노출하지 않습니다.",
+        icon: "Shield",
+      },
+      {
+        title: "Observability",
+        description:
+          "Prometheus 메트릭 수집과 Grafana 대시보드를 구성했습니다. 구조화 JSON 로깅, SQL 슬로우 쿼리 임계치 로깅, 미들웨어 기반 요청 추적을 함께 적용했습니다.",
+        icon: "BarChart",
       },
     ],
     techStackGroups: [
       {
         title: "Backend",
         items: [
+          { name: "Python 3.12", category: "language" },
           { name: "FastAPI", category: "backend" },
-          { name: "Python", category: "language" },
-          { name: "SQLAlchemy", category: "backend" },
-          { name: "Pydantic", category: "backend" },
+          { name: "SQLAlchemy 2.0 (async)", category: "backend" },
+          { name: "Pydantic v2", category: "backend" },
+          { name: "Alembic", category: "backend" },
         ],
       },
       {
         title: "Infra & DevOps",
         items: [
-          { name: "Kubernetes", category: "infra" },
-          { name: "Docker", category: "infra" },
-          { name: "Terraform", category: "devops" },
-          { name: "ArgoCD", category: "devops" },
-        ],
-      },
-      {
-        title: "Data & AI",
-        items: [
-          { name: "PostgreSQL", category: "database" },
-          { name: "Redis", category: "database" },
-          { name: "PyTorch", category: "ai" },
-          { name: "Scikit-learn", category: "ai" },
-        ],
-      },
-      {
-        title: "Messaging & Etc",
-        items: [
-          { name: "Kafka", category: "messaging" },
+          { name: "Docker Compose", category: "infra" },
           { name: "Prometheus", category: "observability" },
           { name: "Grafana", category: "observability" },
-          { name: "Slack API", category: "tool" },
+          { name: "uv", category: "tool" },
+          { name: "GitLab CI", category: "devops" },
+        ],
+      },
+      {
+        title: "Messaging",
+        items: [
+          { name: "RabbitMQ (topic exchange, DLQ)", category: "messaging" },
+          { name: "aio-pika", category: "messaging" },
+          { name: "Celery", category: "backend" },
+          { name: "Redis", category: "database" },
+        ],
+      },
+      {
+        title: "Data",
+        items: [
+          { name: "PostgreSQL (asyncpg)", category: "database" },
+        ],
+      },
+      {
+        title: "AI",
+        items: [
+          { name: "Anthropic Claude API", category: "ai" },
+          { name: "OpenAI API (fallback)", category: "ai" },
+        ],
+      },
+      {
+        title: "Development Tools",
+        items: [
+          { name: "Claude Code", category: "tool" },
+          { name: "Codex", category: "tool" },
+          { name: "GitHub Copilot", category: "tool" },
+        ],
+      },
+      {
+        title: "Frontend",
+        items: [
+          { name: "React 18", category: "frontend" },
+          { name: "TypeScript", category: "frontend" },
+          { name: "Vite 4", category: "frontend" },
+          { name: "Tailwind CSS", category: "frontend" },
         ],
       },
     ],
     screenshots: [
       {
-        title: "파이프라인 실행 현황",
+        title: "Pipeline 목록",
         image: "/images/projects/ai-devops/screenshot-dashboard.svg",
+        description:
+          "상태 배지(DRAFT/READY/QUEUED/RUNNING/SUCCESS/FAILED)와 실행 이력을 한눈에 확인",
       },
       {
-        title: "AI 이상 탐지 대시보드",
+        title: "PipelineRun 상세",
         image: "/images/projects/ai-devops/screenshot-logs.svg",
+        description:
+          "Job별 JobRunLog(exit_code, stdout, stderr, duration_ms) 확인",
       },
       {
-        title: "배포 히스토리",
+        title: "AI Review 결과",
         image: "/images/projects/ai-devops/dashboard.svg",
+        description:
+          "severity, category, cause, suggestion, confidence 분석 결과",
       },
       {
-        title: "서비스 모니터링",
+        title: "Grafana 대시보드",
         image: "/images/projects/ai-devops/thumbnail.svg",
+        description: "멀티 서비스 Prometheus 메트릭 시각화",
       },
     ],
     contributions: [
       {
-        date: "Day 1 - 3",
-        title: "도메인 모델링",
+        date: "2026-04",
+        title: "MVP Monolith 구축",
         description:
-          "Pipeline, Job, PipelineRun, JobRunLog를 분리해 실행 정의와 실행 기록의 책임을 구분했습니다.",
+          "FastAPI 레이어 아키텍처(API/Service/Repository/Domain), JWT 인증, Project/Pipeline/Job CRUD, 동기 Pipeline 실행 흐름, React SPA 데모 프론트엔드를 구축했습니다.",
+      },
+      {
+        date: "2026-05",
+        title: "쿼리 최적화",
+        description:
+          "N+1 쿼리를 탐지하고 explicit JOIN + eager loading으로 개선했습니다. 이 과정에서 DB 커넥션 풀 점유 문제의 원인을 분석했습니다.",
+      },
+      {
+        date: "2026-05",
+        title: "FastAPI BackgroundTasks 비동기화 (Track 1)",
+        description:
+          "POST /run을 202 Accepted로 전환하고 응답 후 실행 함수를 백그라운드로 처리했습니다. 태스크 내구성 부재를 확인해 실패 결정 기록으로 남겼습니다.",
+      },
+      {
+        date: "2026-05",
+        title: "Celery + Redis 비동기화 (Track 2)",
+        description:
+          "별도 worker 프로세스로 실행을 분리했습니다. Redis 메시지 내구성 문제와 코드 커플링 한계를 확인한 뒤 RabbitMQ로 전환하기로 결정했습니다.",
+      },
+      {
+        date: "2026-05",
+        title: "RabbitMQ 이벤트 드리븐 MSA (dev-msa)",
+        description:
+          "core-api / pipeline-execution-svc / ai-review-svc 3서비스로 분리했습니다. topic exchange, durable queue, DLQ, manual ack, 멱등성 보장을 구현했습니다.",
+      },
+      {
+        date: "2026-05",
+        title: "DB 소유권 물리 분리",
+        description:
+          "서비스별 Alembic 마이그레이션과 DATABASE_URL을 독립화하고 core-api의 cross-service 직접 쿼리를 제거했습니다.",
+      },
+      {
+        date: "2026-05",
+        title: "Observability 구축",
+        description:
+          "Prometheus 멀티 서비스 설정, Grafana 대시보드, Locust 부하 테스트 시나리오를 작성하고 브랜치별 성능을 측정했습니다.",
       },
     ],
     troubleshooting: [
       {
-        title: "Pipeline 실행 요청 지연",
+        title: "DB 커넥션 풀 점유",
         problem:
-          "Git clone과 Job 실행이 HTTP 요청 중 처리되어 응답 시간이 길어졌습니다.",
+          "POST /run이 Git clone + Job 실행 전 구간 동안 커넥션을 점유해 SELECT 쿼리 응답 시간이 수백 ms로 상승했습니다.",
         solution:
-          "PipelineRun을 QUEUED 상태로 생성한 뒤 백그라운드 실행으로 분리했습니다.",
-        result: "사용자 요청 응답과 실제 실행 처리가 분리되었습니다.",
+          "비동기화(POST /run -> 202 Accepted)로 실행 함수를 응답 경로에서 분리해 커넥션 점유 구간을 제거했습니다.",
+        result:
+          "일반 CRUD 쿼리의 대기 시간을 해소하고 비동기화 전략 선택의 계기를 만들었습니다.",
         noteSlug: "async-pipeline-transition",
       },
       {
-        title: "AI 모델 추론 지연",
+        title: "N+1 쿼리",
         problem:
-          "배치 수집 로그 전체를 한 번에 분석하면서 실패 원인 제안까지 도달하는 시간이 길어졌습니다.",
+          "Pipeline 목록 조회 시 PipelineRun 수를 Job 수만큼 별도 SELECT로 반복 조회해 쿼리 수가 비례 증가했습니다.",
         solution:
-          "로그를 단계별로 요약하고 핵심 에러 패턴만 추론 입력으로 전달하도록 전처리했습니다.",
-        result: "분석 후보가 줄어들어 실패 원인 확인 시간이 단축되었습니다.",
-        noteSlug: "ai-log-analysis-latency",
+          "explicit JOIN + selectinload eager loading을 적용해 목록 조회를 단일 흐름으로 통합했습니다.",
+        result: "쿼리 수를 N+1에서 1~2로 줄였습니다.",
+        noteSlug: "db-round-trip-optimization",
       },
       {
-        title: "메트릭 고카디널리티 문제",
+        title: "FastAPI BackgroundTasks 내구성 부재",
         problem:
-          "파이프라인 실행 ID를 그대로 metric label에 포함해 시계열 수가 빠르게 증가했습니다.",
+          "서버 재시작 시 실행 중이거나 대기 중인 태스크가 모두 인메모리에서 유실되고 retry 경로가 없었습니다.",
         solution:
-          "라벨 기준을 서비스, 상태, 단계로 제한하고 실행 상세는 로그와 DB에서 조회하도록 분리했습니다.",
-        result: "관측 비용과 쿼리 부하를 줄이면서 주요 지표는 유지했습니다.",
-        noteSlug: "metric-cardinality-troubleshooting",
+          "Celery + Redis로 전환한 뒤 최종적으로 RabbitMQ 기반 MSA로 대체했습니다.",
+        result: "실패 결정 기록으로 보존해 같은 접근을 반복하지 않도록 했습니다.",
+        noteSlug: "async-pipeline-transition",
       },
       {
-        title: "이벤트 재처리 누락",
+        title: "RabbitMQ FieldTable 타입 불일치",
         problem:
-          "워커 장애 이후 일부 배포 이벤트가 재처리되지 않아 실행 상태와 알림 상태가 어긋났습니다.",
+          "aio-pika queue 선언 시 arguments 딕셔너리의 값 타입이 FieldTable 명세와 불일치해 런타임 오류가 발생했습니다.",
         solution:
-          "RabbitMQ Exchange, Queue, DLQ 경계를 다시 정리하고 실패 이벤트를 별도 재처리 큐로 분리했습니다.",
-        result: "실패 이벤트를 추적하고 재시도할 수 있는 운영 경로가 생겼습니다.",
+          "x-dead-letter-exchange 등 DLQ 관련 arguments를 명시적 타입으로 캐스팅했습니다.",
+        result: "consumer/publisher 정상 선언 및 DLQ 연동을 완료했습니다.",
         noteSlug: "rabbitmq-event-topology",
       },
       {
-        title: "목록 조회 DB 병목",
+        title: "ThreadPoolExecutor 포화",
         problem:
-          "대시보드 목록 조회에서 PipelineRun과 JobRunLog를 반복 조회하며 응답 시간이 늘어났습니다.",
+          "pipeline-execution-svc의 asyncio.run_in_executor 기본 max_workers=2 설정으로 동시 실행 2건 초과 시 태스크 대기가 발생했습니다.",
         solution:
-          "목록 API의 조회 범위를 제한하고 필요한 필드만 projection해 DB round-trip을 줄였습니다.",
-        result: "대시보드 초기 로딩 시간이 안정화되었습니다.",
-        noteSlug: "db-round-trip-optimization",
+          "max_workers를 명시적으로 확장하고 실행 흐름을 재검토했습니다.",
+        result: "100 VU 부하 테스트에서 실패율 12.9%를 해소했습니다.",
       },
     ],
     improvements: [
       {
-        title: "DB 쿼리 최적화",
+        title: "동기 -> 비동기 실행 전환",
         description:
-          "PipelineRun 목록 조회에서 필요한 필드만 가져오고 N+1 접근을 줄였습니다.",
-        result: "응답 시간 65% 개선",
+          "POST /run을 202 Accepted로 전환해 실행 함수를 HTTP 응답 경로에서 분리했습니다. BackgroundTasks(Track 1), Celery(Track 2), RabbitMQ(Track 3) 순서로 실험했습니다.",
+        result: "DB 커넥션 점유 구간 제거, 일반 CRUD API 응답 시간 개선",
+        icon: "Zap",
+      },
+      {
+        title: "N+1 쿼리 제거",
+        description:
+          "explicit JOIN + selectinload eager loading 적용으로 목록 조회 쿼리를 통합했습니다.",
+        result: "쿼리 수 N+1 -> 1~2",
         icon: "Database",
       },
       {
-        title: "캐시 전략 도입",
+        title: "중복 유일성 검사 제거",
         description:
-          "자주 조회되는 프로젝트 메타데이터와 권한 정보를 Redis에 캐싱했습니다.",
-        result: "API 응답 시간 50% 단축",
-        icon: "Activity",
-      },
-      {
-        title: "비동기 처리 확대",
-        description:
-          "배포와 AI 분석을 이벤트 기반 작업으로 분리해 사용자 요청 흐름을 가볍게 만들었습니다.",
-        result: "처리량 2.2배 증가",
-        icon: "Workflow",
+          "서비스 레이어에서 중복 수행하던 사전 SELECT를 제거하고 DB 제약으로 일원화했습니다.",
+        result: "불필요한 쿼리 왕복 제거",
+        icon: "BarChart",
       },
     ],
     performance: [
       {
-        label: "배포 자동화 시간 절감",
-        value: "90%+",
-        description: "수동 실행 단계를 파이프라인으로 통합",
-        icon: "Workflow",
+        label: "비동기화 전략 비교",
+        value: "3가지",
+        description:
+          "BackgroundTasks / Celery + Redis / RabbitMQ MSA를 브랜치별로 구현한 뒤 Locust로 정량 비교",
+        icon: "GitBranch",
       },
       {
-        label: "장애 탐지 정확도",
-        value: "95%+",
-        description: "실패 로그 기반 원인 후보 분류",
-        icon: "Gauge",
-      },
-      {
-        label: "인프라 운영 비용 절감",
-        value: "40%",
-        description: "자동 스케일링과 캐시 전략 적용",
-        icon: "Cloud",
-      },
-      {
-        label: "시스템 가용성",
-        value: "99.9%",
-        description: "관측 지표 기반 장애 대응 흐름 구축",
+        label: "부하 테스트 (Celery + Redis)",
+        value: "47.4 req/s",
+        description: "100 VU, 실패율 0%, 중앙값 12ms",
         icon: "Activity",
       },
       {
-        label: "팀 만족도",
-        value: "4.5/5",
-        description: "운영자 피드백 기반 사용성 개선",
-        icon: "Database",
+        label: "테스트 커버리지",
+        value: "70%+",
+        description: "단위 테스트(FakeService/FakeRepository) + 통합 테스트(실제 PostgreSQL)",
+        icon: "CheckCircle",
+      },
+      {
+        label: "마이크로서비스 수",
+        value: "3개",
+        description:
+          "core-api / pipeline-execution-svc / ai-review-svc, 각 서비스 독립 DB",
+        icon: "Layers",
+      },
+      {
+        label: "ADR 문서",
+        value: "19개",
+        description: "아키텍처 결정 기록, 실패 결정 9개 포함",
+        icon: "FileText",
       },
     ],
     retrospective: {
       learned: [
-        "실행과 분석을 분리하면 기능 확장과 장애 추적이 쉬워집니다.",
-        "모니터링은 단순 시각화가 아니라 개선 대상을 찾는 도구입니다.",
+        "MSA 전환의 목적은 단일 인스턴스 처리량 향상이 아니라 독립 배포, 독립 확장, 장애 격리입니다. 로컬 단일 인스턴스 기준에서 MSA는 모놀리스보다 느릴 수 있습니다.",
+        "FastAPI BackgroundTasks는 내구성이 필요한 실행 작업에 부적합합니다. Celery + Redis는 프로세스를 분리하지만 코드베이스를 공유해 진정한 서비스 경계가 아닙니다.",
+        "RabbitMQ topic exchange는 routing key 패턴 매칭으로 이벤트 타입 증가에 유연하게 대응할 수 있습니다.",
+        "uv workspace 모노레포에서 공유 라이브러리로 이벤트 스키마를 관리하면 publisher/consumer 간 계약 드리프트를 컴파일 타임에 차단할 수 있습니다.",
       ],
       improvement: [
-        "Kubernetes 기반 Executor 확장",
-        "LLM Review 품질 평가 지표 추가",
+        "REST vs gRPC 조회 프록시 비교 실험 (ADR-015 Track A/B)",
+        "클라우드 환경 부하 테스트 재측정 (로컬 Docker Desktop VM 오버헤드 배제)",
+        "CI/CD 파이프라인 구축 (GitLab CI, ADR-017 기준)",
+        "Kubernetes 도입 (ADR-016)",
       ],
       noteSlug: "ai-devops-retrospective",
     },
@@ -552,6 +594,8 @@ export const projectDetails: ProjectDetail[] = [
       "async-pipeline-transition",
       "rabbitmq-event-topology",
       "db-round-trip-optimization",
+      "ai-log-analysis-latency",
+      "metric-cardinality-troubleshooting",
       "ai-devops-retrospective",
     ],
   },

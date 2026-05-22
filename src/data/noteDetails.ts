@@ -403,7 +403,7 @@ export const noteDetails: TechnicalNoteDetail[] = [
       {
         type: "paragraph",
         content:
-          "AI DevOps Orchestration Platform은 파이프라인 실행, 로그 수집, 실패 원인 분석, 알림을 하나의 운영 흐름으로 연결한 프로젝트입니다.",
+          "AI Agent Pipeline Backend Design은 파이프라인 실행, 로그 수집, 실패 원인 분석을 하나의 백엔드 흐름으로 연결하고 AI Agent를 어느 경계에 붙일 수 있는지 실험한 프로젝트입니다.",
       },
       {
         type: "heading",
