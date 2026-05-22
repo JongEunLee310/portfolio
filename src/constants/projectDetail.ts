@@ -50,8 +50,8 @@ export const PROJECT_DETAIL_LABELS = {
       title: "기술 스택",
     },
     contributions: {
-      eyebrow: "CONTRIBUTION",
-      title: "주요 기여",
+      eyebrow: "TIMELINE",
+      title: "프로젝트 진행 일정",
     },
     troubleshooting: {
       eyebrow: "TROUBLESHOOTING",

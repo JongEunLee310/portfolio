@@ -84,11 +84,12 @@ export const aboutData: AboutData = {
   timeline: [
     {
       type: "project",
-      badge: "진행 중",
-      title: "AI DevOps Orchestration Platform",
+      badge: "개인 프로젝트",
+      title: "AI Agent Pipeline Backend Design",
       organization: "개인 프로젝트",
-      period: "2026.01 - 현재",
-      description: "FastAPI 기반 DevOps 자동화 플랫폼 설계 및 비동기 실행 구조 구현.",
+      period: "2026.04 ~ 진행 중",
+      description:
+        "FastAPI 기반 Pipeline 실행 오케스트레이션과 AI 실패 분석 백엔드 설계.",
     },
     {
       type: "career",

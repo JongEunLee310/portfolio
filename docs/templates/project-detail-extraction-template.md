@@ -41,8 +41,10 @@
 |---|---|
 | Backend |  |
 | Infra & DevOps |  |
-| Data & AI |  |
-| Messaging & Etc |  |
+| Messaging |  |
+| Data |  |
+| AI |  |
+| Frontend |  |
 
 ---
 
@@ -116,7 +118,8 @@
 | clients | 사용자 / 외부 |  |
 | gateway | API Gateway |  |
 | services | 마이크로서비스 |  |
-| data-ai | 데이터 & AI |  |
+| data | 데이터 |  |
+| ai | AI |  |
 | infra-integrations | 인프라 / 외부 연동 |  |
 
 ### 노드
@@ -164,7 +167,7 @@
 
 ---
 
-## 11. 기여 및 역할
+## 11. 프로젝트 진행 일정
 
 | date | title | description |
 |---|---|---|
