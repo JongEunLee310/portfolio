@@ -41,7 +41,7 @@
 
 ## TechnicalNoteDetail
 
-관리 디렉토리: `src/data/note-details/` (항목별 파일, `_helpers.ts` 포함)
+관리 디렉토리: `src/data/note-details/` (항목별 파일, `src/data/note-details/_helpers.ts` 포함)
 
 진입점: `src/data/noteDetails.ts` (re-export wrapper)
 
