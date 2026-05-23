@@ -469,11 +469,5 @@ export const eksEfkMonitoringPracticeDetail: ProjectDetail = {
     ],
     noteSlug: "",
   },
-  relatedNoteSlugs: [
-    "kubernetes-basic-resources",
-    "eks-cluster-networking",
-    "efk-logging-stack",
-    "cloudwatch-sns-lambda-slack-alert",
-    "kms-secure-webhook",
-  ],
+  relatedNoteSlugs: [],
 };
