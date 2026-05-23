@@ -61,7 +61,7 @@ export function useSeo(title: string): void
 useSeo(seoConfig[PATHS.home].title)
 ```
 
-`seoConfig`는 이미 `src/data/seo.ts`에 5개 경로에 대한 title이 정의되어 있다. NotFound 페이지는 별도 상수로 정의한다.
+`seoConfig`는 이미 `src/data/seo.ts`에 5개 경로에 대한 title이 정의되어 있다. `PATHS.notFound` 항목을 `seoConfig`에 추가한다.
 
 **상세 페이지** (ProjectDetailPage, TechnicalNoteDetailPage):
 
