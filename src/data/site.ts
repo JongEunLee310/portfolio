@@ -2,6 +2,10 @@ export const siteConfig = {
   name: "이종은 Portfolio",
   shortName: "LJE",
   logoText: "<LJE/>",
+  logo: {
+    light: "/images/hero/logo-hero-light.svg",
+    dark: "/images/hero/logo-hero-dark.svg",
+  },
   owner: {
     name: "이종은",
     role: "백엔드 개발자",

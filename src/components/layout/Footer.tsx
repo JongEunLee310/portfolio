@@ -1,5 +1,6 @@
 import { ExternalLink, Github, Mail, type LucideIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { useTheme } from "@/app/theme/useTheme";
 
 type NavigationItem = {
   label: string;
@@ -13,8 +14,14 @@ type FooterContact = {
   external?: boolean;
 };
 
+type LogoSrc = {
+  light: string;
+  dark: string;
+};
+
 type FooterProps = {
   logoText: string;
+  logoSrc: LogoSrc;
   tagline: string;
   navigation: readonly NavigationItem[];
   contacts: readonly FooterContact[];
@@ -35,18 +42,25 @@ function getContactIcon(label: string): LucideIcon {
 
 export function Footer({
   logoText,
+  logoSrc,
   tagline,
   navigation,
   contacts,
   copyright,
 }: FooterProps) {
+  const { resolvedTheme } = useTheme();
+
   return (
     <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-page-text)]">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex flex-col gap-2">
-            <NavLink to="/" className="font-mono text-lg font-bold text-[var(--color-page-text)]">
-              {logoText}
+            <NavLink to="/" className="flex items-center">
+              <img
+                src={resolvedTheme === "dark" ? logoSrc.dark : logoSrc.light}
+                alt={logoText}
+                className="h-8"
+              />
             </NavLink>
             <p className="max-w-xs text-sm leading-6 text-[var(--color-muted-text)]">
               {tagline}
