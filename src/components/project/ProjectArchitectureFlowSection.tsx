@@ -1,4 +1,5 @@
-import { ArrowRight } from "lucide-react";
+import { Fragment } from "react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { PROJECT_DETAIL_LABELS } from "@/constants/projectDetail";
 import type {
@@ -20,6 +21,8 @@ type VisibleGroup = Omit<ProjectArchitectureGroup, "id" | "nodes"> & {
   nodes: (ArchitectureNode & { id: string })[];
 };
 
+const COLS = 3;
+
 function hasText(value?: string) {
   return Boolean(value?.trim());
 }
@@ -30,7 +33,6 @@ function getToneClasses(tone: ProjectArchitectureConnectionTone) {
     async: "border-indigo-400/40 bg-indigo-500/10 text-indigo-500",
     data: "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted-text)]",
   };
-
   return classes[tone];
 }
 
@@ -40,7 +42,6 @@ function getLineClasses(tone: ProjectArchitectureConnectionTone) {
     async: "border-t border-dashed border-indigo-500",
     data: "bg-slate-300",
   };
-
   return classes[tone];
 }
 
@@ -67,6 +68,7 @@ export function ProjectArchitectureFlowSection({
         .filter((node) => hasText(node.title) && node.items.length),
     }))
     .filter((group) => group.nodes.length > 0);
+
   const title = architectureFlow?.title ?? architecture.title;
   const description = architectureFlow?.description ?? architecture.description;
   const nodeLabels = new Map(
@@ -85,6 +87,14 @@ export function ProjectArchitectureFlowSection({
     return null;
   }
 
+  // 그룹을 COLS 단위로 행 분할 (짧은 행은 null로 패딩)
+  const rows: (VisibleGroup | null)[][] = [];
+  for (let i = 0; i < visibleGroups.length; i += COLS) {
+    const row: (VisibleGroup | null)[] = visibleGroups.slice(i, i + COLS);
+    while (row.length < COLS) row.push(null);
+    rows.push(row);
+  }
+
   return (
     <section>
       <SectionHeader
@@ -92,32 +102,118 @@ export function ProjectArchitectureFlowSection({
         title={title}
         description={description}
       />
-      <div className="overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-card lg:p-5">
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_72px_minmax(0,0.8fr)_72px_minmax(0,1.45fr)_72px_minmax(0,1.2fr)_72px_minmax(0,1fr)]">
-          {visibleGroups.map((group, index) => {
-            const nextGroup = visibleGroups[index + 1];
-            const bridgeConnections = nextGroup
+      <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-card lg:p-5">
+        <div className="space-y-4 lg:space-y-0">
+          {rows.map((slots, rowIndex) => {
+            const nextRowSlots = rowIndex < rows.length - 1 ? rows[rowIndex + 1] : null;
+
+            const currentRowGroupIds = new Set(
+              slots
+                .filter((g): g is VisibleGroup => g !== null)
+                .map((g) => g.id),
+            );
+            const nextRowGroupIds = nextRowSlots
+              ? new Set(
+                  nextRowSlots
+                    .filter((g): g is VisibleGroup => g !== null)
+                    .map((g) => g.id),
+                )
+              : new Set<string>();
+
+            const crossRowConns = nextRowSlots
               ? connections.filter(
-                  (connection) =>
-                    nodeGroupIds.get(connection.from) === group.id &&
-                    nodeGroupIds.get(connection.to) === nextGroup.id,
+                  (c) =>
+                    currentRowGroupIds.has(nodeGroupIds.get(c.from) ?? "") &&
+                    nextRowGroupIds.has(nodeGroupIds.get(c.to) ?? ""),
                 )
               : [];
-            const internalConnections = connections.filter(
-              (connection) =>
-                nodeGroupIds.get(connection.from) === group.id &&
-                nodeGroupIds.get(connection.to) === group.id,
-            );
+            const crossLabel = crossRowConns[0]?.label;
 
             return (
-              <ArchitectureFlowFragment
-                key={group.id}
-                group={group}
-                bridgeConnections={bridgeConnections}
-                internalConnections={internalConnections}
-                nodeLabels={nodeLabels}
-                showBridge={Boolean(nextGroup)}
-              />
+              <Fragment key={rowIndex}>
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-stretch lg:gap-0">
+                  {slots.map((group, slotIndex) => {
+                const globalIndex = rowIndex * COLS + slotIndex;
+                const prevGroup = slotIndex > 0 ? slots[slotIndex - 1] : null;
+
+                const bridgeConns =
+                  prevGroup && group
+                    ? connections.filter(
+                        (c) =>
+                          nodeGroupIds.get(c.from) === prevGroup.id &&
+                          nodeGroupIds.get(c.to) === group.id,
+                      )
+                    : [];
+
+                const internalConns = group
+                  ? connections.filter(
+                      (c) =>
+                        nodeGroupIds.get(c.from) === group.id &&
+                        nodeGroupIds.get(c.to) === group.id,
+                    )
+                  : [];
+
+                return (
+                  <Fragment key={group?.id ?? `empty-${globalIndex}`}>
+                    {/* 브리지: lg 이상에서만 표시 */}
+                    {slotIndex > 0 && (
+                      <div className="hidden lg:flex lg:w-12 lg:shrink-0 lg:flex-col lg:items-center lg:justify-center lg:px-1">
+                        {prevGroup && group ? (
+                          <>
+                            <div
+                              className="flex w-full items-center"
+                              aria-hidden="true"
+                            >
+                              <span className="h-px flex-1 bg-blue-300" />
+                              <ArrowRight className="h-4 w-4 shrink-0 text-blue-500" />
+                            </div>
+                            {bridgeConns.slice(0, 1).map((conn) => (
+                              <span
+                                key={`${conn.from}-${conn.to}`}
+                                className={[
+                                  "mt-1.5 w-full rounded-full border px-1 py-0.5 text-center text-[9px] font-semibold leading-3",
+                                  getToneClasses(conn.tone),
+                                ].join(" ")}
+                              >
+                                {conn.label ?? "→"}
+                              </span>
+                            ))}
+                          </>
+                        ) : null}
+                      </div>
+                    )}
+
+                    {/* 카드 또는 빈 자리 */}
+                    <div className="min-w-0 flex-1">
+                      {group ? (
+                        <ArchitectureGroupCard
+                          group={group}
+                          internalConnections={internalConns}
+                          nodeLabels={nodeLabels}
+                        />
+                      ) : null}
+                    </div>
+                  </Fragment>
+                );
+                  })}
+                </div>
+
+                {/* 행간 wrap 커넥터: 오른쪽 끝 → 아래 → 왼쪽으로 돌아 다음 행 시작 */}
+                {nextRowSlots && (
+                  <div className="relative hidden h-10 lg:block" aria-hidden="true">
+                    <div className="absolute bottom-6 right-0 top-0 w-px bg-blue-300" />
+                    <div className="absolute bottom-6 left-5 right-0 h-px bg-blue-300" />
+                    {crossLabel && (
+                      <div className="absolute bottom-6 left-0 right-0 flex -translate-y-1/2 justify-center">
+                        <span className="rounded-full border border-blue-300 bg-[var(--color-surface)] px-1.5 py-px text-[9px] font-semibold leading-4 text-blue-500">
+                          {crossLabel}
+                        </span>
+                      </div>
+                    )}
+                    <ArrowDown className="absolute bottom-1 left-0 h-4 w-4 text-blue-500" />
+                  </div>
+                )}
+              </Fragment>
             );
           })}
         </div>
@@ -147,78 +243,46 @@ export function ProjectArchitectureFlowSection({
   );
 }
 
-type ArchitectureFlowFragmentProps = {
+type ArchitectureGroupCardProps = {
   group: VisibleGroup;
-  bridgeConnections: ProjectArchitectureConnection[];
   internalConnections: ProjectArchitectureConnection[];
   nodeLabels: Map<string, string>;
-  showBridge: boolean;
 };
 
-function ArchitectureFlowFragment({
+function ArchitectureGroupCard({
   group,
-  bridgeConnections,
   internalConnections,
   nodeLabels,
-  showBridge,
-}: ArchitectureFlowFragmentProps) {
+}: ArchitectureGroupCardProps) {
   return (
-    <>
-      <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3">
-        <p className="text-center text-xs font-bold text-blue-600">{group.title}</p>
-        <div
-          className={[
-            "mt-3 grid gap-2",
-            group.nodes.length > 3 ? "sm:grid-cols-2 lg:grid-cols-2" : "",
-          ].join(" ")}
-        >
-          {group.nodes.map((node) => (
-            <ArchitectureFlowNode key={node.id} node={node} />
-          ))}
-        </div>
-        {internalConnections.length ? (
-          <div className="mt-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-2">
-            <p className="text-[11px] font-bold text-[var(--color-muted-text)]">내부 흐름</p>
-            <div className="mt-2 space-y-1.5">
-              {internalConnections.map((connection) => (
-                <ConnectionLabel
-                  key={`${connection.from}-${connection.to}-${connection.label}`}
-                  connection={connection}
-                  nodeLabels={nodeLabels}
-                  compact
-                />
-              ))}
-            </div>
-          </div>
-        ) : null}
+    <div className="h-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3">
+      <p className="text-center text-xs font-bold text-blue-600">{group.title}</p>
+      <div
+        className={[
+          "mt-3 grid gap-2",
+          group.nodes.length >= 2 ? "grid-cols-2" : "",
+        ].join(" ")}
+      >
+        {group.nodes.map((node) => (
+          <ArchitectureFlowNode key={node.id} node={node} />
+        ))}
       </div>
-      {showBridge ? (
-        <div className="flex items-center justify-center py-2 lg:py-0">
-          <div className="hidden w-full lg:block">
-            <div className="flex items-center" aria-hidden="true">
-              <span className="h-px flex-1 bg-blue-300" />
-              <ArrowRight className="h-4 w-4 text-blue-500" />
-            </div>
-            {bridgeConnections.length ? (
-              <div className="mt-2 space-y-1.5">
-                {bridgeConnections.slice(0, 3).map((connection) => (
-                  <ConnectionLabel
-                    key={`${connection.from}-${connection.to}-${connection.label}`}
-                    connection={connection}
-                    nodeLabels={nodeLabels}
-                    compact
-                  />
-                ))}
-              </div>
-            ) : null}
+      {internalConnections.length ? (
+        <div className="mt-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-2">
+          <p className="text-[11px] font-bold text-[var(--color-muted-text)]">내부 흐름</p>
+          <div className="mt-2 space-y-1.5">
+            {internalConnections.map((connection) => (
+              <ConnectionLabel
+                key={`${connection.from}-${connection.to}-${connection.label}`}
+                connection={connection}
+                nodeLabels={nodeLabels}
+                compact
+              />
+            ))}
           </div>
-          <ArrowRight
-            className="h-5 w-5 rotate-90 text-blue-500 lg:hidden"
-            aria-hidden="true"
-          />
         </div>
       ) : null}
-    </>
+    </div>
   );
 }
 
@@ -230,7 +294,7 @@ function ArchitectureFlowNode({ node }: { node: ArchitectureNode & { id: string 
       </span>
       <h3 className="mt-1.5 text-xs font-bold text-[var(--color-page-text)]">{node.title}</h3>
       <ul className="mt-1 space-y-0.5 text-[11px] leading-4 text-[var(--color-muted-text)]">
-        {node.items.slice(0, 2).map((item) => (
+        {node.items.slice(0, 3).map((item) => (
           <li key={item}>{item}</li>
         ))}
       </ul>

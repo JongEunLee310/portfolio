@@ -1,5 +1,6 @@
 import type { ProjectCard } from "@/types/project";
 import { aiDevopsOrchestrationPlatform } from "./projects/ai-devops-orchestration-platform";
+import { armEmbeddedCnnMixedPrecision } from "./projects/arm-embedded-cnn-mixed-precision";
 import { eksEfkMonitoringPractice } from "./projects/eks-efk-monitoring-practice";
 import { goormBankProblemBank } from "./projects/goorm-bank-problem-bank";
 import { halo } from "./projects/halo";
@@ -13,4 +14,5 @@ export const projects: ProjectCard[] = [
   smartFarm,
   goormBankProblemBank,
   eksEfkMonitoringPractice,
+  armEmbeddedCnnMixedPrecision,
 ];
