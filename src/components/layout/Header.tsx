@@ -41,8 +41,10 @@ export function Header({ logoText, logoSrc, navigation, themeControl }: HeaderPr
                 to={item.href}
                 className={({ isActive }) =>
                   [
-                    "relative text-sm font-medium transition hover:text-blue-600",
-                    isActive ? "text-blue-600" : "text-[var(--color-muted-text)]",
+                    "relative text-sm font-medium transition hover:text-[var(--color-accent)]",
+                    isActive
+                      ? "text-[var(--color-accent)] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[var(--color-accent)] after:content-[''] after:rounded-full"
+                      : "text-[var(--color-muted-text)]",
                   ].join(" ")
                 }
               >
