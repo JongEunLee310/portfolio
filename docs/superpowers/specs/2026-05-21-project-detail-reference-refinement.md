@@ -256,10 +256,12 @@ type ProjectDetailHeroProps = {
 레퍼런스 하단의 3카드 구성을 만든다.
 
 1. 트러블슈팅: `troubleshooting` 캐러셀
-2. 성능 개선: `improvements` 서브카드 목록
+2. 성능 개선: `improvements` 캐러셀
 3. 회고: `retrospective` 서브카드 + 우측 CTA
 
-트러블슈팅은 이전/다음 버튼과 dot navigation을 제공한다. 현재 보이는 트러블슈팅 항목에 `noteSlug`가 있으면 카드 본문 클릭 시 기술 노트 상세로 이동한다.
+트러블슈팅과 성능 개선은 모두 이전/다음 버튼과 dot navigation을 제공하는 캐러셀 구조이다. 현재 보이는 트러블슈팅 항목에 `noteSlug`가 있으면 카드 본문 클릭 시 기술 노트 상세로 이동한다.
+
+내부 콘텐츠 영역은 `overflow-hidden`으로 고정된다. 트러블슈팅·성능 개선은 `h-[400px]`, 회고는 하단 페이지네이션 영역이 없으므로 `h-[430px]`로 더 길게 설정한다. 슬라이드 이동 시 카드 크기가 변하지 않으며, 항목 간 콘텐츠 양 차이에 따른 레이아웃 이동이 발생하지 않는다.
 
 회고 카드에는 `RETROSPECTIVE` eyebrow, 요약, 배운 점/개선 계획 일부, 기술 태그, 우측 정렬 CTA를 표시한다. `retrospective.noteSlug`가 있으면 `회고 전문 읽기`로 기술 노트 상세에 연결한다.
 
