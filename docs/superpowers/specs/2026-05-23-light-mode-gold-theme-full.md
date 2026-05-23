@@ -7,7 +7,7 @@
 
 ## 접근 방식: CSS 변수 중앙화
 
-`globals.css`에 `--color-accent` 계열 변수를 추가한다.
+`src/styles/globals.css`에 `--color-accent` 계열 변수를 추가한다.
 라이트 모드는 골드, 다크 모드는 파랑으로 변수값만 다르게 설정한다.
 컴포넌트에서는 `text-blue-600` 같은 하드코딩 대신 `text-[var(--color-accent)]`를 사용한다.
 

@@ -4,7 +4,7 @@
 
 **Goal:** 라이트 모드의 모든 파란색 포인트를 CSS 변수 기반 골드(#C9972B)로 교체한다. 다크 모드는 기존 파랑 유지.
 
-**Architecture:** `globals.css`에 `--color-accent` 계열 변수를 추가하고 라이트=골드, 다크=파랑으로 설정한다. 각 컴포넌트에서 하드코딩된 `text-blue-600` 등을 `text-[var(--color-accent)]`로 교체한다.
+**Architecture:** `src/styles/globals.css`에 `--color-accent` 계열 변수를 추가하고 라이트=골드, 다크=파랑으로 설정한다. 각 컴포넌트에서 하드코딩된 `text-blue-600` 등을 `text-[var(--color-accent)]`로 교체한다.
 
 **Tech Stack:** React, TypeScript, Tailwind CSS v3, CSS Custom Properties
 

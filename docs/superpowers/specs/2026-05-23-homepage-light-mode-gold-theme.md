@@ -49,6 +49,6 @@
 
 - 다크 모드: 변경 없음
 - 다른 페이지 히어로 (projects, about, contact, technicalNotes): 변경 없음
-- `globals.css` CSS 변수: 변경 없음
+- `src/styles/globals.css` CSS 변수: 변경 없음
 - `outline` / `darkOutline` 버튼 스타일: 변경 없음
 - badge, tech-tag 클래스: 변경 없음
