@@ -50,7 +50,7 @@ export function ProjectTechStackBand({
       }`}
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <p className="text-xs font-semibold uppercase text-blue-400">
+        <p className="text-xs font-semibold uppercase text-[var(--color-accent)]">
           {content.eyebrow}
         </p>
         <h2 className="mt-2 text-2xl font-bold">{content.title}</h2>
@@ -68,7 +68,7 @@ export function ProjectTechStackBand({
                 }`}
               >
                 <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-blue-400/30 bg-blue-500/10 text-blue-300">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] text-[var(--color-accent)]">
                     <Icon className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
