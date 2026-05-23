@@ -46,7 +46,19 @@ export type IconName =
   | "User"
   | "Search"
   | "ShieldCheck"
-  | "Wallet";
+  | "Wallet"
+  | "Cpu"
+  | "Terminal"
+  | "Sliders"
+  | "Repeat"
+  | "Binary"
+  | "Image"
+  | "Archive"
+  | "ClipboardList"
+  | "ScanSearch"
+  | "MemoryStick"
+  | "CircuitBoard"
+  | "Container";
 
 export type LinkItem = {
   label: string;
