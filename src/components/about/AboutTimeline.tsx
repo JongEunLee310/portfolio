@@ -11,7 +11,7 @@ export function AboutTimeline({ items }: AboutTimelineProps) {
       <div className="absolute left-3 top-0 h-full w-0.5 bg-[var(--color-border)]" />
       {items.map((item) => (
         <div key={`${item.type}-${item.title}`} className="relative mb-8 last:mb-0">
-          <div className="absolute -left-[1.375rem] top-1.5 h-3 w-3 rounded-full bg-blue-500 ring-2 ring-[var(--color-page-bg)]" />
+          <div className="absolute -left-[1.375rem] top-1.5 h-3 w-3 rounded-full bg-[var(--color-accent)] ring-2 ring-[var(--color-page-bg)]" />
           <article className={`p-5 ${themeSurface.card}`}>
             <div className="flex flex-wrap items-center gap-2">
               {item.badge ? (

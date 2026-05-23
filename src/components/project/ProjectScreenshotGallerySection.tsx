@@ -48,7 +48,7 @@ export function ProjectScreenshotGallerySection({
                 alt={`${projectTitle} ${screenshot.title}`}
                 className="aspect-[16/9] w-full bg-[var(--color-surface-muted)] object-cover"
               />
-              <span className="absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-slate-950/80 text-white opacity-90 transition group-hover:bg-blue-600">
+              <span className="absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-slate-950/80 text-white opacity-90 transition group-hover:bg-[var(--color-accent)]">
                 <Maximize2 className="h-4 w-4" aria-hidden="true" />
               </span>
             </a>

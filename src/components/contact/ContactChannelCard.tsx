@@ -5,6 +5,7 @@ import {
   Mail,
   type LucideIcon,
 } from "lucide-react";
+import { themeSurface } from "@/styles/classNames";
 import type { ContactChannel } from "@/types/contact";
 import type { IconName } from "@/types/common";
 
@@ -27,13 +28,13 @@ export function ContactChannelCard({ channel }: ContactChannelCardProps) {
       href={channel.href}
       target={channel.external ? "_blank" : undefined}
       rel={channel.external ? "noreferrer" : undefined}
-      className="block rounded-2xl border border-slate-200 bg-white p-5 shadow-card transition hover:-translate-y-1 hover:shadow-card-hover"
+      className={`block ${themeSurface.card} p-5 hover:-translate-y-1 hover:shadow-card-hover`}
     >
       <div className="flex items-start gap-3">
-        <Icon className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
+        <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[var(--color-accent)]" aria-hidden="true" />
         <div className="min-w-0">
-          <p className="text-sm font-semibold text-blue-600">{channel.label}</p>
-          <p className="mt-2 break-words text-sm leading-6 text-slate-600">
+          <p className="text-sm font-semibold text-[var(--color-accent)]">{channel.label}</p>
+          <p className="mt-2 break-words text-sm leading-6 text-[var(--color-muted-text)]">
             {channel.value}
           </p>
         </div>

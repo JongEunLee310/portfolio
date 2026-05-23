@@ -23,7 +23,7 @@ export function HomeNoteCard({ note, index }: HomeNoteCardProps) {
       <h3 className="mt-5">
         <Link
           to={PATHS.technicalNoteDetail(note.slug)}
-          className="text-base font-bold leading-6 text-[var(--color-page-text)] transition hover:text-blue-500"
+          className="text-base font-bold leading-6 text-[var(--color-page-text)] transition hover:text-[var(--color-accent)]"
         >
           {note.title}
         </Link>

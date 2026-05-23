@@ -54,7 +54,7 @@ export function ProjectListToolbar({
           onChange={(event) =>
             onSortChange(event.target.value as ProjectSortValue)
           }
-          className="h-10 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 text-xs font-semibold text-[var(--color-page-text)] outline-none transition hover:border-blue-400/60"
+          className="h-10 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 text-xs font-semibold text-[var(--color-page-text)] outline-none transition hover:border-[var(--color-accent)]"
           aria-label={content.sortAriaLabel}
         >
           {sortOptions.map((option) => (
@@ -77,7 +77,7 @@ export function ProjectListToolbar({
                 onClick={() => onViewModeChange(option.value)}
                 className={`flex h-8 w-8 items-center justify-center rounded-md transition ${
                   viewMode === option.value
-                    ? "bg-blue-600 text-white"
+                    ? "bg-[var(--color-accent)] text-white"
                     : "text-[var(--color-muted-text)] hover:text-[var(--color-page-text)]"
                 }`}
               >

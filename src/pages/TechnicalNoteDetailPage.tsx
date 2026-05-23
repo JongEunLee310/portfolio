@@ -60,20 +60,20 @@ export function TechnicalNoteDetailPage() {
         className={[
           "relative overflow-hidden border-b transition-colors duration-300",
           isLight
-            ? "border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#eef6ff_100%)] text-slate-950"
+            ? "border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#F7F3EC_100%)] text-slate-950"
             : "border-white/10 bg-hero-radial text-white",
         ].join(" ")}
       >
         {!isLight ? (
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,7,18,0.92)_0%,rgba(2,7,18,0.72)_48%,rgba(2,7,18,0.86)_100%)]" />
         ) : null}
-        <div className="absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(circle_at_50%_35%,rgba(37,99,235,0.2),transparent_42%)]" />
+        <div className={`absolute right-0 top-0 h-full w-1/2 ${isLight ? "bg-[radial-gradient(circle_at_50%_35%,rgba(201,151,43,0.15),transparent_42%)]" : "bg-[radial-gradient(circle_at_50%_35%,rgba(37,99,235,0.2),transparent_42%)]"}`} />
         <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-14 lg:grid-cols-[minmax(0,1fr)_420px] lg:px-8 lg:py-20">
           <div>
             <div className={`flex flex-wrap items-center gap-2 text-xs font-semibold ${isLight ? "text-slate-600" : "text-slate-400"}`}>
               <Link
                 to={PATHS.technicalNotes}
-                className="transition hover:text-blue-500"
+                className="transition hover:text-[var(--color-accent)]"
               >
                 {NOTE_DETAIL_LABELS.hero.breadcrumbRoot}
               </Link>
@@ -88,15 +88,15 @@ export function TechnicalNoteDetailPage() {
             </h1>
             <div className={`mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm ${isLight ? "text-slate-700" : "text-slate-300"}`}>
               <span className="inline-flex items-center gap-1.5">
-                <Calendar className="h-4 w-4 text-blue-300" />
+                <Calendar className={`h-4 w-4 ${isLight ? "text-[var(--color-accent)]" : "text-blue-300"}`} />
                 {note.date}
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <Clock3 className="h-4 w-4 text-blue-300" />
+                <Clock3 className={`h-4 w-4 ${isLight ? "text-[var(--color-accent)]" : "text-blue-300"}`} />
                 {note.readingTime}
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <UserRound className="h-4 w-4 text-blue-300" />
+                <UserRound className={`h-4 w-4 ${isLight ? "text-[var(--color-accent)]" : "text-blue-300"}`} />
                 {siteConfig.owner.name}
               </span>
             </div>
@@ -183,9 +183,9 @@ export function TechnicalNoteDetailPage() {
                     <Link
                       key={relatedNote.slug}
                       to={PATHS.technicalNoteDetail(relatedNote.slug)}
-                      className="block rounded-lg border border-[var(--color-border)] p-3 transition hover:border-blue-300 hover:bg-blue-500/10"
+                      className="block rounded-lg border border-[var(--color-border)] p-3 transition hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-bg)]"
                     >
-                      <p className="text-xs font-semibold text-blue-600">
+                      <p className="text-xs font-semibold text-[var(--color-accent)]">
                         {relatedNote.date}
                       </p>
                       <p className="mt-1 text-sm font-bold leading-6 text-[var(--color-page-text)]">
@@ -199,8 +199,8 @@ export function TechnicalNoteDetailPage() {
           </aside>
           <div className="min-w-0">
             <article className="space-y-7">
-              <section className="rounded-lg border border-blue-400/30 bg-blue-500/10 px-5 py-4">
-                <p className="text-xs font-bold uppercase text-blue-700">
+              <section className="rounded-lg border border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] px-5 py-4">
+                <p className="text-xs font-bold uppercase text-[var(--color-accent-dark)]">
                   {NOTE_DETAIL_LABELS.sections.summary}
                 </p>
                 <p className="mt-2 text-sm leading-7 text-[var(--color-page-text)] md:text-base">
@@ -226,7 +226,7 @@ export function TechnicalNoteDetailPage() {
                       key={project.slug}
                       className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-card"
                     >
-                      <p className="text-xs font-semibold text-blue-600">
+                      <p className="text-xs font-semibold text-[var(--color-accent)]">
                         {project.period}
                       </p>
                       <h3 className="mt-2 font-bold text-[var(--color-page-text)]">
@@ -237,7 +237,7 @@ export function TechnicalNoteDetailPage() {
                       </p>
                       <Link
                         to={PATHS.projectDetail(project.slug)}
-                        className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 transition hover:text-blue-700"
+                        className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)]"
                       >
                         {NOTE_DETAIL_LABELS.links.projectDetail}
                         <ArrowRight className="h-4 w-4" />
@@ -250,7 +250,7 @@ export function TechnicalNoteDetailPage() {
             <section className="mt-14 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 text-[var(--color-page-text)] shadow-card">
               <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
                 <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-blue-500/15 text-blue-200">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[var(--color-accent-bg)] text-[var(--color-accent)]">
                     <BookOpen className="h-5 w-5" />
                   </div>
                   <div>
@@ -264,7 +264,7 @@ export function TechnicalNoteDetailPage() {
                 </div>
                 <Link
                   to={PATHS.technicalNotes}
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 text-sm font-bold text-white transition hover:bg-blue-500"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-3 text-sm font-bold text-white transition hover:bg-[var(--color-accent-hover)]"
                 >
                   {NOTE_DETAIL_LABELS.links.allNotes}
                   <ArrowRight className="h-4 w-4" />

@@ -77,7 +77,7 @@ export function ProjectNarrativeCard({
 
   return (
     <article className="h-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-card">
-      <p className="text-sm font-bold uppercase tracking-widest text-blue-600">
+      <p className="text-sm font-bold uppercase tracking-widest text-[var(--color-accent)]">
         {eyebrow}
       </p>
       <h2 className="mt-2 text-2xl font-bold tracking-tight text-[var(--color-page-text)]">
@@ -87,7 +87,7 @@ export function ProjectNarrativeCard({
         {items.map((item) => (
           <li key={item} className="flex gap-3">
             <CheckCircle2
-              className="mt-0.5 h-4 w-4 shrink-0 text-blue-600"
+              className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-accent)]"
               aria-hidden="true"
             />
             <span>{item}</span>

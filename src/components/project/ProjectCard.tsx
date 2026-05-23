@@ -53,7 +53,7 @@ export function ProjectCard({
         <div className="mt-6 grid grid-cols-2 gap-3">
           <Link
             to={project.links.detail}
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 text-sm font-semibold text-white transition hover:bg-blue-500"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 text-sm font-semibold text-white transition hover:bg-[var(--color-accent-hover)]"
           >
             {labels.detailLabel}
             <ArrowRight className="h-4 w-4" />
@@ -63,7 +63,7 @@ export function ProjectCard({
               href={project.links.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-4 text-sm font-semibold text-[var(--color-page-text)] transition hover:border-blue-500 hover:text-blue-600"
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-4 text-sm font-semibold text-[var(--color-page-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
             >
               {labels.githubLabel}
               <ExternalLink className="h-4 w-4" />

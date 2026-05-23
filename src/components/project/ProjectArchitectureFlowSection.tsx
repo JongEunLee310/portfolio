@@ -29,7 +29,7 @@ function hasText(value?: string) {
 
 function getToneClasses(tone: ProjectArchitectureConnectionTone) {
   const classes: Record<ProjectArchitectureConnectionTone, string> = {
-    sync: "border-blue-400/40 bg-blue-500/10 text-blue-500",
+    sync: "border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] text-[var(--color-accent)]",
     async: "border-indigo-400/40 bg-indigo-500/10 text-indigo-500",
     data: "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted-text)]",
   };
@@ -38,7 +38,7 @@ function getToneClasses(tone: ProjectArchitectureConnectionTone) {
 
 function getLineClasses(tone: ProjectArchitectureConnectionTone) {
   const classes: Record<ProjectArchitectureConnectionTone, string> = {
-    sync: "bg-blue-500",
+    sync: "bg-[var(--color-accent)]",
     async: "border-t border-dashed border-indigo-500",
     data: "bg-slate-300",
   };
@@ -164,8 +164,8 @@ export function ProjectArchitectureFlowSection({
                               className="flex w-full items-center"
                               aria-hidden="true"
                             >
-                              <span className="h-px flex-1 bg-blue-300" />
-                              <ArrowRight className="h-4 w-4 shrink-0 text-blue-500" />
+                              <span className="h-px flex-1 bg-[var(--color-accent-border)]" />
+                              <ArrowRight className="h-4 w-4 shrink-0 text-[var(--color-accent)]" />
                             </div>
                             {bridgeConns.slice(0, 1).map((conn) => (
                               <span
@@ -201,16 +201,16 @@ export function ProjectArchitectureFlowSection({
                 {/* 행간 wrap 커넥터: 오른쪽 끝 → 아래 → 왼쪽으로 돌아 다음 행 시작 */}
                 {nextRowSlots && (
                   <div className="relative hidden h-10 lg:block" aria-hidden="true">
-                    <div className="absolute bottom-6 right-0 top-0 w-px bg-blue-300" />
-                    <div className="absolute bottom-6 left-5 right-0 h-px bg-blue-300" />
+                    <div className="absolute bottom-6 right-0 top-0 w-px bg-[var(--color-accent-border)]" />
+                    <div className="absolute bottom-6 left-5 right-0 h-px bg-[var(--color-accent-border)]" />
                     {crossLabel && (
                       <div className="absolute bottom-6 left-0 right-0 flex -translate-y-1/2 justify-center">
-                        <span className="rounded-full border border-blue-300 bg-[var(--color-surface)] px-1.5 py-px text-[9px] font-semibold leading-4 text-blue-500">
+                        <span className="rounded-full border border-[var(--color-accent-border)] bg-[var(--color-surface)] px-1.5 py-px text-[9px] font-semibold leading-4 text-[var(--color-accent)]">
                           {crossLabel}
                         </span>
                       </div>
                     )}
-                    <ArrowDown className="absolute bottom-1 left-0 h-4 w-4 text-blue-500" />
+                    <ArrowDown className="absolute bottom-1 left-0 h-4 w-4 text-[var(--color-accent)]" />
                   </div>
                 )}
               </Fragment>
@@ -225,7 +225,7 @@ export function ProjectArchitectureFlowSection({
                 <span
                   className={[
                     "h-px w-8",
-                    legend.tone === "solid" ? "bg-blue-500" : "",
+                    legend.tone === "solid" ? "bg-[var(--color-accent)]" : "",
                     legend.tone === "dashed"
                       ? "border-t border-dashed border-indigo-500"
                       : "",
@@ -256,7 +256,7 @@ function ArchitectureGroupCard({
 }: ArchitectureGroupCardProps) {
   return (
     <div className="h-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3">
-      <p className="text-center text-xs font-bold text-blue-600">{group.title}</p>
+      <p className="text-center text-xs font-bold text-[var(--color-accent)]">{group.title}</p>
       <div
         className={[
           "mt-3 grid gap-2",
@@ -289,7 +289,7 @@ function ArchitectureGroupCard({
 function ArchitectureFlowNode({ node }: { node: ArchitectureNode & { id: string } }) {
   return (
     <article className="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-2.5 text-center shadow-sm">
-      <span className="mx-auto inline-flex h-7 w-7 items-center justify-center rounded-md border border-blue-400/20 bg-blue-500/10 text-blue-500">
+      <span className="mx-auto inline-flex h-7 w-7 items-center justify-center rounded-md border border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] text-[var(--color-accent)]">
         <ProjectDetailIcon icon={node.icon} className="h-3.5 w-3.5" />
       </span>
       <h3 className="mt-1.5 text-xs font-bold text-[var(--color-page-text)]">{node.title}</h3>

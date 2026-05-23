@@ -253,11 +253,7 @@ export function ProjectsPage() {
                   content={projectListContent}
                   currentPage={safeCurrentPage}
                   totalPages={totalPages}
-                  canShowMore={safeCurrentPage < totalPages}
                   onPageChange={setCurrentPage}
-                  onShowMore={() =>
-                    setCurrentPage(Math.min(totalPages, safeCurrentPage + 1))
-                  }
                 />
               ) : null}
             </main>

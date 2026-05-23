@@ -73,7 +73,7 @@ export function Footer({
                 <NavLink
                   key={item.href}
                   to={item.href}
-                  className="text-sm font-medium text-[var(--color-muted-text)] transition hover:text-blue-600"
+                  className="text-sm font-medium text-[var(--color-muted-text)] transition hover:text-[var(--color-accent)]"
                 >
                   {item.label}
                 </NavLink>
@@ -90,7 +90,7 @@ export function Footer({
                     href={contact.href}
                     target={contact.external ? "_blank" : undefined}
                     rel={contact.external ? "noreferrer" : undefined}
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted-text)] transition hover:text-blue-600"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted-text)] transition hover:text-[var(--color-accent)]"
                   >
                     <Icon className="h-4 w-4" />
                     {contact.label}

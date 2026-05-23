@@ -55,7 +55,7 @@ export function AboutProfile({ profile }: AboutProfileProps) {
             </div>
             <a
               href={`mailto:${profile.email}`}
-              className="truncate text-sm font-medium text-[var(--color-page-text)] transition hover:text-blue-600"
+              className="truncate text-sm font-medium text-[var(--color-page-text)] transition hover:text-[var(--color-accent)]"
             >
               {profile.email}
             </a>

@@ -26,7 +26,7 @@ export function ContactValueCard({ value }: ContactValueCardProps) {
 
   return (
     <div className={`${themeSurface.card} p-6`}>
-      <Icon className="h-8 w-8 text-blue-600" aria-hidden="true" />
+      <Icon className="h-8 w-8 text-[var(--color-accent)]" aria-hidden="true" />
       <h3 className="mt-4 text-base font-semibold text-[var(--color-page-text)]">
         {value.title}
       </h3>

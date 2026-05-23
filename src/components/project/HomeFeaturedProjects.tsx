@@ -132,7 +132,7 @@ export function HomeFeaturedProjects({
                   </div>
                   <Link
                     to={project.links.detail}
-                    className="mt-4 inline-flex text-sm font-semibold text-blue-600 transition hover:text-blue-500"
+                    className="mt-4 inline-flex text-sm font-semibold text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)]"
                   >
                     상세 보기
                   </Link>
