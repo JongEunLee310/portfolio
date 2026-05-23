@@ -25,6 +25,15 @@ import { smartFarmDataCollectorRecovery } from "./notes/smart-farm-data-collecto
 import { smartFarmDbReplication } from "./notes/smart-farm-db-replication";
 import { smartFarmMonitoringEngine } from "./notes/smart-farm-monitoring-engine";
 import { smartFarmRemoteDeviceControl } from "./notes/smart-farm-remote-device-control";
+import { noteCnnLightweightOptimization } from "./notes/note-cnn-lightweight-optimization";
+import { noteYolov3TinyLayerArchitecture } from "./notes/note-yolov3-tiny-layer-architecture";
+import { noteIm2colGemmBottleneck } from "./notes/note-im2col-gemm-bottleneck";
+import { noteMixedPrecisionCnn } from "./notes/note-mixed-precision-cnn";
+import { noteInt8QuantizationOverflow } from "./notes/note-int8-quantization-overflow";
+import { noteTensorflowCBindingArm } from "./notes/note-tensorflow-c-binding-arm";
+import { noteArmFp16Compiler } from "./notes/note-arm-fp16-compiler";
+import { noteConvMaxpoolIntegration } from "./notes/note-conv-maxpool-integration";
+import { noteCnnModelExtensionResnetMobilenet } from "./notes/note-cnn-model-extension-resnet-mobilenet";
 
 export const technicalNotes: TechnicalNoteCard[] = [
   dbRoundTripOptimization,
@@ -53,4 +62,13 @@ export const technicalNotes: TechnicalNoteCard[] = [
   springbootJwtSocialLogin,
   swaggerApiDocumentation,
   containerImageArchitectureCompatibility,
+  noteCnnLightweightOptimization,
+  noteYolov3TinyLayerArchitecture,
+  noteIm2colGemmBottleneck,
+  noteMixedPrecisionCnn,
+  noteInt8QuantizationOverflow,
+  noteTensorflowCBindingArm,
+  noteArmFp16Compiler,
+  noteConvMaxpoolIntegration,
+  noteCnnModelExtensionResnetMobilenet,
 ];
