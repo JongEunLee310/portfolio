@@ -67,6 +67,11 @@ export const PROJECT_DETAIL_LABELS = {
     improvements: {
       eyebrow: "IMPROVEMENT",
       title: "성능 개선",
+      description: "설명",
+      result: "결과",
+      previous: "이전 개선 항목",
+      next: "다음 개선 항목",
+      status: "개선 항목",
     },
     links: {
       eyebrow: "LINKS",
