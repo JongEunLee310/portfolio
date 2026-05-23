@@ -11,6 +11,13 @@ const config: Config = {
           surface: "#0d1b2f",
           blue: "#2563eb",
           blueLight: "#3b82f6",
+          gold: {
+            DEFAULT: "#C9972B",
+            light: "#F5D985",
+            medium: "#D3A33A",
+            dark: "#966B15",
+            bg: "#FDF3DC",
+          },
         },
       },
       boxShadow: {
