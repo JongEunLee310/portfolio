@@ -20,6 +20,7 @@ export function ProjectClosingCardsSection({
   project,
 }: ProjectClosingCardsSectionProps) {
   const [activeTroubleshootingIndex, setActiveTroubleshootingIndex] = useState(0);
+  const [activeImprovementIndex, setActiveImprovementIndex] = useState(0);
   const troubleshooting = project.troubleshooting.filter(
     (item) => hasText(item.title) && hasText(item.solution),
   );
@@ -30,6 +31,8 @@ export function ProjectClosingCardsSection({
   const improvementPlans = project.retrospective.improvement.filter(hasText);
   const activeTroubleshooting =
     troubleshooting[activeTroubleshootingIndex] ?? troubleshooting[0];
+  const activeImprovement =
+    improvements?.[activeImprovementIndex] ?? improvements?.[0];
 
   function showPreviousTroubleshooting() {
     setActiveTroubleshootingIndex((current) =>
@@ -40,6 +43,18 @@ export function ProjectClosingCardsSection({
   function showNextTroubleshooting() {
     setActiveTroubleshootingIndex((current) =>
       current === troubleshooting.length - 1 ? 0 : current + 1,
+    );
+  }
+
+  function showPreviousImprovement() {
+    setActiveImprovementIndex((current) =>
+      current === 0 ? (improvements?.length ?? 1) - 1 : current - 1,
+    );
+  }
+
+  function showNextImprovement() {
+    setActiveImprovementIndex((current) =>
+      current === (improvements?.length ?? 1) - 1 ? 0 : current + 1,
     );
   }
 
@@ -108,32 +123,64 @@ export function ProjectClosingCardsSection({
         </article>
       ) : null}
 
-      {improvements?.length ? (
+      {activeImprovement ? (
         <article className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-card">
-          <SectionHeader
-            eyebrow={PROJECT_DETAIL_LABELS.sections.improvements.eyebrow}
-            title={PROJECT_DETAIL_LABELS.sections.improvements.title}
-          />
-          <div className="space-y-3">
-            {improvements.slice(0, 3).map((item) => (
-              <div
-                key={item.title}
-                className="flex gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-4"
-              >
-                <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/10 text-blue-500">
-                  <ProjectDetailIcon icon={item.icon} />
-                </span>
-                <div>
-                  <h3 className="text-sm font-bold text-[var(--color-page-text)]">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1 text-xs leading-6 text-[var(--color-muted-text)]">
-                    {item.result ?? item.description}
-                  </p>
-                </div>
+          <div className="mb-8 flex items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-widest text-blue-600">
+                {PROJECT_DETAIL_LABELS.sections.improvements.eyebrow}
+              </p>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-page-text)]">
+                {PROJECT_DETAIL_LABELS.sections.improvements.title}
+              </h2>
+            </div>
+            {improvements && improvements.length > 1 ? (
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={showPreviousImprovement}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-blue-300 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  aria-label={PROJECT_DETAIL_LABELS.sections.improvements.previous}
+                >
+                  <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  onClick={showNextImprovement}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-blue-300 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  aria-label={PROJECT_DETAIL_LABELS.sections.improvements.next}
+                >
+                  <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                </button>
               </div>
-            ))}
+            ) : null}
           </div>
+          <ImprovementSlide item={activeImprovement} />
+          {improvements && improvements.length > 1 ? (
+            <div className="mt-5 flex items-center justify-between gap-4">
+              <p className="text-xs font-semibold text-[var(--color-muted-text)]" aria-live="polite">
+                {PROJECT_DETAIL_LABELS.sections.improvements.status}{" "}
+                {activeImprovementIndex + 1} / {improvements.length}
+              </p>
+              <div className="flex gap-1.5">
+                {improvements.map((item, index) => (
+                  <button
+                    key={item.title}
+                    type="button"
+                    onClick={() => setActiveImprovementIndex(index)}
+                    className={[
+                      "h-2.5 rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+                      index === activeImprovementIndex
+                        ? "w-6 bg-blue-600"
+                        : "w-2.5 bg-[var(--color-border)] hover:bg-blue-300",
+                    ].join(" ")}
+                    aria-label={item.title}
+                    aria-current={index === activeImprovementIndex}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : null}
         </article>
       ) : null}
 
@@ -143,7 +190,7 @@ export function ProjectClosingCardsSection({
             eyebrow={PROJECT_DETAIL_LABELS.sections.retrospective.eyebrow}
             title={PROJECT_DETAIL_LABELS.sections.retrospective.title}
           />
-          <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5">
+          <div className="h-[430px] overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5">
             <p className="text-sm leading-7 text-[var(--color-muted-text)]">
               {learned[0] ?? improvementPlans[0]}
             </p>
@@ -190,13 +237,46 @@ export function ProjectClosingCardsSection({
   );
 }
 
+type ImprovementSlideProps = {
+  item: NonNullable<ProjectDetail["improvements"]>[number];
+};
+
+function ImprovementSlide({ item }: ImprovementSlideProps) {
+  return (
+    <div className="h-[400px] overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5">
+      <div className="flex items-start gap-3">
+        <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/10 text-blue-500">
+          <ProjectDetailIcon icon={item.icon} />
+        </span>
+        <h3 className="text-base font-bold text-[var(--color-page-text)]">{item.title}</h3>
+      </div>
+      <dl className="mt-5 space-y-4 text-sm leading-6">
+        <div>
+          <dt className="font-bold text-[var(--color-page-text)]">
+            {PROJECT_DETAIL_LABELS.sections.improvements.description}
+          </dt>
+          <dd className="mt-1 text-[var(--color-muted-text)]">{item.description}</dd>
+        </div>
+        {item.result ? (
+          <div>
+            <dt className="font-bold text-[var(--color-page-text)]">
+              {PROJECT_DETAIL_LABELS.sections.improvements.result}
+            </dt>
+            <dd className="mt-1 text-[var(--color-muted-text)]">{item.result}</dd>
+          </div>
+        ) : null}
+      </dl>
+    </div>
+  );
+}
+
 type TroubleshootingSlideProps = {
   item: ProjectDetail["troubleshooting"][number];
 };
 
 function TroubleshootingSlide({ item }: TroubleshootingSlideProps) {
   const content = (
-    <div className="min-h-[260px] rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5 transition hover:border-blue-300 hover:bg-blue-500/10">
+    <div className="h-[400px] overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5 transition hover:border-blue-300 hover:bg-blue-500/10">
       <div className="flex items-start justify-between gap-4">
         <h3 className="text-base font-bold text-[var(--color-page-text)]">{item.title}</h3>
         {item.noteSlug ? (

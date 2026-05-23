@@ -31,7 +31,22 @@ export type IconName =
   | "Share2"
   | "Star"
   | "TrendingDown"
-  | "Users";
+  | "Users"
+  | "Network"
+  | "ServerCog"
+  | "Boxes"
+  | "FileCode"
+  | "FileSearch"
+  | "BarChart3"
+  | "Bell"
+  | "Route"
+  | "Globe"
+  | "Radio"
+  | "KeyRound"
+  | "User"
+  | "Search"
+  | "ShieldCheck"
+  | "Wallet";
 
 export type LinkItem = {
   label: string;
