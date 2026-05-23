@@ -3,8 +3,11 @@ import { EmptyState } from "@/components/common/EmptyState";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { PATHS } from "@/constants/paths";
 import { pageChrome } from "@/utils/pageChrome";
+import { seoConfig } from "@/data/seo";
+import { useSeo } from "@/utils/useSeo";
 
 export function NotFoundPage() {
+  useSeo(seoConfig[PATHS.notFound].title);
   return (
     <PageLayout {...pageChrome}>
       <section className="bg-slate-50 py-24">

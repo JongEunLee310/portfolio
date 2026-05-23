@@ -17,6 +17,8 @@ import { techStackGroups } from "@/data/techStack";
 import { PATHS } from "@/constants/paths";
 import { themeSurface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
+import { seoConfig } from "@/data/seo";
+import { useSeo } from "@/utils/useSeo";
 
 const highlightIcons: Record<string, LucideIcon> = {
   Gauge,
@@ -26,6 +28,7 @@ const highlightIcons: Record<string, LucideIcon> = {
 };
 
 export function HomePage() {
+  useSeo(seoConfig[PATHS.home].title);
   const { resolvedTheme } = useTheme();
   const featuredProjects = projects.filter((project) => project.status === "featured");
   const normalProjects = projects.filter((project) => project.status === "normal");

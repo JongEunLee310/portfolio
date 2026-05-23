@@ -27,6 +27,9 @@ import type {
 } from "@/types/note";
 import { matchesNoteFilter } from "@/utils/noteFilters";
 import { pageChrome } from "@/utils/pageChrome";
+import { seoConfig } from "@/data/seo";
+import { useSeo } from "@/utils/useSeo";
+import { PATHS } from "@/constants/paths";
 
 const pageSize = 6;
 
@@ -113,6 +116,7 @@ function getTagOptions() {
 }
 
 export function TechnicalNotesPage() {
+  useSeo(seoConfig[PATHS.technicalNotes].title);
   const { resolvedTheme } = useTheme();
   const [filters, setFilters] = useState<NoteFilterState>({
     category: "all",
