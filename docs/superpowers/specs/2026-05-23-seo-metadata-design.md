@@ -51,7 +51,7 @@ export function useSeo(title: string): void
 - `useEffect`로 `document.title = title` 설정
 - Google은 JS 렌더링 후 title을 크롤링하므로 per-page title은 SEO에 유효
 - 컴포넌트 언마운트 시 title 복원 없음 (SPA에서 불필요)
-- import 경계: `pages → utils` 허용 (기존 `pageChrome.ts` 패턴과 동일)
+- import 경계: `pages → utils` 허용 (기존 패턴과 동일)
 
 ### 3. 페이지별 적용
 
