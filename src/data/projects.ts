@@ -1,5 +1,6 @@
 import type { ProjectCard } from "@/types/project";
 import { aiDevopsOrchestrationPlatform } from "./projects/ai-devops-orchestration-platform";
+import { eksEfkMonitoringPractice } from "./projects/eks-efk-monitoring-practice";
 import { goormBankProblemBank } from "./projects/goorm-bank-problem-bank";
 import { halo } from "./projects/halo";
 import { smartFarm } from "./projects/smart-farm";
@@ -11,4 +12,5 @@ export const projects: ProjectCard[] = [
   theListeningTree,
   smartFarm,
   goormBankProblemBank,
+  eksEfkMonitoringPractice,
 ];
