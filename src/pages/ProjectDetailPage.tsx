@@ -14,15 +14,19 @@ import {
 import { ProjectFeatureStripSection } from "@/components/project/ProjectFeatureStripSection";
 import { ProjectScreenshotGallerySection } from "@/components/project/ProjectScreenshotGallerySection";
 import { ProjectTechStackGroupedSection } from "@/components/project/ProjectTechStackGroupedSection";
+import { PATHS } from "@/constants/paths";
 import { PROJECT_DETAIL_LABELS } from "@/constants/projectDetail";
 import { projectDetails } from "@/data/projectDetails";
+import { seoConfig } from "@/data/seo";
 import { themeSurface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
+import { useSeo } from "@/utils/useSeo";
 
 export function ProjectDetailPage() {
   const { resolvedTheme } = useTheme();
   const { projectSlug } = useParams();
   const project = projectDetails.find((item) => item.slug === projectSlug);
+  useSeo(project ? `${project.title} | 이종은 포트폴리오` : seoConfig[PATHS.projects].title);
 
   if (!project) {
     return (

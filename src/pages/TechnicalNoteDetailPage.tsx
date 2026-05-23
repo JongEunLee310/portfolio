@@ -18,16 +18,19 @@ import { PATHS } from "@/constants/paths";
 import { NOTE_DETAIL_LABELS } from "@/constants/noteDetail";
 import { noteDetails } from "@/data/noteDetails";
 import { projects } from "@/data/projects";
+import { seoConfig } from "@/data/seo";
 import { siteConfig } from "@/data/site";
 import { technicalNotes } from "@/data/technicalNotes";
 import { themeSurface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
+import { useSeo } from "@/utils/useSeo";
 
 export function TechnicalNoteDetailPage() {
   const { resolvedTheme } = useTheme();
   const isLight = resolvedTheme === "light";
   const { noteSlug } = useParams();
   const note = noteDetails.find((item) => item.slug === noteSlug);
+  useSeo(note ? `${note.title} | 이종은 포트폴리오` : seoConfig[PATHS.technicalNotes].title);
 
   if (!note) {
     return (
