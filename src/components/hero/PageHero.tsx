@@ -66,7 +66,7 @@ export function PageHero({
           <p
             className={[
               "mb-4 text-sm font-semibold",
-              isLight ? "text-[#966B15]" : "text-blue-400",
+              isLight ? "text-[var(--color-accent-dark)]" : "text-blue-400",
             ].join(" ")}
           >
             {eyebrow}
@@ -75,7 +75,7 @@ export function PageHero({
             {highlightedText && titleParts.length > 1 ? (
               <>
                 {titleParts[0]}
-                <span className={isLight ? "text-[#C9972B]" : "text-blue-500"}>{highlightedText}</span>
+                <span className={isLight ? "text-[var(--color-accent)]" : "text-blue-500"}>{highlightedText}</span>
                 {titleParts.slice(1).join(highlightedText)}
               </>
             ) : (
@@ -93,7 +93,7 @@ export function PageHero({
           {primaryAction || secondaryAction ? (
             <div className="mt-8 flex flex-wrap gap-3">
               {primaryAction ? (
-                <ButtonLink href={primaryAction.href} variant={isLight ? "goldPrimary" : "primary"}>
+                <ButtonLink href={primaryAction.href}>
                   {primaryAction.label}
                 </ButtonLink>
               ) : null}
