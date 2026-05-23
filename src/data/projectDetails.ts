@@ -1,5 +1,6 @@
 import type { ProjectDetail } from "@/types/project";
 import { aiDevopsOrchestrationPlatformDetail } from "./project-details/ai-devops-orchestration-platform";
+import { armEmbeddedCnnMixedPrecisionDetail } from "./project-details/arm-embedded-cnn-mixed-precision";
 import { eksEfkMonitoringPracticeDetail } from "./project-details/eks-efk-monitoring-practice";
 import { goormBankProblemBankDetail } from "./project-details/goorm-bank-problem-bank";
 import { haloDetail } from "./project-details/halo";
@@ -13,4 +14,5 @@ export const projectDetails: ProjectDetail[] = [
   smartFarmDetail,
   goormBankProblemBankDetail,
   eksEfkMonitoringPracticeDetail,
+  armEmbeddedCnnMixedPrecisionDetail,
 ];
