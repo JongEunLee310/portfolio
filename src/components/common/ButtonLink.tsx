@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
-type ButtonLinkVariant = "primary" | "outline" | "darkOutline";
+type ButtonLinkVariant = "primary" | "outline" | "darkOutline" | "goldPrimary";
 
 const variants: Record<ButtonLinkVariant, string> = {
   primary:
@@ -10,6 +10,8 @@ const variants: Record<ButtonLinkVariant, string> = {
     "border border-slate-300 bg-white text-slate-900 transition hover:border-blue-500 hover:text-blue-600",
   darkOutline:
     "border border-white/20 bg-white/5 text-white transition hover:border-blue-400 hover:bg-blue-500/10",
+  goldPrimary:
+    "bg-[#C9972B] text-white shadow-card transition hover:bg-[#B8851E]",
 };
 
 type ButtonLinkProps = {
