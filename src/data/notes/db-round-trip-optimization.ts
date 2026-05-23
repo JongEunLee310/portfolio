@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const dbRoundTripOptimization: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const dbRoundTripOptimization: TechnicalNoteCard = {
   summary:
     "불필요한 쿼리와 N+1 문제를 분석하고, 조회 최적화 및 캐싱 전략을 통해 응답 시간을 개선한 기록입니다.",
   category: "performance",
-  thumbnail: "/images/notes/db-round-trip.svg",
+  thumbnail: publicPath("/images/notes/db-round-trip.svg"),
   date: "2026.05.16",
   readingTime: "10분 읽기",
   featured: true,

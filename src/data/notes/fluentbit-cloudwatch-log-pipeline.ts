@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const fluentbitCloudwatchLogPipeline: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const fluentbitCloudwatchLogPipeline: TechnicalNoteCard = {
   summary:
     "EKS DaemonSet으로 배포한 Fluent Bit에서 CloudWatch 로그 그룹으로 애플리케이션 로그를 전달하는 파이프라인 구성 기록입니다.",
   category: "observability",
-  thumbnail: "/images/notes/fluentbit-pipeline.svg",
+  thumbnail: publicPath("/images/notes/fluentbit-pipeline.svg"),
   date: "2022.11.05",
   readingTime: "8분 읽기",
   tags: [

@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const noteMixedPrecisionCnn: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const noteMixedPrecisionCnn: TechnicalNoteCard = {
   summary:
     "FP32, FP16, INT8 정밀도를 레이어별로 선택할 수 있는 Mixed Precision 분기 시스템 설계와 구현 과정을 정리한 노트입니다.",
   category: "architecture",
-  thumbnail: "/images/notes/db-round-trip.svg",
+  thumbnail: publicPath("/images/notes/db-round-trip.svg"),
   date: "2022.04",
   readingTime: "12분 읽기",
   tags: [

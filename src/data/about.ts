@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { AboutData } from "@/types/about";
 import { externalLinks } from "@/constants/externalLinks";
 
@@ -8,7 +9,7 @@ export const aboutData: AboutData = {
     location: "대한민국, 서울",
     email: "whddms1208@gmail.com",
     experience: "백엔드 개발 1년+",
-    avatar: "/images/profile/avatar.svg",
+    avatar: publicPath("/images/profile/avatar.svg"),
     links: [
       { label: "Email", href: externalLinks.email, icon: "Mail" },
       { label: "GitHub", href: externalLinks.github, icon: "Github" },

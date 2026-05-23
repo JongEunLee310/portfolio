@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const swaggerApiDocumentation: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const swaggerApiDocumentation: TechnicalNoteCard = {
   summary:
     "Spring Boot 프로젝트에 Swagger UI를 적용해 문제풀이, 게시판, 회원 API 규격을 자동으로 문서화한 기록입니다.",
   category: "architecture",
-  thumbnail: "/images/notes/swagger-api-docs.svg",
+  thumbnail: publicPath("/images/notes/swagger-api-docs.svg"),
   date: "2022.10.18",
   readingTime: "6분 읽기",
   tags: [

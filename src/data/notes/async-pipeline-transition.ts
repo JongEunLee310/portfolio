@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const asyncPipelineTransition: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const asyncPipelineTransition: TechnicalNoteCard = {
   summary:
     "HTTP 요청과 파이프라인 실행을 분리해 응답 시간과 커넥션 점유 문제를 개선한 과정입니다.",
   category: "architecture",
-  thumbnail: "/images/notes/async-pipeline.svg",
+  thumbnail: publicPath("/images/notes/async-pipeline.svg"),
   date: "2026.05.15",
   readingTime: "8분 읽기",
   tags: [

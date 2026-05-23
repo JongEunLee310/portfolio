@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const noteConvMaxpoolIntegration: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const noteConvMaxpoolIntegration: TechnicalNoteCard = {
   summary:
     "Conv layer 직후 Maxpool을 별도 실행하지 않고 통합 처리해 평균 5% 수행시간 감소를 달성한 실험 노트입니다.",
   category: "performance",
-  thumbnail: "/images/notes/db-round-trip.svg",
+  thumbnail: publicPath("/images/notes/db-round-trip.svg"),
   date: "2022.12",
   readingTime: "8분 읽기",
   tags: [

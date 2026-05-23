@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import { PATHS } from "@/constants/paths";
 import type { ProjectCard } from "@/types/project";
 
@@ -9,7 +10,7 @@ export const aiDevopsOrchestrationPlatform: ProjectCard = {
     "Pipeline 실행 오케스트레이션과 AI 기반 실패 분석을 설계하고 구현한 FastAPI 백엔드 API 서버",
   description:
     "FastAPI 기반으로 Project/Pipeline/Job CRUD, Git 저장소 명령 실행, LLM 실패 분석을 구현하고 BackgroundTasks, Celery + Redis, RabbitMQ MSA 전략을 비교 실험한 백엔드 프로젝트입니다.",
-  thumbnail: "/images/projects/ai-devops/thumbnail.svg",
+  thumbnail: publicPath("/images/projects/ai-devops/thumbnail.svg"),
   category: ["backend", "infra", "ai"],
   type: "personal",
   status: "featured",

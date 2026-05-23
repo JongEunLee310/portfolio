@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const multirepoCI: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const multirepoCI: TechnicalNoteCard = {
   summary:
     "GitHub Actions 워크플로우를 복붙으로 관리할 때 name 필드 누락이 CI 대시보드를 혼란스럽게 만든 문제와 수정 과정을 정리한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: "/images/notes/multirepo-ci-drift.svg",
+  thumbnail: publicPath("/images/notes/multirepo-ci-drift.svg"),
   date: "2025.02.05",
   readingTime: "4분 읽기",
   tags: [

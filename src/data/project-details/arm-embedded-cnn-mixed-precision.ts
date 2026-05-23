@@ -1,9 +1,10 @@
+import { publicPath } from "@/utils/publicPath";
 import type { ProjectDetail } from "@/types/project";
 import { armEmbeddedCnnMixedPrecision } from "../projects/arm-embedded-cnn-mixed-precision";
 
 export const armEmbeddedCnnMixedPrecisionDetail: ProjectDetail = {
   ...armEmbeddedCnnMixedPrecision,
-  heroImage: "/images/projects/arm-embedded-cnn-mixed-precision-hero.png",
+  heroImage: publicPath("/images/projects/arm-embedded-cnn-mixed-precision-hero.png"),
   heroHighlights: [
     { label: "연구 활동 기간", value: "2021.07 ~ 2023.02", icon: "Calendar" },
     { label: "지원 정밀도", value: "FP32 / FP16 / INT8", icon: "Cpu" },

@@ -1,4 +1,5 @@
 import { PATHS } from "@/constants/paths";
+import { publicPath } from "@/utils/publicPath";
 
 export const pageHeroes = {
   home: {
@@ -15,7 +16,10 @@ export const pageHeroes = {
       label: "기술적 문제 해결 보기",
       href: PATHS.technicalNotes,
     },
-    visual: "/images/hero/backend-architecture.svg",
+    visual: {
+      light: publicPath("/images/hero/home-banner-hero-light.svg"),
+      dark: publicPath("/images/hero/home-banner-hero-dark.svg"),
+    },
   },
   projects: {
     eyebrow: "PROJECTS",
@@ -23,8 +27,8 @@ export const pageHeroes = {
     description:
       "실무와 개인 프로젝트를 통해 문제를 해결하고, 더 나은 구조와 가치를 만드는 서비스를 만들어왔습니다.",
     visual: {
-      light: "/images/hero/project-hero-light.svg",
-      dark: "/images/hero/project-hero-dark.svg",
+      light: publicPath("/images/hero/project-hero-light.svg"),
+      dark: publicPath("/images/hero/project-hero-dark.svg"),
     },
   },
   technicalNotes: {
@@ -33,8 +37,8 @@ export const pageHeroes = {
     description:
       "개발 과정에서 마주한 기술적 문제와 고민, 해결 과정과 배운 점을 기록합니다.",
     visual: {
-      light: "/images/hero/notes-hero-light.svg",
-      dark: "/images/hero/notes-hero-dark.svg",
+      light: publicPath("/images/hero/notes-hero-light.svg"),
+      dark: publicPath("/images/hero/notes-hero-dark.svg"),
     },
   },
   about: {
@@ -52,8 +56,8 @@ export const pageHeroes = {
       href: PATHS.contact,
     },
     visual: {
-      light: "/images/hero/about-hero-light.svg",
-      dark: "/images/hero/about-hero-dark.svg",
+      light: publicPath("/images/hero/about-hero-light.svg"),
+      dark: publicPath("/images/hero/about-hero-dark.svg"),
     },
   },
   contact: {
@@ -63,28 +67,8 @@ export const pageHeroes = {
     description:
       "새로운 아이디어부터 기술적 도전까지, 빠르게 이해하고 함께 고민하며 가치를 만들어갑니다.",
     visual: {
-      light: "/images/hero/contact-hero-light.svg",
-      dark: "/images/hero/contact-hero-dark.svg",
+      light: publicPath("/images/hero/contact-hero-light.svg"),
+      dark: publicPath("/images/hero/contact-hero-dark.svg"),
     },
   },
-} as const;
-
-export type HomeHeroCode = {
-  filename: string;
-  lines: string[];
-};
-
-export const homeHeroCode: HomeHeroCode = {
-  filename: "pipeline/tasks.py",
-  lines: [
-    "# 파이프라인 비동기 실행 태스크",
-    "@celery.task(bind=True, max_retries=3)",
-    "def process_pipeline(self, job_id: str):",
-    "    try:",
-    "        result = pipeline.execute(job_id)",
-    '        metrics.track("pipeline.done", job=job_id)',
-    '        return {"status": "ok", "result": result}',
-    "    except NetworkError as exc:",
-    "        raise self.retry(exc=exc, countdown=60)",
-  ],
 };

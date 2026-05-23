@@ -1,9 +1,10 @@
+import { publicPath } from "@/utils/publicPath";
 import type { ProjectDetail } from "@/types/project";
 import { smartFarm } from "../projects/smart-farm";
 
 export const smartFarmDetail: ProjectDetail = {
   ...smartFarm,
-  heroImage: "/images/projects/smart-farm/thumbnail.svg",
+  heroImage: publicPath("/images/projects/smart-farm/thumbnail.svg"),
   heroHighlights: [
     { label: "개발 기여", value: "데이터 수집 / DB 업로드 / 디바이스 제어", icon: "Code2" },
     { label: "핵심 시스템", value: "실시간 모니터링 + 원격 제어", icon: "Activity" },
@@ -263,7 +264,7 @@ export const smartFarmDetail: ProjectDetail = {
   screenshots: [
     {
       title: "Smart Farm Monitoring",
-      image: "/images/projects/smart-farm/thumbnail.svg",
+      image: publicPath("/images/projects/smart-farm/thumbnail.svg"),
       description:
         "센서 데이터 수집, 원격 제어, 이벤트 알림 흐름을 요약한 프로젝트 대표 화면이다.",
     },

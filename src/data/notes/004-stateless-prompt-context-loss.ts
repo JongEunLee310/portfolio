@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const statelessPromptContextLoss: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const statelessPromptContextLoss: TechnicalNoteCard = {
   summary:
     "매 요청마다 독립적으로 GPT-4o를 호출할 때 이전 대화 맥락이 유지되지 않는 한계와 이를 수용한 설계 결정을 정리한 기록입니다.",
   category: "architecture",
-  thumbnail: "/images/notes/stateless-prompt-context.svg",
+  thumbnail: publicPath("/images/notes/stateless-prompt-context.svg"),
   date: "2025.01.25",
   readingTime: "5분 읽기",
   tags: [

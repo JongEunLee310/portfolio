@@ -1,9 +1,10 @@
+import { publicPath } from "@/utils/publicPath";
 import type { ProjectDetail } from "@/types/project";
 import { halo } from "../projects/halo";
 
 export const haloDetail: ProjectDetail = {
   ...halo,
-  heroImage: "/images/projects/halo/hero.svg",
+  heroImage: publicPath("/images/projects/halo/hero.svg"),
   heroHighlights: [
     {
       label: "Access Token 무한 재발급 요청 차단",
@@ -324,17 +325,17 @@ export const haloDetail: ProjectDetail = {
   screenshots: [
     {
       title: "예약 목록",
-      image: "/images/projects/halo/reservation-list.svg",
+      image: publicPath("/images/projects/halo/reservation-list.svg"),
       description: "고객 예약 목록 (상태 배지, 매니저 정보, 서비스 카테고리)",
     },
     {
       title: "정산 관리",
-      image: "/images/projects/halo/settlement-dashboard.svg",
+      image: publicPath("/images/projects/halo/settlement-dashboard.svg"),
       description: "주간 자동 정산 결과 및 관리자 수동 실행 화면",
     },
     {
       title: "Prometheus 메트릭",
-      image: "/images/projects/halo/prometheus.svg",
+      image: publicPath("/images/projects/halo/prometheus.svg"),
       description: "/actuator/prometheus 엔드포인트 메트릭",
     },
   ],

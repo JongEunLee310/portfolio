@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const albCorsTroubleshooting: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const albCorsTroubleshooting: TechnicalNoteCard = {
   summary:
     "Cloudflare, ALB, Spring Boot 환경에서 발생한 CORS/OPTIONS 502 문제를 추적한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: "/images/notes/alb-cors.svg",
+  thumbnail: publicPath("/images/notes/alb-cors.svg"),
   date: "2025.06.29",
   readingTime: "9분 읽기",
   tags: [

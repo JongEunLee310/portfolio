@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const noteCnnModelExtensionResnetMobilenet: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const noteCnnModelExtensionResnetMobilenet: TechnicalNoteCard = {
   summary:
     "YOLOv3-tiny 중심 Mixed Precision 프레임워크를 VGG16, ResNet50, MobileNetV2로 확장하기 위해 residual block 구조를 분석한 노트입니다.",
   category: "architecture",
-  thumbnail: "/images/notes/db-round-trip.svg",
+  thumbnail: publicPath("/images/notes/db-round-trip.svg"),
   date: "2023.02",
   readingTime: "9분 읽기",
   tags: [

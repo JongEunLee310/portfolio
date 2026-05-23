@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const rabbitmqEventTopology: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const rabbitmqEventTopology: TechnicalNoteCard = {
   summary:
     "서비스 간 결합도를 낮추고 안정적인 이벤트 전달을 위한 Exchange, Queue, DLQ 설계를 정리합니다.",
   category: "messaging",
-  thumbnail: "/images/notes/rabbitmq-topology.svg",
+  thumbnail: publicPath("/images/notes/rabbitmq-topology.svg"),
   date: "2026.05.18",
   readingTime: "12분 읽기",
   tags: [

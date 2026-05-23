@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const smartFarmDataCollectorRecovery: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const smartFarmDataCollectorRecovery: TechnicalNoteCard = {
   summary:
     "Azure VM에서 실행되는 Data Collector가 수집 실패하거나 비정상 데이터를 반환할 때 자동으로 정상화하는 구조를 설계한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: "/images/notes/smart-farm-data-collector.svg",
+  thumbnail: publicPath("/images/notes/smart-farm-data-collector.svg"),
   date: "2024.10.12",
   readingTime: "8분 읽기",
   tags: [

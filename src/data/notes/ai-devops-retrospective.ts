@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const aiDevopsRetrospective: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const aiDevopsRetrospective: TechnicalNoteCard = {
   summary:
     "파이프라인 실행, 로그 분석, 알림, 모니터링을 나누며 배운 책임 경계와 다음 개선 방향을 정리한 회고입니다.",
   category: "architecture",
-  thumbnail: "/images/notes/rabbitmq-topology.svg",
+  thumbnail: publicPath("/images/notes/rabbitmq-topology.svg"),
   date: "2026.05.21",
   readingTime: "9분 읽기",
   tags: [

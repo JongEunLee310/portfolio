@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import { PATHS } from "@/constants/paths";
 import type { ProjectCard } from "@/types/project";
 
@@ -8,7 +9,7 @@ export const goormBankProblemBank: ProjectCard = {
   summary: "국가기술자격시험 기출문제를 무작위로 풀이하고 정답률을 확인할 수 있는 문제은행 서비스",
   description:
     "시험기간에 급증하는 트래픽을 고려하여 AWS EKS 기반 클러스터, CI/CD, 로깅/모니터링, 오토스케일링을 적용한 자격증 기출문제 모의고사 서비스",
-  thumbnail: "/images/projects/goorm-bank-thumbnail.png",
+  thumbnail: publicPath("/images/projects/goorm-bank-thumbnail.png"),
   category: ["infra"],
   type: "team",
   status: "archived",
