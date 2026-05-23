@@ -8,7 +8,11 @@ import { projects } from "@/data/projects";
 import { technicalNotes } from "@/data/technicalNotes";
 
 function toPublicPath(src: string) {
-  return path.join(process.cwd(), "public", src.replace(/^\//, ""));
+  const base = import.meta.env.BASE_URL ?? "/";
+  const normalized = src.startsWith(base)
+    ? src.slice(base.length)
+    : src.replace(/^\//, "");
+  return path.join(process.cwd(), "public", normalized);
 }
 
 function expectPublicFileExists(src: string, context: string) {

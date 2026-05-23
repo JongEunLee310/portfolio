@@ -76,8 +76,7 @@ export const projectListContent = {
   sortAriaLabel: "프로젝트 정렬",
   previousPageLabel: "이전 페이지",
   nextPageLabel: "다음 페이지",
-  showMoreLabel: "더 많은 프로젝트 보기",
-  detailLabel: "상세 보기",
+detailLabel: "상세 보기",
   githubLabel: "GitHub",
 } as const;
 

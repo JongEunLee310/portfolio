@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const openaiResponseDirectAccess: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const openaiResponseDirectAccess: TechnicalNoteCard = {
   summary:
     "response.output[0].content[0].text 직접 접근이 빈 응답에서 IndexError를 유발한 문제와 사용자 메시지 표준 출력 노출을 함께 수정한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: "/images/notes/openai-response-access.svg",
+  thumbnail: publicPath("/images/notes/openai-response-access.svg"),
   date: "2025.01.20",
   readingTime: "5분 읽기",
   tags: [

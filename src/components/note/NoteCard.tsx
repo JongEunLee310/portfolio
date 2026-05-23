@@ -55,7 +55,7 @@ export function NoteCard({ note, labels, variant = "grid" }: NoteCardProps) {
           </div>
           <Link
             to={PATHS.technicalNoteDetail(note.slug)}
-            className="mt-4 inline-flex h-10 w-full max-w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 text-sm font-semibold text-white transition hover:bg-blue-500"
+            className="mt-4 inline-flex h-10 w-full max-w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 text-sm font-semibold text-white transition hover:bg-[var(--color-accent-hover)]"
           >
             {labels.detailLabel}
             <ArrowRight className="h-4 w-4" />

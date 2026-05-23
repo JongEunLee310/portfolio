@@ -1,9 +1,10 @@
+import { publicPath } from "@/utils/publicPath";
 import type { ProjectDetail } from "@/types/project";
 import { aiDevopsOrchestrationPlatform } from "../projects/ai-devops-orchestration-platform";
 
 export const aiDevopsOrchestrationPlatformDetail: ProjectDetail = {
   ...aiDevopsOrchestrationPlatform,
-  heroImage: "/images/projects/ai-devops/dashboard.svg",
+  heroImage: publicPath("/images/projects/ai-devops/dashboard.svg"),
   heroHighlights: [
     {
       label: "처리량 (Celery + Redis, 100 VU)",
@@ -394,25 +395,25 @@ export const aiDevopsOrchestrationPlatformDetail: ProjectDetail = {
   screenshots: [
     {
       title: "Pipeline 목록",
-      image: "/images/projects/ai-devops/screenshot-dashboard.svg",
+      image: publicPath("/images/projects/ai-devops/screenshot-dashboard.svg"),
       description:
         "상태 배지(DRAFT/READY/QUEUED/RUNNING/SUCCESS/FAILED)와 실행 이력을 한눈에 확인",
     },
     {
       title: "PipelineRun 상세",
-      image: "/images/projects/ai-devops/screenshot-logs.svg",
+      image: publicPath("/images/projects/ai-devops/screenshot-logs.svg"),
       description:
         "Job별 JobRunLog(exit_code, stdout, stderr, duration_ms) 확인",
     },
     {
       title: "AI Review 결과",
-      image: "/images/projects/ai-devops/dashboard.svg",
+      image: publicPath("/images/projects/ai-devops/dashboard.svg"),
       description:
         "severity, category, cause, suggestion, confidence 분석 결과",
     },
     {
       title: "Grafana 대시보드",
-      image: "/images/projects/ai-devops/thumbnail.svg",
+      image: publicPath("/images/projects/ai-devops/thumbnail.svg"),
       description: "멀티 서비스 Prometheus 메트릭 시각화",
     },
   ],

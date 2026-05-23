@@ -28,8 +28,8 @@ export function FilterPills<TValue extends string>({
             "rounded-full border px-4 py-2 text-sm font-semibold transition",
             "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600",
             option.value === selectedValue
-              ? "border-blue-600 bg-blue-600 text-white shadow-blue-soft"
-              : "border-slate-200 bg-white text-slate-700 hover:border-blue-300 hover:text-blue-600",
+              ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-white shadow-blue-soft"
+              : "border-slate-200 bg-white text-slate-700 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]",
           ].join(" ")}
         >
           {option.label}

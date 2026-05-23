@@ -15,7 +15,7 @@ const calloutClassMap: Record<
   Extract<ArticleSection, { type: "callout" }>["variant"],
   string
 > = {
-  info: "border-blue-400/30 bg-blue-500/10 text-[var(--color-page-text)]",
+  info: "border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] text-[var(--color-page-text)]",
   warning: "border-amber-400/30 bg-amber-500/10 text-[var(--color-page-text)]",
   success: "border-emerald-400/30 bg-emerald-500/10 text-[var(--color-page-text)]",
 };
@@ -48,7 +48,7 @@ export function ArticleSectionRenderer({
       <ul className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 text-base leading-8 text-[var(--color-muted-text)] shadow-card md:text-[17px]">
         {section.items.map((item) => (
           <li key={item} className="flex gap-3">
-            <CheckCircle2 className="mt-2 h-4 w-4 shrink-0 text-blue-600" />
+            <CheckCircle2 className="mt-2 h-4 w-4 shrink-0 text-[var(--color-accent)]" />
             <span>{item}</span>
           </li>
         ))}
@@ -64,7 +64,7 @@ export function ArticleSectionRenderer({
             key={item.title}
             className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-card"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/10 text-blue-500">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] text-[var(--color-accent)]">
               <CheckCircle2 className="h-4 w-4" />
             </div>
             <h3 className="mt-4 text-sm font-bold text-[var(--color-page-text)]">
@@ -74,7 +74,7 @@ export function ArticleSectionRenderer({
               {item.description}
             </p>
             {item.badge ? (
-              <span className="mt-4 inline-flex rounded-md border border-blue-400/20 bg-blue-500/10 px-2.5 py-1 font-mono text-[11px] font-bold uppercase text-blue-500">
+              <span className="mt-4 inline-flex rounded-md border border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] px-2.5 py-1 font-mono text-[11px] font-bold uppercase text-[var(--color-accent)]">
                 {item.badge}
               </span>
             ) : null}
@@ -156,7 +156,7 @@ export function ArticleSectionRenderer({
             <ul className="mt-4 space-y-2 text-sm leading-6 text-[var(--color-muted-text)]">
               {item.bullets.map((bullet) => (
                 <li key={bullet} className="flex gap-2">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" />
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]" />
                   <span>{bullet}</span>
                 </li>
               ))}

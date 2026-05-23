@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const noteIm2colGemmBottleneck: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const noteIm2colGemmBottleneck: TechnicalNoteCard = {
   summary:
     "Convolution layer의 핵심 연산인 im2col과 GEMM의 계산량과 구조적 제약을 실험적으로 검증한 노트입니다.",
   category: "performance",
-  thumbnail: "/images/notes/db-round-trip.svg",
+  thumbnail: publicPath("/images/notes/db-round-trip.svg"),
   date: "2021.10",
   readingTime: "9분 읽기",
   tags: [

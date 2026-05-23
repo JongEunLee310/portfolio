@@ -79,7 +79,7 @@ export function ProjectListSidebar({
                   onClick={() => onChange({ ...filters, category: option.value })}
                   className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition ${
                     isSelected
-                      ? "bg-blue-600 text-white"
+                      ? "bg-[var(--color-accent)] text-white"
                       : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]"
                   }`}
                 >
@@ -172,7 +172,7 @@ export function ProjectListSidebar({
                   onClick={() => onChange({ ...filters, type: option.value })}
                   className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition ${
                     isSelected
-                      ? "bg-blue-600 text-white"
+                      ? "bg-[var(--color-accent)] text-white"
                       : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]"
                   }`}
                 >

@@ -1,9 +1,10 @@
+import { publicPath } from "@/utils/publicPath";
 import type { ProjectDetail } from "@/types/project";
 import { eksEfkMonitoringPractice } from "../projects/eks-efk-monitoring-practice";
 
 export const eksEfkMonitoringPracticeDetail: ProjectDetail = {
   ...eksEfkMonitoringPractice,
-  heroImage: "/images/projects/eks-efk-monitoring/hero.png",
+  heroImage: publicPath("/images/projects/eks-efk-monitoring/hero.png"),
   heroHighlights: [
     { label: "기간", value: "5주", icon: "Calendar" },
     { label: "구성 범위", value: "EKS + EFK + Alert", icon: "Network" },
@@ -297,31 +298,31 @@ export const eksEfkMonitoringPracticeDetail: ProjectDetail = {
   screenshots: [
     {
       title: "EKS 네트워크 아키텍처",
-      image: "/images/projects/eks-efk-monitoring/architecture.png",
+      image: publicPath("/images/projects/eks-efk-monitoring/architecture.png"),
       description:
         "2개 가용 영역, 퍼블릭/프라이빗 서브넷, Bastion/NAT Instance, EKS 워커 노드 구성을 나타낸 아키텍처",
     },
     {
       title: "EFK 로그 수집 구조",
-      image: "/images/projects/eks-efk-monitoring/efk-flow.png",
+      image: publicPath("/images/projects/eks-efk-monitoring/efk-flow.png"),
       description:
         "Fluentd가 워커 노드 로그를 수집하고 ElasticSearch, Kibana로 이어지는 로그 분석 흐름",
     },
     {
       title: "Kibana 로그 조회 화면",
-      image: "/images/projects/eks-efk-monitoring/kibana-discover.png",
+      image: publicPath("/images/projects/eks-efk-monitoring/kibana-discover.png"),
       description:
         "nginx 접근 로그를 Kibana Discover에서 시간대별로 조회한 화면",
     },
     {
       title: "CloudWatch 경보 화면",
-      image: "/images/projects/eks-efk-monitoring/cloudwatch-alarm.png",
+      image: publicPath("/images/projects/eks-efk-monitoring/cloudwatch-alarm.png"),
       description:
         "CPUUtilization 임계치 초과 여부를 CloudWatch Alarm에서 확인한 화면",
     },
     {
       title: "Slack 알림 수신 화면",
-      image: "/images/projects/eks-efk-monitoring/slack-alert.png",
+      image: publicPath("/images/projects/eks-efk-monitoring/slack-alert.png"),
       description:
         "CloudWatch 경보가 SNS, Lambda를 거쳐 Slack 메시지로 전달된 결과",
     },

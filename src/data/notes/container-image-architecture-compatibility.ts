@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const containerImageArchitectureCompatibility: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const containerImageArchitectureCompatibility: TechnicalNoteCard = {
   summary:
     "arm64 환경에서 빌드한 Docker 이미지를 amd64 노드에 배포할 때 발생하는 호환성 문제와 대응 방법을 정리한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: "/images/notes/container-arch.svg",
+  thumbnail: publicPath("/images/notes/container-arch.svg"),
   date: "2022.11.01",
   readingTime: "6분 읽기",
   tags: [

@@ -34,8 +34,8 @@ export function ProjectContributionTimelineSection({
         {visibleContributions.map((contribution) => (
           <li key={`${contribution.date}-${contribution.title}`}>
             <article className="relative h-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-card">
-              <span className="absolute -top-3 left-5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 ring-4 ring-[var(--color-page-bg)]" />
-              <p className="mt-2 text-xs font-bold text-blue-600">
+              <span className="absolute -top-3 left-5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-accent)] ring-4 ring-[var(--color-page-bg)]" />
+              <p className="mt-2 text-xs font-bold text-[var(--color-accent)]">
                 {contribution.date}
               </p>
               <h3 className="mt-3 text-sm font-bold text-[var(--color-page-text)]">

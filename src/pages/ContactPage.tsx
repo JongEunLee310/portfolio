@@ -10,8 +10,12 @@ import { contactData } from "@/data/contact";
 import { pageHeroes } from "@/data/hero";
 import { layout, themeSurface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
+import { seoConfig } from "@/data/seo";
+import { useSeo } from "@/utils/useSeo";
+import { PATHS } from "@/constants/paths";
 
 export function ContactPage() {
+  useSeo(seoConfig[PATHS.contact].title);
   const { resolvedTheme } = useTheme();
   const { channels, faq, sections, values } = contactData;
   const [emailChannel, ...supportChannels] = channels;

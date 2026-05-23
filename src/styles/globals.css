@@ -13,6 +13,11 @@
   --color-surface-muted: #f1f5f9;
   --color-border: #e2e8f0;
   --color-muted-text: #475569;
+  --color-accent: #C9972B;
+  --color-accent-hover: #B8851E;
+  --color-accent-dark: #966B15;
+  --color-accent-bg: rgba(201, 151, 43, 0.10);
+  --color-accent-border: rgba(201, 151, 43, 0.25);
 }
 
 :root[data-theme="dark"] {
@@ -23,6 +28,11 @@
   --color-surface-muted: #0d1b2f;
   --color-border: rgba(255, 255, 255, 0.12);
   --color-muted-text: #cbd5e1;
+  --color-accent: #3b82f6;
+  --color-accent-hover: #60a5fa;
+  --color-accent-dark: #93c5fd;
+  --color-accent-bg: rgba(37, 99, 235, 0.14);
+  --color-accent-border: rgba(96, 165, 250, 0.28);
 }
 
 body {
@@ -64,15 +74,15 @@ body {
 }
 
 .badge-primary {
-  background: #2563eb;
+  background: var(--color-accent);
   color: #ffffff;
 }
 
 .badge-light,
 .badge-dark {
-  border-color: #bfdbfe;
-  background: #eff6ff;
-  color: #1d4ed8;
+  border-color: rgba(201, 151, 43, 0.35);
+  background: rgba(201, 151, 43, 0.08);
+  color: var(--color-accent-dark);
 }
 
 .badge-success {
@@ -94,9 +104,9 @@ body {
 }
 
 .tech-tag-frontend {
-  border-color: #bae6fd;
-  background: #f0f9ff;
-  color: #0369a1;
+  border-color: #e9d5ff;
+  background: #faf5ff;
+  color: #7c3aed;
 }
 
 .tech-tag-database {
@@ -107,9 +117,9 @@ body {
 
 .tech-tag-infra,
 .tech-tag-devops {
-  border-color: #bfdbfe;
-  background: #eff6ff;
-  color: #1d4ed8;
+  border-color: rgba(201, 151, 43, 0.35);
+  background: rgba(201, 151, 43, 0.08);
+  color: #966B15;
 }
 
 .tech-tag-messaging {
@@ -119,9 +129,9 @@ body {
 }
 
 .tech-tag-observability {
-  border-color: #a5f3fc;
-  background: #ecfeff;
-  color: #0e7490;
+  border-color: #99f6e4;
+  background: #f0fdf4;
+  color: #0f766e;
 }
 
 .tech-tag-ai {

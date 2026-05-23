@@ -4,6 +4,7 @@ import { themeControlContent } from "@/data/theme";
 
 export const pageChrome = {
   logoText: siteConfig.logoText,
+  logoSrc: siteConfig.logo,
   copyright: siteConfig.copyright,
   navigation: mainNavigation,
   footerContacts: footerNavigation.contact,

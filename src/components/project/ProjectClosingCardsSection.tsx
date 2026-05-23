@@ -64,7 +64,7 @@ export function ProjectClosingCardsSection({
         <article className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-card">
           <div className="mb-8 flex items-end justify-between gap-4">
             <div>
-              <p className="text-sm font-bold uppercase tracking-widest text-blue-600">
+              <p className="text-sm font-bold uppercase tracking-widest text-[var(--color-accent)]">
                 {PROJECT_DETAIL_LABELS.sections.troubleshooting.eyebrow}
               </p>
               <h2 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-page-text)]">
@@ -76,7 +76,7 @@ export function ProjectClosingCardsSection({
                 <button
                   type="button"
                   onClick={showPreviousTroubleshooting}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-blue-300 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   aria-label={
                     PROJECT_DETAIL_LABELS.sections.troubleshooting.previous
                   }
@@ -86,7 +86,7 @@ export function ProjectClosingCardsSection({
                 <button
                   type="button"
                   onClick={showNextTroubleshooting}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-blue-300 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   aria-label={PROJECT_DETAIL_LABELS.sections.troubleshooting.next}
                 >
                   <ChevronRight className="h-4 w-4" aria-hidden="true" />
@@ -110,8 +110,8 @@ export function ProjectClosingCardsSection({
                     className={[
                       "h-2.5 rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
                       index === activeTroubleshootingIndex
-                        ? "w-6 bg-blue-600"
-                        : "w-2.5 bg-[var(--color-border)] hover:bg-blue-300",
+                        ? "w-6 bg-[var(--color-accent)]"
+                        : "w-2.5 bg-[var(--color-border)] hover:bg-[var(--color-accent)]",
                     ].join(" ")}
                     aria-label={`${item.title} ${PROJECT_DETAIL_LABELS.sections.troubleshooting.openNote}`}
                     aria-current={index === activeTroubleshootingIndex}
@@ -127,7 +127,7 @@ export function ProjectClosingCardsSection({
         <article className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-card">
           <div className="mb-8 flex items-end justify-between gap-4">
             <div>
-              <p className="text-sm font-bold uppercase tracking-widest text-blue-600">
+              <p className="text-sm font-bold uppercase tracking-widest text-[var(--color-accent)]">
                 {PROJECT_DETAIL_LABELS.sections.improvements.eyebrow}
               </p>
               <h2 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-page-text)]">
@@ -139,7 +139,7 @@ export function ProjectClosingCardsSection({
                 <button
                   type="button"
                   onClick={showPreviousImprovement}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-blue-300 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   aria-label={PROJECT_DETAIL_LABELS.sections.improvements.previous}
                 >
                   <ChevronLeft className="h-4 w-4" aria-hidden="true" />
@@ -147,7 +147,7 @@ export function ProjectClosingCardsSection({
                 <button
                   type="button"
                   onClick={showNextImprovement}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-blue-300 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   aria-label={PROJECT_DETAIL_LABELS.sections.improvements.next}
                 >
                   <ChevronRight className="h-4 w-4" aria-hidden="true" />
@@ -171,8 +171,8 @@ export function ProjectClosingCardsSection({
                     className={[
                       "h-2.5 rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
                       index === activeImprovementIndex
-                        ? "w-6 bg-blue-600"
-                        : "w-2.5 bg-[var(--color-border)] hover:bg-blue-300",
+                        ? "w-6 bg-[var(--color-accent)]"
+                        : "w-2.5 bg-[var(--color-border)] hover:bg-[var(--color-accent)]",
                     ].join(" ")}
                     aria-label={item.title}
                     aria-current={index === activeImprovementIndex}
@@ -224,7 +224,7 @@ export function ProjectClosingCardsSection({
             <div className="mt-6 flex justify-end">
               <Link
                 to={PATHS.technicalNoteDetail(project.retrospective.noteSlug)}
-                className="inline-flex items-center gap-2 rounded-lg border border-blue-400/30 bg-blue-500/10 px-4 py-2 text-sm font-bold text-blue-600 transition hover:border-blue-300 hover:bg-blue-500/15 hover:text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] px-4 py-2 text-sm font-bold text-[var(--color-accent)] transition hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent-dark)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2"
               >
                 {PROJECT_DETAIL_LABELS.sections.retrospective.openNote}
                 <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -245,7 +245,7 @@ function ImprovementSlide({ item }: ImprovementSlideProps) {
   return (
     <div className="h-[400px] overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5">
       <div className="flex items-start gap-3">
-        <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/10 text-blue-500">
+        <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] text-[var(--color-accent)]">
           <ProjectDetailIcon icon={item.icon} />
         </span>
         <h3 className="text-base font-bold text-[var(--color-page-text)]">{item.title}</h3>
@@ -276,11 +276,11 @@ type TroubleshootingSlideProps = {
 
 function TroubleshootingSlide({ item }: TroubleshootingSlideProps) {
   const content = (
-    <div className="h-[400px] overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5 transition hover:border-blue-300 hover:bg-blue-500/10">
+    <div className="h-[400px] overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5 transition hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-bg)]">
       <div className="flex items-start justify-between gap-4">
         <h3 className="text-base font-bold text-[var(--color-page-text)]">{item.title}</h3>
         {item.noteSlug ? (
-          <span className="inline-flex shrink-0 items-center gap-1 text-xs font-bold text-blue-600">
+          <span className="inline-flex shrink-0 items-center gap-1 text-xs font-bold text-[var(--color-accent)]">
             {PROJECT_DETAIL_LABELS.sections.troubleshooting.openNote}
             <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
           </span>

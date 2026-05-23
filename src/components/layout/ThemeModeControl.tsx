@@ -74,7 +74,7 @@ export function ThemeModeControl({
         aria-expanded={isOpen}
         aria-label={`${label}: ${currentOption?.label ?? mode}`}
         onClick={() => setIsOpen((value) => !value)}
-        className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] text-[var(--color-page-text)] transition hover:border-blue-300/70 hover:bg-blue-500/10 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] text-[var(--color-page-text)] transition hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
       >
         <TriggerIcon className="h-4 w-4" aria-hidden="true" />
       </button>
@@ -106,7 +106,7 @@ export function ThemeModeControl({
                 className={[
                   "flex w-full items-center gap-2 rounded-md px-3 py-2 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300",
                   isSelected
-                    ? "bg-blue-500/15 text-blue-200"
+                    ? "bg-[var(--color-accent-bg)] text-[var(--color-accent)]"
                     : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]",
                 ].join(" ")}
               >

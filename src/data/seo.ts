@@ -22,4 +22,8 @@ export const seoConfig = {
     title: "Contact | 이종은 포트폴리오",
     description: "프로젝트 협업, 기술 문의, 채용 관련 연락 페이지입니다.",
   },
+  [PATHS.notFound]: {
+    title: "404 | 이종은 포트폴리오",
+    description: "요청한 페이지를 찾을 수 없습니다.",
+  },
 } as const;

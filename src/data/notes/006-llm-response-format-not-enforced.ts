@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const llmResponseFormatNotEnforced: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const llmResponseFormatNotEnforced: TechnicalNoteCard = {
   summary:
     "시스템 프롬프트만으로는 GPT-4o 응답 형식이 보장되지 않아 공감 이외의 응답이 섞이는 문제와 프롬프트 강화로 완화한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: "/images/notes/llm-response-format.svg",
+  thumbnail: publicPath("/images/notes/llm-response-format.svg"),
   date: "2025.01.22",
   readingTime: "5분 읽기",
   tags: [

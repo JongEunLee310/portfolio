@@ -23,7 +23,7 @@ export function ArticleToc({ items, title }: ArticleTocProps) {
             key={item.id}
             href={`#${item.id}`}
             className={[
-              "block rounded-md px-3 py-2 text-sm font-medium text-[var(--color-muted-text)] transition hover:bg-blue-500/10 hover:text-blue-500",
+              "block rounded-md px-3 py-2 text-sm font-medium text-[var(--color-muted-text)] transition hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)]",
               item.depth === 2 ? "ml-3" : "",
               item.depth === 3 ? "ml-6" : "",
             ].join(" ")}

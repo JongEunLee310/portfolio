@@ -19,7 +19,7 @@ export function AboutRoleCard({ role }: AboutRoleCardProps) {
 
   return (
     <article className={`p-6 ${themeSurface.card}`}>
-      <Icon className="h-8 w-8 text-blue-600" aria-hidden="true" />
+      <Icon className="h-8 w-8 text-[var(--color-accent)]" aria-hidden="true" />
       <h3 className="mt-4 text-base font-bold text-[var(--color-page-text)]">{role.title}</h3>
       <p className="mt-2 text-sm leading-6 text-[var(--color-muted-text)]">{role.description}</p>
       {role.tags ? (

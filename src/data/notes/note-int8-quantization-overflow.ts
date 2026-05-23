@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const noteInt8QuantizationOverflow: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const noteInt8QuantizationOverflow: TechnicalNoteCard = {
   summary:
     "weight × input 및 convolution 누적 결과의 int8, int16, int24 범위별 overflow 비율을 측정하고 저장 타입 설계 근거를 도출한 노트입니다.",
   category: "troubleshooting",
-  thumbnail: "/images/notes/db-round-trip.svg",
+  thumbnail: publicPath("/images/notes/db-round-trip.svg"),
   date: "2022.11",
   readingTime: "8분 읽기",
   tags: [

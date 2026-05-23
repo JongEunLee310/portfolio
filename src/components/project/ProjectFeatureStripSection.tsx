@@ -34,7 +34,7 @@ export function ProjectFeatureStripSection({
             key={feature.title}
             className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-card"
           >
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-blue-400/20 bg-blue-500/10 text-blue-500">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] text-[var(--color-accent)]">
               <ProjectDetailIcon icon={feature.icon} />
             </span>
             <h3 className="mt-4 text-sm font-bold text-[var(--color-page-text)]">

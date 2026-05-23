@@ -75,7 +75,7 @@ export function NoteListSidebar({
                   onClick={() => onChange({ ...filters, category: option.value })}
                   className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition ${
                     isSelected
-                      ? "bg-blue-600 text-white"
+                      ? "bg-[var(--color-accent)] text-white"
                       : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]"
                   }`}
                 >
@@ -108,7 +108,7 @@ export function NoteListSidebar({
                       type="checkbox"
                       checked={isChecked}
                       onChange={() => onChange({ ...filters, tags: nextTags })}
-                      className="h-3.5 w-3.5 rounded border-[var(--color-border)] bg-transparent accent-blue-500"
+                      className="h-3.5 w-3.5 rounded border-[var(--color-border)] bg-transparent accent-[#C9972B]"
                     />
                     <span className="truncate">{option.label}</span>
                   </span>
@@ -120,7 +120,7 @@ export function NoteListSidebar({
           {tagOptions.length > visibleTagOptions.length ? (
             <button
               type="button"
-              className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-blue-400"
+              className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-accent)]"
             >
               <ChevronDown className="h-3.5 w-3.5" />
               {content.moreLabel}
@@ -143,7 +143,7 @@ export function NoteListSidebar({
                   onClick={() => onChange({ ...filters, featured: option.value })}
                   className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition ${
                     isSelected
-                      ? "bg-blue-600 text-white"
+                      ? "bg-[var(--color-accent)] text-white"
                       : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]"
                   }`}
                 >

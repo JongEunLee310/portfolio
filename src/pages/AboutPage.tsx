@@ -13,8 +13,12 @@ import { pageHeroes } from "@/data/hero";
 import { techStackGroups } from "@/data/techStack";
 import { layout, themeSurface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
+import { seoConfig } from "@/data/seo";
+import { useSeo } from "@/utils/useSeo";
+import { PATHS } from "@/constants/paths";
 
 export function AboutPage() {
+  useSeo(seoConfig[PATHS.about].title);
   const { resolvedTheme } = useTheme();
   const { profile, sections, growthMetrics, roles, timeline, workStyle } = aboutData;
 

@@ -1,7 +1,6 @@
 import { Cloud, Gauge, Layers, Workflow, type LucideIcon } from "lucide-react";
 import { ButtonLink } from "@/components/common/ButtonLink";
 import { SectionHeader } from "@/components/common/SectionHeader";
-import { CodeSnippetBlock } from "@/components/hero/CodeSnippetBlock";
 import { PageHero } from "@/components/hero/PageHero";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { HomeNoteCarousel } from "@/components/note/HomeNoteCarousel";
@@ -10,13 +9,15 @@ import { ProjectTechStackBand } from "@/components/project/ProjectTechStackBand"
 import { useTheme } from "@/app/theme/useTheme";
 import { projectTechStackContent } from "@/data/filters";
 import { highlights } from "@/data/highlights";
-import { homeHeroCode, pageHeroes } from "@/data/hero";
+import { pageHeroes } from "@/data/hero";
 import { projects } from "@/data/projects";
 import { technicalNotes } from "@/data/technicalNotes";
 import { techStackGroups } from "@/data/techStack";
 import { PATHS } from "@/constants/paths";
 import { themeSurface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
+import { seoConfig } from "@/data/seo";
+import { useSeo } from "@/utils/useSeo";
 
 const highlightIcons: Record<string, LucideIcon> = {
   Gauge,
@@ -26,6 +27,7 @@ const highlightIcons: Record<string, LucideIcon> = {
 };
 
 export function HomePage() {
+  useSeo(seoConfig[PATHS.home].title);
   const { resolvedTheme } = useTheme();
   const featuredProjects = projects.filter((project) => project.status === "featured");
   const normalProjects = projects.filter((project) => project.status === "normal");
@@ -36,12 +38,7 @@ export function HomePage() {
       <PageHero
         {...pageHeroes.home}
         variant={resolvedTheme}
-        visualSlot={
-          <CodeSnippetBlock
-            filename={homeHeroCode.filename}
-            lines={homeHeroCode.lines}
-          />
-        }
+        imageAspect="40/21"
       />
       <section className={`${themeSurface.lightBand} py-16 lg:py-20`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -72,7 +69,7 @@ export function HomePage() {
                   key={item.title}
                   className={`${themeSurface.card} p-6`}
                 >
-                  {Icon ? <Icon className="h-8 w-8 text-blue-600" /> : null}
+                  {Icon ? <Icon className="h-8 w-8 text-[#C9972B]" /> : null}
                   <h3 className="mt-4 text-lg font-bold text-[var(--color-page-text)]">
                     {item.title}
                   </h3>

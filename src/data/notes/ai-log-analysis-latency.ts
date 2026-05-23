@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import type { TechnicalNoteCard } from "@/types/note";
 
 export const aiLogAnalysisLatency: TechnicalNoteCard = {
@@ -6,7 +7,7 @@ export const aiLogAnalysisLatency: TechnicalNoteCard = {
   summary:
     "실패 로그 전체를 바로 추론하지 않고 단계별 요약과 에러 패턴 추출을 거쳐 분석 시간을 줄인 기록입니다.",
   category: "performance",
-  thumbnail: "/images/notes/async-pipeline.svg",
+  thumbnail: publicPath("/images/notes/async-pipeline.svg"),
   date: "2026.05.19",
   readingTime: "7분 읽기",
   tags: [

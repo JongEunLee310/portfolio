@@ -1,9 +1,10 @@
+import { publicPath } from "@/utils/publicPath";
 import type { ProjectDetail } from "@/types/project";
 import { goormBankProblemBank } from "../projects/goorm-bank-problem-bank";
 
 export const goormBankProblemBankDetail: ProjectDetail = {
   ...goormBankProblemBank,
-  heroImage: "/images/projects/goorm-bank-hero.png",
+  heroImage: publicPath("/images/projects/goorm-bank-hero.png"),
   heroHighlights: [
     { label: "문제 데이터", value: "27만 건", icon: "Database" },
     { label: "시험 회차", value: "2,700건", icon: "Layers" },
@@ -301,22 +302,22 @@ export const goormBankProblemBankDetail: ProjectDetail = {
   screenshots: [
     {
       title: "Home Page",
-      image: "/images/projects/goorm-bank-home.png",
+      image: publicPath("/images/projects/goorm-bank-home.png"),
       description: "서비스 로고와 타이핑 효과가 적용된 메인 화면입니다.",
     },
     {
       title: "문제집 페이지",
-      image: "/images/projects/goorm-bank-problem-list.png",
+      image: publicPath("/images/projects/goorm-bank-problem-list.png"),
       description: "자격시험별 문제집과 시험 일정별 문제 목록을 확인하는 화면입니다.",
     },
     {
       title: "프로필 정답률",
-      image: "/images/projects/goorm-bank-profile-chart.png",
+      image: publicPath("/images/projects/goorm-bank-profile-chart.png"),
       description: "오늘 푼 문제의 정답률과 오답률을 파이차트로 표시합니다.",
     },
     {
       title: "OpenSearch Dashboard",
-      image: "/images/projects/goorm-bank-opensearch.png",
+      image: publicPath("/images/projects/goorm-bank-opensearch.png"),
       description:
         "CloudWatch에서 스트림한 로그를 OpenSearch Dashboard에서 시각화한 화면입니다.",
     },

@@ -1,3 +1,4 @@
+import { publicPath } from "@/utils/publicPath";
 import { PATHS } from "@/constants/paths";
 import type { ProjectCard } from "@/types/project";
 
@@ -9,7 +10,7 @@ export const eksEfkMonitoringPractice: ProjectCard = {
     "Amazon EKS에 nginx 웹 서비스를 배포하고, EFK 스택과 CloudWatch 기반 Slack 알림을 구성하며 Kubernetes 운영 기초를 학습한 인프라 실습 프로젝트",
   description:
     "AWS VPC와 EKS 클러스터를 구성하고, 프라이빗 서브넷의 워커 노드에 nginx 서비스를 배포했다. 이후 Fluentd, ElasticSearch, Kibana로 로그 수집 및 시각화 환경을 구성하고, CloudWatch, SNS, Lambda, KMS, Slack을 연동해 CPU 임계치 초과 알림을 수신하는 모니터링 흐름을 구축했다.",
-  thumbnail: "/images/projects/eks-efk-monitoring/thumbnail.png",
+  thumbnail: publicPath("/images/projects/eks-efk-monitoring/thumbnail.png"),
   category: ["infra"],
   type: "personal",
   status: "archived",

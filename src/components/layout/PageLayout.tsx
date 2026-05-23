@@ -16,8 +16,14 @@ type FooterContact = {
   external?: boolean;
 };
 
+type LogoSrc = {
+  light: string;
+  dark: string;
+};
+
 type PageLayoutProps = {
   logoText: string;
+  logoSrc: LogoSrc;
   copyright: string;
   navigation: readonly NavigationItem[];
   footerContacts: readonly FooterContact[];
@@ -28,6 +34,7 @@ type PageLayoutProps = {
 
 export function PageLayout({
   logoText,
+  logoSrc,
   copyright,
   navigation,
   footerContacts,
@@ -39,12 +46,14 @@ export function PageLayout({
     <div className={`${themeSurface.page} min-h-screen`}>
       <Header
         logoText={logoText}
+        logoSrc={logoSrc}
         navigation={navigation}
         themeControl={themeControl}
       />
       <main>{children}</main>
       <Footer
         logoText={logoText}
+        logoSrc={logoSrc}
         tagline={footerTagline}
         navigation={navigation}
         contacts={footerContacts}

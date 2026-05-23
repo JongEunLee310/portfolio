@@ -3,7 +3,7 @@ import { surface } from "@/styles/classNames";
 
 function NodeBox({ children }: { children: string }) {
   return (
-    <span className="inline-flex items-center justify-center rounded border border-blue-400/30 bg-blue-500/10 px-3 py-1.5 text-center font-mono text-xs text-blue-500">
+    <span className="inline-flex items-center justify-center rounded border border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] px-3 py-1.5 text-center font-mono text-xs text-[var(--color-accent)]">
       {children}
     </span>
   );
@@ -20,8 +20,8 @@ function ServiceGroup({
 }) {
   return (
     <article className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3">
-      <p className="font-mono text-xs font-semibold text-blue-500">
-        {title} <span className="text-blue-400/70">({type})</span>
+      <p className="font-mono text-xs font-semibold text-[var(--color-accent)]">
+        {title} <span className="text-[var(--color-muted-text)]">({type})</span>
       </p>
       <ul className="mt-3 space-y-1.5">
         {resources.map((resource) => (
@@ -53,10 +53,10 @@ export function AboutArchDiagram() {
         <span className="col-start-5 justify-self-center pt-4 font-mono text-xs text-[var(--color-muted-text)]">
           {aboutArchDiagram.arrows.down}
         </span>
-        <div className="col-start-5 h-4 w-px justify-self-center bg-blue-400/30" />
+        <div className="col-start-5 h-4 w-px justify-self-center bg-[var(--color-accent-border)]" />
       </div>
 
-      <div className="mx-auto mt-1 h-px w-2/3 bg-blue-400/30" />
+      <div className="mx-auto mt-1 h-px w-2/3 bg-[var(--color-accent-border)]" />
 
       <div className="mt-3 grid gap-3 lg:grid-cols-3">
         {aboutArchDiagram.services.map((service) => (

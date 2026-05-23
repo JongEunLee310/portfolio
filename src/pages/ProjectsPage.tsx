@@ -31,6 +31,9 @@ import type {
   ProjectViewMode,
 } from "@/types/project";
 import { pageChrome } from "@/utils/pageChrome";
+import { seoConfig } from "@/data/seo";
+import { useSeo } from "@/utils/useSeo";
+import { PATHS } from "@/constants/paths";
 
 const pageSize = 6;
 
@@ -163,6 +166,7 @@ function getTechOptions() {
 }
 
 export function ProjectsPage() {
+  useSeo(seoConfig[PATHS.projects].title);
   const { resolvedTheme } = useTheme();
   const [filters, setFilters] = useState<ProjectFilterState>({
     category: "all",
@@ -249,11 +253,7 @@ export function ProjectsPage() {
                   content={projectListContent}
                   currentPage={safeCurrentPage}
                   totalPages={totalPages}
-                  canShowMore={safeCurrentPage < totalPages}
                   onPageChange={setCurrentPage}
-                  onShowMore={() =>
-                    setCurrentPage(Math.min(totalPages, safeCurrentPage + 1))
-                  }
                 />
               ) : null}
             </main>

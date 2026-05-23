@@ -29,7 +29,7 @@ export function ContactFAQList({ items }: ContactFAQListProps) {
               <span>{item.question}</span>
               <ChevronDown
                 className={[
-                  "h-5 w-5 shrink-0 text-blue-600 transition-transform",
+                  "h-5 w-5 shrink-0 text-[var(--color-accent)] transition-transform",
                   openQuestion === item.question ? "rotate-180" : "",
                 ].join(" ")}
                 aria-hidden="true"
