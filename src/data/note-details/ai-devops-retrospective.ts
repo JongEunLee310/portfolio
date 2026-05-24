@@ -21,7 +21,7 @@ export const aiDevopsRetrospectiveDetail: TechnicalNoteDetail = {
     {
       type: "paragraph",
       content:
-        "AI Agent Pipeline Backend Design은 파이프라인 실행, 로그 수집, 실패 원인 분석을 하나의 백엔드 흐름으로 연결하고 AI Agent를 어느 경계에 붙일 수 있는지 실험한 프로젝트입니다.",
+        "Pipeline 실행 오케스트레이션과 AI 기반 실패 분석을 직접 설계하고 구현한 DevOps 자동화 백엔드입니다. POST /run 하나가 DB 커넥션 풀을 점유한다는 구조적 문제를 발견하고, 이를 해결하기 위해 FastAPI BackgroundTasks, Celery + Redis, RabbitMQ 이벤트 드리븐 MSA 세 가지 비동기화 전략을 브랜치별로 구현하고 부하 테스트로 비교했습니다.",
     },
     {
       type: "heading",
@@ -31,9 +31,10 @@ export const aiDevopsRetrospectiveDetail: TechnicalNoteDetail = {
     {
       type: "list",
       items: [
-        "파이프라인 실행 요청과 실제 실행 흐름을 분리했습니다.",
-        "실패 로그 수집과 AI 분석 요청 경계를 설계했습니다.",
-        "알림, 모니터링, 재처리 기준을 운영 흐름에 맞춰 정리했습니다.",
+        "FastAPI BackgroundTasks, Celery + Redis, RabbitMQ MSA 세 가지 비동기화 전략을 브랜치별로 직접 구현했습니다.",
+        "core-api / pipeline-execution-svc / ai-review-svc 세 서비스의 RabbitMQ topic exchange 기반 이벤트 설계를 맡았습니다.",
+        "Locust 부하 테스트로 전략별 처리량·실패율 수치를 측정하고 최종 전략 선택의 근거로 삼았습니다.",
+        "서비스별 독립 PostgreSQL DB와 Alembic 마이그레이션을 분리해 DB 소유권 경계를 확보했습니다.",
       ],
     },
     {
@@ -44,9 +45,10 @@ export const aiDevopsRetrospectiveDetail: TechnicalNoteDetail = {
     {
       type: "list",
       items: [
-        "실행과 분석의 책임을 분리해 장애 원인 추적을 단순하게 만들었습니다.",
-        "모니터링 지표를 화면 장식이 아니라 개선 대상을 찾는 기준으로 사용했습니다.",
-        "AI 분석 입력을 정리하는 과정을 별도 책임으로 보고 품질과 비용을 함께 고려했습니다.",
+        "추측으로 전략을 선택하지 않고 브랜치 비교 실험과 부하 테스트 수치를 기준으로 결정했습니다.",
+        "FastAPI BackgroundTasks 내구성 부재, Celery 코드 커플링 한계를 실패 결정 기록으로 남겨 같은 접근을 반복하지 않도록 했습니다.",
+        "RabbitMQ durable queue + manual ack + DLQ + 멱등성 보장으로 메시지 유실 없는 실행 흐름을 구성했습니다.",
+        "pipeline_runs/job_run_logs, ai_reviews의 DB 소유권을 각 서비스로 이전해 서비스 간 직접 쿼리를 제거했습니다.",
       ],
     },
     {
@@ -57,7 +59,7 @@ export const aiDevopsRetrospectiveDetail: TechnicalNoteDetail = {
     {
       type: "paragraph",
       content:
-        "초기에는 실행 로그와 분석 결과의 책임 경계가 충분히 분리되지 않아, 실패 원인을 재현할 때 필요한 데이터를 다시 찾아야 하는 경우가 있었습니다.",
+        "부하 테스트를 로컬 Docker Desktop VM 환경에서 진행해 클라우드 실제 운영 환경과 오버헤드 조건이 달랐습니다. Celery + Redis 47.4 req/s, RabbitMQ MSA의 수치는 로컬 단일 인스턴스 기준이므로 클라우드 환경에서 재측정이 필요합니다.",
     },
     {
       type: "heading",
@@ -67,9 +69,10 @@ export const aiDevopsRetrospectiveDetail: TechnicalNoteDetail = {
     {
       type: "list",
       items: [
-        "실행과 분석의 책임을 분리하면 장애 원인을 추적하기 쉬워집니다.",
-        "모니터링은 시각화보다 개선 대상을 찾는 기준을 제공할 때 가치가 커집니다.",
-        "AI 기능은 모델 호출보다 입력 맥락을 어떻게 정리할지가 품질을 좌우합니다.",
+        "MSA 전환의 목적은 단일 인스턴스 처리량 향상이 아니라 독립 배포, 독립 확장, 장애 격리입니다. 로컬 단일 인스턴스 기준에서 MSA는 모놀리스보다 느릴 수 있습니다.",
+        "FastAPI BackgroundTasks는 내구성이 필요한 실행 작업에 부적합합니다. Celery + Redis는 프로세스를 분리하지만 코드베이스를 공유해 진정한 서비스 경계가 아닙니다.",
+        "RabbitMQ topic exchange는 routing key 패턴 매칭으로 이벤트 타입 증가에 유연하게 대응할 수 있습니다.",
+        "uv workspace 모노레포에서 공유 라이브러리로 이벤트 스키마를 관리하면 publisher/consumer 간 계약 드리프트를 컴파일 타임에 차단할 수 있습니다.",
       ],
     },
     {
@@ -78,10 +81,13 @@ export const aiDevopsRetrospectiveDetail: TechnicalNoteDetail = {
       title: "6. 다음 개선 방향",
     },
     {
-      type: "callout",
-      variant: "info",
-      content:
-        "다음 단계에서는 Kubernetes 기반 Executor와 LLM Review 품질 평가 지표를 추가해 운영 자동화의 신뢰도를 더 높일 계획입니다.",
+      type: "list",
+      items: [
+        "REST vs gRPC 조회 프록시 비교 실험 (ADR-015 Track A/B)",
+        "클라우드 환경 부하 테스트 재측정 (로컬 Docker Desktop VM 오버헤드 배제)",
+        "CI/CD 파이프라인 구축 (GitLab CI, ADR-017 기준)",
+        "Kubernetes 도입 (ADR-016)",
+      ],
     },
   ],
   relatedNoteSlugs: [
