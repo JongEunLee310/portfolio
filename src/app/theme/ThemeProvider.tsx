@@ -67,6 +67,20 @@ function applyDocumentTheme(resolvedTheme: ResolvedTheme) {
   document.documentElement.style.colorScheme = resolvedTheme;
 }
 
+function applyDocumentFavicon(resolvedTheme: ResolvedTheme) {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  const favicon = document.querySelector<HTMLLinkElement>("#theme-favicon");
+
+  if (!favicon) {
+    return;
+  }
+
+  favicon.href = `${import.meta.env.BASE_URL}favicon-${resolvedTheme}.png`;
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mode, setModeState] = useState<ThemeMode>(getInitialMode);
   const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(getSystemTheme);
@@ -90,6 +104,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     applyDocumentTheme(resolvedTheme);
+    applyDocumentFavicon(resolvedTheme);
   }, [resolvedTheme]);
 
   useEffect(() => {
