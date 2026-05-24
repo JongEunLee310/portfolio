@@ -6,7 +6,7 @@ export const noteArmFp16Compiler: TechnicalNoteCard = {
   title: "ARM Compiler FP16 컴파일 환경 구성",
   summary:
     "ARM Compiler와 armclang을 사용해 C/C++에서 __fp16, __Float16 타입을 컴파일하고 gemm_fp16 함수를 검증한 노트입니다.",
-  category: "performance",
+  category: "troubleshooting",
   thumbnail: publicPath("/images/notes/db-round-trip.svg"),
   date: "2022.02",
   readingTime: "7분 읽기",

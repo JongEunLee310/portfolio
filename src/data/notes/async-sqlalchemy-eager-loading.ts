@@ -6,7 +6,7 @@ export const asyncSqlalchemyEagerLoading: TechnicalNoteCard = {
   title: "async SQLAlchemy에서 MissingGreenlet과 N+1 해결하기",
   summary:
     "async 환경에서 lazy loading에 접근하면 MissingGreenlet 에러가 발생합니다. joinedload, contains_eager, Explicit JOIN 세 가지 전략의 적용 기준을 정리합니다.",
-  category: "database",
+  category: "troubleshooting",
   thumbnail: publicPath("/images/notes/db-round-trip.svg"),
   date: "2026.05.22",
   readingTime: "10분 읽기",
