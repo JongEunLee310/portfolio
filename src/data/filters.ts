@@ -5,7 +5,6 @@ import type {
   ProjectViewMode,
 } from "@/types/project";
 import type {
-  NoteFeaturedFilterValue,
   NoteFilterValue,
   NoteSortValue,
   NoteViewMode,
@@ -87,12 +86,11 @@ export const projectTechStackContent = {
 
 export const noteCategoryFilters = [
   { label: "All", value: "all" },
-  { label: "Performance", value: "performance" },
-  { label: "Database", value: "database" },
-  { label: "Async", value: "async" },
-  { label: "DevOps", value: "devops" },
-  { label: "Architecture", value: "architecture" },
-  { label: "Troubleshooting", value: "troubleshooting" },
+  { label: "트러블슈팅", value: "troubleshooting" },
+  { label: "아키텍처 분석", value: "architecture" },
+  { label: "성능 분석", value: "performance" },
+  { label: "개념 정리", value: "concept" },
+  { label: "회고", value: "retrospective" },
 ] as const satisfies readonly {
   label: string;
   value: NoteFilterValue;
@@ -106,19 +104,10 @@ export const noteFilterContent = {
 
 export const noteSortOptions = [
   { label: "최신순", value: "latest" },
-  { label: "추천순", value: "featured" },
   { label: "읽는 시간순", value: "readingTime" },
 ] as const satisfies readonly {
   label: string;
   value: NoteSortValue;
-}[];
-
-export const noteFeaturedFilters = [
-  { label: "전체", value: "all" },
-  { label: "추천 문서", value: "featured" },
-] as const satisfies readonly {
-  label: string;
-  value: NoteFeaturedFilterValue;
 }[];
 
 export const noteViewModeOptions = [
@@ -133,8 +122,8 @@ export const noteSidebarContent = {
   title: "필터",
   categoryTitle: "문서 유형",
   tagTitle: "기술 태그",
-  featuredTitle: "추천 여부",
   moreLabel: "더 보기",
+  lessLabel: "접기",
 } as const;
 
 export const noteListContent = {
