@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { EmptyState } from "@/components/common/EmptyState";
 import { PageHero } from "@/components/hero/PageHero";
 import { PageLayout } from "@/components/layout/PageLayout";
@@ -9,7 +10,6 @@ import { NotePagination } from "@/components/note/NotePagination";
 import { useTheme } from "@/app/theme/useTheme";
 import {
   noteCategoryFilters,
-  noteFeaturedFilters,
   noteFilterContent,
   noteListContent,
   noteSidebarContent,
@@ -43,10 +43,7 @@ function matchesTechnicalNoteFilter(
     filters.tags.length === 0 ||
     note.tags.some((tag) => filters.tags.includes(tag.name));
 
-  const matchesFeatured =
-    filters.featured === "all" || note.featured === true;
-
-  return matchesCategory && matchesTags && matchesFeatured;
+  return matchesCategory && matchesTags;
 }
 
 function parseNoteDate(note: TechnicalNoteCard) {
@@ -63,13 +60,6 @@ function compareNotesByDate(noteA: TechnicalNoteCard, noteB: TechnicalNoteCard) 
 
 function sortNotes(notesToSort: TechnicalNoteCard[], sort: NoteSortValue) {
   return [...notesToSort].sort((noteA, noteB) => {
-    if (sort === "featured") {
-      const featuredA = noteA.featured ? 0 : 1;
-      const featuredB = noteB.featured ? 0 : 1;
-
-      return featuredA - featuredB || compareNotesByDate(noteA, noteB);
-    }
-
     if (sort === "readingTime") {
       return getReadingTimeMinutes(noteA) - getReadingTimeMinutes(noteB);
     }
@@ -85,17 +75,6 @@ function countByCategory() {
         ? technicalNotes.length
         : technicalNotes.filter((note) => matchesNoteFilter(note, option.value))
             .length;
-
-    return acc;
-  }, {});
-}
-
-function countByFeatured() {
-  return noteFeaturedFilters.reduce<Record<string, number>>((acc, option) => {
-    acc[option.value] =
-      option.value === "all"
-        ? technicalNotes.length
-        : technicalNotes.filter((note) => note.featured).length;
 
     return acc;
   }, {});
@@ -121,14 +100,15 @@ export function TechnicalNotesPage() {
   const [filters, setFilters] = useState<NoteFilterState>({
     category: "all",
     tags: [],
-    featured: "all",
   });
   const [sort, setSort] = useState<NoteSortValue>("latest");
   const [viewMode, setViewMode] = useState<NoteViewMode>("grid");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get("page") ?? "1");
+  const setCurrentPage = (page: number) =>
+    setSearchParams({ page: String(page) }, { replace: true });
 
   const categoryCounts = useMemo(() => countByCategory(), []);
-  const featuredCounts = useMemo(() => countByFeatured(), []);
   const tagOptions = useMemo(() => getTagOptions(), []);
 
   const filteredNotes = useMemo(
@@ -160,22 +140,10 @@ export function TechnicalNotesPage() {
   return (
     <PageLayout {...pageChrome}>
       <PageHero {...pageHeroes.technicalNotes} variant={resolvedTheme} />
-      <section className={`${themeSurface.lightBand} overflow-hidden pb-16 lg:pb-20`}>
+      <section className={`${themeSurface.lightBand} pb-16 lg:pb-20`}>
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-          <div className="flex w-full min-w-0 max-w-full gap-6">
-            <NoteListSidebar
-              content={noteSidebarContent}
-              filters={filters}
-              categoryOptions={noteCategoryFilters}
-              tagOptions={tagOptions}
-              featuredOptions={noteFeaturedFilters}
-              counts={{
-                byCategory: categoryCounts,
-                byFeatured: featuredCounts,
-              }}
-              onChange={updateFilters}
-            />
-            <main className="w-full min-w-0 max-w-full flex-1">
+          <div className="grid w-full min-w-0 max-w-full gap-6 lg:grid-cols-[14rem_minmax(0,1fr)]">
+            <div className="lg:col-start-2">
               <NoteListToolbar
                 content={noteListContent}
                 totalCount={sortedNotes.length}
@@ -186,20 +154,29 @@ export function TechnicalNotesPage() {
                 onSortChange={updateSort}
                 onViewModeChange={setViewMode}
               />
-              <div className="mt-6">
-                {visibleNotes.length > 0 ? (
-                  <NoteGrid
-                    notes={visibleNotes}
-                    labels={noteListContent}
-                    viewMode={viewMode}
-                  />
-                ) : (
-                  <EmptyState
-                    title={noteFilterContent.emptyTitle}
-                    description={noteFilterContent.emptyDescription}
-                  />
-                )}
-              </div>
+            </div>
+            <NoteListSidebar
+              content={noteSidebarContent}
+              filters={filters}
+              categoryOptions={noteCategoryFilters}
+              tagOptions={tagOptions}
+              counts={{
+                byCategory: categoryCounts,
+              }}
+              onChange={updateFilters}
+            />
+            <main className="w-full min-w-0 max-w-full lg:col-start-2 lg:row-start-2">
+              {visibleNotes.length > 0 ? (
+                <NoteGrid
+                  notes={visibleNotes}
+                  viewMode={viewMode}
+                />
+              ) : (
+                <EmptyState
+                  title={noteFilterContent.emptyTitle}
+                  description={noteFilterContent.emptyDescription}
+                />
+              )}
               {sortedNotes.length > pageSize ? (
                 <NotePagination
                   content={noteListContent}

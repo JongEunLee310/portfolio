@@ -3,13 +3,10 @@ import type { NoteViewMode, TechnicalNoteCard } from "@/types/note";
 
 type NoteGridProps = {
   notes: TechnicalNoteCard[];
-  labels: {
-    detailLabel: string;
-  };
   viewMode?: NoteViewMode;
 };
 
-export function NoteGrid({ notes, labels, viewMode = "grid" }: NoteGridProps) {
+export function NoteGrid({ notes, viewMode = "grid" }: NoteGridProps) {
   return (
     <div
       className={
@@ -19,12 +16,7 @@ export function NoteGrid({ notes, labels, viewMode = "grid" }: NoteGridProps) {
       }
     >
       {notes.map((note) => (
-        <NoteCard
-          key={note.slug}
-          note={note}
-          labels={labels}
-          variant={viewMode}
-        />
+        <NoteCard key={note.slug} note={note} variant={viewMode} />
       ))}
     </div>
   );
