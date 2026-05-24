@@ -105,8 +105,8 @@ export function ProjectDetailPage() {
   if (
     project.troubleshooting.length > 0 ||
     (project.improvements?.length ?? 0) > 0 ||
-    project.retrospective.learned.length > 0 ||
-    project.retrospective.improvement.length > 0
+    (project.retrospectives[0]?.learned.length ?? 0) > 0 ||
+    (project.retrospectives[0]?.improvement.length ?? 0) > 0
   ) {
     tocItems.push({
       id: "project-closing",

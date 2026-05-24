@@ -27,8 +27,8 @@ export function ProjectClosingCardsSection({
   const improvements = project.improvements?.filter(
     (item) => hasText(item.title) && hasText(item.description),
   );
-  const learned = project.retrospective.learned.filter(hasText);
-  const improvementPlans = project.retrospective.improvement.filter(hasText);
+  const learned = project.retrospectives[0]?.learned.filter(hasText) ?? [];
+  const improvementPlans = project.retrospectives[0]?.improvement.filter(hasText) ?? [];
   const activeTroubleshooting =
     troubleshooting[activeTroubleshootingIndex] ?? troubleshooting[0];
   const activeImprovement =
@@ -220,10 +220,10 @@ export function ProjectClosingCardsSection({
               ))}
             </div>
           </div>
-          {project.retrospective.noteSlug ? (
+          {project.retrospectives[0]?.noteSlug ? (
             <div className="mt-6 flex justify-end">
               <Link
-                to={PATHS.technicalNoteDetail(project.retrospective.noteSlug)}
+                to={PATHS.technicalNoteDetail(project.retrospectives[0].noteSlug)}
                 className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] px-4 py-2 text-sm font-bold text-[var(--color-accent)] transition hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent-dark)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
               >
                 {PROJECT_DETAIL_LABELS.sections.retrospective.openNote}
