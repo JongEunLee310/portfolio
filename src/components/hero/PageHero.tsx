@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { ButtonLink } from "@/components/common/ButtonLink";
+import { heroSurface } from "@/styles/classNames";
 
 type HeroAction = {
   label: string;
@@ -47,9 +48,7 @@ export function PageHero({
     <section
       className={[
         "relative overflow-hidden transition-colors duration-300",
-        isLight
-          ? "border-b border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#F7F3EC_100%)] text-slate-950"
-          : "bg-hero-radial text-white",
+        isLight ? heroSurface.lightBanner : heroSurface.darkBanner,
       ].join(" ")}
     >
       <div
@@ -58,9 +57,13 @@ export function PageHero({
           isLight ? "opacity-20" : "opacity-30",
         ].join(" ")}
       />
-      {isLight ? (
-        <div className="absolute right-0 top-0 h-full w-2/3 bg-[radial-gradient(circle_at_70%_28%,rgba(201,151,43,0.10),transparent_42%)]" />
-      ) : null}
+      <div
+        className={[
+          "absolute right-0 top-0 h-full w-2/3",
+          isLight ? heroSurface.lightGlow : heroSurface.darkGlow,
+          isLight ? "opacity-70" : "opacity-100",
+        ].join(" ")}
+      />
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 py-24 lg:grid-cols-2 lg:px-8 lg:py-28">
         <div className="min-w-0">
           <p
