@@ -46,7 +46,9 @@ function getCount(counts: CountMap, value: string) {
   return counts[value] ?? 0;
 }
 
-const TECH_COLLAPSED_COUNT = 6;
+const TECH_COLLAPSED_COUNT = 3;
+const COLLAPSED_FILTER_LIST_HEIGHT = "max-h-[6.75rem]";
+const EXPANDED_FILTER_LIST_HEIGHT = "max-h-64";
 
 export function ProjectListSidebar({
   content,
@@ -59,9 +61,6 @@ export function ProjectListSidebar({
   onChange,
 }: ProjectListSidebarProps) {
   const [showAllTechOptions, setShowAllTechOptions] = useState(false);
-  const visibleTechOptions = showAllTechOptions
-    ? techOptions
-    : techOptions.slice(0, TECH_COLLAPSED_COUNT);
 
   return (
     <aside className="sticky top-24 hidden w-56 shrink-0 self-start border-l border-[var(--color-border)] py-2 pl-3 text-[var(--color-page-text)] lg:col-start-1 lg:row-start-2 lg:block">
@@ -106,12 +105,15 @@ export function ProjectListSidebar({
             {content.techTitle}
           </h3>
           <div
-            className={`mt-3 space-y-2.5 ${
-              showAllTechOptions ? "max-h-52 overflow-y-auto pr-1" : ""
+            className={`mt-3 space-y-2.5 pr-1 transition-[max-height] duration-300 ease-out ${
+              showAllTechOptions
+                ? `${EXPANDED_FILTER_LIST_HEIGHT} overflow-y-auto`
+                : `${COLLAPSED_FILTER_LIST_HEIGHT} overflow-hidden`
             }`}
           >
-            {visibleTechOptions.map((option) => {
+            {techOptions.map((option, index) => {
               const isChecked = filters.techStacks.includes(option.value);
+              const isCollapsedHidden = !showAllTechOptions && index >= TECH_COLLAPSED_COUNT;
               const nextTechStacks = isChecked
                 ? filters.techStacks.filter((item) => item !== option.value)
                 : [...filters.techStacks, option.value];
@@ -120,11 +122,13 @@ export function ProjectListSidebar({
                 <label
                   key={option.value}
                   className="flex min-h-7 cursor-pointer items-center justify-between gap-3 rounded-md px-2 text-xs font-medium text-[var(--color-muted-text)] transition hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)]"
+                  aria-hidden={isCollapsedHidden}
                 >
                   <span className="flex min-w-0 items-center gap-2">
                     <input
                       type="checkbox"
                       checked={isChecked}
+                      disabled={isCollapsedHidden}
                       onChange={() =>
                         onChange({ ...filters, techStacks: nextTechStacks })
                       }

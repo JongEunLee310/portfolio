@@ -43,14 +43,14 @@ export function PageLayout({
   children,
 }: PageLayoutProps) {
   return (
-    <div className={`${themeSurface.page} min-h-screen`}>
+    <div className={`${themeSurface.page} flex min-h-screen flex-col`}>
       <Header
         logoText={logoText}
         logoSrc={logoSrc}
         navigation={navigation}
         themeControl={themeControl}
       />
-      <main>{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer
         logoText={logoText}
         logoSrc={logoSrc}

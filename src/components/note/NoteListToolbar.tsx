@@ -52,7 +52,7 @@ export function NoteListToolbar({
         <select
           value={sort}
           onChange={(event) => onSortChange(event.target.value as NoteSortValue)}
-          className="h-10 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 text-xs font-semibold text-[var(--color-page-text)] outline-none transition hover:border-[var(--color-accent)]"
+          className="h-10 w-36 shrink-0 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 text-xs font-semibold text-[var(--color-page-text)] outline-none transition hover:border-[var(--color-accent)]"
           aria-label={content.sortAriaLabel}
         >
           {sortOptions.map((option) => (

@@ -8,10 +8,12 @@ import { ProjectDetailPage } from "@/pages/ProjectDetailPage";
 import { ProjectsPage } from "@/pages/ProjectsPage";
 import { TechnicalNoteDetailPage } from "@/pages/TechnicalNoteDetailPage";
 import { TechnicalNotesPage } from "@/pages/TechnicalNotesPage";
+import { ScrollToTop } from "./ScrollToTop";
 
 export function AppRouter() {
   return (
     <HashRouter>
+      <ScrollToTop />
       <Routes>
         <Route path={PATHS.home} element={<HomePage />} />
         <Route path={PATHS.projects} element={<ProjectsPage />} />
