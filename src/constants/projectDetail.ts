@@ -95,6 +95,9 @@ export const PROJECT_DETAIL_LABELS = {
       openNote: "회고 전문 읽기",
       learned: "배운 점",
       improvement: "개선 계획",
+      previous: "이전 회고",
+      next: "다음 회고",
+      status: "회고",
     },
   },
 } as const;
