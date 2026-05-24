@@ -473,13 +473,13 @@ export const aiDevopsOrchestrationPlatformDetail: ProjectDetail = {
       noteSlug: "async-pipeline-transition",
     },
     {
-      title: "N+1 쿼리",
+      title: "N+1 쿼리 및 MissingGreenlet",
       problem:
-        "Pipeline 목록 조회 시 PipelineRun 수를 Job 수만큼 별도 SELECT로 반복 조회해 쿼리 수가 비례 증가했습니다.",
+        "async SQLAlchemy에서 ORM 관계 속성에 접근하면 MissingGreenlet 에러가 발생하거나, Job 목록 조회 시 소유권 검증을 Pipeline → Project 순서로 별도 SELECT해 요청당 3회 쿼리가 실행됐습니다.",
       solution:
-        "explicit JOIN + selectinload eager loading을 적용해 목록 조회를 단일 흐름으로 통합했습니다.",
-      result: "쿼리 수를 N+1에서 1~2로 줄였습니다.",
-      noteSlug: "db-round-trip-optimization",
+        "contains_eager로 목록 조회 JOIN을 재활용하고, find_by_id_and_owner처럼 소유권 확인과 데이터 조회를 단일 JOIN으로 통합했습니다.",
+      result: "소유권 확인 + 데이터 조회 SELECT 3회를 1회로 줄이고 MissingGreenlet 에러를 제거했습니다.",
+      noteSlug: "async-sqlalchemy-eager-loading",
     },
     {
       title: "FastAPI BackgroundTasks 내구성 부재",
@@ -506,6 +506,33 @@ export const aiDevopsOrchestrationPlatformDetail: ProjectDetail = {
       solution:
         "max_workers를 명시적으로 확장하고 실행 흐름을 재검토했습니다.",
       result: "100 VU 부하 테스트에서 실패율 12.9%를 해소했습니다.",
+    },
+    {
+      title: "asyncio.gather + AsyncSession 충돌",
+      problem:
+        "GET /projects 등 여러 엔드포인트에서 독립적인 두 쿼리를 asyncio.gather로 동시 실행하자 'Method close() can't be called here' 에러가 발생하며 500이 반환됐습니다.",
+      solution:
+        "AsyncSession은 단일 커넥션을 사용해 동시 접근이 불가합니다. 병렬화 대신 COUNT를 스칼라 서브쿼리로 내장하고 소유권 검증을 JOIN으로 통합해 round-trip 자체를 줄였습니다.",
+      result: "GET /projects 923ms → 642ms, POST /pipelines/{id}/jobs 1901ms → 1386ms.",
+      noteSlug: "async-session-join-optimization",
+    },
+    {
+      title: "Celery prefork event loop mismatch",
+      problem:
+        "Celery prefork worker에서 asyncio.run()을 반복 호출하자 이전 태스크가 QueuePool에 캐시한 커넥션이 닫힌 event loop에 묶여 'attached to a different loop' RuntimeError가 간헐적으로 발생하며 태스크 약 50%가 실패했습니다.",
+      solution:
+        "Celery worker 환경에서는 DB_NULL_POOL=true로 NullPool을 선택해 커넥션을 캐시하지 않도록 했습니다. API 서버는 QueuePool을 그대로 유지했습니다.",
+      result: "태스크 실패율 ~50% → 0%.",
+      noteSlug: "celery-prefork-asyncio-nullpool",
+    },
+    {
+      title: "통합 테스트 DB 상태 오염",
+      problem:
+        "통합 테스트를 여러 개 실행하면 이전 테스트의 잔여 데이터가 다음 테스트에 영향을 줘 UNIQUE 제약 오류나 비결정적 실패가 발생했습니다.",
+      solution:
+        "test_engine fixture(session scope)에서 UUID 기반 PostgreSQL 스키마를 생성하고 search_path를 고정해 세션을 격리했습니다. db_session fixture(function scope)에서 트랜잭션을 시작하고 종료 시 롤백해 케이스를 격리했습니다.",
+      result: "테스트 간 데이터 간섭 제거, CI 비결정적 실패 안정화.",
+      noteSlug: "async-test-db-isolation",
     },
   ],
   improvements: [
@@ -587,5 +614,18 @@ export const aiDevopsOrchestrationPlatformDetail: ProjectDetail = {
     "ai-log-analysis-latency",
     "metric-cardinality-troubleshooting",
     "ai-devops-retrospective",
+    "async-session-join-optimization",
+    "celery-prefork-asyncio-nullpool",
+    "async-sqlalchemy-eager-loading",
+    "msa-rabbitmq-migration",
+    "async-test-db-isolation",
+    "distributed-tracing-correlation-id",
+    "consumer-idempotency-processed-event",
+    "msa-http-retry-circuit-breaker",
+    "msa-router-deletion-test-404",
+    "event-schema-versioning-deploy-order",
+    "cross-service-join-db-separation",
+    "msa-load-test-threadpool-ownership",
+    "msa-db-split-integration-test",
   ],
 };

@@ -88,5 +88,11 @@ export const aiDevopsRetrospectiveDetail: TechnicalNoteDetail = {
     "async-pipeline-transition",
     "rabbitmq-event-topology",
     "metric-cardinality-troubleshooting",
+    "msa-rabbitmq-migration",
+    "consumer-idempotency-processed-event",
+    "event-schema-versioning-deploy-order",
+    "distributed-tracing-correlation-id",
+    "cross-service-join-db-separation",
+    "msa-load-test-threadpool-ownership",
   ],
 };
