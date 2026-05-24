@@ -4,7 +4,7 @@ export const layout = {
 };
 
 export const surface = {
-  light: "bg-slate-50 text-slate-900",
+  light: "bg-stone-50 text-slate-900",
   dark: "bg-[var(--color-page-bg)] text-[var(--color-page-text)]",
   card: "rounded-2xl border border-slate-200 bg-white shadow-card",
   darkCard:
