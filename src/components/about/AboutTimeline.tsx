@@ -16,7 +16,8 @@ type YearGroup = {
 };
 
 export function getStartYear(period: string): number {
-  return parseInt(period.slice(0, 4), 10);
+  const year = parseInt(period.slice(0, 4), 10);
+  return isNaN(year) ? 0 : year;
 }
 
 export function buildYearGroups(items: TimelineItem[]): YearGroup[] {
@@ -71,7 +72,7 @@ function MobileTimeline({ items }: { items: TimelineItem[] }) {
       <div className="absolute left-3 top-0 h-full w-0.5 bg-[var(--color-border)]" />
       {items.map((item) => (
         <div key={`${item.type}-${item.title}`} className="relative mb-8 last:mb-0">
-          <div className="absolute -left-[1.375rem] top-1.5 h-3 w-3 rounded-full bg-[var(--color-accent)] ring-2 ring-[var(--color-page-bg)]" />
+          <div className="absolute -left-[1.375rem] top-1.5 h-3 w-3 rounded-full bg-[var(--color-accent)] ring-2 ring-[var(--color-page-bg)]" aria-hidden="true" />
           <TimelineCard item={item} />
         </div>
       ))}
@@ -93,14 +94,14 @@ function DesktopTimeline({ groups }: { groups: YearGroup[] }) {
             </span>
           </div>
           {rows.map((row, i) => (
-            <div key={i} className="relative mb-6 grid grid-cols-[1fr_2.5rem_1fr] items-start last:mb-0">
+            <div key={`${row.left?.title ?? ""}-${row.right?.title ?? ""}`} className="relative mb-6 grid grid-cols-[1fr_2.5rem_1fr] items-start last:mb-0">
               {/* 왼쪽 */}
               <div className="pr-6">
                 {row.left ? <TimelineCard item={row.left} /> : null}
               </div>
               {/* 가운데 dot */}
               <div className="flex justify-center pt-4">
-                <div className="h-3 w-3 rounded-full bg-[var(--color-accent)] ring-2 ring-[var(--color-page-bg)]" />
+                <div className="h-3 w-3 rounded-full bg-[var(--color-accent)] ring-2 ring-[var(--color-page-bg)]" aria-hidden="true" />
               </div>
               {/* 오른쪽 */}
               <div className="pl-6">
@@ -115,12 +116,13 @@ function DesktopTimeline({ groups }: { groups: YearGroup[] }) {
 }
 
 export function AboutTimeline({ items }: AboutTimelineProps) {
+  const sortedItems = [...items].sort((a, b) => getStartYear(b.period) - getStartYear(a.period));
   const groups = buildYearGroups(items);
   return (
     <>
       {/* 모바일 */}
       <div className="lg:hidden">
-        <MobileTimeline items={items} />
+        <MobileTimeline items={sortedItems} />
       </div>
       {/* 데스크탑 */}
       <div className="hidden lg:block">
