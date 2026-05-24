@@ -12,7 +12,7 @@ export const armEmbeddedCnnMixedPrecision: ProjectCard = {
   description:
     "학부연구생으로 ARM 기반 임베디드 환경에서 CNN 추론 경량화를 위한 연구를 수행했다. 초기에는 NVDLA, RISC-V VP, Docker 기반 개발 환경과 YOLOv3-tiny 네트워크 구조를 분석했고, AlexeyAB/darknet(`darknet` 디렉토리)에서 letterbox 입력 크기 조정, 인접 픽셀 유사도 기반 im2col/GEMM 연산 생략 아이디어를 실험했다. 이후 같은 코드베이스(`darknet2`)에서 `layer` 구조체에 `fp32/fp16/int8` 필드를 추가하고, `parser.c`에서 cfg 플래그를 파싱하며, `load_weights_upto_detect`(ftell/fseek 기반 file pointer 동기화)와 `gemm_fp16`/`gemm_int` 함수를 직접 작성해 Mixed Precision 분기 시스템을 프로토타입으로 구현했다. 최종적으로 AlexeyAB/yolo2_light(INT8 quantization 구현 포함)를 포크한 `yolov3_mixed`에 이 설계를 통합하고, 레이어 분기 조건을 인덱스 기반에서 플래그 기반으로 전환해 완성했다. TensorFlow C binding, ARM Compiler, INT8 overflow 분석, Conv-Maxpool 통합 실행, 정밀도별 실행시간 비교까지 확장했고, 후속 단계에서는 VGG16, VGG19, ResNet50, MobileNet 등으로 프레임워크 적용 범위를 넓히고 CIFAR-10 및 Mini ImageNet 기반 실험을 준비했다.",
   thumbnail: publicPath("/images/projects/arm-embedded-cnn-mixed-precision-thumb.png"),
-  category: ["ai"],
+  category: "research",
   type: "personal",
   status: "archived",
   period: "2021.07 - 2023.02",

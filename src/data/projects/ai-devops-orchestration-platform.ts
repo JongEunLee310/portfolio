@@ -11,7 +11,7 @@ export const aiDevopsOrchestrationPlatform: ProjectCard = {
   description:
     "FastAPI 기반으로 Project/Pipeline/Job CRUD, Git 저장소 명령 실행, LLM 실패 분석을 구현하고 BackgroundTasks, Celery + Redis, RabbitMQ MSA 전략을 비교 실험한 백엔드 프로젝트입니다.",
   thumbnail: publicPath("/images/projects/ai-devops/thumbnail.svg"),
-  category: ["backend", "infra", "ai"],
+  category: "service",
   type: "personal",
   status: "featured",
   period: "2026.04 ~ 진행 중",

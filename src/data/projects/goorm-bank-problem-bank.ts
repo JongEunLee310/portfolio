@@ -10,7 +10,7 @@ export const goormBankProblemBank: ProjectCard = {
   description:
     "시험기간에 급증하는 트래픽을 고려하여 AWS EKS 기반 클러스터, CI/CD, 로깅/모니터링, 오토스케일링을 적용한 자격증 기출문제 모의고사 서비스",
   thumbnail: publicPath("/images/projects/goorm-bank-thumbnail.png"),
-  category: ["infra"],
+  category: "infra",
   type: "team",
   status: "archived",
   period: "2022.10 - 2022.11",

@@ -12,10 +12,9 @@ import type {
 
 export const projectCategoryFilters = [
   { label: "전체", value: "all" },
-  { label: "백엔드", value: "backend" },
+  { label: "서비스", value: "service" },
   { label: "인프라", value: "infra" },
-  { label: "AI", value: "ai" },
-  { label: "개인 프로젝트", value: "personal" },
+  { label: "연구", value: "research" },
 ] as const satisfies readonly {
   label: string;
   value: ProjectFilterValue;
@@ -67,6 +66,7 @@ export const projectSidebarContent = {
   periodTitle: "기간",
   typeTitle: "협업 방식",
   moreLabel: "더 보기",
+  lessLabel: "접기",
 } as const;
 
 export const projectListContent = {
@@ -75,7 +75,7 @@ export const projectListContent = {
   sortAriaLabel: "프로젝트 정렬",
   previousPageLabel: "이전 페이지",
   nextPageLabel: "다음 페이지",
-detailLabel: "상세 보기",
+  detailLabel: "상세 보기",
   githubLabel: "GitHub",
 } as const;
 

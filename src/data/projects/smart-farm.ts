@@ -11,7 +11,7 @@ export const smartFarm: ProjectCard = {
   description:
     "Azure Cloud 기반 IoT 센서 데이터 수집, 이상 감지, 원격 디바이스 제어 플랫폼. DAS와 ModbusTCP로 통신하는 Data Collector, Monitoring Engine, Device Controller를 구성했다.",
   thumbnail: publicPath("/images/projects/smart-farm/thumbnail.svg"),
-  category: ["backend", "iot"],
+  category: "service",
   type: "team",
   status: "normal",
   period: "2022.03 - 2022.07",
