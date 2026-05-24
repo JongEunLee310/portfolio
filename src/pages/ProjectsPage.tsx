@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { EmptyState } from "@/components/common/EmptyState";
 import { PageHero } from "@/components/hero/PageHero";
 import { PageLayout } from "@/components/layout/PageLayout";
@@ -43,8 +44,7 @@ function matchesProjectFilter(
 ) {
   const matchesCategory =
     filters.category === "all" ||
-    project.category.includes(filters.category) ||
-    project.type === filters.category;
+    project.category === filters.category;
 
   const matchesTech =
     filters.techStacks.length === 0 ||
@@ -129,9 +129,7 @@ function countByCategory() {
         option.value === "all"
           ? projects.length
           : projects.filter(
-              (project) =>
-                project.category.includes(option.value) ||
-                project.type === option.value,
+              (project) => project.category === option.value,
             ).length;
 
       return acc;
@@ -176,7 +174,10 @@ export function ProjectsPage() {
   });
   const [sort, setSort] = useState<ProjectSortValue>("latest");
   const [viewMode, setViewMode] = useState<ProjectViewMode>("grid");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get("page") ?? "1");
+  const setCurrentPage = (page: number) =>
+    setSearchParams({ page: String(page) }, { replace: true });
 
   const categoryCounts = useMemo(() => countByCategory(), []);
   const typeCounts = useMemo(() => countByType(), []);
@@ -212,18 +213,8 @@ export function ProjectsPage() {
       <PageHero {...pageHeroes.projects} variant={resolvedTheme} />
       <section className={`${themeSurface.lightBand} pb-16 lg:pb-20`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex gap-6">
-            <ProjectListSidebar
-              content={projectSidebarContent}
-              filters={filters}
-              categoryOptions={projectCategoryFilters}
-              techOptions={techOptions}
-              periodOptions={projectPeriodFilters}
-              typeOptions={projectTypeFilters}
-              counts={{ byCategory: categoryCounts, byType: typeCounts }}
-              onChange={updateFilters}
-            />
-            <main className="min-w-0 flex-1">
+          <div className="grid gap-6 lg:grid-cols-[14rem_minmax(0,1fr)]">
+            <div className="lg:col-start-2">
               <ProjectListToolbar
                 content={projectListContent}
                 totalCount={sortedProjects.length}
@@ -234,20 +225,29 @@ export function ProjectsPage() {
                 onSortChange={updateSort}
                 onViewModeChange={setViewMode}
               />
-              <div className="mt-6">
-                {visibleProjects.length > 0 ? (
-                  <ProjectGrid
-                    projects={visibleProjects}
-                    labels={projectListContent}
-                    viewMode={viewMode}
-                  />
-                ) : (
-                  <EmptyState
-                    title={projectFilterContent.emptyTitle}
-                    description={projectFilterContent.emptyDescription}
-                  />
-                )}
-              </div>
+            </div>
+            <ProjectListSidebar
+              content={projectSidebarContent}
+              filters={filters}
+              categoryOptions={projectCategoryFilters}
+              techOptions={techOptions}
+              periodOptions={projectPeriodFilters}
+              typeOptions={projectTypeFilters}
+              counts={{ byCategory: categoryCounts, byType: typeCounts }}
+              onChange={updateFilters}
+            />
+            <main className="min-w-0 lg:col-start-2 lg:row-start-2">
+              {visibleProjects.length > 0 ? (
+                <ProjectGrid
+                  projects={visibleProjects}
+                  viewMode={viewMode}
+                />
+              ) : (
+                <EmptyState
+                  title={projectFilterContent.emptyTitle}
+                  description={projectFilterContent.emptyDescription}
+                />
+              )}
               {sortedProjects.length > pageSize ? (
                 <ProjectPagination
                   content={projectListContent}

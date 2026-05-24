@@ -1,4 +1,5 @@
-import { ChevronDown, SlidersHorizontal } from "lucide-react";
+import { ChevronDown, ChevronUp, SlidersHorizontal } from "lucide-react";
+import { useState } from "react";
 import type {
   ProjectFilterState,
   ProjectFilterValue,
@@ -27,6 +28,7 @@ type ProjectListSidebarProps = {
     periodTitle: string;
     typeTitle: string;
     moreLabel: string;
+    lessLabel: string;
   };
   filters: ProjectFilterState;
   categoryOptions: readonly FilterOption<ProjectFilterValue>[];
@@ -44,6 +46,8 @@ function getCount(counts: CountMap, value: string) {
   return counts[value] ?? 0;
 }
 
+const TECH_COLLAPSED_COUNT = 6;
+
 export function ProjectListSidebar({
   content,
   filters,
@@ -54,21 +58,26 @@ export function ProjectListSidebar({
   counts,
   onChange,
 }: ProjectListSidebarProps) {
-  const visibleTechOptions = techOptions.slice(0, 6);
+  const [showAllTechOptions, setShowAllTechOptions] = useState(false);
+  const visibleTechOptions = showAllTechOptions
+    ? techOptions
+    : techOptions.slice(0, TECH_COLLAPSED_COUNT);
 
   return (
-    <aside className="sticky top-24 hidden w-56 shrink-0 self-start overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-page-text)] shadow-card lg:block">
-      <div className="flex items-center justify-between border-b border-[var(--color-border)] px-5 py-4">
-        <h2 className="text-sm font-semibold">{content.title}</h2>
+    <aside className="sticky top-24 hidden w-56 shrink-0 self-start border-l border-[var(--color-border)] py-2 pl-3 text-[var(--color-page-text)] lg:col-start-1 lg:row-start-2 lg:block">
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)]">
+          {content.title}
+        </h2>
         <SlidersHorizontal className="h-4 w-4 text-[var(--color-muted-text)]" />
       </div>
 
-      <div className="space-y-7 px-5 py-5">
+      <div className="mt-4 space-y-7">
         <section>
-          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
+          <h3 className="px-2 text-xs font-semibold text-[var(--color-muted-text)]">
             {content.categoryTitle}
           </h3>
-          <div className="mt-3 space-y-1">
+          <div className="mt-2 space-y-0.5">
             {categoryOptions.map((option) => {
               const isSelected = filters.category === option.value;
 
@@ -77,11 +86,12 @@ export function ProjectListSidebar({
                   key={option.value}
                   type="button"
                   onClick={() => onChange({ ...filters, category: option.value })}
-                  className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition ${
+                  className={`flex min-h-8 w-full items-center justify-between rounded-md border-l-2 px-2 py-1.5 text-left text-xs font-semibold leading-5 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 ${
                     isSelected
-                      ? "bg-[var(--color-accent)] text-white"
-                      : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]"
+                      ? "border-[var(--color-accent)] bg-[var(--color-accent-bg)] text-[var(--color-accent)]"
+                      : "border-transparent text-[var(--color-muted-text)] hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)]"
                   }`}
+                  aria-current={isSelected ? "true" : undefined}
                 >
                   <span>{option.label}</span>
                   <span>{getCount(counts.byCategory, option.value)}</span>
@@ -91,11 +101,15 @@ export function ProjectListSidebar({
           </div>
         </section>
 
-        <section className="border-t border-[var(--color-border)] pt-6">
-          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
+        <section className="border-t border-[var(--color-border)] pt-5">
+          <h3 className="px-2 text-xs font-semibold text-[var(--color-muted-text)]">
             {content.techTitle}
           </h3>
-          <div className="mt-3 space-y-3">
+          <div
+            className={`mt-3 space-y-2.5 ${
+              showAllTechOptions ? "max-h-52 overflow-y-auto pr-1" : ""
+            }`}
+          >
             {visibleTechOptions.map((option) => {
               const isChecked = filters.techStacks.includes(option.value);
               const nextTechStacks = isChecked
@@ -105,7 +119,7 @@ export function ProjectListSidebar({
               return (
                 <label
                   key={option.value}
-                  className="flex cursor-pointer items-center justify-between gap-3 text-xs text-[var(--color-muted-text)] transition hover:text-[var(--color-page-text)]"
+                  className="flex min-h-7 cursor-pointer items-center justify-between gap-3 rounded-md px-2 text-xs font-medium text-[var(--color-muted-text)] transition hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)]"
                 >
                   <span className="flex min-w-0 items-center gap-2">
                     <input
@@ -114,7 +128,7 @@ export function ProjectListSidebar({
                       onChange={() =>
                         onChange({ ...filters, techStacks: nextTechStacks })
                       }
-                      className="h-3.5 w-3.5 rounded border-[var(--color-border)] bg-transparent accent-blue-500"
+                      className="h-3.5 w-3.5 rounded border-[var(--color-border)] bg-transparent accent-[var(--color-accent)]"
                     />
                     <span className="truncate">{option.label}</span>
                   </span>
@@ -123,45 +137,69 @@ export function ProjectListSidebar({
               );
             })}
           </div>
-          {techOptions.length > visibleTechOptions.length ? (
+          {techOptions.length > TECH_COLLAPSED_COUNT ? (
             <button
               type="button"
-              className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-blue-400"
+              onClick={() => setShowAllTechOptions((prev) => !prev)}
+              className="mt-3 inline-flex min-h-6 items-center gap-1 text-xs font-semibold text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+              aria-expanded={showAllTechOptions}
             >
-              <ChevronDown className="h-3.5 w-3.5" />
-              {content.moreLabel}
+              {showAllTechOptions ? (
+                <ChevronUp className="h-3.5 w-3.5" />
+              ) : (
+                <ChevronDown className="h-3.5 w-3.5" />
+              )}
+              {showAllTechOptions ? content.lessLabel : content.moreLabel}
             </button>
           ) : null}
         </section>
 
-        <section className="border-t border-[var(--color-border)] pt-6">
-          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
+        <section className="border-t border-[var(--color-border)] pt-5">
+          <h3 className="px-2 text-xs font-semibold text-[var(--color-muted-text)]">
             {content.periodTitle}
           </h3>
-          <div className="mt-3 space-y-3">
-            {periodOptions.map((option) => (
-              <label
-                key={option.value}
-                className="flex cursor-pointer items-center gap-2 text-xs text-[var(--color-muted-text)] transition hover:text-[var(--color-page-text)]"
-              >
-                <input
-                  type="radio"
-                  name="project-period"
-                  checked={filters.period === option.value}
-                  onChange={() => onChange({ ...filters, period: option.value })}
-                  className="h-3.5 w-3.5 border-[var(--color-border)] bg-transparent accent-blue-500"
-                />
-                {option.label}
-              </label>
-            ))}
+          <div className="mt-3 space-y-2.5">
+            {periodOptions.map((option) => {
+              const isSelected = filters.period === option.value;
+
+              return (
+                <label
+                  key={option.value}
+                  className="flex min-h-7 cursor-pointer items-center gap-2 rounded-md px-2 text-xs font-medium text-[var(--color-muted-text)] transition hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)]"
+                >
+                  <input
+                    type="radio"
+                    name="project-period"
+                    checked={isSelected}
+                    onChange={() => onChange({ ...filters, period: option.value })}
+                    className="peer sr-only"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border bg-[var(--color-surface)] transition peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--color-accent)] ${
+                      isSelected
+                        ? "border-[var(--color-accent)]"
+                        : "border-[var(--color-border)]"
+                    }`}
+                  >
+                    <span
+                      className={`h-1.5 w-1.5 rounded-full transition ${
+                        isSelected ? "bg-[var(--color-accent)]" : "bg-transparent"
+                      }`}
+                    />
+                  </span>
+                  <span>{option.label}</span>
+                </label>
+              );
+            })}
           </div>
         </section>
 
-        <section className="border-t border-[var(--color-border)] pt-6">
-          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
+        <section className="border-t border-[var(--color-border)] pt-5">
+          <h3 className="px-2 text-xs font-semibold text-[var(--color-muted-text)]">
             {content.typeTitle}
           </h3>
-          <div className="mt-3 space-y-1">
+          <div className="mt-2 space-y-0.5">
             {typeOptions.map((option) => {
               const isSelected = filters.type === option.value;
 
@@ -170,11 +208,12 @@ export function ProjectListSidebar({
                   key={option.value}
                   type="button"
                   onClick={() => onChange({ ...filters, type: option.value })}
-                  className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition ${
+                  className={`flex min-h-8 w-full items-center justify-between rounded-md border-l-2 px-2 py-1.5 text-left text-xs font-semibold leading-5 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 ${
                     isSelected
-                      ? "bg-[var(--color-accent)] text-white"
-                      : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]"
+                      ? "border-[var(--color-accent)] bg-[var(--color-accent-bg)] text-[var(--color-accent)]"
+                      : "border-transparent text-[var(--color-muted-text)] hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)]"
                   }`}
+                  aria-current={isSelected ? "true" : undefined}
                 >
                   <span>{option.label}</span>
                   <span>{getCount(counts.byType, option.value)}</span>

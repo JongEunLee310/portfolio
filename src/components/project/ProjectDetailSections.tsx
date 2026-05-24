@@ -12,7 +12,7 @@ function hasText(value?: string) {
 
 type ProjectOverviewSectionProps = {
   overview: string;
-  categories: ProjectCategory[];
+  categories: ProjectCategory;
   techStack: TechTagType[];
 };
 
@@ -22,7 +22,7 @@ export function ProjectOverviewSection({
   techStack,
 }: ProjectOverviewSectionProps) {
   const pills = [
-    ...categories.map((category) => category),
+    categories,
     ...techStack.slice(0, 4).map((tag) => tag.name),
   ].slice(0, 6);
 
@@ -112,18 +112,16 @@ export function ProjectResultsSection({ performance }: ProjectResultsSectionProp
   const isDark = resolvedTheme === "dark";
 
   return (
-    <section className="bg-[var(--color-page-bg)] py-16 text-[var(--color-page-text)] lg:py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionHeader
-          eyebrow={PROJECT_DETAIL_LABELS.sections.metrics.eyebrow}
-          title={PROJECT_DETAIL_LABELS.sections.metrics.title}
-          dark={isDark}
-        />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {performance.map((metric) => (
-            <ProjectMetricCard key={metric.label} metric={metric} />
-          ))}
-        </div>
+    <section className="text-[var(--color-page-text)]">
+      <SectionHeader
+        eyebrow={PROJECT_DETAIL_LABELS.sections.metrics.eyebrow}
+        title={PROJECT_DETAIL_LABELS.sections.metrics.title}
+        dark={isDark}
+      />
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+        {performance.map((metric) => (
+          <ProjectMetricCard key={metric.label} metric={metric} />
+        ))}
       </div>
     </section>
   );

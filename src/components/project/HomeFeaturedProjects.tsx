@@ -11,7 +11,7 @@ type HomeFeaturedProjectsProps = {
 };
 
 function getProjectLabel(project: ProjectCard) {
-  return project.subtitle ?? project.category.join(" · ");
+  return project.subtitle ?? project.category;
 }
 
 export function HomeFeaturedProjects({
