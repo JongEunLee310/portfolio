@@ -1,35 +1,21 @@
 import type { TechTag } from "./common";
 
 export type NoteCategory =
-  | "performance"
-  | "architecture"
-  | "async"
-  | "database"
-  | "aws"
-  | "observability"
-  | "messaging"
   | "troubleshooting"
-  | "security";
-
-export type NoteFilterValue =
-  | "all"
-  | "performance"
-  | "database"
-  | "async"
-  | "devops"
   | "architecture"
-  | "troubleshooting";
+  | "performance"
+  | "concept"
+  | "retrospective";
 
-export type NoteSortValue = "latest" | "featured" | "readingTime";
+export type NoteFilterValue = "all" | NoteCategory;
+
+export type NoteSortValue = "latest" | "readingTime";
 
 export type NoteViewMode = "grid" | "list";
-
-export type NoteFeaturedFilterValue = "all" | "featured";
 
 export type NoteFilterState = {
   category: NoteFilterValue;
   tags: string[];
-  featured: NoteFeaturedFilterValue;
 };
 
 export type NoteDetailTemplate =

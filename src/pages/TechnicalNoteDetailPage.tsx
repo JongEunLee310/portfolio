@@ -6,7 +6,7 @@ import {
   Layers3,
   UserRound,
 } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Badge } from "@/components/common/Badge";
 import { EmptyState } from "@/components/common/EmptyState";
 import { TechTag } from "@/components/common/TechTag";
@@ -21,7 +21,7 @@ import { projects } from "@/data/projects";
 import { seoConfig } from "@/data/seo";
 import { siteConfig } from "@/data/site";
 import { technicalNotes } from "@/data/technicalNotes";
-import { themeSurface } from "@/styles/classNames";
+import { heroSurface, themeSurface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
 import { useSeo } from "@/utils/useSeo";
 
@@ -29,6 +29,7 @@ export function TechnicalNoteDetailPage() {
   const { resolvedTheme } = useTheme();
   const isLight = resolvedTheme === "light";
   const { noteSlug } = useParams();
+  const navigate = useNavigate();
   const note = noteDetails.find((item) => item.slug === noteSlug);
   useSeo(note ? `${note.title} | 이종은 포트폴리오` : seoConfig[PATHS.technicalNotes].title);
 
@@ -59,24 +60,25 @@ export function TechnicalNoteDetailPage() {
       <section
         className={[
           "relative overflow-hidden border-b transition-colors duration-300",
-          isLight
-            ? "border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#F7F3EC_100%)] text-slate-950"
-            : "border-white/10 bg-hero-radial text-white",
+          isLight ? heroSurface.lightBanner : heroSurface.darkBanner,
         ].join(" ")}
       >
-        {!isLight ? (
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,7,18,0.92)_0%,rgba(2,7,18,0.72)_48%,rgba(2,7,18,0.86)_100%)]" />
-        ) : null}
-        <div className={`absolute right-0 top-0 h-full w-1/2 ${isLight ? "bg-[radial-gradient(circle_at_50%_35%,rgba(201,151,43,0.15),transparent_42%)]" : "bg-[radial-gradient(circle_at_50%_35%,rgba(37,99,235,0.2),transparent_42%)]"}`} />
+        <div
+          className={[
+            "absolute right-0 top-0 h-full w-1/2",
+            isLight ? heroSurface.lightGlow : heroSurface.darkGlow,
+          ].join(" ")}
+        />
         <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-14 lg:grid-cols-[minmax(0,1fr)_420px] lg:px-8 lg:py-20">
           <div>
             <div className={`flex flex-wrap items-center gap-2 text-xs font-semibold ${isLight ? "text-slate-600" : "text-slate-400"}`}>
-              <Link
-                to={PATHS.technicalNotes}
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
                 className="transition hover:text-[var(--color-accent)]"
               >
                 {NOTE_DETAIL_LABELS.hero.breadcrumbRoot}
-              </Link>
+              </button>
               <span>/</span>
               <span>{NOTE_DETAIL_LABELS.hero.breadcrumbCurrent}</span>
             </div>
@@ -155,47 +157,35 @@ export function TechnicalNoteDetailPage() {
         </div>
       </section>
       <section className={`${themeSurface.lightBand} py-12 lg:py-16`}>
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:px-8">
-          <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
-            <ArticleToc
-              items={note.toc}
-              title={NOTE_DETAIL_LABELS.toc.title}
-            />
-            {note.tags.length > 0 ? (
-              <section className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-card">
-                <h2 className="text-sm font-bold text-[var(--color-page-text)]">
-                  {NOTE_DETAIL_LABELS.sidebar.techStack}
-                </h2>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {note.tags.map((tag) => (
-                    <TechTag key={`sidebar-${note.slug}-${tag.name}`} tag={tag} />
-                  ))}
-                </div>
-              </section>
-            ) : null}
-            {relatedNotes.length > 0 ? (
-              <section className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-card">
-                <h2 className="text-sm font-bold text-[var(--color-page-text)]">
-                  {NOTE_DETAIL_LABELS.sidebar.relatedNotes}
-                </h2>
-                <div className="mt-4 space-y-4">
-                  {relatedNotes.map((relatedNote) => (
-                    <Link
-                      key={relatedNote.slug}
-                      to={PATHS.technicalNoteDetail(relatedNote.slug)}
-                      className="block rounded-lg border border-[var(--color-border)] p-3 transition hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-bg)]"
-                    >
-                      <p className="text-xs font-semibold text-[var(--color-accent)]">
-                        {relatedNote.date}
-                      </p>
-                      <p className="mt-1 text-sm font-bold leading-6 text-[var(--color-page-text)]">
+        <div className="mx-auto grid max-w-[92rem] gap-6 px-6 lg:grid-cols-[9.5rem_minmax(0,1fr)] lg:px-8 xl:grid-cols-[10rem_minmax(0,1fr)] xl:gap-8">
+          <aside className="hidden lg:block lg:sticky lg:top-24 lg:self-start">
+            <div className="space-y-8">
+              <ArticleToc
+                items={note.toc}
+                title={NOTE_DETAIL_LABELS.toc.title}
+              />
+              {relatedNotes.length > 0 ? (
+                <nav
+                  aria-label={NOTE_DETAIL_LABELS.sidebar.relatedNotes}
+                  className="border-l border-[var(--color-border)] py-2 pl-3"
+                >
+                  <p className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)]">
+                    {NOTE_DETAIL_LABELS.sidebar.relatedNotes}
+                  </p>
+                  <div className="mt-4 space-y-0.5">
+                    {relatedNotes.map((relatedNote) => (
+                      <Link
+                        key={relatedNote.slug}
+                        to={PATHS.technicalNoteDetail(relatedNote.slug)}
+                        className="flex min-h-8 w-full items-center rounded-md border-l-2 border-transparent px-2 py-1.5 text-left text-xs font-semibold leading-5 text-[var(--color-muted-text)] transition hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 xl:text-sm"
+                      >
                         {relatedNote.title}
-                      </p>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-            ) : null}
+                      </Link>
+                    ))}
+                  </div>
+                </nav>
+              ) : null}
+            </div>
           </aside>
           <div className="min-w-0">
             <article className="space-y-7">

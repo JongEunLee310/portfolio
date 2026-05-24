@@ -1,6 +1,6 @@
-import { ChevronDown, SlidersHorizontal } from "lucide-react";
+import { ChevronDown, ChevronUp, SlidersHorizontal } from "lucide-react";
+import { useState } from "react";
 import type {
-  NoteFeaturedFilterValue,
   NoteFilterState,
   NoteFilterValue,
 } from "@/types/note";
@@ -23,16 +23,14 @@ type NoteListSidebarProps = {
     title: string;
     categoryTitle: string;
     tagTitle: string;
-    featuredTitle: string;
     moreLabel: string;
+    lessLabel: string;
   };
   filters: NoteFilterState;
   categoryOptions: readonly FilterOption<NoteFilterValue>[];
   tagOptions: TagOption[];
-  featuredOptions: readonly FilterOption<NoteFeaturedFilterValue>[];
   counts: {
     byCategory: CountMap;
-    byFeatured: CountMap;
   };
   onChange: (filters: NoteFilterState) => void;
 };
@@ -41,30 +39,34 @@ function getCount(counts: CountMap, value: string) {
   return counts[value] ?? 0;
 }
 
+const TAG_COLLAPSED_COUNT = 6;
+
 export function NoteListSidebar({
   content,
   filters,
   categoryOptions,
   tagOptions,
-  featuredOptions,
   counts,
   onChange,
 }: NoteListSidebarProps) {
-  const visibleTagOptions = tagOptions.slice(0, 6);
+  const [showAllTags, setShowAllTags] = useState(false);
+  const visibleTagOptions = showAllTags ? tagOptions : tagOptions.slice(0, TAG_COLLAPSED_COUNT);
 
   return (
-    <aside className="sticky top-24 hidden w-56 shrink-0 self-start overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-page-text)] shadow-card lg:block">
-      <div className="flex items-center justify-between border-b border-[var(--color-border)] px-5 py-4">
-        <h2 className="text-sm font-semibold">{content.title}</h2>
+    <aside className="sticky top-24 hidden w-56 shrink-0 self-start border-l border-[var(--color-border)] py-2 pl-3 text-[var(--color-page-text)] lg:col-start-1 lg:row-start-2 lg:block">
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)]">
+          {content.title}
+        </h2>
         <SlidersHorizontal className="h-4 w-4 text-[var(--color-muted-text)]" />
       </div>
 
-      <div className="space-y-7 px-5 py-5">
+      <div className="mt-4 space-y-7">
         <section>
-          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
+          <h3 className="px-2 text-xs font-semibold text-[var(--color-muted-text)]">
             {content.categoryTitle}
           </h3>
-          <div className="mt-3 space-y-1">
+          <div className="mt-2 space-y-0.5">
             {categoryOptions.map((option) => {
               const isSelected = filters.category === option.value;
 
@@ -73,11 +75,12 @@ export function NoteListSidebar({
                   key={option.value}
                   type="button"
                   onClick={() => onChange({ ...filters, category: option.value })}
-                  className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition ${
+                  className={`flex min-h-8 w-full items-center justify-between rounded-md border-l-2 px-2 py-1.5 text-left text-xs font-semibold leading-5 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 ${
                     isSelected
-                      ? "bg-[var(--color-accent)] text-white"
-                      : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]"
+                      ? "border-[var(--color-accent)] bg-[var(--color-accent-bg)] text-[var(--color-accent)]"
+                      : "border-transparent text-[var(--color-muted-text)] hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)]"
                   }`}
+                  aria-current={isSelected ? "true" : undefined}
                 >
                   <span>{option.label}</span>
                   <span>{getCount(counts.byCategory, option.value)}</span>
@@ -87,11 +90,13 @@ export function NoteListSidebar({
           </div>
         </section>
 
-        <section className="border-t border-[var(--color-border)] pt-6">
-          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
+        <section className="border-t border-[var(--color-border)] pt-5">
+          <h3 className="px-2 text-xs font-semibold text-[var(--color-muted-text)]">
             {content.tagTitle}
           </h3>
-          <div className="mt-3 space-y-3">
+          <div
+            className={`mt-3 space-y-2.5 ${showAllTags ? "max-h-52 overflow-y-auto pr-1" : ""}`}
+          >
             {visibleTagOptions.map((option) => {
               const isChecked = filters.tags.includes(option.value);
               const nextTags = isChecked
@@ -101,15 +106,29 @@ export function NoteListSidebar({
               return (
                 <label
                   key={option.value}
-                  className="flex cursor-pointer items-center justify-between gap-3 text-xs text-[var(--color-muted-text)] transition hover:text-[var(--color-page-text)]"
+                  className="flex min-h-7 cursor-pointer items-center justify-between gap-3 rounded-md px-2 text-xs font-medium text-[var(--color-muted-text)] transition hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)]"
                 >
                   <span className="flex min-w-0 items-center gap-2">
                     <input
                       type="checkbox"
                       checked={isChecked}
                       onChange={() => onChange({ ...filters, tags: nextTags })}
-                      className="h-3.5 w-3.5 rounded border-[var(--color-border)] bg-transparent accent-[#C9972B]"
+                      className="peer sr-only"
                     />
+                    <span
+                      aria-hidden="true"
+                      className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded border transition peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--color-accent)] ${
+                        isChecked
+                          ? "border-[var(--color-accent)] bg-[var(--color-accent)]"
+                          : "border-[var(--color-border)] bg-[var(--color-surface)]"
+                      }`}
+                    >
+                      <span
+                        className={`h-1.5 w-2 rotate-[-45deg] border-b-2 border-l-2 border-white transition ${
+                          isChecked ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                    </span>
                     <span className="truncate">{option.label}</span>
                   </span>
                   <span>({option.count})</span>
@@ -117,43 +136,23 @@ export function NoteListSidebar({
               );
             })}
           </div>
-          {tagOptions.length > visibleTagOptions.length ? (
+          {tagOptions.length > TAG_COLLAPSED_COUNT ? (
             <button
               type="button"
-              className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-accent)]"
+              onClick={() => setShowAllTags((prev) => !prev)}
+              className="mt-3 inline-flex min-h-6 items-center gap-1 text-xs font-semibold text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+              aria-expanded={showAllTags}
             >
-              <ChevronDown className="h-3.5 w-3.5" />
-              {content.moreLabel}
+              {showAllTags ? (
+                <ChevronUp className="h-3.5 w-3.5" />
+              ) : (
+                <ChevronDown className="h-3.5 w-3.5" />
+              )}
+              {showAllTags ? content.lessLabel : content.moreLabel}
             </button>
           ) : null}
         </section>
 
-        <section className="border-t border-[var(--color-border)] pt-6">
-          <h3 className="text-xs font-semibold text-[var(--color-muted-text)]">
-            {content.featuredTitle}
-          </h3>
-          <div className="mt-3 space-y-1">
-            {featuredOptions.map((option) => {
-              const isSelected = filters.featured === option.value;
-
-              return (
-                <button
-                  key={option.value}
-                  type="button"
-                  onClick={() => onChange({ ...filters, featured: option.value })}
-                  className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-xs font-medium transition ${
-                    isSelected
-                      ? "bg-[var(--color-accent)] text-white"
-                      : "text-[var(--color-muted-text)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-page-text)]"
-                  }`}
-                >
-                  <span>{option.label}</span>
-                  <span>{getCount(counts.byFeatured, option.value)}</span>
-                </button>
-              );
-            })}
-          </div>
-        </section>
       </div>
     </aside>
   );

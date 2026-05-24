@@ -19,6 +19,17 @@ export const themeSurface = {
   card: "rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-card transition-colors duration-300",
 };
 
+export const heroSurface = {
+  lightBanner:
+    "border-b border-[var(--color-border)] bg-[linear-gradient(180deg,#ffffff_0%,#F7F3EC_100%)] text-slate-950",
+  darkBanner:
+    "border-b border-white/10 bg-[linear-gradient(180deg,#020712_0%,#06101f_58%,#020712_100%)] text-white",
+  lightGlow:
+    "bg-[radial-gradient(circle_at_50%_35%,rgba(201,151,43,0.15),transparent_42%)]",
+  darkGlow:
+    "bg-[radial-gradient(circle_at_50%_35%,rgba(37,99,235,0.2),transparent_42%)]",
+};
+
 export const text = {
   heroTitle: "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
   sectionTitle: "text-3xl font-bold tracking-tight text-slate-900",

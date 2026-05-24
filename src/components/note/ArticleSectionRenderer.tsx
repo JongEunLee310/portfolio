@@ -110,27 +110,27 @@ export function ArticleSectionRenderer({
         {section.items.map((item) => (
           <article
             key={item.label}
-            className="rounded-lg border border-slate-800 bg-slate-950 p-5 text-white shadow-card"
+            className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-card"
           >
-            <h3 className="text-sm font-bold text-slate-200">{item.label}</h3>
+            <h3 className="text-sm font-bold text-[var(--color-page-text)]">{item.label}</h3>
             <dl className="mt-5 grid grid-cols-2 gap-4 text-sm">
-              <div className="rounded-lg bg-white/5 p-3">
-                <dt className="font-semibold text-slate-400">
+              <div className="rounded-lg bg-[var(--color-surface-muted)] p-3">
+                <dt className="font-semibold text-[var(--color-muted-text)]">
                   {metricsLabels.before}
                 </dt>
-                <dd className="mt-2 font-bold text-slate-200">{item.before}</dd>
+                <dd className="mt-2 font-bold text-[var(--color-page-text)]">{item.before}</dd>
               </div>
-              <div className="rounded-lg bg-blue-500/10 p-3">
-                <dt className="font-semibold text-blue-200">
+              <div className="rounded-lg bg-[var(--color-accent-bg)] p-3">
+                <dt className="font-semibold text-[var(--color-accent-dark)]">
                   {metricsLabels.after}
                 </dt>
-                <dd className="mt-2 font-bold text-blue-100">{item.after}</dd>
+                <dd className="mt-2 font-bold text-[var(--color-page-text)]">{item.after}</dd>
               </div>
-              <div className="col-span-2 rounded-lg bg-blue-600/20 px-3 py-2">
-                <dt className="font-semibold text-blue-200">
+              <div className="col-span-2 rounded-lg bg-[var(--color-accent-bg)] px-3 py-2">
+                <dt className="font-semibold text-[var(--color-accent-dark)]">
                   {metricsLabels.change}
                 </dt>
-                <dd className="mt-1 text-2xl font-bold text-blue-300">
+                <dd className="mt-1 text-2xl font-bold text-[var(--color-accent)]">
                   {item.change}
                 </dd>
               </div>

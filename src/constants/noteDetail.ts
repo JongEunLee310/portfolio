@@ -15,7 +15,6 @@ export const NOTE_DETAIL_LABELS = {
     title: "목차",
   },
   sidebar: {
-    techStack: "이 글에서 다루는 기술",
     relatedNotes: "관련 글",
   },
   sections: {

@@ -6,18 +6,10 @@ import type {
 
 type ProjectGridProps = {
   projects: ProjectCardData[];
-  labels: {
-    detailLabel: string;
-    githubLabel: string;
-  };
   viewMode?: ProjectViewMode;
 };
 
-export function ProjectGrid({
-  projects,
-  labels,
-  viewMode = "grid",
-}: ProjectGridProps) {
+export function ProjectGrid({ projects, viewMode = "grid" }: ProjectGridProps) {
   return (
     <div
       className={
@@ -27,12 +19,7 @@ export function ProjectGrid({
       }
     >
       {projects.map((project) => (
-        <ProjectCard
-          key={project.slug}
-          project={project}
-          labels={labels}
-          variant={viewMode}
-        />
+        <ProjectCard key={project.slug} project={project} variant={viewMode} />
       ))}
     </div>
   );

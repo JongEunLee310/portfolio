@@ -16,6 +16,18 @@ export const PROJECT_DETAIL_LABELS = {
     liveDemo: "Live Demo",
     github: "GitHub 보기",
   },
+  toc: {
+    title: "CASE STUDY",
+    ariaLabel: "프로젝트 상세 섹션",
+    overview: "개요",
+    problemSolution: "문제와 해결",
+    architecture: "아키텍처",
+    features: "핵심 기능",
+    screenshots: "화면 구성",
+    techContribution: "기술과 기여",
+    metrics: "성과",
+    closing: "문제 해결과 회고",
+  },
   screenshots: {
     zoomLabel: "스크린샷 확대",
   },

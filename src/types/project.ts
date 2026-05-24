@@ -1,6 +1,6 @@
 import type { IconName, Metric, TechTag } from "./common";
 
-export type ProjectCategory = "backend" | "infra" | "ai" | "iot" | "personal";
+export type ProjectCategory = "service" | "infra" | "research";
 
 export type ProjectFilterValue = "all" | ProjectCategory;
 
@@ -34,7 +34,7 @@ export type ProjectCard = {
   summary: string;
   description: string;
   thumbnail: string;
-  category: ProjectCategory[];
+  category: ProjectCategory;
   type: ProjectType;
   status: ProjectStatus;
   period: string;
