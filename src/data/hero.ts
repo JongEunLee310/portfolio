@@ -43,10 +43,10 @@ export const pageHeroes = {
   },
   about: {
     eyebrow: "ABOUT",
-    title: "문제를 관찰하고\n구조를 개선하는 백엔드 개발자",
-    highlightedText: "백엔드 개발자",
+    title: "서비스 흐름을 설계하고\n운영 가능한 구조로 다듬는 개발자",
+    highlightedText: "개발자",
     description:
-      "시스템의 본질을 이해하고, 확장 가능하고 안정적인 백엔드 서비스를 설계·구현합니다.",
+      "Spring Boot와 FastAPI 기반 백엔드, AWS·Kubernetes 인프라, CI/CD 자동화를 함께 다루며 안정적인 서비스 구조를 만듭니다.",
     primaryAction: {
       label: "프로젝트 보기",
       href: PATHS.projects,
