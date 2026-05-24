@@ -15,6 +15,11 @@ import { llmResponseFormatNotEnforced } from "./notes/006-llm-response-format-no
 import { aiDevopsRetrospective } from "./notes/ai-devops-retrospective";
 import { aiLogAnalysisLatency } from "./notes/ai-log-analysis-latency";
 import { albCorsTroubleshooting } from "./notes/alb-cors-troubleshooting";
+import { asyncSessionJoinOptimization } from "./notes/async-session-join-optimization";
+import { celeryPreforkAsyncioNullpool } from "./notes/celery-prefork-asyncio-nullpool";
+import { asyncSqlalchemyEagerLoading } from "./notes/async-sqlalchemy-eager-loading";
+import { msaRabbitmqMigration } from "./notes/msa-rabbitmq-migration";
+import { asyncTestDbIsolation } from "./notes/async-test-db-isolation";
 import { asyncPipelineTransition } from "./notes/async-pipeline-transition";
 import { dbRoundTripOptimization } from "./notes/db-round-trip-optimization";
 import { metricCardinalityTroubleshooting } from "./notes/metric-cardinality-troubleshooting";
@@ -34,6 +39,14 @@ import { noteTensorflowCBindingArm } from "./notes/note-tensorflow-c-binding-arm
 import { noteArmFp16Compiler } from "./notes/note-arm-fp16-compiler";
 import { noteConvMaxpoolIntegration } from "./notes/note-conv-maxpool-integration";
 import { noteCnnModelExtensionResnetMobilenet } from "./notes/note-cnn-model-extension-resnet-mobilenet";
+import { distributedTracingCorrelationId } from "./notes/distributed-tracing-correlation-id";
+import { consumerIdempotencyProcessedEvent } from "./notes/consumer-idempotency-processed-event";
+import { msaHttpRetryCircuitBreaker } from "./notes/msa-http-retry-circuit-breaker";
+import { msaRouterDeletionTest404 } from "./notes/msa-router-deletion-test-404";
+import { eventSchemaVersioningDeployOrder } from "./notes/event-schema-versioning-deploy-order";
+import { crossServiceJoinDbSeparation } from "./notes/cross-service-join-db-separation";
+import { msaLoadTestThreadpoolOwnership } from "./notes/msa-load-test-threadpool-ownership";
+import { msaDbSplitIntegrationTest } from "./notes/msa-db-split-integration-test";
 
 export const technicalNotes: TechnicalNoteCard[] = [
   dbRoundTripOptimization,
@@ -42,6 +55,19 @@ export const technicalNotes: TechnicalNoteCard[] = [
   aiLogAnalysisLatency,
   metricCardinalityTroubleshooting,
   aiDevopsRetrospective,
+  distributedTracingCorrelationId,
+  consumerIdempotencyProcessedEvent,
+  msaHttpRetryCircuitBreaker,
+  msaRouterDeletionTest404,
+  eventSchemaVersioningDeployOrder,
+  crossServiceJoinDbSeparation,
+  msaLoadTestThreadpoolOwnership,
+  msaDbSplitIntegrationTest,
+  asyncSessionJoinOptimization,
+  celeryPreforkAsyncioNullpool,
+  asyncSqlalchemyEagerLoading,
+  msaRabbitmqMigration,
+  asyncTestDbIsolation,
   querydslProjectionOptimization,
   albCorsTroubleshooting,
   googleOauthExceptionMasking,
