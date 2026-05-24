@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SectionHeader } from "@/components/common/SectionHeader";
-import { TechTag } from "@/components/common/TechTag";
 import { PATHS } from "@/constants/paths";
 import { PROJECT_DETAIL_LABELS } from "@/constants/projectDetail";
 import type { ProjectDetail } from "@/types/project";
@@ -21,14 +19,15 @@ export function ProjectClosingCardsSection({
 }: ProjectClosingCardsSectionProps) {
   const [activeTroubleshootingIndex, setActiveTroubleshootingIndex] = useState(0);
   const [activeImprovementIndex, setActiveImprovementIndex] = useState(0);
+  const [activeRetrospectiveIndex, setActiveRetrospectiveIndex] = useState(0);
   const troubleshooting = project.troubleshooting.filter(
     (item) => hasText(item.title) && hasText(item.solution),
   );
   const improvements = project.improvements?.filter(
     (item) => hasText(item.title) && hasText(item.description),
   );
-  const learned = project.retrospectives[0]?.learned.filter(hasText) ?? [];
-  const improvementPlans = project.retrospectives[0]?.improvement.filter(hasText) ?? [];
+  const retrospectives = project.retrospectives;
+  const activeRetrospective = retrospectives[activeRetrospectiveIndex] ?? retrospectives[0];
   const activeTroubleshooting =
     troubleshooting[activeTroubleshootingIndex] ?? troubleshooting[0];
   const activeImprovement =
@@ -43,6 +42,18 @@ export function ProjectClosingCardsSection({
   function showNextTroubleshooting() {
     setActiveTroubleshootingIndex((current) =>
       current === troubleshooting.length - 1 ? 0 : current + 1,
+    );
+  }
+
+  function showPreviousRetrospective() {
+    setActiveRetrospectiveIndex((current) =>
+      current === 0 ? retrospectives.length - 1 : current - 1,
+    );
+  }
+
+  function showNextRetrospective() {
+    setActiveRetrospectiveIndex((current) =>
+      current === retrospectives.length - 1 ? 0 : current + 1,
     );
   }
 
@@ -184,51 +195,62 @@ export function ProjectClosingCardsSection({
         </article>
       ) : null}
 
-      {learned.length || improvementPlans.length ? (
+      {retrospectives.length > 0 ? (
         <article className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-card">
-          <SectionHeader
-            eyebrow={PROJECT_DETAIL_LABELS.sections.retrospective.eyebrow}
-            title={PROJECT_DETAIL_LABELS.sections.retrospective.title}
-          />
-          <div className="h-[430px] overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5">
-            <p className="text-sm leading-7 text-[var(--color-muted-text)]">
-              {learned[0] ?? improvementPlans[0]}
-            </p>
-            {learned.length > 1 || improvementPlans.length ? (
-              <div className="mt-5 space-y-3 text-sm leading-6 text-[var(--color-muted-text)]">
-                {learned[1] ? (
-                  <p>
-                    <span className="font-bold text-[var(--color-page-text)]">
-                      {PROJECT_DETAIL_LABELS.sections.retrospective.learned}
-                    </span>
-                    : {learned[1]}
-                  </p>
-                ) : null}
-                {improvementPlans[0] ? (
-                  <p>
-                    <span className="font-bold text-[var(--color-page-text)]">
-                      {PROJECT_DETAIL_LABELS.sections.retrospective.improvement}
-                    </span>
-                    : {improvementPlans[0]}
-                  </p>
-                ) : null}
+          <div className="mb-8 flex items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-widest text-[var(--color-accent)]">
+                {PROJECT_DETAIL_LABELS.sections.retrospective.eyebrow}
+              </p>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight text-[var(--color-page-text)]">
+                {PROJECT_DETAIL_LABELS.sections.retrospective.title}
+              </h2>
+            </div>
+            {retrospectives.length > 1 ? (
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={showPreviousRetrospective}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
+                  aria-label={PROJECT_DETAIL_LABELS.sections.retrospective.previous}
+                >
+                  <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  onClick={showNextRetrospective}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-muted-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
+                  aria-label={PROJECT_DETAIL_LABELS.sections.retrospective.next}
+                >
+                  <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                </button>
               </div>
             ) : null}
-            <div className="mt-6 flex flex-wrap gap-2">
-              {project.techStack.slice(0, 5).map((tag) => (
-                <TechTag key={`${project.slug}-closing-${tag.name}`} tag={tag} />
-              ))}
-            </div>
           </div>
-          {project.retrospectives[0]?.noteSlug ? (
-            <div className="mt-6 flex justify-end">
-              <Link
-                to={PATHS.technicalNoteDetail(project.retrospectives[0].noteSlug)}
-                className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] px-4 py-2 text-sm font-bold text-[var(--color-accent)] transition hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent-dark)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
-              >
-                {PROJECT_DETAIL_LABELS.sections.retrospective.openNote}
-                <ExternalLink className="h-4 w-4" aria-hidden="true" />
-              </Link>
+          {activeRetrospective ? <RetrospectiveSlide item={activeRetrospective} /> : null}
+          {retrospectives.length > 1 ? (
+            <div className="mt-5 flex items-center justify-between gap-4">
+              <p className="text-xs font-semibold text-[var(--color-muted-text)]" aria-live="polite">
+                {PROJECT_DETAIL_LABELS.sections.retrospective.status}{" "}
+                {activeRetrospectiveIndex + 1} / {retrospectives.length}
+              </p>
+              <div className="flex gap-1.5">
+                {retrospectives.map((item, index) => (
+                  <button
+                    key={item.title}
+                    type="button"
+                    onClick={() => setActiveRetrospectiveIndex(index)}
+                    className={[
+                      "h-2.5 rounded-full transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2",
+                      index === activeRetrospectiveIndex
+                        ? "w-6 bg-[var(--color-accent)]"
+                        : "w-2.5 bg-[var(--color-border)] hover:bg-[var(--color-accent)]",
+                    ].join(" ")}
+                    aria-label={item.title}
+                    aria-current={index === activeRetrospectiveIndex}
+                  />
+                ))}
+              </div>
             </div>
           ) : null}
         </article>
@@ -266,6 +288,32 @@ function ImprovementSlide({ item }: ImprovementSlideProps) {
           </div>
         ) : null}
       </dl>
+    </div>
+  );
+}
+
+type RetrospectiveSlideProps = {
+  item: ProjectDetail["retrospectives"][number];
+};
+
+function RetrospectiveSlide({ item }: RetrospectiveSlideProps) {
+  return (
+    <div className="h-[400px] overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5">
+      <h3 className="text-base font-bold text-[var(--color-page-text)]">{item.title}</h3>
+      <p className="mt-4 text-sm leading-7 text-[var(--color-muted-text)]">
+        {item.learned[0]}
+      </p>
+      {item.noteSlug ? (
+        <div className="mt-6 flex justify-end">
+          <Link
+            to={PATHS.technicalNoteDetail(item.noteSlug)}
+            className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-accent-border)] bg-[var(--color-accent-bg)] px-4 py-2 text-sm font-bold text-[var(--color-accent)] transition hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent-dark)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
+          >
+            {PROJECT_DETAIL_LABELS.sections.retrospective.openNote}
+            <ExternalLink className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </div>
+      ) : null}
     </div>
   );
 }
