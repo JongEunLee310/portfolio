@@ -12,9 +12,20 @@ import { multirepoCI } from "./notes/003-multirepo-ci-duplication-and-drift";
 import { statelessPromptContextLoss } from "./notes/004-stateless-prompt-context-loss";
 import { socialIdUniqueConstraintMismatch } from "./notes/005-social-id-unique-constraint-mismatch";
 import { llmResponseFormatNotEnforced } from "./notes/006-llm-response-format-not-enforced";
+import { aiDevopsProjectRetrospective } from "./notes/ai-devops-project-retrospective";
 import { aiDevopsRetrospective } from "./notes/ai-devops-retrospective";
 import { aiLogAnalysisLatency } from "./notes/ai-log-analysis-latency";
 import { albCorsTroubleshooting } from "./notes/alb-cors-troubleshooting";
+import { statisticConcurrencyOptimisticLock } from "./notes/statistic-concurrency-optimistic-lock";
+import { reissueInfiniteRequest } from "./notes/reissue-infinite-request";
+import { nPlusOnePreventionQuerydslProjection } from "./notes/n-plus-one-prevention-querydsl-projection";
+import { multiModuleSharedDomainPortPattern } from "./notes/multi-module-shared-domain-port-pattern";
+import { weeklySettlementSchedulerIdempotency } from "./notes/weekly-settlement-scheduler-idempotency";
+import { multiEnvironmentLoginTokenOverwrite } from "./notes/multi-environment-login-token-overwrite";
+import { fileUploadDeleteApiSeparation } from "./notes/file-upload-delete-api-separation";
+import { querydslInfoLayerDataFlow } from "./notes/querydsl-info-layer-data-flow";
+import { domainModuleBoundaryFromMonolith } from "./notes/domain-module-boundary-from-monolith";
+import { haloRetrospective } from "./notes/halo-retrospective";
 import { asyncSessionJoinOptimization } from "./notes/async-session-join-optimization";
 import { celeryPreforkAsyncioNullpool } from "./notes/celery-prefork-asyncio-nullpool";
 import { asyncSqlalchemyEagerLoading } from "./notes/async-sqlalchemy-eager-loading";
@@ -54,6 +65,7 @@ export const technicalNotes: TechnicalNoteCard[] = [
   rabbitmqEventTopology,
   aiLogAnalysisLatency,
   metricCardinalityTroubleshooting,
+  aiDevopsProjectRetrospective,
   aiDevopsRetrospective,
   distributedTracingCorrelationId,
   consumerIdempotencyProcessedEvent,
@@ -70,6 +82,16 @@ export const technicalNotes: TechnicalNoteCard[] = [
   asyncTestDbIsolation,
   querydslProjectionOptimization,
   albCorsTroubleshooting,
+  statisticConcurrencyOptimisticLock,
+  reissueInfiniteRequest,
+  nPlusOnePreventionQuerydslProjection,
+  multiModuleSharedDomainPortPattern,
+  weeklySettlementSchedulerIdempotency,
+  multiEnvironmentLoginTokenOverwrite,
+  fileUploadDeleteApiSeparation,
+  querydslInfoLayerDataFlow,
+  domainModuleBoundaryFromMonolith,
+  haloRetrospective,
   googleOauthExceptionMasking,
   openaiResponseDirectAccess,
   multirepoCI,
