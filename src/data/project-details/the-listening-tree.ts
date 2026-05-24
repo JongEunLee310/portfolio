@@ -380,20 +380,23 @@ export const theListeningTreeDetail: ProjectDetail = {
       icon: "FileText",
     },
   ],
-  retrospective: {
-    learned: [
-      "except Exception as e는 FastAPI의 HTTPException까지 잡는다. 의도적으로 raise한 애플리케이션 오류가 재래핑되지 않으려면 except HTTPException: raise를 가장 먼저 배치해야 한다.",
-      "멀티레포 구조에서 CI 워크플로우를 복붙으로 관리하면 이름·설정·의존성 버전 불일치가 빠르게 누적된다. GitHub Reusable Workflows 같은 공유 수단을 초기에 설계해야 한다.",
-      "DB 모델 설계 결정(ADR)과 실제 마이그레이션 코드가 동기화되지 않으면 확장 시 예상치 못한 unique 충돌이 발생한다.",
-      "테스트 격리 구조(FakeClient, FakeDBSession)를 처음부터 설계하지 않으면 나중에 리팩토링 범위가 핸들러 구조 전체로 확장된다.",
-    ],
-    improvement: [
-      "서비스 전체 logging 인프라 도입 (현재 print() 2개가 사용자 메시지를 표준 출력에 노출, 구조화 로그 미존재)",
-      "auto_response 서비스 테스트 격리 구현 (현재 테스트 0개, FakeClient + monkeypatch 구조 설계 필요)",
-      "GitHub Reusable Workflows로 4개 서비스 CI 공통화 (현재 서비스별 중복 워크플로우)",
-    ],
-    noteSlug: "",
-  },
+  retrospectives: [
+    {
+      title: "회고",
+      learned: [
+        "except Exception as e는 FastAPI의 HTTPException까지 잡는다. 의도적으로 raise한 애플리케이션 오류가 재래핑되지 않으려면 except HTTPException: raise를 가장 먼저 배치해야 한다.",
+        "멀티레포 구조에서 CI 워크플로우를 복붙으로 관리하면 이름·설정·의존성 버전 불일치가 빠르게 누적된다. GitHub Reusable Workflows 같은 공유 수단을 초기에 설계해야 한다.",
+        "DB 모델 설계 결정(ADR)과 실제 마이그레이션 코드가 동기화되지 않으면 확장 시 예상치 못한 unique 충돌이 발생한다.",
+        "테스트 격리 구조(FakeClient, FakeDBSession)를 처음부터 설계하지 않으면 나중에 리팩토링 범위가 핸들러 구조 전체로 확장된다.",
+      ],
+      improvement: [
+        "서비스 전체 logging 인프라 도입 (현재 print() 2개가 사용자 메시지를 표준 출력에 노출, 구조화 로그 미존재)",
+        "auto_response 서비스 테스트 격리 구현 (현재 테스트 0개, FakeClient + monkeypatch 구조 설계 필요)",
+        "GitHub Reusable Workflows로 4개 서비스 CI 공통화 (현재 서비스별 중복 워크플로우)",
+      ],
+      noteSlug: "",
+    },
+  ],
   relatedNoteSlugs: [
     "001-google-oauth-exception-masking",
     "002-openai-response-direct-access",

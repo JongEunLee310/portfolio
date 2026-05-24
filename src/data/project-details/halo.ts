@@ -431,6 +431,46 @@ export const haloDetail: ProjectDetail = {
       result: "미해결 — 개선 방향과 cookie 이름 설계안을 문서로 보존",
       noteSlug: "multi-environment-login-token-overwrite",
     },
+    {
+      title: "ALB 직접 연결 구조에서 CORS Preflight 실패 분석",
+      problem:
+        "nginx 없이 ALB → Spring Boot 직접 연결 구조에서 OPTIONS Preflight 요청이 Spring Security 필터체인과 상호작용하는 방식 미검증. ALB 또는 Cloudflare가 CORS 헤더를 중복 추가하면 브라우저가 헤더 두 개를 받아 오류 처리",
+      solution:
+        "Spring Security가 CORS 단일 처리 지점임을 확인. corsConfigurationSource()로 5개 origin 명시, allowedMethods 와일드카드로 OPTIONS 포함. JwtFilter는 Authorization 헤더 없는 OPTIONS를 filterChain.doFilter()로 통과시켜 CorsFilter가 먼저 단락 처리. ALB 측 CORS 헤더 중복 여부는 AWS 콘솔 확인 필요",
+      result:
+        "Preflight가 인증 체인 진입 없이 CorsFilter에서 200 반환되는 구조 검증. 역할별 FilterChain exceptionHandling 누락(401/403 응답 불일치)과 allowedOrigins 하드코딩(도메인 추가 시 누락 위험) 두 가지 구조적 개선 포인트 식별",
+      noteSlug: "alb-cors-troubleshooting",
+    },
+    {
+      title: "파일 업로드 API 분리 — Presigned URL로 S3 트랜잭션 경계 해소",
+      problem:
+        "본문 수정 API에 파일 처리를 함께 넣으면 S3 업로드(외부 호출)가 DB 트랜잭션 범위에 포함 불가. S3 성공 후 DB 실패 시 오브젝트가 남고, 서버가 MultipartFile을 직접 수신하면 메모리 부담 발생. 4개 도메인(inquiry, admin, member, reservation)에 S3 로직 중복",
+      solution:
+        "global 모듈에 FileUploadController 단일화. POST /api/files/presigned-urls → 클라이언트가 S3 직접 PUT → POST /api/files(fileId 반환) → 도메인 API는 fileId만 참조. File 엔티티에 filePathsJson(LONGTEXT)과 postStatus(TEMP/REGISTERED/DELETED) 관리",
+      result:
+        "서버가 파일 데이터를 수신하지 않아 메모리 부담 제거. 도메인 API에 S3 의존성 0. 파일 변경과 본문 변경 독립적으로 분리. S3 연동 코드 한 곳 집중",
+      noteSlug: "file-upload-delete-api-separation",
+    },
+    {
+      title: "QueryDSL Info 중간 계층 — Repository가 RspDTO를 알지 못하게",
+      problem:
+        "QueryDSL Projections.fields() 매핑 대상을 어디에 둘지 결정 필요. Repository가 RspDTO를 직접 반환하면 HTTP 응답 형식이 영속성 계층에 스며들고, 엔티티를 반환하면 연관 필드 접근 시 N+1이 트리거됨",
+      solution:
+        "Repository → Info(service/info/ 패키지) → Service → RspDTO.fromInfo() 3계층 분리. Info는 Projections.fields() 매핑 전용 컨테이너(Jackson 어노테이션 없음). 변환 책임은 RspDTO 정적 팩토리 fromInfo()에 고정",
+      result:
+        "Repository가 RspDTO를 import하지 않아 계층 경계 유지. RspDTO 변경 시 Service와 RspDTO만 수정. 전 모듈 목록 조회 API에 동일 패턴 적용",
+      noteSlug: "querydsl-info-layer-data-flow",
+    },
+    {
+      title: "Monolith → 8 도메인 모듈 전환 경계 설정",
+      problem:
+        "common 모듈 257개 파일이 9개 패키지로만 나뉜 사실상 Monolith 구조. 예약 Repository가 manager·serviceCategory·review를 한 쿼리에 join해 도메인 경계 없이 결합도가 계속 높아짐",
+      solution:
+        "도메인 소유권 기준으로 8개 모듈(admin, evaluation, global, inquiry, member, payment, reservation, shared-domain) 분리. build.gradle 의존성으로 경계 강제. 여러 모듈이 공유하는 Reservation 타입과 ReservationQueryPort를 shared-domain(8파일)으로 분리",
+      result:
+        "패키지 경계(런타임 발견) → 빌드 의존성 경계(컴파일 발견)로 전환. evaluation·payment → reservation 순환 참조 2건 구조적 차단. reservation 5개 의존 / inquiry 1개 의존으로 모듈별 책임 범위 가시화",
+      noteSlug: "domain-module-boundary-from-monolith",
+    },
   ],
   improvements: [
     {
@@ -497,21 +537,28 @@ export const haloDetail: ProjectDetail = {
       icon: "BookOpen",
     },
   ],
-  retrospective: {
-    learned: [
-      "모듈 분리는 경계의 시작일 뿐이다. Gradle 의존성으로 방향을 강제하되, Port 인터페이스로 구현 의존을 추가로 차단해야 한다.",
-      "Projections.fields()는 N+1을 사후에 해결하는 게 아니라 설계 단계에서 방지한다. 처음부터 DTO 프로젝션으로 설계하면 문제 자체가 발생하지 않는다.",
-      "@Retryable은 AOP 프록시를 통해 동작한다. 같은 클래스 내부 호출은 프록시를 우회해 재시도가 적용되지 않는다. 별도 서비스로 분리해야 한다.",
-      "permitAll과 JWT 필터 제외는 다르다. 커스텀 필터가 인가 단계보다 앞에 있으면 public endpoint도 명시적으로 제외하지 않으면 차단된다.",
-    ],
-    improvement: [
-      "ReservationQueryPort를 사용 목적별로 분리 (리뷰용·정산용·관리자용)",
-      "evaluation → member 직접 통계 접근을 MemberStatisticPort로 추상화",
-      "다중 환경 토큰 충돌 — 권한별 secure cookie 이름 분리 구현",
-      "정산 실행 결과 로그 테이블 추가 (처리 건수, 총액, 실패 건수)",
-    ],
-    noteSlug: "halo-retrospective",
-  },
+  retrospectives: [
+    {
+      title: "회고",
+      learned: [
+        "[Phase 1] permitAll()과 JWT 필터 제외는 다른 레이어에서 동작한다. 커스텀 필터가 인가 단계보다 앞에 실행되므로 public endpoint라도 JWT_FILTER_EXCLUDE_URLS에 명시하지 않으면 필터에서 차단된다.",
+        "[Phase 1] 역할별 FilterChain 분리가 버그 분석의 단서가 됐다. /api/reissue가 어느 FilterChain에서 처리되는지 명확하지 않은 상태가 무한 루프의 원인이었다. 구조가 명확할수록 문제를 좁히는 속도가 빠르다.",
+        "[Phase 2] Projections.fields()는 N+1을 사후에 해결하는 게 아니라 설계 단계에서 방지한다. 영속성 컨텍스트가 엔티티를 관리하지 않아 지연 로딩 트리거 자체가 없고, 목록 크기와 무관하게 쿼리 수가 고정된다.",
+        "[Phase 2] @Retryable은 AOP 프록시를 통해 동작한다. 같은 클래스 내부 호출은 프록시를 우회해 재시도가 적용되지 않는다. @Transactional도 같은 이유로 내부 호출에서 동작하지 않는다.",
+        "[Phase 2] 금전 관련 배치 작업은 멱등성이 최우선 설계 요소다. 잠금보다 조회 단계에서 이미 처리된 건을 LEFT JOIN EXCLUSION으로 걸러내는 방식이 단순하고 재실행 경로 모두에 적용된다.",
+        "[Phase 3] 모듈을 나누는 것과 경계를 지키는 것은 다르다. Gradle 의존성은 허용되지 않은 모듈 참조를 컴파일 단계에서 차단하지만, Port 인터페이스를 통해야 한다는 규칙은 팀 규약으로 유지해야 한다.",
+      ],
+      improvement: [
+        "다중 환경 토큰 충돌 — 권한별 secure cookie 이름 분리(customerRefreshToken, managerRefreshToken) 구현",
+        "ReservationQueryPort를 사용 목적별로 분리(리뷰 검증·매니저 정산·관리자 정산)해 각 모듈의 의존 범위 최소화",
+        "evaluation → member 직접 통계 접근을 MemberStatisticPort로 추상화",
+        "admin 모듈의 도메인 직접 참조를 Query Port 기반으로 교체",
+        "정산 실행 결과 로그 테이블 추가 (처리 건수, 총액, 실패 건수)",
+        "S3 Lifecycle 규칙으로 TEMP 상태 파일 자동 만료 처리",
+      ],
+      noteSlug: "halo-retrospective",
+    },
+  ],
   relatedNoteSlugs: [
     "querydsl-projection-optimization",
     "alb-cors-troubleshooting",

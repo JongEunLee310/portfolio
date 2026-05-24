@@ -439,21 +439,24 @@ export const goormBankProblemBankDetail: ProjectDetail = {
       icon: "Server",
     },
   ],
-  retrospective: {
-    learned: [
-      "AWS EKS 환경에서 Kubernetes 기반 애플리케이션 배포와 오토스케일링 구조를 경험했습니다.",
-      "Fluent Bit, CloudWatch, OpenSearch Dashboard를 연결한 로그 수집 및 시각화 흐름을 학습했습니다.",
-      "Jenkins, ECR, Argo CD를 활용한 CI/CD 파이프라인 구성의 복잡성과 인증 이슈를 경험했습니다.",
-      "OpenSearch와 Elasticsearch, Fluent Bit과 Fluentd, Kibana와 OpenSearch Dashboard의 차이를 비교하며 운영 도구 선택 기준을 학습했습니다.",
-    ],
-    improvement: [
-      "CloudWatch 경보 기반 알림과 노드 오토스케일링 정책을 더 명확히 구성합니다.",
-      "애플리케이션 로그와 VPC Flow Logs를 구분해 목적에 맞는 로그 수집 대시보드를 재설계합니다.",
-      "크롤링과 배치 시스템을 도입해 시험 정보와 문제 데이터 수집을 자동화합니다.",
-      "저작권이 명확하지 않은 문제 데이터에 대해 삭제 요청 정책과 출처 관리 체계를 설계합니다.",
-    ],
-    noteSlug: "goorm-bank-retrospective",
-  },
+  retrospectives: [
+    {
+      title: "회고",
+      learned: [
+        "AWS EKS 환경에서 Kubernetes 기반 애플리케이션 배포와 오토스케일링 구조를 경험했습니다.",
+        "Fluent Bit, CloudWatch, OpenSearch Dashboard를 연결한 로그 수집 및 시각화 흐름을 학습했습니다.",
+        "Jenkins, ECR, Argo CD를 활용한 CI/CD 파이프라인 구성의 복잡성과 인증 이슈를 경험했습니다.",
+        "OpenSearch와 Elasticsearch, Fluent Bit과 Fluentd, Kibana와 OpenSearch Dashboard의 차이를 비교하며 운영 도구 선택 기준을 학습했습니다.",
+      ],
+      improvement: [
+        "CloudWatch 경보 기반 알림과 노드 오토스케일링 정책을 더 명확히 구성합니다.",
+        "애플리케이션 로그와 VPC Flow Logs를 구분해 목적에 맞는 로그 수집 대시보드를 재설계합니다.",
+        "크롤링과 배치 시스템을 도입해 시험 정보와 문제 데이터 수집을 자동화합니다.",
+        "저작권이 명확하지 않은 문제 데이터에 대해 삭제 요청 정책과 출처 관리 체계를 설계합니다.",
+      ],
+      noteSlug: "goorm-bank-retrospective",
+    },
+  ],
   relatedNoteSlugs: [
     "eks-observability-cloudwatch-opensearch",
     "fluentbit-cloudwatch-log-pipeline",

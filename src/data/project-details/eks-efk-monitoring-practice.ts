@@ -453,22 +453,25 @@ export const eksEfkMonitoringPracticeDetail: ProjectDetail = {
       icon: "KeyRound",
     },
   ],
-  retrospective: {
-    learned: [
-      "EKS는 Kubernetes를 완전히 숨겨주는 서비스가 아니라, 컨트롤 플레인을 관리형으로 제공하고 사용자가 워커 노드와 리소스 배포 구조를 이해해야 제대로 운영할 수 있다는 점을 배웠다.",
-      "Pod, Deployment, Service, DaemonSet, ServiceAccount, ClusterRole 같은 Kubernetes 리소스가 각각 어떤 운영 문제를 해결하기 위해 존재하는지 실습으로 이해했다.",
-      "로그 수집은 단순히 파일을 모으는 작업이 아니라, 장애 분석과 사용 패턴 파악을 위한 데이터 파이프라인이라는 점을 체감했다.",
-      "모니터링은 그래프를 보는 것에서 끝나지 않고, 임계치 기반 알림과 대응 흐름까지 연결되어야 운영 가치가 생긴다는 점을 배웠다.",
-      "Webhook URL처럼 민감한 값은 KMS로 암호화하고, Lambda 실행 역할에는 필요한 최소 권한을 부여해야 한다는 보안 관점을 익혔다.",
-    ],
-    improvement: [
-      "ElasticSearch를 Deployment가 아닌 StatefulSet으로 배포하고 Persistent Volume을 연결해 상태 저장 서비스에 맞는 구조로 개선한다.",
-      "Fluentd의 hostPath 의존을 줄이고, 로그 수집 경로와 보존 정책을 더 명확히 정의한다.",
-      "CloudWatch 알림을 CPU뿐 아니라 메모리, 디스크, 네트워크, Pod 상태 등으로 확장한다.",
-      "수동 스케일링이 아니라 HPA, Cluster Autoscaler와 연계해 경보 이후 자동 대응 흐름을 실험한다.",
-      "eksctl 명령 중심 구성에서 Terraform 또는 Helm 기반 재현 가능한 IaC 구성으로 발전시킨다.",
-    ],
-    noteSlug: "",
-  },
+  retrospectives: [
+    {
+      title: "회고",
+      learned: [
+        "EKS는 Kubernetes를 완전히 숨겨주는 서비스가 아니라, 컨트롤 플레인을 관리형으로 제공하고 사용자가 워커 노드와 리소스 배포 구조를 이해해야 제대로 운영할 수 있다는 점을 배웠다.",
+        "Pod, Deployment, Service, DaemonSet, ServiceAccount, ClusterRole 같은 Kubernetes 리소스가 각각 어떤 운영 문제를 해결하기 위해 존재하는지 실습으로 이해했다.",
+        "로그 수집은 단순히 파일을 모으는 작업이 아니라, 장애 분석과 사용 패턴 파악을 위한 데이터 파이프라인이라는 점을 체감했다.",
+        "모니터링은 그래프를 보는 것에서 끝나지 않고, 임계치 기반 알림과 대응 흐름까지 연결되어야 운영 가치가 생긴다는 점을 배웠다.",
+        "Webhook URL처럼 민감한 값은 KMS로 암호화하고, Lambda 실행 역할에는 필요한 최소 권한을 부여해야 한다는 보안 관점을 익혔다.",
+      ],
+      improvement: [
+        "ElasticSearch를 Deployment가 아닌 StatefulSet으로 배포하고 Persistent Volume을 연결해 상태 저장 서비스에 맞는 구조로 개선한다.",
+        "Fluentd의 hostPath 의존을 줄이고, 로그 수집 경로와 보존 정책을 더 명확히 정의한다.",
+        "CloudWatch 알림을 CPU뿐 아니라 메모리, 디스크, 네트워크, Pod 상태 등으로 확장한다.",
+        "수동 스케일링이 아니라 HPA, Cluster Autoscaler와 연계해 경보 이후 자동 대응 흐름을 실험한다.",
+        "eksctl 명령 중심 구성에서 Terraform 또는 Helm 기반 재현 가능한 IaC 구성으로 발전시킨다.",
+      ],
+      noteSlug: "",
+    },
+  ],
   relatedNoteSlugs: [],
 };
