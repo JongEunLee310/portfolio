@@ -93,7 +93,7 @@ function DesktopTimeline({ groups }: { groups: YearGroup[] }) {
               {year}
             </span>
           </div>
-          {rows.map((row, i) => (
+          {rows.map((row) => (
             <div key={`${row.left?.title ?? ""}-${row.right?.title ?? ""}`} className="relative mb-6 grid grid-cols-[1fr_2.5rem_1fr] items-start last:mb-0">
               {/* 왼쪽 */}
               <div className="pr-6">

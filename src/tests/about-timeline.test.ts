@@ -25,8 +25,8 @@ describe("buildYearGroups", () => {
       makeItem("project", "2026.04 ~ 진행 중", "AI Pipeline"),
     ];
     const groups = buildYearGroups(items);
-    expect(groups[0].year).toBe(2026);
-    expect(groups[1].year).toBe(2017);
+    expect(groups[0]?.year).toBe(2026);
+    expect(groups[1]?.year).toBe(2017);
   });
 
   it("type === 'project' 항목은 right에, 나머지는 left에 배치한다", () => {
@@ -36,8 +36,8 @@ describe("buildYearGroups", () => {
       makeItem("career", "2025.05 ~ 2025.07", "가사도우미"),
     ];
     const groups = buildYearGroups(items);
-    expect(groups[0].year).toBe(2025);
-    const { rows } = groups[0];
+    expect(groups[0]?.year).toBe(2025);
+    const { rows } = groups[0]!;
     const rightItems = rows.map((r) => r.right).filter(Boolean);
     const leftItems = rows.map((r) => r.left).filter(Boolean);
     expect(rightItems).toHaveLength(1);
@@ -51,8 +51,8 @@ describe("buildYearGroups", () => {
       makeItem("career", "2025.05 ~ 2025.07", "가사도우미"),
     ];
     const groups = buildYearGroups(items);
-    expect(groups[0].rows).toHaveLength(2);
-    expect(groups[0].rows[0].right).toBeNull();
-    expect(groups[0].rows[1].right).toBeNull();
+    expect(groups[0]?.rows).toHaveLength(2);
+    expect(groups[0]?.rows[0]?.right).toBeNull();
+    expect(groups[0]?.rows[1]?.right).toBeNull();
   });
 });
