@@ -4,7 +4,7 @@
 
 ## 배경
 
-AI DevOps 프로젝트에 MSA 전환 회고(`ai-devops-retrospective`) 외에 전체 프로젝트 회고(`project-retrospective.md`)가 추가됐다. 프로젝트 상세 페이지에서 두 회고를 모두 표시해야 한다.
+AI DevOps 프로젝트에 MSA 전환 회고(`ai-devops-retrospective`) 외에 전체 프로젝트 회고 문서가 추가됐다. 프로젝트 상세 페이지에서 두 회고를 모두 표시해야 한다.
 
 ## 결정
 
@@ -37,7 +37,7 @@ retrospectives: Array<{
 retrospectives: [
   {
     title: "전체 프로젝트 회고",
-    learned: [...],      // project-retrospective.md 기반 신규 작성
+    learned: [...],      // 전체 프로젝트 회고 문서 기반 신규 작성
     improvement: [...],
     noteSlug: "ai-devops-project-retrospective",
   },
@@ -75,7 +75,7 @@ retrospectives: [
 
 ### UI 컴포넌트
 
-`ProjectClosingCardsSection.tsx` 회고 카드를 케로셀 패턴으로 변경한다.
+`src/components/project/ProjectClosingCardsSection.tsx` 회고 카드를 케로셀 패턴으로 변경한다.
 
 - `retrospectives.length === 1`: 단일 레이아웃 (케로셀 UI 없음)
 - `retrospectives.length > 1`: 케로셀. 상단 좌우 화살표 + 하단 dot indicator
@@ -92,7 +92,7 @@ retrospectives: [
 전체 프로젝트 회고를 기술 노트로 추가한다.
 
 - `src/data/notes/ai-devops-project-retrospective.ts` (메타)
-- `src/data/note-details/ai-devops-project-retrospective.ts` (상세, `project-retrospective.md` 기반)
+- `src/data/note-details/ai-devops-project-retrospective.ts` (상세, 전체 프로젝트 회고 문서 기반)
 - `src/data/noteDetails.ts`에 export 추가
 - `src/data/technicalNotes.ts`에 목록 추가
 
@@ -118,4 +118,4 @@ retrospectives: [
 
 - 컴포넌트는 데이터를 직접 import하지 않는다 (`components -> data` 금지).
 - 화면 문구는 `src/data`에서 관리한다.
-- 노트 콘텐츠는 `project-retrospective.md` 실제 내용을 기반으로 작성한다. 일반 예시 코드나 근거 없는 수치는 포함하지 않는다.
+- 노트 콘텐츠는 전체 프로젝트 회고 문서의 실제 내용을 기반으로 작성한다. 일반 예시 코드나 근거 없는 수치는 포함하지 않는다.

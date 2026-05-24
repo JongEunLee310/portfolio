@@ -105,7 +105,7 @@ Expected: 7개 project-details 파일에서 `retrospective` 프로퍼티 오류 
 
 각 파일에서 `retrospective: { learned: [...], improvement: [...], noteSlug?: "..." }` 패턴을 아래와 같이 감싼다. `title`은 `"회고"`로 통일한다.
 
-- [ ] **Step 1: `halo.ts` — 배열 감싸기**
+- [ ] **Step 1: `src/data/project-details/halo.ts` — 배열 감싸기**
 
 ```typescript
 // 변경 전
@@ -126,7 +126,7 @@ Expected: 7개 project-details 파일에서 `retrospective` 프로퍼티 오류 
   ],
 ```
 
-- [ ] **Step 2: `arm-embedded-cnn-mixed-precision.ts` — 배열 감싸기**
+- [ ] **Step 2: `src/data/project-details/arm-embedded-cnn-mixed-precision.ts` — 배열 감싸기**
 
 ```typescript
 // 변경 전
@@ -147,7 +147,7 @@ Expected: 7개 project-details 파일에서 `retrospective` 프로퍼티 오류 
   ],
 ```
 
-- [ ] **Step 3: `eks-efk-monitoring-practice.ts` — 배열 감싸기**
+- [ ] **Step 3: `src/data/project-details/eks-efk-monitoring-practice.ts` — 배열 감싸기**
 
 ```typescript
 // 변경 전
@@ -168,7 +168,7 @@ Expected: 7개 project-details 파일에서 `retrospective` 프로퍼티 오류 
   ],
 ```
 
-- [ ] **Step 4: `goorm-bank-problem-bank.ts` — 배열 감싸기**
+- [ ] **Step 4: `src/data/project-details/goorm-bank-problem-bank.ts` — 배열 감싸기**
 
 ```typescript
 // 변경 전
@@ -189,7 +189,7 @@ Expected: 7개 project-details 파일에서 `retrospective` 프로퍼티 오류 
   ],
 ```
 
-- [ ] **Step 5: `smart-farm.ts` — 배열 감싸기**
+- [ ] **Step 5: `src/data/project-details/smart-farm.ts` — 배열 감싸기**
 
 ```typescript
 // 변경 전
@@ -210,7 +210,7 @@ Expected: 7개 project-details 파일에서 `retrospective` 프로퍼티 오류 
   ],
 ```
 
-- [ ] **Step 6: `the-listening-tree.ts` — 배열 감싸기**
+- [ ] **Step 6: `src/data/project-details/the-listening-tree.ts` — 배열 감싸기**
 
 ```typescript
 // 변경 전
@@ -409,7 +409,7 @@ export const aiDevopsProjectRetrospectiveDetail: TechnicalNoteDetail = {
 - Modify: `src/data/technicalNotes.ts`
 - Modify: `src/data/noteDetails.ts`
 
-- [ ] **Step 1: `technicalNotes.ts` — import 추가**
+- [ ] **Step 1: `src/data/technicalNotes.ts` — import 추가**
 
 파일 상단 import 목록 중 `aiDevopsRetrospective` import 바로 다음 줄에 추가한다.
 
@@ -417,7 +417,7 @@ export const aiDevopsProjectRetrospectiveDetail: TechnicalNoteDetail = {
 import { aiDevopsProjectRetrospective } from "./notes/ai-devops-project-retrospective";
 ```
 
-- [ ] **Step 2: `technicalNotes.ts` — 배열에 추가**
+- [ ] **Step 2: `src/data/technicalNotes.ts` — 배열에 추가**
 
 `technicalNotes` 배열에서 `aiDevopsRetrospective` 항목을 찾아 그 바로 앞에 추가한다 (전체 회고가 먼저 나오도록).
 
@@ -430,7 +430,7 @@ export const technicalNotes: TechnicalNoteCard[] = [
 ];
 ```
 
-- [ ] **Step 3: `noteDetails.ts` — import 추가**
+- [ ] **Step 3: `src/data/noteDetails.ts` — import 추가**
 
 파일 상단 import 목록 중 `aiDevopsRetrospectiveDetail` import 바로 다음 줄에 추가한다.
 
@@ -438,7 +438,7 @@ export const technicalNotes: TechnicalNoteCard[] = [
 import { aiDevopsProjectRetrospectiveDetail } from "./note-details/ai-devops-project-retrospective";
 ```
 
-- [ ] **Step 4: `noteDetails.ts` — 배열에 추가**
+- [ ] **Step 4: `src/data/noteDetails.ts` — 배열에 추가**
 
 `noteDetails` 배열에서 `aiDevopsRetrospectiveDetail` 항목을 찾아 그 바로 앞에 추가한다.
 
