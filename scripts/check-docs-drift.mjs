@@ -55,6 +55,7 @@ async function main() {
     for (const reference of references) {
       if (
         reference.startsWith("http") ||
+        path.isAbsolute(reference) ||
         reference.startsWith("./") ||
         reference.startsWith("../")
       ) {

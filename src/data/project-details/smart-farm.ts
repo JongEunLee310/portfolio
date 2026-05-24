@@ -387,19 +387,22 @@ export const smartFarmDetail: ProjectDetail = {
       icon: "Cloud",
     },
   ],
-  retrospective: {
-    learned: [
-      "수집, 저장, 이상 감지, 알림, 제어까지 이어지는 전체 IoT 서비스 흐름을 경험했다.",
-      "원격지 장비와 서버를 연결할 때는 API 설계뿐 아니라 통신 프로토콜, 데이터 수집 안정성, 장애 대응까지 고려해야 한다는 점을 배웠다.",
-      "Data Collector와 Device Controller처럼 데이터 수집과 제어 책임을 분리하는 설계가 중요했다.",
-    ],
-    improvement: [
-      "데이터 수집 실패나 비정상 데이터 정상화 로직에 대한 정량 지표를 추가로 측정한다.",
-      "DB 이중화 구성 방식과 장애 복구 시나리오를 더 구체적으로 문서화한다.",
-      "향후 Big Data 또는 AI 기반 예측 모델을 적용해 이상 감지를 고도화한다.",
-    ],
-    noteSlug: "smart-farm-retrospective",
-  },
+  retrospectives: [
+    {
+      title: "회고",
+      learned: [
+        "수집, 저장, 이상 감지, 알림, 제어까지 이어지는 전체 IoT 서비스 흐름을 경험했다.",
+        "원격지 장비와 서버를 연결할 때는 API 설계뿐 아니라 통신 프로토콜, 데이터 수집 안정성, 장애 대응까지 고려해야 한다는 점을 배웠다.",
+        "Data Collector와 Device Controller처럼 데이터 수집과 제어 책임을 분리하는 설계가 중요했다.",
+      ],
+      improvement: [
+        "데이터 수집 실패나 비정상 데이터 정상화 로직에 대한 정량 지표를 추가로 측정한다.",
+        "DB 이중화 구성 방식과 장애 복구 시나리오를 더 구체적으로 문서화한다.",
+        "향후 Big Data 또는 AI 기반 예측 모델을 적용해 이상 감지를 고도화한다.",
+      ],
+      noteSlug: "smart-farm-retrospective",
+    },
+  ],
   relatedNoteSlugs: [
     "smart-farm-data-collector-recovery",
     "smart-farm-db-replication",

@@ -1,4 +1,5 @@
 import type { TechnicalNoteDetail } from "@/types/note";
+import { aiDevopsProjectRetrospectiveDetail } from "./note-details/ai-devops-project-retrospective";
 import { aiDevopsRetrospectiveDetail } from "./note-details/ai-devops-retrospective";
 import { aiLogAnalysisLatencyDetail } from "./note-details/ai-log-analysis-latency";
 import { asyncPipelineTransitionDetail } from "./note-details/async-pipeline-transition";
@@ -18,6 +19,17 @@ import { eventSchemaVersioningDeployOrderDetail } from "./note-details/event-sch
 import { crossServiceJoinDbSeparationDetail } from "./note-details/cross-service-join-db-separation";
 import { msaLoadTestThreadpoolOwnershipDetail } from "./note-details/msa-load-test-threadpool-ownership";
 import { msaDbSplitIntegrationTestDetail } from "./note-details/msa-db-split-integration-test";
+import { statisticConcurrencyOptimisticLockDetail } from "./note-details/statistic-concurrency-optimistic-lock";
+import { reissueInfiniteRequestDetail } from "./note-details/reissue-infinite-request";
+import { nPlusOnePreventionQuerydslProjectionDetail } from "./note-details/n-plus-one-prevention-querydsl-projection";
+import { multiModuleSharedDomainPortPatternDetail } from "./note-details/multi-module-shared-domain-port-pattern";
+import { weeklySettlementSchedulerIdempotencyDetail } from "./note-details/weekly-settlement-scheduler-idempotency";
+import { multiEnvironmentLoginTokenOverwriteDetail } from "./note-details/multi-environment-login-token-overwrite";
+import { albCorsTroubleshootingDetail } from "./note-details/alb-cors-troubleshooting";
+import { fileUploadDeleteApiSeparationDetail } from "./note-details/file-upload-delete-api-separation";
+import { querydslInfoLayerDataFlowDetail } from "./note-details/querydsl-info-layer-data-flow";
+import { domainModuleBoundaryFromMonolithDetail } from "./note-details/domain-module-boundary-from-monolith";
+import { haloRetrospectiveDetail } from "./note-details/halo-retrospective";
 
 export const noteDetails: TechnicalNoteDetail[] = [
   dbRoundTripOptimizationDetail,
@@ -25,6 +37,7 @@ export const noteDetails: TechnicalNoteDetail[] = [
   rabbitmqEventTopologyDetail,
   aiLogAnalysisLatencyDetail,
   metricCardinalityTroubleshootingDetail,
+  aiDevopsProjectRetrospectiveDetail,
   aiDevopsRetrospectiveDetail,
   asyncSessionJoinOptimizationDetail,
   celeryPreforkAsyncioNullpoolDetail,
@@ -39,4 +52,15 @@ export const noteDetails: TechnicalNoteDetail[] = [
   crossServiceJoinDbSeparationDetail,
   msaLoadTestThreadpoolOwnershipDetail,
   msaDbSplitIntegrationTestDetail,
+  statisticConcurrencyOptimisticLockDetail,
+  reissueInfiniteRequestDetail,
+  nPlusOnePreventionQuerydslProjectionDetail,
+  multiModuleSharedDomainPortPatternDetail,
+  weeklySettlementSchedulerIdempotencyDetail,
+  multiEnvironmentLoginTokenOverwriteDetail,
+  albCorsTroubleshootingDetail,
+  fileUploadDeleteApiSeparationDetail,
+  querydslInfoLayerDataFlowDetail,
+  domainModuleBoundaryFromMonolithDetail,
+  haloRetrospectiveDetail,
 ];

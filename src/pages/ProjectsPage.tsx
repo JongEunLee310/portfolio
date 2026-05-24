@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { EmptyState } from "@/components/common/EmptyState";
 import { PageHero } from "@/components/hero/PageHero";
@@ -166,6 +166,7 @@ function getTechOptions() {
 export function ProjectsPage() {
   useSeo(seoConfig[PATHS.projects].title);
   const { resolvedTheme } = useTheme();
+  const listSectionRef = useRef<HTMLElement>(null);
   const [filters, setFilters] = useState<ProjectFilterState>({
     category: "all",
     techStacks: [],
@@ -176,8 +177,20 @@ export function ProjectsPage() {
   const [viewMode, setViewMode] = useState<ProjectViewMode>("grid");
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = Number(searchParams.get("page") ?? "1");
-  const setCurrentPage = (page: number) =>
+  const scrollToListTop = () => {
+    window.requestAnimationFrame(() => {
+      const top =
+        (listSectionRef.current?.getBoundingClientRect().top ?? 0) +
+        window.scrollY -
+        80;
+
+      window.scrollTo({ top: Math.max(0, top), left: 0, behavior: "auto" });
+    });
+  };
+  const setCurrentPage = (page: number) => {
     setSearchParams({ page: String(page) }, { replace: true });
+    scrollToListTop();
+  };
 
   const categoryCounts = useMemo(() => countByCategory(), []);
   const typeCounts = useMemo(() => countByType(), []);
@@ -211,9 +224,12 @@ export function ProjectsPage() {
   return (
     <PageLayout {...pageChrome}>
       <PageHero {...pageHeroes.projects} variant={resolvedTheme} />
-      <section className={`${themeSurface.lightBand} pb-16 lg:pb-20`}>
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-6 lg:grid-cols-[14rem_minmax(0,1fr)]">
+      <section
+        ref={listSectionRef}
+        className={`${themeSurface.lightBand} pt-8 pb-16 lg:pt-10 lg:pb-20`}
+      >
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          <div className="grid w-full min-w-0 max-w-full gap-6 lg:grid-cols-[14rem_minmax(0,1fr)]">
             <div className="lg:col-start-2">
               <ProjectListToolbar
                 content={projectListContent}
@@ -236,7 +252,7 @@ export function ProjectsPage() {
               counts={{ byCategory: categoryCounts, byType: typeCounts }}
               onChange={updateFilters}
             />
-            <main className="min-w-0 lg:col-start-2 lg:row-start-2">
+            <main className="w-full min-w-0 max-w-full lg:col-start-2 lg:row-start-2">
               {visibleProjects.length > 0 ? (
                 <ProjectGrid
                   projects={visibleProjects}

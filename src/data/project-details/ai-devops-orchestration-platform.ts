@@ -592,21 +592,41 @@ export const aiDevopsOrchestrationPlatformDetail: ProjectDetail = {
       icon: "FileText",
     },
   ],
-  retrospective: {
-    learned: [
-      "MSA 전환의 목적은 단일 인스턴스 처리량 향상이 아니라 독립 배포, 독립 확장, 장애 격리입니다. 로컬 단일 인스턴스 기준에서 MSA는 모놀리스보다 느릴 수 있습니다.",
-      "FastAPI BackgroundTasks는 내구성이 필요한 실행 작업에 부적합합니다. Celery + Redis는 프로세스를 분리하지만 코드베이스를 공유해 진정한 서비스 경계가 아닙니다.",
-      "RabbitMQ topic exchange는 routing key 패턴 매칭으로 이벤트 타입 증가에 유연하게 대응할 수 있습니다.",
-      "uv workspace 모노레포에서 공유 라이브러리로 이벤트 스키마를 관리하면 publisher/consumer 간 계약 드리프트를 컴파일 타임에 차단할 수 있습니다.",
-    ],
-    improvement: [
-      "REST vs gRPC 조회 프록시 비교 실험 (ADR-015 Track A/B)",
-      "클라우드 환경 부하 테스트 재측정 (로컬 Docker Desktop VM 오버헤드 배제)",
-      "CI/CD 파이프라인 구축 (GitLab CI, ADR-017 기준)",
-      "Kubernetes 도입 (ADR-016)",
-    ],
-    noteSlug: "ai-devops-retrospective",
-  },
+  retrospectives: [
+    {
+      title: "전체 프로젝트 회고",
+      learned: [
+        "각 단계는 다음 단계의 이유를 만들었습니다. 직접 구현하고 한계를 경험했기 때문에 다음 단계의 판단이 근거 있었습니다. 처음부터 MSA로 시작했다면 각 선택의 근거를 가질 수 없었습니다.",
+        "실패한 접근이 문서화되지 않으면 반복됩니다. BackgroundTasks·Celery를 채택하지 않은 이유가 실패 결정으로 기록됐고, 이 문서가 AI 보조 개발에서 세션 간 맥락의 복원 지점이 됐습니다.",
+        "설계 문서의 역할은 계획 확정이 아니라 결정 추적입니다. 구현 중에 더 나은 판단이 생기면 설계 문서도 바뀌어야 합니다.",
+        "단위·통합 테스트가 통과해도 서비스 간 HTTP 계약 불일치 버그가 존재할 수 있습니다. 이벤트 스키마를 공유 패키지로 관리한 이유입니다.",
+        "MSA는 서비스를 분리하는 것이 아니라 서비스 간 계약과 경계를 설계하는 것입니다.",
+      ],
+      improvement: [
+        "REST vs gRPC 조회 프록시 비교 실험 (ADR-015 Track A/B)",
+        "클라우드 환경 부하 테스트 재측정 (로컬 Docker Desktop VM 오버헤드 배제)",
+        "CI/CD 파이프라인 구축 (GitLab CI, ADR-017 기준)",
+        "Kubernetes 도입 (ADR-016)",
+      ],
+      noteSlug: "ai-devops-project-retrospective",
+    },
+    {
+      title: "MSA 전환 회고",
+      learned: [
+        "MSA 전환의 목적은 단일 인스턴스 처리량 향상이 아니라 독립 배포, 독립 확장, 장애 격리입니다. 로컬 단일 인스턴스 기준에서 MSA는 모놀리스보다 느릴 수 있습니다.",
+        "FastAPI BackgroundTasks는 내구성이 필요한 실행 작업에 부적합합니다. Celery + Redis는 프로세스를 분리하지만 코드베이스를 공유해 진정한 서비스 경계가 아닙니다.",
+        "RabbitMQ topic exchange는 routing key 패턴 매칭으로 이벤트 타입 증가에 유연하게 대응할 수 있습니다.",
+        "uv workspace 모노레포에서 공유 라이브러리로 이벤트 스키마를 관리하면 publisher/consumer 간 계약 드리프트를 컴파일 타임에 차단할 수 있습니다.",
+      ],
+      improvement: [
+        "REST vs gRPC 조회 프록시 비교 실험 (ADR-015 Track A/B)",
+        "클라우드 환경 부하 테스트 재측정 (로컬 Docker Desktop VM 오버헤드 배제)",
+        "CI/CD 파이프라인 구축 (GitLab CI, ADR-017 기준)",
+        "Kubernetes 도입 (ADR-016)",
+      ],
+      noteSlug: "ai-devops-retrospective",
+    },
+  ],
   relatedNoteSlugs: [
     "async-pipeline-transition",
     "rabbitmq-event-topology",
@@ -627,5 +647,6 @@ export const aiDevopsOrchestrationPlatformDetail: ProjectDetail = {
     "cross-service-join-db-separation",
     "msa-load-test-threadpool-ownership",
     "msa-db-split-integration-test",
+    "ai-devops-project-retrospective",
   ],
 };

@@ -23,6 +23,18 @@ const modeIcons: Record<ThemeMode, ComponentType<{ className?: string }>> = {
   system: Monitor,
 };
 
+const resolvedThemeIcons: Record<
+  ResolvedTheme,
+  ComponentType<{ className?: string }>
+> = {
+  light: Sun,
+  dark: Moon,
+};
+
+function getModeIcon(mode: ThemeMode, resolvedTheme: ResolvedTheme) {
+  return mode === "auto" ? resolvedThemeIcons[resolvedTheme] : modeIcons[mode];
+}
+
 export function ThemeModeControl({
   label,
   menuLabel,
@@ -35,7 +47,7 @@ export function ThemeModeControl({
   const [isOpen, setIsOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const TriggerIcon = modeIcons[mode];
+  const TriggerIcon = getModeIcon(mode, resolvedTheme);
   const currentOption = options.find((option) => option.value === mode);
 
   useEffect(() => {
@@ -88,7 +100,7 @@ export function ThemeModeControl({
             {currentPrefix}: {resolvedTheme}
           </p>
           {options.map((option) => {
-            const Icon = modeIcons[option.value];
+            const Icon = getModeIcon(option.value, resolvedTheme);
             const isSelected = option.value === mode;
 
             return (

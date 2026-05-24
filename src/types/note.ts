@@ -16,6 +16,7 @@ export type NoteViewMode = "grid" | "list";
 export type NoteFilterState = {
   category: NoteFilterValue;
   tags: string[];
+  projectSlugs: string[];
 };
 
 export type NoteDetailTemplate =

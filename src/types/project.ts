@@ -146,10 +146,11 @@ export type ProjectDetail = ProjectCard & {
   }[];
   improvements?: ProjectImprovement[];
   performance: Metric[];
-  retrospective: {
+  retrospectives: Array<{
+    title: string;
     learned: string[];
     improvement: string[];
     noteSlug?: string;
-  };
+  }>;
   relatedNoteSlugs: string[];
 };

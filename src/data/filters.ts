@@ -122,6 +122,7 @@ export const noteSidebarContent = {
   title: "필터",
   categoryTitle: "문서 유형",
   tagTitle: "기술 태그",
+  projectTitle: "관련 프로젝트",
   moreLabel: "더 보기",
   lessLabel: "접기",
 } as const;
