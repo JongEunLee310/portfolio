@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { EmptyState } from "@/components/common/EmptyState";
 import { PageHero } from "@/components/hero/PageHero";
@@ -17,6 +17,7 @@ import {
   noteViewModeOptions,
 } from "@/data/filters";
 import { pageHeroes } from "@/data/hero";
+import { projects } from "@/data/projects";
 import { technicalNotes } from "@/data/technicalNotes";
 import { themeSurface } from "@/styles/classNames";
 import type {
@@ -43,7 +44,11 @@ function matchesTechnicalNoteFilter(
     filters.tags.length === 0 ||
     note.tags.some((tag) => filters.tags.includes(tag.name));
 
-  return matchesCategory && matchesTags;
+  const matchesProjects =
+    filters.projectSlugs.length === 0 ||
+    note.relatedProjectSlugs?.some((slug) => filters.projectSlugs.includes(slug));
+
+  return matchesCategory && matchesTags && matchesProjects;
 }
 
 function parseNoteDate(note: TechnicalNoteCard) {
@@ -94,22 +99,55 @@ function getTagOptions() {
     .sort((optionA, optionB) => optionB.count - optionA.count);
 }
 
+function getProjectOptions() {
+  const counts = technicalNotes.reduce<Record<string, number>>((acc, note) => {
+    for (const slug of note.relatedProjectSlugs ?? []) {
+      acc[slug] = (acc[slug] ?? 0) + 1;
+    }
+
+    return acc;
+  }, {});
+
+  return projects
+    .map((project) => ({
+      label: project.title,
+      value: project.slug,
+      count: counts[project.slug] ?? 0,
+    }))
+    .filter((option) => option.count > 0);
+}
+
 export function TechnicalNotesPage() {
   useSeo(seoConfig[PATHS.technicalNotes].title);
   const { resolvedTheme } = useTheme();
+  const listSectionRef = useRef<HTMLElement>(null);
   const [filters, setFilters] = useState<NoteFilterState>({
     category: "all",
     tags: [],
+    projectSlugs: [],
   });
   const [sort, setSort] = useState<NoteSortValue>("latest");
   const [viewMode, setViewMode] = useState<NoteViewMode>("grid");
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = Number(searchParams.get("page") ?? "1");
-  const setCurrentPage = (page: number) =>
+  const scrollToListTop = () => {
+    window.requestAnimationFrame(() => {
+      const top =
+        (listSectionRef.current?.getBoundingClientRect().top ?? 0) +
+        window.scrollY -
+        80;
+
+      window.scrollTo({ top: Math.max(0, top), left: 0, behavior: "auto" });
+    });
+  };
+  const setCurrentPage = (page: number) => {
     setSearchParams({ page: String(page) }, { replace: true });
+    scrollToListTop();
+  };
 
   const categoryCounts = useMemo(() => countByCategory(), []);
   const tagOptions = useMemo(() => getTagOptions(), []);
+  const projectOptions = useMemo(() => getProjectOptions(), []);
 
   const filteredNotes = useMemo(
     () =>
@@ -140,7 +178,10 @@ export function TechnicalNotesPage() {
   return (
     <PageLayout {...pageChrome}>
       <PageHero {...pageHeroes.technicalNotes} variant={resolvedTheme} />
-      <section className={`${themeSurface.lightBand} pb-16 lg:pb-20`}>
+      <section
+        ref={listSectionRef}
+        className={`${themeSurface.lightBand} pt-8 pb-16 lg:pt-10 lg:pb-20`}
+      >
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           <div className="grid w-full min-w-0 max-w-full gap-6 lg:grid-cols-[14rem_minmax(0,1fr)]">
             <div className="lg:col-start-2">
@@ -160,6 +201,7 @@ export function TechnicalNotesPage() {
               filters={filters}
               categoryOptions={noteCategoryFilters}
               tagOptions={tagOptions}
+              projectOptions={projectOptions}
               counts={{
                 byCategory: categoryCounts,
               }}
