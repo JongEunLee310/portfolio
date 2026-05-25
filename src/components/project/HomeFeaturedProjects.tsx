@@ -1,8 +1,7 @@
-import { ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/common/Badge";
 import { TechTag } from "@/components/common/TechTag";
-import { button, surface } from "@/styles/classNames";
+import { surface } from "@/styles/classNames";
 import type { ProjectCard } from "@/types/project";
 
 type HomeFeaturedProjectsProps = {
@@ -25,8 +24,9 @@ export function HomeFeaturedProjects({
     <div>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {primaryProject ? (
-          <article
-            className={`${surface.darkCard} flex min-h-[420px] flex-col justify-between p-8 text-[var(--color-page-text)] lg:col-span-2`}
+          <Link
+            to={primaryProject.links.detail}
+            className={`${surface.darkCard} flex min-h-[420px] flex-col justify-between p-8 text-[var(--color-page-text)] transition duration-300 hover:-translate-y-1 hover:shadow-card-hover lg:col-span-2`}
           >
             <div>
               <Badge variant="dark">{getProjectLabel(primaryProject)}</Badge>
@@ -45,27 +45,12 @@ export function HomeFeaturedProjects({
                 ))}
               </div>
             </div>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to={primaryProject.links.detail} className={button.primary}>
-                상세 보기
-              </Link>
-              {primaryProject.links.github ? (
-                <a
-                  href={primaryProject.links.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`${button.outline} gap-2`}
-                >
-                  GitHub
-                  <ExternalLink className="h-4 w-4" />
-                </a>
-              ) : null}
-            </div>
-          </article>
+          </Link>
         ) : null}
 
         {secondaryProject ? (
-          <article
+          <Link
+            to={secondaryProject.links.detail}
             className={`${surface.card} overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-card-hover`}
           >
             <div className="aspect-[16/10] overflow-hidden bg-[var(--color-surface-muted)]">
@@ -91,14 +76,8 @@ export function HomeFeaturedProjects({
                   />
                 ))}
               </div>
-              <Link
-                to={secondaryProject.links.detail}
-                className={`${button.primary} mt-6`}
-              >
-                상세 보기
-              </Link>
             </div>
-          </article>
+          </Link>
         ) : null}
       </div>
 
@@ -107,8 +86,9 @@ export function HomeFeaturedProjects({
           <h3 className="text-lg font-bold text-[var(--color-page-text)]">기타 프로젝트</h3>
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
             {others.map((project) => (
-              <article
+              <Link
                 key={project.slug}
+                to={project.links.detail}
                 className={`${surface.card} flex gap-4 p-4 transition duration-300 hover:-translate-y-1 hover:shadow-card-hover`}
               >
                 <div className="h-16 w-24 flex-none overflow-hidden rounded-xl bg-[var(--color-surface-muted)]">
@@ -130,14 +110,8 @@ export function HomeFeaturedProjects({
                       <TechTag key={`${project.slug}-${tag.name}`} tag={tag} />
                     ))}
                   </div>
-                  <Link
-                    to={project.links.detail}
-                    className="mt-4 inline-flex text-sm font-semibold text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)]"
-                  >
-                    상세 보기
-                  </Link>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </section>
