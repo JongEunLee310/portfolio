@@ -36,11 +36,19 @@ import { dbRoundTripOptimization } from "./notes/db-round-trip-optimization";
 import { metricCardinalityTroubleshooting } from "./notes/metric-cardinality-troubleshooting";
 import { querydslProjectionOptimization } from "./notes/querydsl-projection-optimization";
 import { rabbitmqEventTopology } from "./notes/rabbitmq-event-topology";
-import { smartFarmApiServerDesign } from "./notes/smart-farm-api-server-design";
-import { smartFarmDataCollectorRecovery } from "./notes/smart-farm-data-collector-recovery";
-import { smartFarmDbReplication } from "./notes/smart-farm-db-replication";
-import { smartFarmMonitoringEngine } from "./notes/smart-farm-monitoring-engine";
-import { smartFarmRemoteDeviceControl } from "./notes/smart-farm-remote-device-control";
+import { smartFarmCloudMonitoringArchitecture } from "./notes/smart-farm-cloud-monitoring-architecture";
+import { smartFarmRetrospective } from "./notes/smart-farm-retrospective";
+import { sensorDataFlowResponsibilitySeparation } from "./notes/sensor-data-flow-responsibility-separation";
+import { sensorRestIngestionValidation } from "./notes/sensor-rest-ingestion-validation";
+import { duplicateSensorDataIdempotency } from "./notes/duplicate-sensor-data-idempotency";
+import { sensorTimestampMeasurementStorageMismatch } from "./notes/sensor-timestamp-measurement-storage-mismatch";
+import { sensorLogTableGrowthQueryDegradation } from "./notes/sensor-log-table-growth-query-degradation";
+import { latestSensorValueQueryOptimization } from "./notes/latest-sensor-value-query-optimization";
+import { sensorThresholdAlertFalsePositive } from "./notes/sensor-threshold-alert-false-positive";
+import { realtimeDashboardRefreshDelay } from "./notes/realtime-dashboard-refresh-delay";
+import { abnormalSensorValueDetection } from "./notes/abnormal-sensor-value-detection";
+import { remoteControlDeviceStateMismatch } from "./notes/remote-control-device-state-mismatch";
+import { remoteControlRetryPolicy } from "./notes/remote-control-retry-policy";
 import { noteCnnLightweightOptimization } from "./notes/note-cnn-lightweight-optimization";
 import { noteYolov3TinyLayerArchitecture } from "./notes/note-yolov3-tiny-layer-architecture";
 import { noteIm2colGemmBottleneck } from "./notes/note-im2col-gemm-bottleneck";
@@ -100,11 +108,19 @@ export const technicalNotes: TechnicalNoteCard[] = [
   statelessPromptContextLoss,
   socialIdUniqueConstraintMismatch,
   llmResponseFormatNotEnforced,
-  smartFarmDataCollectorRecovery,
-  smartFarmDbReplication,
-  smartFarmRemoteDeviceControl,
-  smartFarmApiServerDesign,
-  smartFarmMonitoringEngine,
+  smartFarmRetrospective,
+  smartFarmCloudMonitoringArchitecture,
+  sensorDataFlowResponsibilitySeparation,
+  sensorRestIngestionValidation,
+  duplicateSensorDataIdempotency,
+  sensorTimestampMeasurementStorageMismatch,
+  sensorLogTableGrowthQueryDegradation,
+  latestSensorValueQueryOptimization,
+  sensorThresholdAlertFalsePositive,
+  realtimeDashboardRefreshDelay,
+  abnormalSensorValueDetection,
+  remoteControlDeviceStateMismatch,
+  remoteControlRetryPolicy,
   eksObservabilityCloudwatchOpensearch,
   fluentbitCloudwatchLogPipeline,
   jenkinsEcrArgoCdCicd,

@@ -1,5 +1,6 @@
 import { CheckCircle2 } from "lucide-react";
 import { CodeBlock } from "@/components/note/CodeBlock";
+import { MermaidBlock } from "@/components/note/MermaidBlock";
 import type { ArticleSection } from "@/types/note";
 
 type ArticleSectionRendererProps = {
@@ -85,6 +86,10 @@ export function ArticleSectionRenderer({
   }
 
   if (section.type === "code") {
+    if (section.language === "mermaid") {
+      return <MermaidBlock code={section.code} />;
+    }
+
     return (
       <CodeBlock
         code={section.code}
