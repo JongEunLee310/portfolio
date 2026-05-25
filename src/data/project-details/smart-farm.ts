@@ -298,8 +298,6 @@ export const smartFarmDetail: ProjectDetail = {
   ],
   troubleshootingNoteSlugs: [
     "smart-farm-data-collector-recovery",
-    "smart-farm-db-replication",
-    "smart-farm-remote-device-control",
   ],
   improvements: [
     {

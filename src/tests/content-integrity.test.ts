@@ -104,6 +104,20 @@ describe("content integrity", () => {
     ).toEqual([]);
   });
 
+  it("troubleshootingNoteSlugs에 참조된 note는 모두 category가 troubleshooting이어야 한다", () => {
+    const allNotes = [...technicalNotes, ...projectNoteStubs];
+    const wrong = projectDetails.flatMap((project) =>
+      project.troubleshootingNoteSlugs.filter((slug) => {
+        const note = allNotes.find((n) => n.slug === slug);
+        return note !== undefined && note.category !== "troubleshooting";
+      }),
+    );
+    expect(
+      wrong,
+      `troubleshootingNoteSlugs 중 category가 troubleshooting이 아닌 slug: ${wrong.join(", ")}`,
+    ).toEqual([]);
+  });
+
   it("기술 노트의 relatedProjectSlugs는 실제 프로젝트에 존재해야 한다", () => {
     const projectSlugs = new Set(projects.map((project) => project.slug));
     const missing = technicalNotes.flatMap((note) =>

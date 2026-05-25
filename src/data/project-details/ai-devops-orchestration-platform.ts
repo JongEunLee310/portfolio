@@ -462,12 +462,9 @@ export const aiDevopsOrchestrationPlatformDetail: ProjectDetail = {
     },
   ],
   troubleshootingNoteSlugs: [
-    "async-pipeline-transition",
     "async-sqlalchemy-eager-loading",
     "ai-devops-backgroundtasks-durability",
-    "rabbitmq-event-topology",
     "ai-devops-threadpool-saturation",
-    "async-session-join-optimization",
     "celery-prefork-asyncio-nullpool",
     "async-test-db-isolation",
   ],

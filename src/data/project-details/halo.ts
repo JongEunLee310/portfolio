@@ -380,14 +380,9 @@ export const haloDetail: ProjectDetail = {
   troubleshootingNoteSlugs: [
     "statistic-concurrency-optimistic-lock",
     "reissue-infinite-request",
-    "n-plus-one-prevention-querydsl-projection",
-    "multi-module-shared-domain-port-pattern",
     "weekly-settlement-scheduler-idempotency",
     "multi-environment-login-token-overwrite",
     "alb-cors-troubleshooting",
-    "file-upload-delete-api-separation",
-    "querydsl-info-layer-data-flow",
-    "domain-module-boundary-from-monolith",
   ],
   improvements: [
     {

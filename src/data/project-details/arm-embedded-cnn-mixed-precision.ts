@@ -571,18 +571,12 @@ export const armEmbeddedCnnMixedPrecisionDetail: ProjectDetail = {
     },
   ],
   troubleshootingNoteSlugs: [
-    "note-yolov3-tiny-layer-architecture",
-    "note-im2col-gemm-bottleneck",
     "arm-letterbox-computation-reduction",
     "arm-gemm-neighbor-pixel-failure",
-    "note-mixed-precision-cnn",
     "note-tensorflow-c-binding-arm",
     "arm-int8-image-value-loss",
     "note-int8-quantization-overflow",
     "arm-bias-quantization-failure",
-    "note-conv-maxpool-integration",
-    "note-cnn-model-extension-resnet-mobilenet",
-    "note-cnn-lightweight-optimization",
   ],
   improvements: [
     {
