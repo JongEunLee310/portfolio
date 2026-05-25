@@ -46,6 +46,19 @@ import { multirepoCIDetail } from "./note-details/multirepo-ci-duplication-and-d
 import { statelessPromptContextLossDetail } from "./note-details/stateless-prompt-context-loss";
 import { socialIdUniqueConstraintMismatchDetail } from "./note-details/social-id-unique-constraint-mismatch";
 import { llmResponseFormatNotEnforcedDetail } from "./note-details/llm-response-format-not-enforced";
+import { smartFarmCloudMonitoringArchitectureDetail } from "./note-details/smart-farm-cloud-monitoring-architecture";
+import { smartFarmRetrospectiveDetail } from "./note-details/smart-farm-retrospective";
+import { sensorDataFlowResponsibilitySeparationDetail } from "./note-details/sensor-data-flow-responsibility-separation";
+import { sensorRestIngestionValidationDetail } from "./note-details/sensor-rest-ingestion-validation";
+import { duplicateSensorDataIdempotencyDetail } from "./note-details/duplicate-sensor-data-idempotency";
+import { sensorTimestampMeasurementStorageMismatchDetail } from "./note-details/sensor-timestamp-measurement-storage-mismatch";
+import { sensorLogTableGrowthQueryDegradationDetail } from "./note-details/sensor-log-table-growth-query-degradation";
+import { latestSensorValueQueryOptimizationDetail } from "./note-details/latest-sensor-value-query-optimization";
+import { sensorThresholdAlertFalsePositiveDetail } from "./note-details/sensor-threshold-alert-false-positive";
+import { realtimeDashboardRefreshDelayDetail } from "./note-details/realtime-dashboard-refresh-delay";
+import { abnormalSensorValueDetectionDetail } from "./note-details/abnormal-sensor-value-detection";
+import { remoteControlDeviceStateMismatchDetail } from "./note-details/remote-control-device-state-mismatch";
+import { remoteControlRetryPolicyDetail } from "./note-details/remote-control-retry-policy";
 
 export const noteDetails: TechnicalNoteDetail[] = [
   dbRoundTripOptimizationDetail,
@@ -95,4 +108,17 @@ export const noteDetails: TechnicalNoteDetail[] = [
   statelessPromptContextLossDetail,
   socialIdUniqueConstraintMismatchDetail,
   llmResponseFormatNotEnforcedDetail,
+  smartFarmRetrospectiveDetail,
+  smartFarmCloudMonitoringArchitectureDetail,
+  sensorDataFlowResponsibilitySeparationDetail,
+  sensorRestIngestionValidationDetail,
+  duplicateSensorDataIdempotencyDetail,
+  sensorTimestampMeasurementStorageMismatchDetail,
+  sensorLogTableGrowthQueryDegradationDetail,
+  latestSensorValueQueryOptimizationDetail,
+  sensorThresholdAlertFalsePositiveDetail,
+  realtimeDashboardRefreshDelayDetail,
+  abnormalSensorValueDetectionDetail,
+  remoteControlDeviceStateMismatchDetail,
+  remoteControlRetryPolicyDetail,
 ];
