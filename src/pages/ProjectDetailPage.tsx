@@ -16,7 +16,8 @@ import {
   type ProjectDetailTocItem,
 } from "@/components/project/ProjectDetailToc";
 import { ProjectFeatureStripSection } from "@/components/project/ProjectFeatureStripSection";
-import { ProjectScreenshotGallerySection } from "@/components/project/ProjectScreenshotGallerySection";
+// TODO: screenshot 확보 후 활성화
+// import { ProjectScreenshotGallerySection } from "@/components/project/ProjectScreenshotGallerySection";
 import { ProjectTechStackGroupedSection } from "@/components/project/ProjectTechStackGroupedSection";
 import { PATHS } from "@/constants/paths";
 import { PROJECT_DETAIL_LABELS } from "@/constants/projectDetail";
