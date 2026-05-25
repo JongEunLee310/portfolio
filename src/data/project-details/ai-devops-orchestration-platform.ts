@@ -461,79 +461,15 @@ export const aiDevopsOrchestrationPlatformDetail: ProjectDetail = {
         "Prometheus 멀티 서비스 설정, Grafana 대시보드, Locust 부하 테스트 시나리오를 작성하고 브랜치별 성능을 측정했습니다.",
     },
   ],
-  troubleshooting: [
-    {
-      title: "DB 커넥션 풀 점유",
-      problem:
-        "POST /run이 Git clone + Job 실행 전 구간 동안 커넥션을 점유해 SELECT 쿼리 응답 시간이 수백 ms로 상승했습니다.",
-      solution:
-        "비동기화(POST /run -> 202 Accepted)로 실행 함수를 응답 경로에서 분리해 커넥션 점유 구간을 제거했습니다.",
-      result:
-        "일반 CRUD 쿼리의 대기 시간을 해소하고 비동기화 전략 선택의 계기를 만들었습니다.",
-      noteSlug: "async-pipeline-transition",
-    },
-    {
-      title: "N+1 쿼리 및 MissingGreenlet",
-      problem:
-        "async SQLAlchemy에서 ORM 관계 속성에 접근하면 MissingGreenlet 에러가 발생하거나, Job 목록 조회 시 소유권 검증을 Pipeline → Project 순서로 별도 SELECT해 요청당 3회 쿼리가 실행됐습니다.",
-      solution:
-        "contains_eager로 목록 조회 JOIN을 재활용하고, find_by_id_and_owner처럼 소유권 확인과 데이터 조회를 단일 JOIN으로 통합했습니다.",
-      result: "소유권 확인 + 데이터 조회 SELECT 3회를 1회로 줄이고 MissingGreenlet 에러를 제거했습니다.",
-      noteSlug: "async-sqlalchemy-eager-loading",
-    },
-    {
-      title: "FastAPI BackgroundTasks 내구성 부재",
-      problem:
-        "서버 재시작 시 실행 중이거나 대기 중인 태스크가 모두 인메모리에서 유실되고 retry 경로가 없었습니다.",
-      solution:
-        "Celery + Redis로 전환한 뒤 최종적으로 RabbitMQ 기반 MSA로 대체했습니다.",
-      result: "실패 결정 기록으로 보존해 같은 접근을 반복하지 않도록 했습니다.",
-      noteSlug: "async-pipeline-transition",
-    },
-    {
-      title: "RabbitMQ FieldTable 타입 불일치",
-      problem:
-        "aio-pika queue 선언 시 arguments 딕셔너리의 값 타입이 FieldTable 명세와 불일치해 런타임 오류가 발생했습니다.",
-      solution:
-        "x-dead-letter-exchange 등 DLQ 관련 arguments를 명시적 타입으로 캐스팅했습니다.",
-      result: "consumer/publisher 정상 선언 및 DLQ 연동을 완료했습니다.",
-      noteSlug: "rabbitmq-event-topology",
-    },
-    {
-      title: "ThreadPoolExecutor 포화",
-      problem:
-        "pipeline-execution-svc의 asyncio.run_in_executor 기본 max_workers=2 설정으로 동시 실행 2건 초과 시 태스크 대기가 발생했습니다.",
-      solution:
-        "max_workers를 명시적으로 확장하고 실행 흐름을 재검토했습니다.",
-      result: "100 VU 부하 테스트에서 실패율 12.9%를 해소했습니다.",
-    },
-    {
-      title: "asyncio.gather + AsyncSession 충돌",
-      problem:
-        "GET /projects 등 여러 엔드포인트에서 독립적인 두 쿼리를 asyncio.gather로 동시 실행하자 'Method close() can't be called here' 에러가 발생하며 500이 반환됐습니다.",
-      solution:
-        "AsyncSession은 단일 커넥션을 사용해 동시 접근이 불가합니다. 병렬화 대신 COUNT를 스칼라 서브쿼리로 내장하고 소유권 검증을 JOIN으로 통합해 round-trip 자체를 줄였습니다.",
-      result: "GET /projects 923ms → 642ms, POST /pipelines/{id}/jobs 1901ms → 1386ms.",
-      noteSlug: "async-session-join-optimization",
-    },
-    {
-      title: "Celery prefork event loop mismatch",
-      problem:
-        "Celery prefork worker에서 asyncio.run()을 반복 호출하자 이전 태스크가 QueuePool에 캐시한 커넥션이 닫힌 event loop에 묶여 'attached to a different loop' RuntimeError가 간헐적으로 발생하며 태스크 약 50%가 실패했습니다.",
-      solution:
-        "Celery worker 환경에서는 DB_NULL_POOL=true로 NullPool을 선택해 커넥션을 캐시하지 않도록 했습니다. API 서버는 QueuePool을 그대로 유지했습니다.",
-      result: "태스크 실패율 ~50% → 0%.",
-      noteSlug: "celery-prefork-asyncio-nullpool",
-    },
-    {
-      title: "통합 테스트 DB 상태 오염",
-      problem:
-        "통합 테스트를 여러 개 실행하면 이전 테스트의 잔여 데이터가 다음 테스트에 영향을 줘 UNIQUE 제약 오류나 비결정적 실패가 발생했습니다.",
-      solution:
-        "test_engine fixture(session scope)에서 UUID 기반 PostgreSQL 스키마를 생성하고 search_path를 고정해 세션을 격리했습니다. db_session fixture(function scope)에서 트랜잭션을 시작하고 종료 시 롤백해 케이스를 격리했습니다.",
-      result: "테스트 간 데이터 간섭 제거, CI 비결정적 실패 안정화.",
-      noteSlug: "async-test-db-isolation",
-    },
+  troubleshootingNoteSlugs: [
+    "async-pipeline-transition",
+    "async-sqlalchemy-eager-loading",
+    "ai-devops-backgroundtasks-durability",
+    "rabbitmq-event-topology",
+    "ai-devops-threadpool-saturation",
+    "async-session-join-optimization",
+    "celery-prefork-asyncio-nullpool",
+    "async-test-db-isolation",
   ],
   improvements: [
     {
@@ -626,27 +562,5 @@ export const aiDevopsOrchestrationPlatformDetail: ProjectDetail = {
       ],
       noteSlug: "ai-devops-retrospective",
     },
-  ],
-  relatedNoteSlugs: [
-    "async-pipeline-transition",
-    "rabbitmq-event-topology",
-    "db-round-trip-optimization",
-    "ai-log-analysis-latency",
-    "metric-cardinality-troubleshooting",
-    "ai-devops-retrospective",
-    "async-session-join-optimization",
-    "celery-prefork-asyncio-nullpool",
-    "async-sqlalchemy-eager-loading",
-    "msa-rabbitmq-migration",
-    "async-test-db-isolation",
-    "distributed-tracing-correlation-id",
-    "consumer-idempotency-processed-event",
-    "msa-http-retry-circuit-breaker",
-    "msa-router-deletion-test-404",
-    "event-schema-versioning-deploy-order",
-    "cross-service-join-db-separation",
-    "msa-load-test-threadpool-ownership",
-    "msa-db-split-integration-test",
-    "ai-devops-project-retrospective",
   ],
 };

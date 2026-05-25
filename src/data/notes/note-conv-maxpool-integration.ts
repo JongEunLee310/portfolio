@@ -17,4 +17,10 @@ export const noteConvMaxpoolIntegration: TechnicalNoteCard = {
     { name: "Jetson Nano", category: "infra" },
   ],
   relatedProjectSlugs: ["arm-embedded-cnn-mixed-precision"],
+  cardSummary: {
+    title: "Conv-Maxpool 통합 후 검출 실패",
+    problem: "Conv와 Maxpool을 통합 실행하면 수행시간은 감소했지만 detection이 되지 않는 문제가 남았다.",
+    solution: "Conv layer의 output 크기 조정, maxpool layer skip, dequantize/activation 순서 조정 등을 검토했다.",
+    result: "평균 5% 수행시간 감소는 확인했지만, 정확도 보존을 위해 후속 검증이 필요하다는 결론을 얻었다.",
+  },
 };

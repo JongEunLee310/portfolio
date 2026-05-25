@@ -16,4 +16,10 @@ export const smartFarmRemoteDeviceControl: TechnicalNoteCard = {
     { name: "WebSocket", category: "backend" },
   ],
   relatedProjectSlugs: ["smart-farm"],
+  cardSummary: {
+    title: "원격 디바이스 제어 연동",
+    problem: "사용자의 앱 제어 요청을 실제 원격지 디바이스 동작으로 연결해야 했다.",
+    solution: "API Server가 Device Controller를 호출하고, Device Controller가 DAS와 ModbusTCP로 통신해 제어를 수행하도록 구성했다.",
+    result: "사용자가 현장에 가지 않고도 디바이스를 제어할 수 있는 흐름을 구현했다.",
+  },
 };

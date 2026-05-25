@@ -16,4 +16,10 @@ export const reissueInfiniteRequest: TechnicalNoteCard = {
     { name: "JWT", category: "backend" },
   ],
   relatedProjectSlugs: ["halo"],
+  cardSummary: {
+    title: "토큰 재발급 무한 요청",
+    problem: "/api/reissue가 JWT 필터에서 만료 Access Token을 검사해 401 반환 → 클라이언트 재발급 반복",
+    solution: "/api/reissue를 PUBLIC_URLS + JWT_FILTER_EXCLUDE_URLS 양쪽에 추가, 역할별 필터 체인에서 제거",
+    result: "재발급 API가 JWT 검사 없이 ReissueService에 도달, 무한 루프 해소",
+  },
 };

@@ -17,4 +17,10 @@ export const noteCnnLightweightOptimization: TechnicalNoteCard = {
     { name: "Jetson Nano", category: "infra" },
   ],
   relatedProjectSlugs: ["arm-embedded-cnn-mixed-precision"],
+  cardSummary: {
+    title: "Jetson Nano 실험 시간 문제",
+    problem: "Mini ImageNet 4만 장 실험도 Jetson Nano에서 1회 수행에 1~2일이 걸릴 정도로 오래 걸렸다.",
+    solution: "전체 ImageNet 대신 Mini ImageNet을 사용하고, 데이터셋 축소 후 실험을 지속하는 방향을 선택했다.",
+    result: "실험 가능성을 유지하면서 정확도, 실행시간, 메모리 사용량 비교 계획을 수립했다.",
+  },
 };

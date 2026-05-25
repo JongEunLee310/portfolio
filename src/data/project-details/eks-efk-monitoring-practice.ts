@@ -347,37 +347,10 @@ export const eksEfkMonitoringPracticeDetail: ProjectDetail = {
         "CloudWatch Alarm, SNS, Lambda, KMS, Slack Webhook을 연결해 CPU 임계치 초과 알림을 검증했다.",
     },
   ],
-  troubleshooting: [
-    {
-      title: "EKS 워커 노드 서브넷 배치 문제",
-      problem:
-        "eksctl로 클러스터를 생성할 때 워커 노드가 의도한 프라이빗 서브넷이 아닌 퍼블릭 서브넷에 생성되는 문제가 있었다.",
-      solution:
-        "--vpc-private-subnets, --ssh-access, --ssh-public-key, --managed 옵션을 명시해 관리형 노드 그룹과 프라이빗 서브넷 배치를 구성했다.",
-      result:
-        "EKS 워커 노드가 프라이빗 서브넷에서 동작하도록 구성하고, Bastion Host를 통해 접근하는 구조를 이해했다.",
-      noteSlug: "",
-    },
-    {
-      title: "Fluentd 로그 수집 권한 문제",
-      problem:
-        "Fluentd DaemonSet이 로그를 수집해야 했지만 Kubernetes 리소스 조회와 로그 경로 접근 권한 구성이 부족해 로그가 정상 수집되지 않았다.",
-      solution:
-        "hostPath로 로그 디렉터리를 마운트하고, ServiceAccount, ClusterRole, ClusterRoleBinding을 구성해 필요한 권한을 부여했다.",
-      result:
-        "각 워커 노드에서 Fluentd가 로그를 수집하고 ElasticSearch로 전달하는 흐름을 구성했다.",
-      noteSlug: "",
-    },
-    {
-      title: "Lambda의 KMS 복호화 실패",
-      problem:
-        "Slack Webhook URL을 KMS로 암호화했지만 Lambda가 복호화하지 못해 Slack 알림 전송이 실패했다.",
-      solution:
-        "Lambda 실행 역할에 kms:Decrypt 권한을 추가하고, Lambda 함수 이름을 Encryption Context로 포함해 암호화·복호화 흐름을 맞췄다.",
-      result:
-        "CPU 임계치 초과 시 CloudWatch 경보가 Slack 메시지로 전달되는 것을 확인했다.",
-      noteSlug: "",
-    },
+  troubleshootingNoteSlugs: [
+    "eks-worker-node-subnet-placement",
+    "eks-fluentd-rbac-permission",
+    "eks-lambda-kms-decrypt",
   ],
   improvements: [
     {
@@ -473,5 +446,4 @@ export const eksEfkMonitoringPracticeDetail: ProjectDetail = {
       noteSlug: "",
     },
   ],
-  relatedNoteSlugs: [],
 };

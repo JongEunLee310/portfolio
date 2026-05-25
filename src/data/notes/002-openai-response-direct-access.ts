@@ -16,4 +16,10 @@ export const openaiResponseDirectAccess: TechnicalNoteCard = {
     { name: "Python", category: "language" },
   ],
   relatedProjectSlugs: ["the-listening-tree"],
+  cardSummary: {
+    title: "OpenAI 응답 구조 직접 접근 취약성",
+    problem: "response.output[0].content[0].text 직접 접근 시 빈 응답에서 IndexError 발생. 개발 중 추가한 print(user_message)가 사용자 상담 내용을 표준 출력에 노출.",
+    solution: "응답 텍스트 추출 함수 분리 및 빈 응답 방어 로직 추가. print() 2개 제거. 오류 원인별 상태 코드 분기.",
+    result: "빈 응답 → 503 반환으로 명확화. 사용자 메시지 표준 출력 노출 제거. API 오류·파싱 오류 구분 가능.",
+  },
 };

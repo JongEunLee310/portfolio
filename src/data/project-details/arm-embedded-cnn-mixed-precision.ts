@@ -570,127 +570,19 @@ export const armEmbeddedCnnMixedPrecisionDetail: ProjectDetail = {
         "ResNet residual block과 MobileNetV2 inverted residual block 지원 방향을 검토했다.",
     },
   ],
-  troubleshooting: [
-    {
-      title: "NVDLA 환경에서 YOLOv3 실행 제약",
-      problem:
-        "NVDLA compiler는 prototxt와 caffemodel을 사용하지만 기존 YOLOv3는 cfg와 weights 파일을 사용해 바로 실행할 수 없었다.",
-      solution:
-        "AlexNet 예제를 먼저 실행하고 YOLOv3-tiny를 caffemodel/prototxt로 변환하는 방법을 조사했다.",
-      result:
-        "NVDLA 환경의 제약을 확인하고 이후 Darknet 기반 YOLOv3-tiny 코드 분석으로 방향을 전환했다.",
-      noteSlug: "troubleshooting-nvdla-yolov3-format-limitation",
-    },
-    {
-      title: "im2col/GEMM 파라미터 감소 시 segmentation fault",
-      problem:
-        "stride, channel, kernel size를 임의로 조정하면 layer output 크기와 memory allocation이 맞지 않아 segmentation fault가 발생했다.",
-      solution:
-        "임의 조정보다 letterbox 영역과 network input size를 기준으로 계산량을 줄이는 방향을 검토했다.",
-      result:
-        "convolution 연산 최적화는 network 구조와 memory allocation을 함께 고려해야 한다는 결론을 얻었다.",
-      noteSlug: "troubleshooting-im2col-gemm-parameter-reduction",
-    },
-    {
-      title: "Letterbox 영역 제거 기반 계산량 감소 실험",
-      problem:
-        "YOLOv3-tiny는 입력 이미지를 416x416 정사각형으로 맞추기 위해 letterbox 영역을 추가하고, im2col/GEMM은 이 영역까지 계산했다.",
-      solution:
-        "이미지 비율에 맞게 network width/height를 조정하거나 letterbox 영역의 계산을 줄이는 방안을 실험했다.",
-      result:
-        "실행시간은 줄었지만 detection 수와 정확도 저하가 발생해 단순 입력 크기 축소의 한계를 확인했다.",
-      noteSlug: "troubleshooting-yolo-letterbox-computation-reduction",
-    },
-    {
-      title: "인접 픽셀 평균화 기반 GEMM 계산 축소 실패",
-      problem:
-        "인접 픽셀 평균을 GEMM 과정에 직접 적용했지만 평균 계산 비용이 증가하고 No Detection이 발생했다.",
-      solution:
-        "GEMM 내부가 아니라 im2col 단계에서 유사 픽셀을 통일하고 이후 계산을 생략하는 방향으로 전환했다.",
-      result:
-        "정확도 손실을 일으키는 전처리성 최적화보다 구조적 정밀도 제어가 필요하다는 결론을 얻었다.",
-      noteSlug: "troubleshooting-gemm-neighbor-pixel-optimization-failure",
-    },
-    {
-      title: "Multi Weight Loading 중 segmentation fault",
-      problem:
-        "FP32, FP16, INT8 weight 파일의 file pointer 위치가 서로 달라져 잘못된 weight가 로드되었다.",
-      solution:
-        "ftell과 fseek로 모든 weight 파일의 pointer를 동일한 위치로 동기화했다.",
-      result:
-        "nboxes가 계산되고 object detection 결과가 출력되었다.",
-      noteSlug: "troubleshooting-mixed-precision-weight-pointer-sync",
-    },
-    {
-      title: "TensorFlow C Binding ARM 빌드 문제",
-      problem:
-        "TensorFlow 공식 C library가 x86 중심으로 제공되어 Jetson Nano ARM 환경에서 -ltensorflow를 찾지 못하거나 incompatible library 문제가 발생했다.",
-      solution:
-        "ARM Ubuntu 18.04 환경에서 TensorFlow C binding을 직접 빌드하고 링커 환경을 구성했다.",
-      result:
-        "C/C++에서 TensorFlow library 호출 가능성을 검증했고 quantization 모듈을 사용할 기반을 확보했다.",
-      noteSlug: "troubleshooting-tensorflow-c-binding-arm-build",
-    },
-    {
-      title: "INT8 image casting으로 인한 정보 손실",
-      problem:
-        "0~1 float image 값을 int8로 단순 casting하면서 대부분 0으로 손실되었다.",
-      solution:
-        "image value range를 분석하고 scale factor 기반 quantization 필요성을 도출했다.",
-      result:
-        "단순 type casting 대신 quantize/dequantize 인터페이스를 설계했다.",
-      noteSlug: "troubleshooting-int8-image-value-loss",
-    },
-    {
-      title: "INT8 convolution overflow",
-      problem:
-        "weight와 input의 곱 및 convolution 누적 결과가 int8 범위를 초과했다.",
-      solution:
-        "int8, int16, int24 범위별 overflow 비율을 측정하고 output 저장 타입을 재검토했다.",
-      result:
-        "int16 result 저장이 int8보다 overflow를 크게 줄일 수 있음을 확인했다.",
-      noteSlug: "troubleshooting-int8-convolution-overflow",
-    },
-    {
-      title: "Bias Quantization 실패",
-      problem:
-        "bias를 quantize하면 dequantize 이후 원본 bias 복원이 어려워 detection이 실패했다.",
-      solution:
-        "bias float 유지와 Conv-Maxpool 통합 실행을 통한 변환 횟수 감소 방향으로 전환했다.",
-      result:
-        "bias quantization보다 변환 비용 절감이 현실적인 개선 방향임을 확인했다.",
-      noteSlug: "troubleshooting-bias-quantization-detection-failure",
-    },
-    {
-      title: "Conv-Maxpool 통합 후 검출 실패",
-      problem:
-        "Conv와 Maxpool을 통합 실행하면 수행시간은 감소했지만 detection이 되지 않는 문제가 남았다.",
-      solution:
-        "Conv layer의 output 크기 조정, maxpool layer skip, dequantize/activation 순서 조정 등을 검토했다.",
-      result:
-        "평균 5% 수행시간 감소는 확인했지만, 정확도 보존을 위해 후속 검증이 필요하다는 결론을 얻었다.",
-      noteSlug: "troubleshooting-conv-maxpool-integrated-execution",
-    },
-    {
-      title: "ResNet/MobileNet 구조 확장 문제",
-      problem:
-        "YOLOv3-tiny 중심 초기 프레임워크는 residual block과 inverted residual block을 지원하지 못했다.",
-      solution:
-        "ResNet residual block과 MobileNetV2 bottleneck 구조를 분석하고 framework ver.0.2 확장 방향을 설계했다.",
-      result:
-        "VGG16, VGG19, ResNet50 동작 확인 및 MobileNet 지원 수정 작업으로 확장되었다.",
-      noteSlug: "troubleshooting-mixed-precision-framework-model-extension",
-    },
-    {
-      title: "Jetson Nano 실험 시간 문제",
-      problem:
-        "Mini ImageNet 4만 장 실험도 Jetson Nano에서 1회 수행에 1~2일이 걸릴 정도로 오래 걸렸다.",
-      solution:
-        "전체 ImageNet 대신 Mini ImageNet을 사용하고, 데이터셋 축소 후 실험을 지속하는 방향을 선택했다.",
-      result:
-        "실험 가능성을 유지하면서 정확도, 실행시간, 메모리 사용량 비교 계획을 수립했다.",
-      noteSlug: "troubleshooting-jetson-nano-experiment-scale",
-    },
+  troubleshootingNoteSlugs: [
+    "note-yolov3-tiny-layer-architecture",
+    "note-im2col-gemm-bottleneck",
+    "arm-letterbox-computation-reduction",
+    "arm-gemm-neighbor-pixel-failure",
+    "note-mixed-precision-cnn",
+    "note-tensorflow-c-binding-arm",
+    "arm-int8-image-value-loss",
+    "note-int8-quantization-overflow",
+    "arm-bias-quantization-failure",
+    "note-conv-maxpool-integration",
+    "note-cnn-model-extension-resnet-mobilenet",
+    "note-cnn-lightweight-optimization",
   ],
   improvements: [
     {
@@ -817,16 +709,5 @@ export const armEmbeddedCnnMixedPrecisionDetail: ProjectDetail = {
       ],
       noteSlug: "retrospective-arm-embedded-cnn-mixed-precision",
     },
-  ],
-  relatedNoteSlugs: [
-    "note-cnn-lightweight-optimization",
-    "note-yolov3-tiny-layer-architecture",
-    "note-im2col-gemm-bottleneck",
-    "note-mixed-precision-cnn",
-    "note-int8-quantization-overflow",
-    "note-tensorflow-c-binding-arm",
-    "note-arm-fp16-compiler",
-    "note-conv-maxpool-integration",
-    "note-cnn-model-extension-resnet-mobilenet",
   ],
 };

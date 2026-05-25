@@ -15,4 +15,10 @@ export const multirepoCI: TechnicalNoteCard = {
     { name: "Docker", category: "infra" },
   ],
   relatedProjectSlugs: ["the-listening-tree"],
+  cardSummary: {
+    title: "멀티레포 CI 이름 불일치",
+    problem: "auth_service CI를 복붙하면서 name 필드 수정 누락. memory_service·user_service가 GitHub Actions에서 'The Tree Auth Service CI'로 표시.",
+    solution: "memory_service, user_service 워크플로우 name 필드를 각 서비스명으로 수정.",
+    result: "CI 대시보드에서 서비스별 워크플로우 구분 가능.",
+  },
 };

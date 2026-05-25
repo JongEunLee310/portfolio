@@ -17,4 +17,10 @@ export const statisticConcurrencyOptimisticLock: TechnicalNoteCard = {
     { name: "MySQL", category: "database" },
   ],
   relatedProjectSlugs: ["halo"],
+  cardSummary: {
+    title: "통계 업데이트 동시성 충돌",
+    problem: "예약 완료·리뷰 등록 시 같은 통계 row를 동시에 수정해 일관성 보장 어려움. 벌크 업데이트와 엔티티 변경이 혼재",
+    solution: "@Version 낙관적 락 + 통계 갱신 서비스 분리 + @Retryable(5회, 50ms) + @Recover",
+    result: "동시성 충돌 자동 복구, 재시도 초과 시 409 계열 오류 응답, 통계 책임 분리",
+  },
 };

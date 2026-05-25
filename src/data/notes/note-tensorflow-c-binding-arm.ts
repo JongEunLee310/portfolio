@@ -17,4 +17,10 @@ export const noteTensorflowCBindingArm: TechnicalNoteCard = {
     { name: "Bazel", category: "tool" },
   ],
   relatedProjectSlugs: ["arm-embedded-cnn-mixed-precision"],
+  cardSummary: {
+    title: "TensorFlow C Binding ARM 빌드 문제",
+    problem: "TensorFlow 공식 C library가 x86 중심으로 제공되어 Jetson Nano ARM 환경에서 -ltensorflow를 찾지 못하거나 incompatible library 문제가 발생했다.",
+    solution: "ARM Ubuntu 18.04 환경에서 TensorFlow C binding을 직접 빌드하고 링커 환경을 구성했다.",
+    result: "C/C++에서 TensorFlow library 호출 가능성을 검증했고 quantization 모듈을 사용할 기반을 확보했다.",
+  },
 };

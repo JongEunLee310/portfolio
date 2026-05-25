@@ -354,35 +354,10 @@ export const goormBankProblemBankDetail: ProjectDetail = {
         "Fluent Bit, CloudWatch, OpenSearch 기반 로그 수집과 HPA/CA 오토스케일링을 구성했습니다.",
     },
   ],
-  troubleshooting: [
-    {
-      title: "EKS 애플리케이션 로그 수집 실패",
-      problem:
-        "서비스 접속 및 사용 테스트를 수행해도 기대한 애플리케이션 로그가 수집되지 않았습니다.",
-      solution:
-        "VPC Flow Logs를 활성화하고 수집된 로그 유형을 분석하면서 애플리케이션 로그와 네트워크 로그를 구분했습니다.",
-      result: "로그 수집 파이프라인의 목적과 수집 대상 구분의 중요성을 학습했습니다.",
-      noteSlug: "goorm-bank-eks-application-log-troubleshooting",
-    },
-    {
-      title: "EKS 리소스 모니터링 대시보드 혼동",
-      problem:
-        "CloudWatch Container Insights가 아닌 OpenSearch 클러스터 리소스 대시보드를 EKS 모니터링 화면으로 착각했습니다.",
-      solution:
-        "EKS 리소스 모니터링은 CloudWatch Container Insights에서 확인해야 함을 정리했습니다.",
-      result:
-        "노드 오토스케일링까지 완성하지는 못했지만 Metric Server와 HPA로 Pod 오토스케일링을 구현했습니다.",
-      noteSlug: "goorm-bank-cloudwatch-container-insights-troubleshooting",
-    },
-    {
-      title: "Jenkins와 Argo CD 연동 인증 문제",
-      problem:
-        "Jenkins에서 ECR로 이미지를 Push하고 Manifest Repo를 업데이트하는 과정에서 인증 문제가 발생했습니다.",
-      solution:
-        "이미지 빌드, ECR Push, Manifest 업데이트, Argo CD 배포 흐름을 분리해 점검했습니다.",
-      result: "최종적으로 Jenkins와 Argo CD 기반 CI/CD 파이프라인을 구축했습니다.",
-      noteSlug: "goorm-bank-jenkins-argocd-cicd-troubleshooting",
-    },
+  troubleshootingNoteSlugs: [
+    "goorm-bank-eks-application-log-troubleshooting",
+    "goorm-bank-cloudwatch-container-insights-troubleshooting",
+    "goorm-bank-jenkins-argocd-cicd-troubleshooting",
   ],
   improvements: [
     {
@@ -456,14 +431,5 @@ export const goormBankProblemBankDetail: ProjectDetail = {
       ],
       noteSlug: "goorm-bank-retrospective",
     },
-  ],
-  relatedNoteSlugs: [
-    "eks-observability-cloudwatch-opensearch",
-    "fluentbit-cloudwatch-log-pipeline",
-    "jenkins-ecr-argocd-cicd",
-    "kubernetes-hpa-cluster-autoscaler",
-    "springboot-jwt-social-login",
-    "swagger-api-documentation",
-    "container-image-architecture-compatibility",
   ],
 };

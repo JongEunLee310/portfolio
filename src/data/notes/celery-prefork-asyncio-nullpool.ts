@@ -17,4 +17,10 @@ export const celeryPreforkAsyncioNullpool: TechnicalNoteCard = {
     { name: "PostgreSQL", category: "database" },
   ],
   relatedProjectSlugs: ["ai-devops-orchestration-platform"],
+  cardSummary: {
+    title: "Celery prefork event loop mismatch",
+    problem: "Celery prefork worker에서 asyncio.run()을 반복 호출하자 이전 태스크가 QueuePool에 캐시한 커넥션이 닫힌 event loop에 묶여 'attached to a different loop' RuntimeError가 간헐적으로 발생하며 태스크 약 50%가 실패했습니다.",
+    solution: "Celery worker 환경에서는 DB_NULL_POOL=true로 NullPool을 선택해 커넥션을 캐시하지 않도록 했습니다. API 서버는 QueuePool을 그대로 유지했습니다.",
+    result: "태스크 실패율 ~50% → 0%.",
+  },
 };
