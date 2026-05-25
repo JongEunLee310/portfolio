@@ -90,12 +90,13 @@ export function ProjectDetailPage() {
     });
   }
 
-  if (project.screenshots.length > 0) {
-    tocItems.push({
-      id: "project-screenshots",
-      title: PROJECT_DETAIL_LABELS.toc.screenshots,
-    });
-  }
+  // TODO: screenshot 확보 후 활성화
+  // if (project.screenshots.length > 0) {
+  //   tocItems.push({
+  //     id: "project-screenshots",
+  //     title: PROJECT_DETAIL_LABELS.toc.screenshots,
+  //   });
+  // }
 
   if (project.techStack.length > 0 || project.contributions.length > 0) {
     tocItems.push({
@@ -162,12 +163,13 @@ export function ProjectDetailPage() {
             <div id="project-features" className="scroll-mt-24">
               <ProjectFeatureStripSection features={project.features} />
             </div>
-            <div id="project-screenshots" className="scroll-mt-24">
+            {/* TODO: screenshot 확보 후 활성화 */}
+            {/* <div id="project-screenshots" className="scroll-mt-24">
               <ProjectScreenshotGallerySection
                 projectTitle={project.title}
                 screenshots={project.screenshots}
               />
-            </div>
+            </div> */}
             <div
               id="project-tech-contribution"
               className="grid scroll-mt-24 gap-6 lg:grid-cols-[0.95fr_1.05fr]"
