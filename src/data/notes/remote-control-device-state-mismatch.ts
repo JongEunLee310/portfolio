@@ -7,9 +7,7 @@ export const remoteControlDeviceStateMismatch: TechnicalNoteCard = {
   summary:
     "스마트팜 모니터링 프로젝트에서 원격 제어 기능을 구현할 때 API 요청 성공을 장비 동작 성공과 동일하게 취급하면, 사용자가 장비가 동작했다고 오해하거나 실제 상태를 잘못 판단하게 됩니다. 명령 상태와 실제 장비 상태를 분리해서 관리해야 했던 설계 판단을 정리한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: publicPath(
-    "/images/notes/remote-control-device-state-mismatch.svg"
-  ),
+  thumbnail: publicPath("/images/notes/smart-farm-remote-control.svg"),
   date: "2024.10",
   readingTime: "13분 읽기",
   tags: [

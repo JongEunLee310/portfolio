@@ -7,7 +7,7 @@ export const remoteControlRetryPolicy: TechnicalNoteCard = {
   summary:
     "스마트팜 모니터링 프로젝트에서 원격 제어 실패를 유형별로 구분하지 않으면 재시도해도 의미 없는 실패를 반복하거나, 재시도해야 할 일시적 실패를 그냥 종료하게 됩니다. 실패 원인 분류와 재시도 가능 여부 판단을 정책으로 묶어야 했던 설계 판단을 정리한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: publicPath("/images/notes/remote-control-retry-policy.svg"),
+  thumbnail: publicPath("/images/notes/smart-farm-remote-control.svg"),
   date: "2024.10",
   readingTime: "14분 읽기",
   tags: [

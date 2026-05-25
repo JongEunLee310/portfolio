@@ -7,7 +7,7 @@ export const sensorRestIngestionValidation: TechnicalNoteCard = {
   summary:
     "스마트팜 모니터링 시스템에서 센서 수집 API가 입력값을 검증하지 않아 비정상 데이터가 저장소와 후속 기능으로 전파될 수 있었던 문제와 검증 계층 설계 판단을 정리한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: publicPath("/images/notes/sensor-ingestion-validation.svg"),
+  thumbnail: publicPath("/images/notes/smart-farm-api-design.svg"),
   date: "2024.09",
   readingTime: "10분 읽기",
   tags: [

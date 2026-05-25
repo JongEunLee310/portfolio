@@ -7,9 +7,7 @@ export const latestSensorValueQueryOptimization: TechnicalNoteCard = {
   summary:
     "스마트팜 대시보드에서 현재 상태를 표시하기 위해 센서 최신값을 조회할 때 전체 이력을 가져오는 방식으로 인해 데이터 누적에 취약해질 수 있었던 문제와 조회 목적 분리 및 쿼리 최적화 판단을 정리한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: publicPath(
-    "/images/notes/latest-sensor-value-query-optimization.svg"
-  ),
+  thumbnail: publicPath("/images/notes/smart-farm-db-replication.svg"),
   date: "2024.09",
   readingTime: "12분 읽기",
   tags: [

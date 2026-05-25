@@ -7,9 +7,7 @@ export const sensorThresholdAlertFalsePositive: TechnicalNoteCard = {
   summary:
     "스마트팜 모니터링 프로젝트에서 센서값이 기준을 한 번이라도 넘으면 알림을 발생시키는 단순 임계치 비교 방식이 순간적인 센서 튐이나 통신 오류와 실제 환경 이상을 구분하지 못한다는 점과, 지속성·연속성 기반 알림 조건 설계가 필요했던 판단을 정리한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: publicPath(
-    "/images/notes/sensor-threshold-alert-false-positive.svg"
-  ),
+  thumbnail: publicPath("/images/notes/smart-farm-monitoring.svg"),
   date: "2024.09",
   readingTime: "13분 읽기",
   tags: [

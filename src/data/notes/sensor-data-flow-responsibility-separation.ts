@@ -7,7 +7,7 @@ export const sensorDataFlowResponsibilitySeparation: TechnicalNoteCard = {
   summary:
     "스마트팜 모니터링 시스템에서 센서 데이터의 수집, 저장, 조회, 임계치 판단 책임이 분리되지 않아 발생하는 구조적 복잡도 문제와 책임 분리 설계 판단을 정리한 기록입니다.",
   category: "architecture",
-  thumbnail: publicPath("/images/notes/sensor-data-flow.svg"),
+  thumbnail: publicPath("/images/notes/smart-farm-api-design.svg"),
   date: "2024.09",
   readingTime: "10분 읽기",
   tags: [

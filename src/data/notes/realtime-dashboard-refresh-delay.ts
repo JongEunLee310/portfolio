@@ -7,9 +7,7 @@ export const realtimeDashboardRefreshDelay: TechnicalNoteCard = {
   summary:
     "스마트팜 모니터링 프로젝트에서 센서 측정·전송·저장·조회·렌더링으로 이어지는 여러 지연 구간이 존재하는데, 이를 단일 '실시간 조회'로 단순화하면 갱신 주기가 수집 주기와 맞지 않게 되고 데이터 신선도를 사용자가 알 수 없다는 점과, 수집 주기 기반 polling 설계와 마지막 측정 시각 표시가 필요했던 판단을 정리한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: publicPath(
-    "/images/notes/realtime-dashboard-refresh-delay.svg"
-  ),
+  thumbnail: publicPath("/images/notes/smart-farm-monitoring.svg"),
   date: "2024.09",
   readingTime: "12분 읽기",
   tags: [

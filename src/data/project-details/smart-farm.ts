@@ -297,7 +297,6 @@ export const smartFarmDetail: ProjectDetail = {
     },
   ],
   troubleshootingNoteSlugs: [
-    "sensor-data-flow-responsibility-separation",
     "sensor-rest-ingestion-validation",
     "duplicate-sensor-data-idempotency",
     "sensor-timestamp-measurement-storage-mismatch",

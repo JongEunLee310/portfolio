@@ -7,9 +7,7 @@ export const abnormalSensorValueDetection: TechnicalNoteCard = {
   summary:
     "스마트팜 모니터링 프로젝트에서 습도 150%처럼 물리적으로 불가능한 센서 오류값과 토양 수분 부족 같은 실제 환경 이상값을 구분하지 않으면 오탐과 잘못된 제어 판단이 발생하는 점과, 이상값을 유형별로 분류해 후속 처리를 분리해야 했던 판단을 정리한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: publicPath(
-    "/images/notes/abnormal-sensor-value-detection.svg"
-  ),
+  thumbnail: publicPath("/images/notes/smart-farm-monitoring.svg"),
   date: "2024.09",
   readingTime: "12분 읽기",
   tags: [

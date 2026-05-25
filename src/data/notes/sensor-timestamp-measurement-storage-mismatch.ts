@@ -7,9 +7,7 @@ export const sensorTimestampMeasurementStorageMismatch: TechnicalNoteCard = {
   summary:
     "스마트팜 모니터링 시스템에서 센서 측정 시각과 서버 저장 시각을 구분하지 않아 대시보드 그래프와 최신값 조회가 실제 환경 변화 흐름과 어긋날 수 있었던 문제와 시간 기준 분리 설계 판단을 정리한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: publicPath(
-    "/images/notes/sensor-timestamp-measurement-storage-mismatch.svg"
-  ),
+  thumbnail: publicPath("/images/notes/smart-farm-data-collector.svg"),
   date: "2024.09",
   readingTime: "12분 읽기",
   tags: [

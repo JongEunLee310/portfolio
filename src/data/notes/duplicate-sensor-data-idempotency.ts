@@ -7,7 +7,7 @@ export const duplicateSensorDataIdempotency: TechnicalNoteCard = {
   summary:
     "스마트팜 모니터링 시스템에서 센서·게이트웨이의 재전송 특성을 고려하지 않아 같은 측정 이벤트가 DB에 중복 저장될 수 있었던 문제와 멱등성 기준 설계 판단을 정리한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: publicPath("/images/notes/duplicate-sensor-data-idempotency.svg"),
+  thumbnail: publicPath("/images/notes/smart-farm-data-collector.svg"),
   date: "2024.09",
   readingTime: "12분 읽기",
   tags: [

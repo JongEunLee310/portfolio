@@ -7,9 +7,7 @@ export const sensorLogTableGrowthQueryDegradation: TechnicalNoteCard = {
   summary:
     "스마트팜 모니터링 시스템에서 센서 데이터가 계속 누적되는 구조를 고려하지 않아 대시보드 최신값 조회와 기간 그래프 조회가 데이터 증가에 취약해질 수 있었던 문제와 조회 패턴 기반 설계 판단을 정리한 기록입니다.",
   category: "troubleshooting",
-  thumbnail: publicPath(
-    "/images/notes/sensor-log-table-growth-query-degradation.svg"
-  ),
+  thumbnail: publicPath("/images/notes/smart-farm-db-replication.svg"),
   date: "2024.09",
   readingTime: "12분 읽기",
   tags: [
