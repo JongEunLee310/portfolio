@@ -8,7 +8,7 @@ export const aboutData: AboutData = {
     role: "백엔드 / 클라우드 개발자",
     location: "대한민국, 경기 안산",
     email: "whddms1208@gmail.com",
-    experience: "백엔드·클라우드 프로젝트 1년+",
+    experience: "신입",
     avatar: publicPath("/images/profile/avatar.svg"),
     links: [
       { label: "Email", href: externalLinks.email, icon: "Mail" },
@@ -17,9 +17,9 @@ export const aboutData: AboutData = {
       { label: "GitLab", href: externalLinks.gitlab, icon: "ExternalLink" },
     ],
     introduction: [
-      "구현보다 설계를 먼저 논의하고, 직감보다 수치로 검증하는 백엔드·클라우드 개발자입니다.",
+      "동료의 반론에서 내 확신을 다듬고, 시행착오를 반복하지 않는 체계를 만들어가는 백엔드·클라우드 개발자입니다.",
+      "사용자가 시스템을 어떻게 경험할지를 기준으로 설계를 논의하고, 직감보다 수치로 검증하며 문제에 접근합니다.",
       "Java·Python 두 스택으로 MSA 백엔드를 설계하고 AWS·Kubernetes 기반 인프라를 직접 구축·운영하는 데 강점이 있으며, API 설계부터 CI/CD 자동화·운영 모니터링까지 서비스 전 주기를 담당해왔습니다.",
-      "원칙이 실제 운영 환경에서 작동하는지를 반복해서 검증하며, 더 나은 구조를 찾아가는 과정을 즐깁니다.",
     ],
   },
   sections: {

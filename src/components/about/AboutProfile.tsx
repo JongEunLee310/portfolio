@@ -20,12 +20,13 @@ export function AboutProfile({ profile }: AboutProfileProps) {
   ];
 
   return (
-    <div className="grid items-stretch gap-8 lg:grid-cols-[240px_1fr]">
+    <div className="grid items-stretch gap-8">
+      {/* avatar - 사진 준비되면 아래 주석 해제 후 부모 div에 lg:grid-cols-[240px_1fr] 복원
       <img
         src={profile.avatar}
         alt={profile.name}
         className="h-full w-full rounded-2xl bg-[var(--color-surface-muted)] object-cover"
-      />
+      /> */}
       <div className="flex flex-col justify-between gap-6">
         <div className="space-y-4">
           {profile.introduction.map((paragraph) => (
