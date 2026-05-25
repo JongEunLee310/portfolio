@@ -49,7 +49,6 @@ function getCount(counts: CountMap, value: string) {
 
 const TAG_COLLAPSED_COUNT = 3;
 const PROJECT_COLLAPSED_COUNT = 3;
-const COLLAPSED_FILTER_LIST_HEIGHT = "max-h-[6.75rem]";
 const EXPANDED_FILTER_LIST_HEIGHT = "max-h-64";
 
 export function NoteListSidebar({
@@ -107,15 +106,12 @@ export function NoteListSidebar({
             {content.tagTitle}
           </h3>
           <div
-            className={`mt-3 space-y-2.5 pr-1 transition-[max-height] duration-300 ease-out ${
-              showAllTags
-                ? `${EXPANDED_FILTER_LIST_HEIGHT} overflow-y-auto`
-                : `${COLLAPSED_FILTER_LIST_HEIGHT} overflow-hidden`
+            className={`mt-3 space-y-2.5 pr-1 ${
+              showAllTags ? `${EXPANDED_FILTER_LIST_HEIGHT} overflow-y-auto` : ""
             }`}
           >
-            {tagOptions.map((option, index) => {
+            {(showAllTags ? tagOptions : tagOptions.slice(0, TAG_COLLAPSED_COUNT)).map((option) => {
               const isChecked = filters.tags.includes(option.value);
-              const isCollapsedHidden = !showAllTags && index >= TAG_COLLAPSED_COUNT;
               const nextTags = isChecked
                 ? filters.tags.filter((item) => item !== option.value)
                 : [...filters.tags, option.value];
@@ -124,13 +120,11 @@ export function NoteListSidebar({
                 <label
                   key={option.value}
                   className="flex min-h-7 cursor-pointer items-center justify-between gap-3 rounded-md px-2 text-xs font-medium text-[var(--color-muted-text)] transition hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)]"
-                  aria-hidden={isCollapsedHidden}
                 >
                   <span className="flex min-w-0 items-center gap-2">
                     <input
                       type="checkbox"
                       checked={isChecked}
-                      disabled={isCollapsedHidden}
                       onChange={() => onChange({ ...filters, tags: nextTags })}
                       className="peer sr-only"
                     />
@@ -178,15 +172,12 @@ export function NoteListSidebar({
               {content.projectTitle}
             </h3>
             <div
-              className={`mt-3 space-y-2.5 pr-1 transition-[max-height] duration-300 ease-out ${
-                showAllProjects
-                  ? `${EXPANDED_FILTER_LIST_HEIGHT} overflow-y-auto`
-                  : `${COLLAPSED_FILTER_LIST_HEIGHT} overflow-hidden`
+              className={`mt-3 space-y-2.5 pr-1 ${
+                showAllProjects ? `${EXPANDED_FILTER_LIST_HEIGHT} overflow-y-auto` : ""
               }`}
             >
-              {projectOptions.map((option, index) => {
+              {(showAllProjects ? projectOptions : projectOptions.slice(0, PROJECT_COLLAPSED_COUNT)).map((option) => {
                 const isChecked = filters.projectSlugs.includes(option.value);
-                const isCollapsedHidden = !showAllProjects && index >= PROJECT_COLLAPSED_COUNT;
                 const nextProjectSlugs = isChecked
                   ? filters.projectSlugs.filter((item) => item !== option.value)
                   : [...filters.projectSlugs, option.value];
@@ -195,13 +186,11 @@ export function NoteListSidebar({
                   <label
                     key={option.value}
                     className="flex min-h-7 cursor-pointer items-center justify-between gap-3 rounded-md px-2 text-xs font-medium text-[var(--color-muted-text)] transition hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)]"
-                    aria-hidden={isCollapsedHidden}
                   >
                     <span className="flex min-w-0 items-center gap-2">
                       <input
                         type="checkbox"
                         checked={isChecked}
-                        disabled={isCollapsedHidden}
                         onChange={() =>
                           onChange({ ...filters, projectSlugs: nextProjectSlugs })
                         }

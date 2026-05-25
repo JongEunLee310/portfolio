@@ -47,7 +47,6 @@ function getCount(counts: CountMap, value: string) {
 }
 
 const TECH_COLLAPSED_COUNT = 3;
-const COLLAPSED_FILTER_LIST_HEIGHT = "max-h-[6.75rem]";
 const EXPANDED_FILTER_LIST_HEIGHT = "max-h-64";
 
 export function ProjectListSidebar({
@@ -105,15 +104,12 @@ export function ProjectListSidebar({
             {content.techTitle}
           </h3>
           <div
-            className={`mt-3 space-y-2.5 pr-1 transition-[max-height] duration-300 ease-out ${
-              showAllTechOptions
-                ? `${EXPANDED_FILTER_LIST_HEIGHT} overflow-y-auto`
-                : `${COLLAPSED_FILTER_LIST_HEIGHT} overflow-hidden`
+            className={`mt-3 space-y-2.5 pr-1 ${
+              showAllTechOptions ? `${EXPANDED_FILTER_LIST_HEIGHT} overflow-y-auto` : ""
             }`}
           >
-            {techOptions.map((option, index) => {
+            {(showAllTechOptions ? techOptions : techOptions.slice(0, TECH_COLLAPSED_COUNT)).map((option) => {
               const isChecked = filters.techStacks.includes(option.value);
-              const isCollapsedHidden = !showAllTechOptions && index >= TECH_COLLAPSED_COUNT;
               const nextTechStacks = isChecked
                 ? filters.techStacks.filter((item) => item !== option.value)
                 : [...filters.techStacks, option.value];
@@ -122,13 +118,11 @@ export function ProjectListSidebar({
                 <label
                   key={option.value}
                   className="flex min-h-7 cursor-pointer items-center justify-between gap-3 rounded-md px-2 text-xs font-medium text-[var(--color-muted-text)] transition hover:bg-[var(--color-accent-bg)] hover:text-[var(--color-accent)]"
-                  aria-hidden={isCollapsedHidden}
                 >
                   <span className="flex min-w-0 items-center gap-2">
                     <input
                       type="checkbox"
                       checked={isChecked}
-                      disabled={isCollapsedHidden}
                       onChange={() =>
                         onChange({ ...filters, techStacks: nextTechStacks })
                       }

@@ -8,7 +8,7 @@ export const contactData: ContactData = {
       eyebrow: "CONTACT",
       title: "연락하기",
       description:
-        "프로젝트 제안, 백엔드 협업, 기술적인 논의가 필요하다면 이메일과 외부 채널로 편하게 연락해주세요.",
+        "프로젝트 제안, 백엔드 협업, 기술적인 논의가 필요하다면 이메일 또는 채용 플랫폼을 통해 편하게 연락해주세요.",
     },
     faq: {
       id: "faq",
@@ -51,6 +51,13 @@ export const contactData: ContactData = {
       external: true,
     },
     {
+      label: "Wanted",
+      value: "wanted 프로필 보기",
+      href: externalLinks.wanted,
+      icon: "ExternalLink",
+      external: true,
+    },
+    {
       label: "이력서 다운로드",
       value: "PDF 파일로 이력서 받기",
       href: externalLinks.resumePdf,
@@ -77,7 +84,7 @@ export const contactData: ContactData = {
     {
       question: "채용 관련 연락은 어떻게 하면 되나요?",
       answer:
-        "이메일로 포지션 정보, 주요 업무, 사용 기술 스택을 간단히 보내주시면 확인 후 가능한 일정에 맞춰 답변드리겠습니다.",
+        "Wanted 프로필을 통해 연락하시거나, 그룹바이·사람인·점핏 등 채용 플랫폼 내 메시지 기능을 이용해 주세요. 이메일로도 연락 가능하며, 포지션 정보와 주요 업무, 사용 기술 스택을 함께 보내주시면 확인 후 답변드리겠습니다.",
     },
   ],
   values: [
