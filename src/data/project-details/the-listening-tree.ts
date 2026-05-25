@@ -312,11 +312,11 @@ export const theListeningTreeDetail: ProjectDetail = {
     },
   ],
   troubleshootingNoteSlugs: [
-    "001-google-oauth-exception-masking",
-    "002-openai-response-direct-access",
-    "005-social-id-unique-constraint-mismatch",
-    "003-multirepo-ci-duplication-and-drift",
-    "006-llm-response-format-not-enforced",
+    "google-oauth-exception-masking",
+    "openai-response-direct-access",
+    "social-id-unique-constraint-mismatch",
+    "multirepo-ci-duplication-and-drift",
+    "llm-response-format-not-enforced",
   ],
   performance: [
     {
