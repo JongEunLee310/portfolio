@@ -27,7 +27,7 @@ export function ContactPage() {
       <section id={sections.contact.id} className={`${themeSurface.lightBand} ${layout.section}`}>
         <div className={layout.container}>
           <SectionHeader {...sections.contact} />
-          <div className="grid gap-12 lg:grid-cols-2">
+          <div className="grid items-start gap-12 lg:grid-cols-2">
             {emailChannel ? (
               <ContactEmailCTA channel={emailChannel} />
             ) : null}
