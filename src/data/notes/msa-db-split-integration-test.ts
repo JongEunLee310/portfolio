@@ -17,4 +17,13 @@ export const msaDbSplitIntegrationTest: TechnicalNoteCard = {
     { name: "PostgreSQL", category: "database" },
   ],
   relatedProjectSlugs: ["ai-devops-orchestration-platform"],
+  cardSummary: {
+    title: "DB 소유권 분리 후 ORM 직접 삽입 픽스처 전면 붕괴",
+    problem:
+      "core-api Alembic 마이그레이션으로 pipeline_runs·job_run_logs 테이블을 DROP하자, 통합 테스트 픽스처가 SQLAlchemy ORM으로 직접 삽입하던 코드 전부가 ProgrammingError로 실패했습니다.",
+    solution:
+      "DB 직접 삽입 대신 인-메모리 스토어를 도입했습니다. HTTP 위임 클라이언트 fake가 스토어를 공유해 서비스 경계를 준수한 채로 픽스처를 생성합니다.",
+    result:
+      "테스트 130개 통과, DB 소유권 이동에 무관한 견고한 픽스처 구조를 확립했습니다. 서비스 경계를 강제하는 테스트 설계 패턴을 수립했습니다.",
+  },
 };
