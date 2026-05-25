@@ -6,10 +6,10 @@ export const goormBankProblemBankDetail: ProjectDetail = {
   ...goormBankProblemBank,
   heroImage: publicPath("/images/projects/goorm-bank-hero.png"),
   heroHighlights: [
-    { label: "문제 데이터", value: "27만 건", icon: "Database" },
-    { label: "시험 회차", value: "2,700건", icon: "Layers" },
-    { label: "담당 영역", value: "모니터링/로깅 100%", icon: "Activity" },
-    { label: "완성도", value: "70%", icon: "Gauge" },
+    { label: "문제은행 데이터셋", value: "270,000건", icon: "Database" },
+    { label: "확장성 검증", value: "Pod 1~10개", icon: "Gauge" },
+    { label: "관측성 파이프라인", value: "Fluent Bit → CloudWatch → OpenSearch", icon: "Search" },
+    { label: "배포 자동화", value: "Jenkins → ECR → Argo CD", icon: "GitBranch" },
   ],
   overview:
     "문제 있는 은행장은 국가기술자격시험 기출문제를 기반으로 사용자가 시험 회차별 문제를 풀고 정답률을 확인할 수 있는 문제은행 서비스입니다. 시험기간 전후로 트래픽이 급격히 변하는 특성을 고려하여 AWS EKS 기반 클러스터를 구축하고, Jenkins와 Argo CD를 활용한 CI/CD, CloudWatch와 OpenSearch 기반 로그 수집 및 시각화, HPA와 Cluster Autoscaler를 통한 오토스케일링을 적용했습니다.",
@@ -355,9 +355,18 @@ export const goormBankProblemBankDetail: ProjectDetail = {
     },
   ],
   troubleshootingNoteSlugs: [
-    "goorm-bank-eks-application-log-troubleshooting",
-    "goorm-bank-cloudwatch-container-insights-troubleshooting",
-    "goorm-bank-jenkins-argocd-cicd-troubleshooting",
+    "question-option-answer-consistency",
+    "question-update-child-data-transaction",
+    "question-search-filter-condition",
+    "random-question-selection-duplicate",
+    "exam-submit-score-consistency",
+    "exam-timeout-submit-race-condition",
+    "role-based-question-access",
+    "refresh-token-reissue-loop",
+    "excel-question-import-validation",
+    "question-image-upload-orphan-file",
+    "soft-delete-query-leak",
+    "cors-cookie-auth-failure",
   ],
   improvements: [
     {
@@ -384,50 +393,55 @@ export const goormBankProblemBankDetail: ProjectDetail = {
   ],
   performance: [
     {
-      label: "시험 회차 데이터",
-      value: "2,700건",
-      description: "기사 시험 기준 회차별 공개 문제 데이터 생성",
-      icon: "Layers",
-    },
-    {
-      label: "시험 문제 데이터",
+      label: "문제은행 데이터셋",
       value: "270,000건",
-      description: "시험 문제 총 27만 건 생성",
+      description:
+        "기사 시험 기준 공개 문제 데이터를 생성하여 실제 문제풀이 흐름을 검증할 수 있는 대규모 데이터 기반을 마련했습니다.",
       icon: "Database",
     },
     {
-      label: "담당 영역 기여도",
-      value: "100%",
-      description: "모니터링 및 로깅 서비스 구축 담당",
-      icon: "Activity",
+      label: "시험 회차 구조",
+      value: "2,700건",
+      description:
+        "시험 회차 데이터를 구성하여 자격시험과 시험 일정 기준으로 문제집을 탐색할 수 있는 구조를 만들었습니다.",
+      icon: "Layers",
     },
     {
-      label: "담당 영역 완성도",
-      value: "70%",
-      description: "모니터링 및 로깅 서비스 구축 완성도",
+      label: "확장성 검증",
+      value: "Pod 1~10개",
+      description:
+        "HPA를 통해 CPU 부하 기준으로 프론트엔드 Pod 수가 증가하고 부하 중단 후 감소하는 오토스케일링 흐름을 확인했습니다.",
       icon: "Gauge",
     },
     {
-      label: "HPA 최대 Pod",
-      value: "10개",
-      description: "CPU 기준 최소 1개, 최대 10개로 Scale Out 설정",
-      icon: "Server",
+      label: "관측성 파이프라인",
+      value: "Fluent Bit → CloudWatch → OpenSearch",
+      description:
+        "EKS 애플리케이션 로그를 Fluent Bit으로 수집하고 CloudWatch 로그 그룹을 거쳐 OpenSearch Dashboard에서 검색·분석·시각화하는 흐름을 구성했습니다.",
+      icon: "Search",
+    },
+    {
+      label: "배포 자동화",
+      value: "Jenkins → ECR → Argo CD",
+      description:
+        "프론트엔드와 백엔드 이미지를 Jenkins로 빌드하고 ECR에 업로드한 뒤, Argo CD가 Manifest 저장소를 기준으로 EKS 배포 상태를 관리하도록 구성했습니다.",
+      icon: "GitBranch",
     },
   ],
   retrospectives: [
     {
-      title: "회고",
+      title: "문제은행 서비스 개발 회고 — 문제 도메인·인증·Kubernetes 운영 전체 과정",
       learned: [
-        "AWS EKS 환경에서 Kubernetes 기반 애플리케이션 배포와 오토스케일링 구조를 경험했습니다.",
-        "Fluent Bit, CloudWatch, OpenSearch Dashboard를 연결한 로그 수집 및 시각화 흐름을 학습했습니다.",
-        "Jenkins, ECR, Argo CD를 활용한 CI/CD 파이프라인 구성의 복잡성과 인증 이슈를 경험했습니다.",
-        "OpenSearch와 Elasticsearch, Fluent Bit과 Fluentd, Kibana와 OpenSearch Dashboard의 차이를 비교하며 운영 도구 선택 기준을 학습했습니다.",
+        "[문제 도메인] 문제은행 서비스는 단순 CRUD보다 도메인 규칙이 중요했다. 문제 하나는 선택지, 정답, 해설, 유형, 과목, 회차 등의 하위 데이터를 함께 가지므로 풀이 가능한 상태를 유지해야 하는 복합 aggregate로 다뤄야 한다.",
+        "[인증 설계] 인증은 '로그인을 붙이는 작업'이 아니라 서비스의 사용 흐름을 어디까지 열고 어디서부터 보호할지 결정하는 설계 문제다. 기출문제 조회·모의고사는 공개하고, 통계·작성 권한은 로그인 사용자에게만 제공한 것이 접근성과 개인화를 함께 유지하는 선택이었다.",
+        "[Kubernetes 운영] EKS는 기능 구현보다 운영 개념을 배우는 데 더 큰 의미가 있었다. Node, Pod, Service, Ingress, CI/CD, 로그 수집, 스케일링까지 고려하면서 백엔드 서비스가 실제 운영 환경에서 어떤 단위로 배포되고 관찰되는지 이해했다.",
+        "[도구 선택] 도구 비교는 기능 목록이 아니라 '운영자가 무엇을 보고 싶은가', '이 프로젝트의 학습 목표가 무엇인가'를 먼저 정하고 해야 한다. AWS EKS 기반 프로젝트에서 Fluent Bit, CloudWatch, OpenSearch를 선택한 이유는 더 좋은 도구여서가 아니라 현재 맥락에 더 적절했기 때문이다.",
       ],
       improvement: [
-        "CloudWatch 경보 기반 알림과 노드 오토스케일링 정책을 더 명확히 구성합니다.",
-        "애플리케이션 로그와 VPC Flow Logs를 구분해 목적에 맞는 로그 수집 대시보드를 재설계합니다.",
-        "크롤링과 배치 시스템을 도입해 시험 정보와 문제 데이터 수집을 자동화합니다.",
-        "저작권이 명확하지 않은 문제 데이터에 대해 삭제 요청 정책과 출처 관리 체계를 설계합니다.",
+        "문제 등록·수정 과정에서 선택지, 정답, 해설 데이터의 일관성을 보장하는 도메인 검증 구조를 더 명확히 문서화한다.",
+        "모의고사 결과 저장과 정답·오답 통계 산출 기준을 정리하고, 재풀이·중복 풀이·회차별 통계 정책을 보완한다.",
+        "EKS 배포 구조를 다이어그램으로 정리해 VPC, Cluster, Jenkins, Argo CD, Pod, Service, 로그 수집 흐름을 한눈에 볼 수 있게 만든다.",
+        "HPA와 Cluster Autoscaler의 역할 차이를 정리하고, 실제 부하 테스트 수치가 있다면 스케일링 검증 문서에 추가한다.",
       ],
       noteSlug: "goorm-bank-retrospective",
     },
