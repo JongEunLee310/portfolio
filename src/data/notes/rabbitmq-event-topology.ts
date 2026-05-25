@@ -16,4 +16,10 @@ export const rabbitmqEventTopology: TechnicalNoteCard = {
     { name: "Event Driven", category: "messaging" },
   ],
   relatedProjectSlugs: ["ai-devops-orchestration-platform"],
+  cardSummary: {
+    title: "RabbitMQ FieldTable 타입 불일치",
+    problem: "aio-pika queue 선언 시 arguments 딕셔너리의 값 타입이 FieldTable 명세와 불일치해 런타임 오류가 발생했습니다.",
+    solution: "x-dead-letter-exchange 등 DLQ 관련 arguments를 명시적 타입으로 캐스팅했습니다.",
+    result: "consumer/publisher 정상 선언 및 DLQ 연동을 완료했습니다.",
+  },
 };

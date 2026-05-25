@@ -35,6 +35,13 @@ export type TechnicalNoteCard = {
   tags: TechTag[];
   featured?: boolean;
   relatedProjectSlugs?: string[];
+  cardSummary?: {
+    title: string;
+    problem: string;
+    solution: string;
+    result?: string;
+  };
+  isStub?: true;
 };
 
 export type ArticleSection =

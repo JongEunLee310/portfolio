@@ -15,4 +15,13 @@ export const llmResponseFormatNotEnforced: TechnicalNoteCard = {
     { name: "OpenAI SDK", category: "ai" },
   ],
   relatedProjectSlugs: ["the-listening-tree"],
+  cardSummary: {
+    title: "LLM 응답 형식 미강제로 인한 런타임 불안정성",
+    problem:
+      "auto_response_handler.py에서 response_format 파라미터 없이 OpenAI API를 호출하고, 응답 객체의 output[0].content[0].text를 직접 접근했습니다. output type이 function_call이거나 content가 비어 있으면 AttributeError / IndexError가 발생해 500으로 처리됐습니다.",
+    solution:
+      "응답 텍스트 추출 로직을 별도 함수로 분리하고 output이 비어 있는지, output[0].type == 'message'인지, content[0].type == 'output_text'인지 순서대로 검증합니다. 위반 케이스는 503으로 처리하고, auto_response_schemas.py에 응답 스키마를 정의합니다.",
+    result:
+      "비정상 응답 형식에서 500 대신 503을 반환해 오류 원인을 명확히 구분할 수 있습니다. 외부 API 응답에서 타입을 먼저 확인하고 값에 접근하는 방어적 검증 패턴의 필요성을 확인했습니다.",
+  },
 };

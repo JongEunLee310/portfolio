@@ -25,6 +25,9 @@ import { seoConfig } from "@/data/seo";
 import { themeSurface } from "@/styles/classNames";
 import { pageChrome } from "@/utils/pageChrome";
 import { useSeo } from "@/utils/useSeo";
+import { technicalNotes } from "@/data/technicalNotes";
+import { projectNoteStubs } from "@/data/projectNoteStubs";
+import type { TechnicalNoteCard } from "@/types/note";
 
 function hasText(value?: string) {
   return Boolean(value?.trim());
@@ -34,6 +37,12 @@ export function ProjectDetailPage() {
   const { resolvedTheme } = useTheme();
   const { projectSlug } = useParams();
   const project = projectDetails.find((item) => item.slug === projectSlug);
+  const allNotes = [...technicalNotes, ...projectNoteStubs];
+  const troubleshootingCards: TechnicalNoteCard[] = project
+    ? project.troubleshootingNoteSlugs
+        .map((slug) => allNotes.find((n) => n.slug === slug))
+        .filter((n): n is TechnicalNoteCard => n !== undefined && n.cardSummary !== undefined)
+    : [];
   useSeo(project ? `${project.title} | 이종은 포트폴리오` : seoConfig[PATHS.projects].title);
 
   if (!project) {
@@ -103,7 +112,7 @@ export function ProjectDetailPage() {
   }
 
   if (
-    project.troubleshooting.length > 0 ||
+    troubleshootingCards.length > 0 ||
     (project.improvements?.length ?? 0) > 0 ||
     (project.retrospectives[0]?.learned.length ?? 0) > 0 ||
     (project.retrospectives[0]?.improvement.length ?? 0) > 0
@@ -176,7 +185,7 @@ export function ProjectDetailPage() {
               <ProjectResultsSection performance={project.performance} />
             </div>
             <div id="project-closing" className="scroll-mt-24">
-              <ProjectClosingCardsSection project={project} />
+              <ProjectClosingCardsSection project={project} troubleshootingCards={troubleshootingCards} />
             </div>
           </main>
         </div>

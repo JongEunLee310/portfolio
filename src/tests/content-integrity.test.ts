@@ -3,6 +3,7 @@ import { noteDetails } from "@/data/noteDetails";
 import { projectDetails } from "@/data/projectDetails";
 import { projects } from "@/data/projects";
 import { technicalNotes } from "@/data/technicalNotes";
+import { projectNoteStubs } from "@/data/projectNoteStubs";
 
 function findDuplicates(values: string[]) {
   return values.filter((value, index) => values.indexOf(value) !== index);
@@ -75,15 +76,45 @@ describe("content integrity", () => {
     ).toEqual([]);
   });
 
-  it("프로젝트 상세의 relatedNoteSlugs는 실제 기술 노트에 존재해야 한다", () => {
-    const noteSlugs = new Set(technicalNotes.map((note) => note.slug));
+  it("프로젝트 상세의 troubleshootingNoteSlugs는 technicalNotes 또는 projectNoteStubs에 존재해야 한다", () => {
+    const allNoteSlugs = new Set([
+      ...technicalNotes.map((n) => n.slug),
+      ...projectNoteStubs.map((n) => n.slug),
+    ]);
     const missing = projectDetails.flatMap((project) =>
-      project.relatedNoteSlugs.filter((slug) => !noteSlugs.has(slug)),
+      project.troubleshootingNoteSlugs.filter((slug) => !allNoteSlugs.has(slug)),
     );
-
     expect(
       missing,
-      `projectDetails.ts의 relatedNoteSlugs 중 존재하지 않는 기술 노트 slug가 있습니다: ${missing.join(", ")}`,
+      `troubleshootingNoteSlugs 중 존재하지 않는 slug가 있습니다: ${missing.join(", ")}`,
+    ).toEqual([]);
+  });
+
+  it("troubleshootingNoteSlugs에 참조된 note는 모두 cardSummary를 가져야 한다", () => {
+    const allNotes = [...technicalNotes, ...projectNoteStubs];
+    const missing = projectDetails.flatMap((project) =>
+      project.troubleshootingNoteSlugs.filter((slug) => {
+        const note = allNotes.find((n) => n.slug === slug);
+        return !note?.cardSummary;
+      }),
+    );
+    expect(
+      missing,
+      `troubleshootingNoteSlugs 중 cardSummary 없는 slug: ${missing.join(", ")}`,
+    ).toEqual([]);
+  });
+
+  it("troubleshootingNoteSlugs에 참조된 note는 모두 category가 troubleshooting이어야 한다", () => {
+    const allNotes = [...technicalNotes, ...projectNoteStubs];
+    const wrong = projectDetails.flatMap((project) =>
+      project.troubleshootingNoteSlugs.filter((slug) => {
+        const note = allNotes.find((n) => n.slug === slug);
+        return note !== undefined && note.category !== "troubleshooting";
+      }),
+    );
+    expect(
+      wrong,
+      `troubleshootingNoteSlugs 중 category가 troubleshooting이 아닌 slug: ${wrong.join(", ")}`,
     ).toEqual([]);
   });
 

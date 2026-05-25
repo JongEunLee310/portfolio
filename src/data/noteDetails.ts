@@ -30,6 +30,7 @@ import { fileUploadDeleteApiSeparationDetail } from "./note-details/file-upload-
 import { querydslInfoLayerDataFlowDetail } from "./note-details/querydsl-info-layer-data-flow";
 import { domainModuleBoundaryFromMonolithDetail } from "./note-details/domain-module-boundary-from-monolith";
 import { haloRetrospectiveDetail } from "./note-details/halo-retrospective";
+import { reservationCancelRefundFlowDetail } from "./note-details/reservation-cancel-refund-flow";
 
 export const noteDetails: TechnicalNoteDetail[] = [
   dbRoundTripOptimizationDetail,
@@ -57,6 +58,7 @@ export const noteDetails: TechnicalNoteDetail[] = [
   nPlusOnePreventionQuerydslProjectionDetail,
   multiModuleSharedDomainPortPatternDetail,
   weeklySettlementSchedulerIdempotencyDetail,
+  reservationCancelRefundFlowDetail,
   multiEnvironmentLoginTokenOverwriteDetail,
   albCorsTroubleshootingDetail,
   fileUploadDeleteApiSeparationDetail,

@@ -16,4 +16,10 @@ export const smartFarmDataCollectorRecovery: TechnicalNoteCard = {
     { name: "ModbusTCP", category: "backend" },
   ],
   relatedProjectSlugs: ["smart-farm"],
+  cardSummary: {
+    title: "원격 센서 데이터 수집 안정화",
+    problem: "원격지 DAS에서 수집되는 센서 값이 비정상적이거나 수집 실패가 발생할 수 있었다.",
+    solution: "Data Collector를 Azure VM에서 실행하고, 비정상 데이터 수집 또는 수집 실패 시 정상화 기능을 개발했다.",
+    result: "무정지 실시간 데이터 수집 환경을 목표로 안정적인 수집 구조를 구성했다.",
+  },
 };

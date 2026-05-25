@@ -1,18 +1,18 @@
 import type { IconType } from "react-icons";
 import {
-  SiCelery,
+  SiClaude,
   SiDocker,
   SiFastapi,
   SiGithubactions,
+  SiGithubcopilot,
   SiGrafana,
   SiMysql,
-  SiNginx,
+  SiJenkins,
+  SiOpenai,
   SiOpenjdk,
   SiPostgresql,
   SiPrometheus,
   SiPython,
-  SiRabbitmq,
-  SiRedis,
   SiSpringboot,
 } from "react-icons/si";
 import type { TechTag } from "@/types/common";
@@ -34,14 +34,15 @@ const TECH_ICON_MAP: Partial<Record<string, IconType>> = {
   Python: SiPython,
   MySQL: SiMysql,
   PostgreSQL: SiPostgresql,
-  Redis: SiRedis,
   Docker: SiDocker,
   "GitHub Actions": SiGithubactions,
-  Nginx: SiNginx,
-  Celery: SiCelery,
-  RabbitMQ: SiRabbitmq,
+  Jenkins: SiJenkins,
   Prometheus: SiPrometheus,
   Grafana: SiGrafana,
+  "OpenAI API": SiOpenai,
+  "Claude Code": SiClaude,
+  Codex: SiOpenai,
+  "GitHub Copilot": SiGithubcopilot,
 };
 
 export function HomeTechStack({ groups }: HomeTechStackProps) {

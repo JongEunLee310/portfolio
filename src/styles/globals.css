@@ -7,10 +7,10 @@
 :root {
   color-scheme: light;
   font-family: "Pretendard", system-ui, sans-serif;
-  --color-page-bg: #f8fafc;
+  --color-page-bg: #fafaf9;
   --color-page-text: #0f172a;
   --color-surface: #ffffff;
-  --color-surface-muted: #f1f5f9;
+  --color-surface-muted: #f5f5f4;
   --color-border: #e2e8f0;
   --color-muted-text: #475569;
   --color-accent: #C9972B;
@@ -54,7 +54,9 @@ html {
 
 :root[data-theme="dark"] .bg-white,
 :root[data-theme="dark"] .bg-slate-50,
-:root[data-theme="dark"] .bg-slate-100 {
+:root[data-theme="dark"] .bg-slate-100,
+:root[data-theme="dark"] .bg-stone-50,
+:root[data-theme="dark"] .bg-stone-100 {
   background-color: var(--color-surface) !important;
 }
 

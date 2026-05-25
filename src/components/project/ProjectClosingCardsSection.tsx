@@ -4,10 +4,14 @@ import { Link } from "react-router-dom";
 import { PATHS } from "@/constants/paths";
 import { PROJECT_DETAIL_LABELS } from "@/constants/projectDetail";
 import type { ProjectDetail } from "@/types/project";
+import type { TechnicalNoteCard } from "@/types/note";
 import { ProjectDetailIcon } from "./ProjectDetailIcon";
+
+type TroubleshootingCard = TechnicalNoteCard & { cardSummary: NonNullable<TechnicalNoteCard["cardSummary"]> };
 
 type ProjectClosingCardsSectionProps = {
   project: ProjectDetail;
+  troubleshootingCards: TechnicalNoteCard[];
 };
 
 function hasText(value?: string) {
@@ -16,12 +20,13 @@ function hasText(value?: string) {
 
 export function ProjectClosingCardsSection({
   project,
+  troubleshootingCards,
 }: ProjectClosingCardsSectionProps) {
   const [activeTroubleshootingIndex, setActiveTroubleshootingIndex] = useState(0);
   const [activeImprovementIndex, setActiveImprovementIndex] = useState(0);
   const [activeRetrospectiveIndex, setActiveRetrospectiveIndex] = useState(0);
-  const troubleshooting = project.troubleshooting.filter(
-    (item) => hasText(item.title) && hasText(item.solution),
+  const narrowedTroubleshootingCards = troubleshootingCards.filter(
+    (n): n is TroubleshootingCard => n.cardSummary !== undefined,
   );
   const improvements = project.improvements?.filter(
     (item) => hasText(item.title) && hasText(item.description),
@@ -29,19 +34,19 @@ export function ProjectClosingCardsSection({
   const retrospectives = project.retrospectives;
   const activeRetrospective = retrospectives[activeRetrospectiveIndex] ?? retrospectives[0];
   const activeTroubleshooting =
-    troubleshooting[activeTroubleshootingIndex] ?? troubleshooting[0];
+    narrowedTroubleshootingCards[activeTroubleshootingIndex] ?? narrowedTroubleshootingCards[0];
   const activeImprovement =
     improvements?.[activeImprovementIndex] ?? improvements?.[0];
 
   function showPreviousTroubleshooting() {
     setActiveTroubleshootingIndex((current) =>
-      current === 0 ? troubleshooting.length - 1 : current - 1,
+      current === 0 ? narrowedTroubleshootingCards.length - 1 : current - 1,
     );
   }
 
   function showNextTroubleshooting() {
     setActiveTroubleshootingIndex((current) =>
-      current === troubleshooting.length - 1 ? 0 : current + 1,
+      current === narrowedTroubleshootingCards.length - 1 ? 0 : current + 1,
     );
   }
 
@@ -82,7 +87,7 @@ export function ProjectClosingCardsSection({
                 {PROJECT_DETAIL_LABELS.sections.troubleshooting.title}
               </h2>
             </div>
-            {troubleshooting.length > 1 ? (
+            {narrowedTroubleshootingCards.length > 1 ? (
               <div className="flex gap-2">
                 <button
                   type="button"
@@ -106,16 +111,16 @@ export function ProjectClosingCardsSection({
             ) : null}
           </div>
           <TroubleshootingSlide item={activeTroubleshooting} />
-          {troubleshooting.length > 1 ? (
+          {narrowedTroubleshootingCards.length > 1 ? (
             <div className="mt-5 flex items-center justify-between gap-4">
               <p className="text-xs font-semibold text-[var(--color-muted-text)]" aria-live="polite">
                 {PROJECT_DETAIL_LABELS.sections.troubleshooting.status}{" "}
-                {activeTroubleshootingIndex + 1} / {troubleshooting.length}
+                {activeTroubleshootingIndex + 1} / {narrowedTroubleshootingCards.length}
               </p>
               <div className="flex gap-1.5">
-                {troubleshooting.map((item, index) => (
+                {narrowedTroubleshootingCards.map((item, index) => (
                   <button
-                    key={item.title}
+                    key={item.slug}
                     type="button"
                     onClick={() => setActiveTroubleshootingIndex(index)}
                     className={[
@@ -124,7 +129,7 @@ export function ProjectClosingCardsSection({
                         ? "w-6 bg-[var(--color-accent)]"
                         : "w-2.5 bg-[var(--color-border)] hover:bg-[var(--color-accent)]",
                     ].join(" ")}
-                    aria-label={`${item.title} ${PROJECT_DETAIL_LABELS.sections.troubleshooting.openNote}`}
+                    aria-label={`${item.cardSummary.title} ${PROJECT_DETAIL_LABELS.sections.troubleshooting.openNote}`}
                     aria-current={index === activeTroubleshootingIndex}
                   />
                 ))}
@@ -319,15 +324,16 @@ function RetrospectiveSlide({ item }: RetrospectiveSlideProps) {
 }
 
 type TroubleshootingSlideProps = {
-  item: ProjectDetail["troubleshooting"][number];
+  item: TroubleshootingCard;
 };
 
 function TroubleshootingSlide({ item }: TroubleshootingSlideProps) {
+  const summary = item.cardSummary;
   const content = (
     <div className="h-[400px] overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5 transition hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-bg)]">
       <div className="flex items-start justify-between gap-4">
-        <h3 className="text-base font-bold text-[var(--color-page-text)]">{item.title}</h3>
-        {item.noteSlug ? (
+        <h3 className="text-base font-bold text-[var(--color-page-text)]">{summary.title}</h3>
+        {!item.isStub ? (
           <span className="inline-flex shrink-0 items-center gap-1 text-xs font-bold text-[var(--color-accent)]">
             {PROJECT_DETAIL_LABELS.sections.troubleshooting.openNote}
             <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -339,33 +345,33 @@ function TroubleshootingSlide({ item }: TroubleshootingSlideProps) {
           <dt className="font-bold text-[var(--color-page-text)]">
             {PROJECT_DETAIL_LABELS.sections.troubleshooting.problem}
           </dt>
-          <dd className="mt-1 text-[var(--color-muted-text)]">{item.problem}</dd>
+          <dd className="mt-1 text-[var(--color-muted-text)]">{summary.problem}</dd>
         </div>
         <div>
           <dt className="font-bold text-[var(--color-page-text)]">
             {PROJECT_DETAIL_LABELS.sections.troubleshooting.solution}
           </dt>
-          <dd className="mt-1 text-[var(--color-muted-text)]">{item.solution}</dd>
+          <dd className="mt-1 text-[var(--color-muted-text)]">{summary.solution}</dd>
         </div>
-        {item.result ? (
+        {summary.result ? (
           <div>
             <dt className="font-bold text-[var(--color-page-text)]">
               {PROJECT_DETAIL_LABELS.sections.troubleshooting.result}
             </dt>
-            <dd className="mt-1 text-[var(--color-muted-text)]">{item.result}</dd>
+            <dd className="mt-1 text-[var(--color-muted-text)]">{summary.result}</dd>
           </div>
         ) : null}
       </dl>
     </div>
   );
 
-  if (!item.noteSlug) {
+  if (item.isStub) {
     return content;
   }
 
   return (
     <Link
-      to={PATHS.technicalNoteDetail(item.noteSlug)}
+      to={PATHS.technicalNoteDetail(item.slug)}
       className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
     >
       {content}

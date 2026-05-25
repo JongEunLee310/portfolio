@@ -17,4 +17,10 @@ export const nPlusOnePreventionQuerydslProjection: TechnicalNoteCard = {
     { name: "MySQL", category: "database" },
   ],
   relatedProjectSlugs: ["halo"],
+  cardSummary: {
+    title: "N+1 쿼리 방지 역추적",
+    problem: "예약·회원 목록 조회에서 N+1 우려. 연관 엔티티 5개 이상을 한 화면에 표시",
+    solution: "Projections.fields() — 영속성 컨텍스트가 엔티티를 관리하지 않아 지연 로딩 트리거 자체 없음",
+    result: "목록 크기와 관계없이 쿼리 수 고정, 전 모듈 동일 패턴 유지",
+  },
 };

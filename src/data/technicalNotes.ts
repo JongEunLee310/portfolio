@@ -58,6 +58,7 @@ import { eventSchemaVersioningDeployOrder } from "./notes/event-schema-versionin
 import { crossServiceJoinDbSeparation } from "./notes/cross-service-join-db-separation";
 import { msaLoadTestThreadpoolOwnership } from "./notes/msa-load-test-threadpool-ownership";
 import { msaDbSplitIntegrationTest } from "./notes/msa-db-split-integration-test";
+import { reservationCancelRefundFlow } from "./notes/reservation-cancel-refund-flow";
 
 export const technicalNotes: TechnicalNoteCard[] = [
   dbRoundTripOptimization,
@@ -87,6 +88,7 @@ export const technicalNotes: TechnicalNoteCard[] = [
   nPlusOnePreventionQuerydslProjection,
   multiModuleSharedDomainPortPattern,
   weeklySettlementSchedulerIdempotency,
+  reservationCancelRefundFlow,
   multiEnvironmentLoginTokenOverwrite,
   fileUploadDeleteApiSeparation,
   querydslInfoLayerDataFlow,

@@ -17,4 +17,10 @@ export const asyncPipelineTransition: TechnicalNoteCard = {
     { name: "Redis", category: "database" },
   ],
   relatedProjectSlugs: ["ai-devops-orchestration-platform"],
+  cardSummary: {
+    title: "DB 커넥션 풀 점유",
+    problem: "POST /run이 Git clone + Job 실행 전 구간 동안 커넥션을 점유해 SELECT 쿼리 응답 시간이 수백 ms로 상승했습니다.",
+    solution: "비동기화(POST /run -> 202 Accepted)로 실행 함수를 응답 경로에서 분리해 커넥션 점유 구간을 제거했습니다.",
+    result: "일반 CRUD 쿼리의 대기 시간을 해소하고 비동기화 전략 선택의 계기를 만들었습니다.",
+  },
 };

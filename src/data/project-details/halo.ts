@@ -377,100 +377,13 @@ export const haloDetail: ProjectDetail = {
         "ADR 6개, 실패 결정 6개, 트러블슈팅 8개 작성. 선택 근거와 포기한 대안 기록",
     },
   ],
-  troubleshooting: [
-    {
-      title: "통계 업데이트 동시성 충돌",
-      problem:
-        "예약 완료·리뷰 등록 시 같은 통계 row를 동시에 수정해 일관성 보장 어려움. 벌크 업데이트와 엔티티 변경이 혼재",
-      solution:
-        "@Version 낙관적 락 + 통계 갱신 서비스 분리 + @Retryable(5회, 50ms) + @Recover",
-      result: "동시성 충돌 자동 복구, 재시도 초과 시 409 계열 오류 응답, 통계 책임 분리",
-      noteSlug: "statistic-concurrency-optimistic-lock",
-    },
-    {
-      title: "토큰 재발급 무한 요청",
-      problem:
-        "/api/reissue가 JWT 필터에서 만료 Access Token을 검사해 401 반환 → 클라이언트 재발급 반복",
-      solution:
-        "/api/reissue를 PUBLIC_URLS + JWT_FILTER_EXCLUDE_URLS 양쪽에 추가, 역할별 필터 체인에서 제거",
-      result: "재발급 API가 JWT 검사 없이 ReissueService에 도달, 무한 루프 해소",
-      noteSlug: "reissue-infinite-request",
-    },
-    {
-      title: "N+1 쿼리 방지 역추적",
-      problem:
-        "예약·회원 목록 조회에서 N+1 우려. 연관 엔티티 5개 이상을 한 화면에 표시",
-      solution:
-        "Projections.fields() — 영속성 컨텍스트가 엔티티를 관리하지 않아 지연 로딩 트리거 자체 없음",
-      result: "목록 크기와 관계없이 쿼리 수 고정, 전 모듈 동일 패턴 유지",
-      noteSlug: "n-plus-one-prevention-querydsl-projection",
-    },
-    {
-      title: "멀티모듈 공유 엔티티 순환 참조",
-      problem:
-        "evaluation·payment가 Reservation 접근을 위해 reservation을 직접 의존 → 순환 참조 위험",
-      solution:
-        "shared-domain에 Reservation 엔티티 + ReservationQueryPort 분리, 구현은 reservation 모듈 제공",
-      result: "모듈 간 순환 참조 제거, 구현 의존 없이 Port 인터페이스로 협력",
-      noteSlug: "multi-module-shared-domain-port-pattern",
-    },
-    {
-      title: "주간 정산 멱등성",
-      problem:
-        "스케줄러 재실행 또는 관리자 수동 실행 시 동일 예약이 두 번 정산될 위험",
-      solution:
-        "조회 단계에서 기존 Settlement 연결 예약 제외, 스케줄러·수동 실행이 동일 서비스 메서드 호출",
-      result: "동일 날짜 범위 재실행 시 신규 생성 건수 0, 이중 지급 방지",
-      noteSlug: "weekly-settlement-scheduler-idempotency",
-    },
-    {
-      title: "다중 환경 토큰 충돌 (미해결)",
-      problem:
-        "고객·매니저 동시 로그인 시 단일 refresh cookie 이름이 덮여 기존 세션이 예고 없이 풀림",
-      solution: "권한별 secure cookie 이름 분리 방향 결정 (마감으로 미적용)",
-      result: "미해결 — 개선 방향과 cookie 이름 설계안을 문서로 보존",
-      noteSlug: "multi-environment-login-token-overwrite",
-    },
-    {
-      title: "ALB 직접 연결 구조에서 CORS Preflight 실패 분석",
-      problem:
-        "nginx 없이 ALB → Spring Boot 직접 연결 구조에서 OPTIONS Preflight 요청이 Spring Security 필터체인과 상호작용하는 방식 미검증. ALB 또는 Cloudflare가 CORS 헤더를 중복 추가하면 브라우저가 헤더 두 개를 받아 오류 처리",
-      solution:
-        "Spring Security가 CORS 단일 처리 지점임을 확인. corsConfigurationSource()로 5개 origin 명시, allowedMethods 와일드카드로 OPTIONS 포함. JwtFilter는 Authorization 헤더 없는 OPTIONS를 filterChain.doFilter()로 통과시켜 CorsFilter가 먼저 단락 처리. ALB 측 CORS 헤더 중복 여부는 AWS 콘솔 확인 필요",
-      result:
-        "Preflight가 인증 체인 진입 없이 CorsFilter에서 200 반환되는 구조 검증. 역할별 FilterChain exceptionHandling 누락(401/403 응답 불일치)과 allowedOrigins 하드코딩(도메인 추가 시 누락 위험) 두 가지 구조적 개선 포인트 식별",
-      noteSlug: "alb-cors-troubleshooting",
-    },
-    {
-      title: "파일 업로드 API 분리 — Presigned URL로 S3 트랜잭션 경계 해소",
-      problem:
-        "본문 수정 API에 파일 처리를 함께 넣으면 S3 업로드(외부 호출)가 DB 트랜잭션 범위에 포함 불가. S3 성공 후 DB 실패 시 오브젝트가 남고, 서버가 MultipartFile을 직접 수신하면 메모리 부담 발생. 4개 도메인(inquiry, admin, member, reservation)에 S3 로직 중복",
-      solution:
-        "global 모듈에 FileUploadController 단일화. POST /api/files/presigned-urls → 클라이언트가 S3 직접 PUT → POST /api/files(fileId 반환) → 도메인 API는 fileId만 참조. File 엔티티에 filePathsJson(LONGTEXT)과 postStatus(TEMP/REGISTERED/DELETED) 관리",
-      result:
-        "서버가 파일 데이터를 수신하지 않아 메모리 부담 제거. 도메인 API에 S3 의존성 0. 파일 변경과 본문 변경 독립적으로 분리. S3 연동 코드 한 곳 집중",
-      noteSlug: "file-upload-delete-api-separation",
-    },
-    {
-      title: "QueryDSL Info 중간 계층 — Repository가 RspDTO를 알지 못하게",
-      problem:
-        "QueryDSL Projections.fields() 매핑 대상을 어디에 둘지 결정 필요. Repository가 RspDTO를 직접 반환하면 HTTP 응답 형식이 영속성 계층에 스며들고, 엔티티를 반환하면 연관 필드 접근 시 N+1이 트리거됨",
-      solution:
-        "Repository → Info(service/info/ 패키지) → Service → RspDTO.fromInfo() 3계층 분리. Info는 Projections.fields() 매핑 전용 컨테이너(Jackson 어노테이션 없음). 변환 책임은 RspDTO 정적 팩토리 fromInfo()에 고정",
-      result:
-        "Repository가 RspDTO를 import하지 않아 계층 경계 유지. RspDTO 변경 시 Service와 RspDTO만 수정. 전 모듈 목록 조회 API에 동일 패턴 적용",
-      noteSlug: "querydsl-info-layer-data-flow",
-    },
-    {
-      title: "Monolith → 8 도메인 모듈 전환 경계 설정",
-      problem:
-        "common 모듈 257개 파일이 9개 패키지로만 나뉜 사실상 Monolith 구조. 예약 Repository가 manager·serviceCategory·review를 한 쿼리에 join해 도메인 경계 없이 결합도가 계속 높아짐",
-      solution:
-        "도메인 소유권 기준으로 8개 모듈(admin, evaluation, global, inquiry, member, payment, reservation, shared-domain) 분리. build.gradle 의존성으로 경계 강제. 여러 모듈이 공유하는 Reservation 타입과 ReservationQueryPort를 shared-domain(8파일)으로 분리",
-      result:
-        "패키지 경계(런타임 발견) → 빌드 의존성 경계(컴파일 발견)로 전환. evaluation·payment → reservation 순환 참조 2건 구조적 차단. reservation 5개 의존 / inquiry 1개 의존으로 모듈별 책임 범위 가시화",
-      noteSlug: "domain-module-boundary-from-monolith",
-    },
+  troubleshootingNoteSlugs: [
+    "statistic-concurrency-optimistic-lock",
+    "reissue-infinite-request",
+    "weekly-settlement-scheduler-idempotency",
+    "multi-environment-login-token-overwrite",
+    "alb-cors-troubleshooting",
+    "reservation-cancel-refund-flow",
   ],
   improvements: [
     {
@@ -559,8 +472,5 @@ export const haloDetail: ProjectDetail = {
       noteSlug: "halo-retrospective",
     },
   ],
-  relatedNoteSlugs: [
-    "querydsl-projection-optimization",
-    "alb-cors-troubleshooting",
-  ],
+
 };

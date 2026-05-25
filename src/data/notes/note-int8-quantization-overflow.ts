@@ -16,4 +16,10 @@ export const noteInt8QuantizationOverflow: TechnicalNoteCard = {
     { name: "C", category: "language" },
   ],
   relatedProjectSlugs: ["arm-embedded-cnn-mixed-precision"],
+  cardSummary: {
+    title: "INT8 convolution overflow",
+    problem: "weight와 input의 곱 및 convolution 누적 결과가 int8 범위를 초과했다.",
+    solution: "int8, int16, int24 범위별 overflow 비율을 측정하고 output 저장 타입을 재검토했다.",
+    result: "int16 result 저장이 int8보다 overflow를 크게 줄일 수 있음을 확인했다.",
+  },
 };

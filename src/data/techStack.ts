@@ -26,29 +26,24 @@ export const techStackGroups: TechStackGroup[] = [
     items: [
       { name: "MySQL", category: "database" },
       { name: "PostgreSQL", category: "database" },
-      { name: "Redis", category: "database" },
-      { name: "QueryDSL", category: "backend" },
     ],
   },
   {
-    title: "Infra & DevOps",
-    description: "배포와 운영 자동화",
+    title: "Infra",
+    description: "클라우드 인프라와 컨테이너 실행 환경",
     icon: "Cloud",
     items: [
       { name: "AWS", category: "infra" },
       { name: "Docker", category: "infra" },
-      { name: "GitHub Actions", category: "devops" },
-      { name: "Nginx", category: "infra" },
     ],
   },
   {
-    title: "Messaging & Queue",
-    description: "비동기 메시지 처리와 이벤트 기반 구조",
-    icon: "MessageQueue",
+    title: "DevOps",
+    description: "빌드, 테스트, 배포 자동화",
+    icon: "Workflow",
     items: [
-      { name: "Celery", category: "messaging" },
-      { name: "RabbitMQ", category: "messaging" },
-      { name: "Redis", category: "messaging" },
+      { name: "GitHub Actions", category: "devops" },
+      { name: "Jenkins", category: "devops" },
     ],
   },
   {
@@ -66,7 +61,9 @@ export const techStackGroups: TechStackGroup[] = [
     icon: "Gauge",
     items: [
       { name: "OpenAI API", category: "ai" },
-      { name: "LangChain", category: "ai" },
+      { name: "Claude Code", category: "ai" },
+      { name: "Codex", category: "ai" },
+      { name: "GitHub Copilot", category: "ai" },
       { name: "Prompt Engineering", category: "ai" },
     ],
   },

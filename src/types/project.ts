@@ -137,13 +137,7 @@ export type ProjectDetail = ProjectCard & {
     title: string;
     description: string;
   }[];
-  troubleshooting: {
-    title: string;
-    problem: string;
-    solution: string;
-    result?: string;
-    noteSlug?: string;
-  }[];
+  troubleshootingNoteSlugs: string[];
   improvements?: ProjectImprovement[];
   performance: Metric[];
   retrospectives: Array<{
@@ -152,5 +146,4 @@ export type ProjectDetail = ProjectCard & {
     improvement: string[];
     noteSlug?: string;
   }>;
-  relatedNoteSlugs: string[];
 };

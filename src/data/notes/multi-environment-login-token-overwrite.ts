@@ -16,4 +16,10 @@ export const multiEnvironmentLoginTokenOverwrite: TechnicalNoteCard = {
     { name: "JWT", category: "backend" },
   ],
   relatedProjectSlugs: ["halo"],
+  cardSummary: {
+    title: "다중 환경 토큰 충돌 (미해결)",
+    problem: "고객·매니저 동시 로그인 시 단일 refresh cookie 이름이 덮여 기존 세션이 예고 없이 풀림",
+    solution: "권한별 secure cookie 이름 분리 방향 결정 (마감으로 미적용)",
+    result: "미해결 — 개선 방향과 cookie 이름 설계안을 문서로 보존",
+  },
 };

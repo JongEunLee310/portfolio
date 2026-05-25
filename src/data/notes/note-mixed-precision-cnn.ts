@@ -17,4 +17,10 @@ export const noteMixedPrecisionCnn: TechnicalNoteCard = {
     { name: "INT8 Quantization", category: "ai" },
   ],
   relatedProjectSlugs: ["arm-embedded-cnn-mixed-precision"],
+  cardSummary: {
+    title: "Multi Weight Loading 중 segmentation fault",
+    problem: "FP32, FP16, INT8 weight 파일의 file pointer 위치가 서로 달라져 잘못된 weight가 로드되었다.",
+    solution: "ftell과 fseek로 모든 weight 파일의 pointer를 동일한 위치로 동기화했다.",
+    result: "nboxes가 계산되고 object detection 결과가 출력되었다.",
+  },
 };

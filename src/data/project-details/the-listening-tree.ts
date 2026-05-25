@@ -311,46 +311,12 @@ export const theListeningTreeDetail: ProjectDetail = {
         "auth_service, memory_service, user_service에 GitHub Actions 워크플로우 추가. pytest + SonarCloud 코드 품질 검사 → Docker 빌드 → AWS ECR + Docker Hub 이미지 배포 파이프라인 구성.",
     },
   ],
-  troubleshooting: [
-    {
-      title: "Google OAuth 예외 재래핑",
-      problem:
-        "except Exception이 내부에서 raise한 HTTPException까지 잡아 원래 오류 메시지가 변형됨. 네트워크 오류·인증 오류·내부 오류가 모두 400으로 묶임.",
-      solution:
-        "except HTTPException: raise를 가장 먼저 배치해 재래핑 차단. httpx 예외를 HTTPStatusError·TimeoutException·RequestError로 분리.",
-      result:
-        "오류 유형별 상태 코드(400/502/503/504) 분리. 클라이언트가 재시도 여부를 판단할 수 있는 명확한 응답 반환.",
-      noteSlug: "001-google-oauth-exception-masking",
-    },
-    {
-      title: "OpenAI 응답 구조 직접 접근 취약성",
-      problem:
-        "response.output[0].content[0].text 직접 접근 시 빈 응답에서 IndexError 발생. 개발 중 추가한 print(user_message)가 사용자 상담 내용을 표준 출력에 노출.",
-      solution:
-        "응답 텍스트 추출 함수 분리 및 빈 응답 방어 로직 추가. print() 2개 제거. 오류 원인별 상태 코드 분기.",
-      result:
-        "빈 응답 → 503 반환으로 명확화. 사용자 메시지 표준 출력 노출 제거. API 오류·파싱 오류 구분 가능.",
-      noteSlug: "002-openai-response-direct-access",
-    },
-    {
-      title: "social_id 단독 unique 제약 불일치",
-      problem:
-        "DB는 social_id 단독 unique, 핸들러는 social_id + social_provider 복합 조건으로 조회. ADR 설계 의도가 모델과 마이그레이션에 반영되지 않음.",
-      solution:
-        "UniqueConstraint('social_id', 'social_provider')로 교체. Alembic 마이그레이션 순서(인덱스 제거 → 복합 제약 생성)대로 수정.",
-      result:
-        "DB 제약과 애플리케이션 조회 로직 정합성 확보. 다중 OAuth 제공자 추가 시 같은 social_id 값 충돌 방지.",
-      noteSlug: "005-social-id-unique-constraint-mismatch",
-    },
-    {
-      title: "멀티레포 CI 이름 불일치",
-      problem:
-        "auth_service CI를 복붙하면서 name 필드 수정 누락. memory_service·user_service가 GitHub Actions에서 'The Tree Auth Service CI'로 표시.",
-      solution:
-        "memory_service, user_service 워크플로우 name 필드를 각 서비스명으로 수정.",
-      result: "CI 대시보드에서 서비스별 워크플로우 구분 가능.",
-      noteSlug: "003-multirepo-ci-duplication-and-drift",
-    },
+  troubleshootingNoteSlugs: [
+    "001-google-oauth-exception-masking",
+    "002-openai-response-direct-access",
+    "005-social-id-unique-constraint-mismatch",
+    "003-multirepo-ci-duplication-and-drift",
+    "006-llm-response-format-not-enforced",
   ],
   performance: [
     {
@@ -396,13 +362,5 @@ export const theListeningTreeDetail: ProjectDetail = {
       ],
       noteSlug: "",
     },
-  ],
-  relatedNoteSlugs: [
-    "001-google-oauth-exception-masking",
-    "002-openai-response-direct-access",
-    "003-multirepo-ci-duplication-and-drift",
-    "004-stateless-prompt-context-loss",
-    "005-social-id-unique-constraint-mismatch",
-    "006-llm-response-format-not-enforced",
   ],
 };

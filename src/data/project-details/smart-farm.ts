@@ -296,30 +296,8 @@ export const smartFarmDetail: ProjectDetail = {
       description: "최종 결과 보고서와 논문을 작성하고 프로젝트를 마감했다.",
     },
   ],
-  troubleshooting: [
-    {
-      title: "원격 센서 데이터 수집 안정화",
-      problem: "원격지 DAS에서 수집되는 센서 값이 비정상적이거나 수집 실패가 발생할 수 있었다.",
-      solution:
-        "Data Collector를 Azure VM에서 실행하고, 비정상 데이터 수집 또는 수집 실패 시 정상화 기능을 개발했다.",
-      result: "무정지 실시간 데이터 수집 환경을 목표로 안정적인 수집 구조를 구성했다.",
-      noteSlug: "smart-farm-data-collector-recovery",
-    },
-    {
-      title: "DB 저장 및 데이터 손실 방지",
-      problem: "센서 데이터가 실시간으로 누적되기 때문에 데이터 손실이 발생하면 모니터링 신뢰성이 낮아질 수 있었다.",
-      solution: "Azure MySQL DB 저장 구조와 DB 이중화 전략을 적용했다.",
-      result: "데이터 손실 방지를 고려한 클라우드 DB 구조를 설계했다.",
-      noteSlug: "smart-farm-db-replication",
-    },
-    {
-      title: "원격 디바이스 제어 연동",
-      problem: "사용자의 앱 제어 요청을 실제 원격지 디바이스 동작으로 연결해야 했다.",
-      solution:
-        "API Server가 Device Controller를 호출하고, Device Controller가 DAS와 ModbusTCP로 통신해 제어를 수행하도록 구성했다.",
-      result: "사용자가 현장에 가지 않고도 디바이스를 제어할 수 있는 흐름을 구현했다.",
-      noteSlug: "smart-farm-remote-device-control",
-    },
+  troubleshootingNoteSlugs: [
+    "smart-farm-data-collector-recovery",
   ],
   improvements: [
     {
@@ -402,12 +380,5 @@ export const smartFarmDetail: ProjectDetail = {
       ],
       noteSlug: "smart-farm-retrospective",
     },
-  ],
-  relatedNoteSlugs: [
-    "smart-farm-data-collector-recovery",
-    "smart-farm-db-replication",
-    "smart-farm-remote-device-control",
-    "smart-farm-api-server-design",
-    "smart-farm-monitoring-engine",
   ],
 };

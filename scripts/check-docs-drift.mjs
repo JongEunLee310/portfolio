@@ -3,6 +3,7 @@ import { readdir, stat } from "node:fs/promises";
 import path from "node:path";
 
 const DOC_PATHS = ["AGENTS.md", "CLAUDE.md", "docs"];
+const EXCLUDED_PREFIXES = ["docs/superpowers/"];
 const FILE_REFERENCE_PATTERN =
   /`([\w./-]+\.(?:ts|tsx|md|js|mjs|json|css|yml|yaml))`/g;
 
@@ -49,6 +50,10 @@ async function main() {
   const missingReferences = [];
 
   for (const markdownFile of markdownFiles) {
+    if (EXCLUDED_PREFIXES.some((prefix) => markdownFile.startsWith(prefix))) {
+      continue;
+    }
+
     const content = readFileSync(markdownFile, "utf-8");
     const references = extractReferencedFiles(content);
 

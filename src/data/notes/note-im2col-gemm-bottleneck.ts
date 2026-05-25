@@ -17,4 +17,10 @@ export const noteIm2colGemmBottleneck: TechnicalNoteCard = {
     { name: "C", category: "language" },
   ],
   relatedProjectSlugs: ["arm-embedded-cnn-mixed-precision"],
+  cardSummary: {
+    title: "im2col/GEMM 파라미터 감소 시 segmentation fault",
+    problem: "stride, channel, kernel size를 임의로 조정하면 layer output 크기와 memory allocation이 맞지 않아 segmentation fault가 발생했다.",
+    solution: "임의 조정보다 letterbox 영역과 network input size를 기준으로 계산량을 줄이는 방향을 검토했다.",
+    result: "convolution 연산 최적화는 network 구조와 memory allocation을 함께 고려해야 한다는 결론을 얻었다.",
+  },
 };

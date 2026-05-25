@@ -17,4 +17,10 @@ export const weeklySettlementSchedulerIdempotency: TechnicalNoteCard = {
     { name: "MySQL", category: "database" },
   ],
   relatedProjectSlugs: ["halo"],
+  cardSummary: {
+    title: "주간 정산 멱등성",
+    problem: "스케줄러 재실행 또는 관리자 수동 실행 시 동일 예약이 두 번 정산될 위험",
+    solution: "조회 단계에서 기존 Settlement 연결 예약 제외, 스케줄러·수동 실행이 동일 서비스 메서드 호출",
+    result: "동일 날짜 범위 재실행 시 신규 생성 건수 0, 이중 지급 방지",
+  },
 };

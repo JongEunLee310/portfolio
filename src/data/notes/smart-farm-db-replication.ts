@@ -16,4 +16,10 @@ export const smartFarmDbReplication: TechnicalNoteCard = {
     { name: "Replication", category: "database" },
   ],
   relatedProjectSlugs: ["smart-farm"],
+  cardSummary: {
+    title: "DB 저장 및 데이터 손실 방지",
+    problem: "센서 데이터가 실시간으로 누적되기 때문에 데이터 손실이 발생하면 모니터링 신뢰성이 낮아질 수 있었다.",
+    solution: "Azure MySQL DB 저장 구조와 DB 이중화 전략을 적용했다.",
+    result: "데이터 손실 방지를 고려한 클라우드 DB 구조를 설계했다.",
+  },
 };

@@ -16,4 +16,10 @@ export const googleOauthExceptionMasking: TechnicalNoteCard = {
     { name: "httpx", category: "backend" },
   ],
   relatedProjectSlugs: ["the-listening-tree"],
+  cardSummary: {
+    title: "Google OAuth 예외 재래핑",
+    problem: "except Exception이 내부에서 raise한 HTTPException까지 잡아 원래 오류 메시지가 변형됨. 네트워크 오류·인증 오류·내부 오류가 모두 400으로 묶임.",
+    solution: "except HTTPException: raise를 가장 먼저 배치해 재래핑 차단. httpx 예외를 HTTPStatusError·TimeoutException·RequestError로 분리.",
+    result: "오류 유형별 상태 코드(400/502/503/504) 분리. 클라이언트가 재시도 여부를 판단할 수 있는 명확한 응답 반환.",
+  },
 };

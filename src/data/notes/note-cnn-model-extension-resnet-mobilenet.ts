@@ -18,4 +18,10 @@ export const noteCnnModelExtensionResnetMobilenet: TechnicalNoteCard = {
     { name: "Mixed Precision", category: "ai" },
   ],
   relatedProjectSlugs: ["arm-embedded-cnn-mixed-precision"],
+  cardSummary: {
+    title: "ResNet/MobileNet 구조 확장 문제",
+    problem: "YOLOv3-tiny 중심 초기 프레임워크는 residual block과 inverted residual block을 지원하지 못했다.",
+    solution: "ResNet residual block과 MobileNetV2 bottleneck 구조를 분석하고 framework ver.0.2 확장 방향을 설계했다.",
+    result: "VGG16, VGG19, ResNet50 동작 확인 및 MobileNet 지원 수정 작업으로 확장되었다.",
+  },
 };

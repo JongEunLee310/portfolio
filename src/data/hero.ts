@@ -4,10 +4,10 @@ import { publicPath } from "@/utils/publicPath";
 export const pageHeroes = {
   home: {
     eyebrow: "안녕하세요, 백엔드 개발자 이종은입니다.",
-    title: "문제를 관찰하고,\n구조를 개선하는 개발자",
+    title: "틀릴 수 있다는 전제로\n함께 고민하는 개발자",
     highlightedText: "개발자",
     description:
-      "서비스의 기능 구현부터 시스템의 성능과 확장성, 운영까지 고려하며 더 나은 구조를 만드는 백엔드 개발자입니다.",
+      "근거 없이 코드를 먼저 쓰지 않고, 동료의 의견에서 더 나은 방향을 찾는 백엔드·클라우드 개발자입니다.",
     primaryAction: {
       label: "프로젝트 보기",
       href: PATHS.projects,
@@ -43,10 +43,10 @@ export const pageHeroes = {
   },
   about: {
     eyebrow: "ABOUT",
-    title: "문제를 관찰하고\n구조를 개선하는 백엔드 개발자",
-    highlightedText: "백엔드 개발자",
+    title: "틀릴 수 있다는 전제로\n함께 고민하는 개발자",
+    highlightedText: "개발자",
     description:
-      "시스템의 본질을 이해하고, 확장 가능하고 안정적인 백엔드 서비스를 설계·구현합니다.",
+      "근거 없이 코드를 먼저 쓰지 않고, 동료의 의견에서 더 나은 방향을 찾는 백엔드·클라우드 개발자입니다.",
     primaryAction: {
       label: "프로젝트 보기",
       href: PATHS.projects,

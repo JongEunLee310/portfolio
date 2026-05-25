@@ -16,4 +16,10 @@ export const multiModuleSharedDomainPortPattern: TechnicalNoteCard = {
     { name: "JPA", category: "backend" },
   ],
   relatedProjectSlugs: ["halo"],
+  cardSummary: {
+    title: "멀티모듈 공유 엔티티 순환 참조",
+    problem: "evaluation·payment가 Reservation 접근을 위해 reservation을 직접 의존 → 순환 참조 위험",
+    solution: "shared-domain에 Reservation 엔티티 + ReservationQueryPort 분리, 구현은 reservation 모듈 제공",
+    result: "모듈 간 순환 참조 제거, 구현 의존 없이 Port 인터페이스로 협력",
+  },
 };
