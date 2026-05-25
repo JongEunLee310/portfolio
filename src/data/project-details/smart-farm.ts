@@ -297,7 +297,17 @@ export const smartFarmDetail: ProjectDetail = {
     },
   ],
   troubleshootingNoteSlugs: [
-    "smart-farm-data-collector-recovery",
+    "sensor-data-flow-responsibility-separation",
+    "sensor-rest-ingestion-validation",
+    "duplicate-sensor-data-idempotency",
+    "sensor-timestamp-measurement-storage-mismatch",
+    "sensor-log-table-growth-query-degradation",
+    "latest-sensor-value-query-optimization",
+    "sensor-threshold-alert-false-positive",
+    "realtime-dashboard-refresh-delay",
+    "abnormal-sensor-value-detection",
+    "remote-control-device-state-mismatch",
+    "remote-control-retry-policy",
   ],
   improvements: [
     {
@@ -367,16 +377,17 @@ export const smartFarmDetail: ProjectDetail = {
   ],
   retrospectives: [
     {
-      title: "회고",
+      title: "센서 수집 API에서 상태 기반 백엔드 설계로",
       learned: [
-        "수집, 저장, 이상 감지, 알림, 제어까지 이어지는 전체 IoT 서비스 흐름을 경험했다.",
-        "원격지 장비와 서버를 연결할 때는 API 설계뿐 아니라 통신 프로토콜, 데이터 수집 안정성, 장애 대응까지 고려해야 한다는 점을 배웠다.",
-        "Data Collector와 Device Controller처럼 데이터 수집과 제어 책임을 분리하는 설계가 중요했다.",
+        "단순 센서 데이터 저장 API에서 출발해, 데이터 수집 신뢰성·상태 해석·원격 제어 상태 전이까지 고려하는 백엔드 구조로 사고가 확장되었다. \"API를 만든다\"는 것이 요청-응답을 구현하는 것을 넘어, 불안정한 외부 장치와 시스템 사이의 경계를 설계하는 일임을 배웠다.",
+        "스마트팜 도메인에서 온도·습도 값은 단순 숫자가 아니라 재배 상태를 판단하는 신호다. 백엔드는 데이터를 저장하는 역할을 넘어, 데이터의 의미와 상태를 해석할 수 있는 구조를 가져야 했다.",
+        "원격 제어는 ON/OFF 값을 바꾸는 API가 아니라 요청됨·전달됨·반영됨·실패함으로 이어지는 상태 전이였다. 이 경험은 이후 예약·결제·배치처럼 상태 전이가 중요한 백엔드 기능을 이해하는 기준이 되었다.",
+        "코드나 운영 지표가 충분히 남아 있지 않은 프로젝트도, 무엇을 고민했는가를 중심으로 정리하면 포트폴리오 자산이 될 수 있다.",
       ],
       improvement: [
-        "데이터 수집 실패나 비정상 데이터 정상화 로직에 대한 정량 지표를 추가로 측정한다.",
-        "DB 이중화 구성 방식과 장애 복구 시나리오를 더 구체적으로 문서화한다.",
-        "향후 Big Data 또는 AI 기반 예측 모델을 적용해 이상 감지를 고도화한다.",
+        "센서 데이터 수집 주기, 누락 판단 기준, 이상 상태 임계값을 명확한 정책으로 정리한다.",
+        "원격 제어 요청의 상태 전이를 요청됨·전달됨·반영됨·실패함으로 구체적으로 모델링한다.",
+        "메시지 큐 기반 비동기 수집·제어 구조를 후속 개선안으로 정리해 시스템 설계 역량을 보완한다.",
       ],
       noteSlug: "smart-farm-retrospective",
     },
