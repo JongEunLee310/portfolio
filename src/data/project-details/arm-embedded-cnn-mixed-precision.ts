@@ -571,12 +571,9 @@ export const armEmbeddedCnnMixedPrecisionDetail: ProjectDetail = {
     },
   ],
   troubleshootingNoteSlugs: [
-    "arm-letterbox-computation-reduction",
-    "arm-gemm-neighbor-pixel-failure",
     "note-tensorflow-c-binding-arm",
-    "arm-int8-image-value-loss",
     "note-int8-quantization-overflow",
-    "arm-bias-quantization-failure",
+    "note-arm-fp16-compiler",
   ],
   improvements: [
     {

@@ -463,10 +463,17 @@ export const aiDevopsOrchestrationPlatformDetail: ProjectDetail = {
   ],
   troubleshootingNoteSlugs: [
     "async-sqlalchemy-eager-loading",
-    "ai-devops-backgroundtasks-durability",
-    "ai-devops-threadpool-saturation",
     "celery-prefork-asyncio-nullpool",
     "async-test-db-isolation",
+    "consumer-idempotency-processed-event",
+    "cross-service-join-db-separation",
+    "distributed-tracing-correlation-id",
+    "event-schema-versioning-deploy-order",
+    "metric-cardinality-troubleshooting",
+    "msa-db-split-integration-test",
+    "msa-http-retry-circuit-breaker",
+    "msa-load-test-threadpool-ownership",
+    "msa-router-deletion-test-404",
   ],
   improvements: [
     {

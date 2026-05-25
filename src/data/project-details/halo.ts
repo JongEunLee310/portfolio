@@ -383,6 +383,7 @@ export const haloDetail: ProjectDetail = {
     "weekly-settlement-scheduler-idempotency",
     "multi-environment-login-token-overwrite",
     "alb-cors-troubleshooting",
+    "reservation-cancel-refund-flow",
   ],
   improvements: [
     {

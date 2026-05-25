@@ -316,6 +316,7 @@ export const theListeningTreeDetail: ProjectDetail = {
     "002-openai-response-direct-access",
     "005-social-id-unique-constraint-mismatch",
     "003-multirepo-ci-duplication-and-drift",
+    "006-llm-response-format-not-enforced",
   ],
   performance: [
     {
