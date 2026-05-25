@@ -16,6 +16,7 @@ import { consumerIdempotencyProcessedEventDetail } from "./note-details/consumer
 import { msaHttpRetryCircuitBreakerDetail } from "./note-details/msa-http-retry-circuit-breaker";
 import { msaRouterDeletionTest404Detail } from "./note-details/msa-router-deletion-test-404";
 import { eventSchemaVersioningDeployOrderDetail } from "./note-details/event-schema-versioning-deploy-order";
+import { githubPagesWorkflowSourceOverwriteDetail } from "./note-details/github-pages-workflow-source-overwrite";
 import { crossServiceJoinDbSeparationDetail } from "./note-details/cross-service-join-db-separation";
 import { msaLoadTestThreadpoolOwnershipDetail } from "./note-details/msa-load-test-threadpool-ownership";
 import { msaDbSplitIntegrationTestDetail } from "./note-details/msa-db-split-integration-test";
@@ -90,6 +91,7 @@ export const noteDetails: TechnicalNoteDetail[] = [
   consumerIdempotencyProcessedEventDetail,
   msaHttpRetryCircuitBreakerDetail,
   msaRouterDeletionTest404Detail,
+  githubPagesWorkflowSourceOverwriteDetail,
   eventSchemaVersioningDeployOrderDetail,
   crossServiceJoinDbSeparationDetail,
   msaLoadTestThreadpoolOwnershipDetail,

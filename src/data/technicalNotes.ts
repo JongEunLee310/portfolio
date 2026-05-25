@@ -69,6 +69,7 @@ import { consumerIdempotencyProcessedEvent } from "./notes/consumer-idempotency-
 import { msaHttpRetryCircuitBreaker } from "./notes/msa-http-retry-circuit-breaker";
 import { msaRouterDeletionTest404 } from "./notes/msa-router-deletion-test-404";
 import { eventSchemaVersioningDeployOrder } from "./notes/event-schema-versioning-deploy-order";
+import { githubPagesWorkflowSourceOverwrite } from "./notes/github-pages-workflow-source-overwrite";
 import { crossServiceJoinDbSeparation } from "./notes/cross-service-join-db-separation";
 import { msaLoadTestThreadpoolOwnership } from "./notes/msa-load-test-threadpool-ownership";
 import { msaDbSplitIntegrationTest } from "./notes/msa-db-split-integration-test";
@@ -86,6 +87,7 @@ export const technicalNotes: TechnicalNoteCard[] = [
   consumerIdempotencyProcessedEvent,
   msaHttpRetryCircuitBreaker,
   msaRouterDeletionTest404,
+  githubPagesWorkflowSourceOverwrite,
   eventSchemaVersioningDeployOrder,
   crossServiceJoinDbSeparation,
   msaLoadTestThreadpoolOwnership,
