@@ -40,6 +40,12 @@ import { noteArmFp16CompilerDetail } from "./note-details/note-arm-fp16-compiler
 import { noteConvMaxpoolIntegrationDetail } from "./note-details/note-conv-maxpool-integration";
 import { noteTensorflowCBindingArmDetail } from "./note-details/note-tensorflow-c-binding-arm";
 import { noteCnnModelExtensionResnetMobilenetDetail } from "./note-details/note-cnn-model-extension-resnet-mobilenet";
+import { googleOauthExceptionMaskingDetail } from "./note-details/google-oauth-exception-masking";
+import { openaiResponseDirectAccessDetail } from "./note-details/openai-response-direct-access";
+import { multirepoCIDetail } from "./note-details/multirepo-ci-duplication-and-drift";
+import { statelessPromptContextLossDetail } from "./note-details/stateless-prompt-context-loss";
+import { socialIdUniqueConstraintMismatchDetail } from "./note-details/social-id-unique-constraint-mismatch";
+import { llmResponseFormatNotEnforcedDetail } from "./note-details/llm-response-format-not-enforced";
 
 export const noteDetails: TechnicalNoteDetail[] = [
   dbRoundTripOptimizationDetail,
@@ -83,4 +89,10 @@ export const noteDetails: TechnicalNoteDetail[] = [
   noteConvMaxpoolIntegrationDetail,
   noteTensorflowCBindingArmDetail,
   noteCnnModelExtensionResnetMobilenetDetail,
+  googleOauthExceptionMaskingDetail,
+  openaiResponseDirectAccessDetail,
+  multirepoCIDetail,
+  statelessPromptContextLossDetail,
+  socialIdUniqueConstraintMismatchDetail,
+  llmResponseFormatNotEnforcedDetail,
 ];
