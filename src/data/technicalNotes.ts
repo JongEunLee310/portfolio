@@ -1,11 +1,17 @@
 import type { TechnicalNoteCard } from "@/types/note";
-import { containerImageArchitectureCompatibility } from "./notes/container-image-architecture-compatibility";
-import { eksObservabilityCloudwatchOpensearch } from "./notes/eks-observability-cloudwatch-opensearch";
-import { fluentbitCloudwatchLogPipeline } from "./notes/fluentbit-cloudwatch-log-pipeline";
-import { jenkinsEcrArgoCdCicd } from "./notes/jenkins-ecr-argocd-cicd";
-import { kubernetesHpaClusterAutoscaler } from "./notes/kubernetes-hpa-cluster-autoscaler";
-import { springbootJwtSocialLogin } from "./notes/springboot-jwt-social-login";
-import { swaggerApiDocumentation } from "./notes/swagger-api-documentation";
+import { questionOptionAnswerConsistency } from "./notes/question-option-answer-consistency";
+import { questionUpdateChildDataTransaction } from "./notes/question-update-child-data-transaction";
+import { questionSearchFilterCondition } from "./notes/question-search-filter-condition";
+import { randomQuestionSelectionDuplicate } from "./notes/random-question-selection-duplicate";
+import { examSubmitScoreConsistency } from "./notes/exam-submit-score-consistency";
+import { examTimeoutSubmitRaceCondition } from "./notes/exam-timeout-submit-race-condition";
+import { roleBasedQuestionAccess } from "./notes/role-based-question-access";
+import { refreshTokenReissueLoop } from "./notes/refresh-token-reissue-loop";
+import { excelQuestionImportValidation } from "./notes/excel-question-import-validation";
+import { questionImageUploadOrphanFile } from "./notes/question-image-upload-orphan-file";
+import { softDeleteQueryLeak } from "./notes/soft-delete-query-leak";
+import { corsCookieAuthFailure } from "./notes/cors-cookie-auth-failure";
+import { goormBankRetrospective } from "./notes/goorm-bank-retrospective";
 import { googleOauthExceptionMasking } from "./notes/google-oauth-exception-masking";
 import { openaiResponseDirectAccess } from "./notes/openai-response-direct-access";
 import { multirepoCI } from "./notes/multirepo-ci-duplication-and-drift";
@@ -121,13 +127,19 @@ export const technicalNotes: TechnicalNoteCard[] = [
   abnormalSensorValueDetection,
   remoteControlDeviceStateMismatch,
   remoteControlRetryPolicy,
-  eksObservabilityCloudwatchOpensearch,
-  fluentbitCloudwatchLogPipeline,
-  jenkinsEcrArgoCdCicd,
-  kubernetesHpaClusterAutoscaler,
-  springbootJwtSocialLogin,
-  swaggerApiDocumentation,
-  containerImageArchitectureCompatibility,
+  questionOptionAnswerConsistency,
+  questionUpdateChildDataTransaction,
+  questionSearchFilterCondition,
+  randomQuestionSelectionDuplicate,
+  examSubmitScoreConsistency,
+  examTimeoutSubmitRaceCondition,
+  roleBasedQuestionAccess,
+  refreshTokenReissueLoop,
+  excelQuestionImportValidation,
+  questionImageUploadOrphanFile,
+  softDeleteQueryLeak,
+  corsCookieAuthFailure,
+  goormBankRetrospective,
   noteCnnLightweightOptimization,
   noteYolov3TinyLayerArchitecture,
   noteIm2colGemmBottleneck,

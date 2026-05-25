@@ -59,6 +59,19 @@ import { realtimeDashboardRefreshDelayDetail } from "./note-details/realtime-das
 import { abnormalSensorValueDetectionDetail } from "./note-details/abnormal-sensor-value-detection";
 import { remoteControlDeviceStateMismatchDetail } from "./note-details/remote-control-device-state-mismatch";
 import { remoteControlRetryPolicyDetail } from "./note-details/remote-control-retry-policy";
+import { questionOptionAnswerConsistencyDetail } from "./note-details/question-option-answer-consistency";
+import { questionUpdateChildDataTransactionDetail } from "./note-details/question-update-child-data-transaction";
+import { questionSearchFilterConditionDetail } from "./note-details/question-search-filter-condition";
+import { randomQuestionSelectionDuplicateDetail } from "./note-details/random-question-selection-duplicate";
+import { examSubmitScoreConsistencyDetail } from "./note-details/exam-submit-score-consistency";
+import { examTimeoutSubmitRaceConditionDetail } from "./note-details/exam-timeout-submit-race-condition";
+import { roleBasedQuestionAccessDetail } from "./note-details/role-based-question-access";
+import { refreshTokenReissueLoopDetail } from "./note-details/refresh-token-reissue-loop";
+import { excelQuestionImportValidationDetail } from "./note-details/excel-question-import-validation";
+import { questionImageUploadOrphanFileDetail } from "./note-details/question-image-upload-orphan-file";
+import { softDeleteQueryLeakDetail } from "./note-details/soft-delete-query-leak";
+import { corsCookieAuthFailureDetail } from "./note-details/cors-cookie-auth-failure";
+import { goormBankRetrospectiveDetail } from "./note-details/goorm-bank-retrospective";
 
 export const noteDetails: TechnicalNoteDetail[] = [
   dbRoundTripOptimizationDetail,
@@ -121,4 +134,17 @@ export const noteDetails: TechnicalNoteDetail[] = [
   abnormalSensorValueDetectionDetail,
   remoteControlDeviceStateMismatchDetail,
   remoteControlRetryPolicyDetail,
+  questionOptionAnswerConsistencyDetail,
+  questionUpdateChildDataTransactionDetail,
+  questionSearchFilterConditionDetail,
+  randomQuestionSelectionDuplicateDetail,
+  examSubmitScoreConsistencyDetail,
+  examTimeoutSubmitRaceConditionDetail,
+  roleBasedQuestionAccessDetail,
+  refreshTokenReissueLoopDetail,
+  excelQuestionImportValidationDetail,
+  questionImageUploadOrphanFileDetail,
+  softDeleteQueryLeakDetail,
+  corsCookieAuthFailureDetail,
+  goormBankRetrospectiveDetail,
 ];
