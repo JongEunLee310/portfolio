@@ -49,7 +49,7 @@ export function HomeNoteCarousel({ notes }: HomeNoteCarouselProps) {
 
       <div
         ref={scrollRef}
-        className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 pt-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {notes.map((note, index) => (
           <div key={note.slug} className="snap-start">

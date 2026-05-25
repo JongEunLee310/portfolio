@@ -31,7 +31,9 @@ export function HomePage() {
   const { resolvedTheme } = useTheme();
   const featuredProjects = projects.filter((project) => project.status === "featured");
   const normalProjects = projects.filter((project) => project.status === "normal");
-  const featuredNotes = technicalNotes.slice(0, 5);
+  const featuredNotes = [...technicalNotes]
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 5);
 
   return (
     <PageLayout {...pageChrome}>
@@ -69,7 +71,7 @@ export function HomePage() {
                   key={item.title}
                   className={`${themeSurface.card} p-6`}
                 >
-                  {Icon ? <Icon className="h-8 w-8 text-[#C9972B]" /> : null}
+                  {Icon ? <Icon className="h-8 w-8 text-[var(--color-accent)]" /> : null}
                   <h3 className="mt-4 text-lg font-bold text-[var(--color-page-text)]">
                     {item.title}
                   </h3>
