@@ -31,6 +31,15 @@ import { querydslInfoLayerDataFlowDetail } from "./note-details/querydsl-info-la
 import { domainModuleBoundaryFromMonolithDetail } from "./note-details/domain-module-boundary-from-monolith";
 import { haloRetrospectiveDetail } from "./note-details/halo-retrospective";
 import { reservationCancelRefundFlowDetail } from "./note-details/reservation-cancel-refund-flow";
+import { noteYolov3TinyLayerArchitectureDetail } from "./note-details/note-yolov3-tiny-layer-architecture";
+import { noteIm2colGemmBottleneckDetail } from "./note-details/note-im2col-gemm-bottleneck";
+import { noteCnnLightweightOptimizationDetail } from "./note-details/note-cnn-lightweight-optimization";
+import { noteMixedPrecisionCnnDetail } from "./note-details/note-mixed-precision-cnn";
+import { noteInt8QuantizationOverflowDetail } from "./note-details/note-int8-quantization-overflow";
+import { noteArmFp16CompilerDetail } from "./note-details/note-arm-fp16-compiler";
+import { noteConvMaxpoolIntegrationDetail } from "./note-details/note-conv-maxpool-integration";
+import { noteTensorflowCBindingArmDetail } from "./note-details/note-tensorflow-c-binding-arm";
+import { noteCnnModelExtensionResnetMobilenetDetail } from "./note-details/note-cnn-model-extension-resnet-mobilenet";
 
 export const noteDetails: TechnicalNoteDetail[] = [
   dbRoundTripOptimizationDetail,
@@ -65,4 +74,13 @@ export const noteDetails: TechnicalNoteDetail[] = [
   querydslInfoLayerDataFlowDetail,
   domainModuleBoundaryFromMonolithDetail,
   haloRetrospectiveDetail,
+  noteYolov3TinyLayerArchitectureDetail,
+  noteIm2colGemmBottleneckDetail,
+  noteCnnLightweightOptimizationDetail,
+  noteMixedPrecisionCnnDetail,
+  noteInt8QuantizationOverflowDetail,
+  noteArmFp16CompilerDetail,
+  noteConvMaxpoolIntegrationDetail,
+  noteTensorflowCBindingArmDetail,
+  noteCnnModelExtensionResnetMobilenetDetail,
 ];
